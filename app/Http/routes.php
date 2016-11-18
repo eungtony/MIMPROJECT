@@ -33,6 +33,7 @@ Route::group(['middleware' => ['web']], function () {
 
 //Agence
     Route::get('/agence/{id}', 'agenceController@index')->name('agence');
+    Route::post('/agence/{id}', 'agenceController@file')->name('file.agence');
 
 //Tâches
     Route::post('/tache/add', 'tacheController@add')->name('add.tache');
