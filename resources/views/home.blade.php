@@ -92,7 +92,7 @@ $b_id = 2;
 
                                     @foreach($travaux as $tache)
 
-                                        <tr>
+                                        <tr @if($tache->fait == 1) class="bg-success" @endif>
                                             <td>
                                                 {{$tache->titre}}
                                             </td>
