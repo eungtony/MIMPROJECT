@@ -31,6 +31,40 @@ $b_id = 2;
                             </ol>
                         @endif
 
+                        <h1>Fichiers disponible dans cette agence</h1>
+
+                        @if(!$agence->file->isEmpty())
+
+                            @foreach($agence->file as $file)
+
+                                <a href="{{app_path()}}/{{$agence->id}}/{{$file->name}}.{{$file->extension}}"
+                                   download="{{$file->titre}}">
+                                    {{$file->titre}}</a>
+                                @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                                    <hr>
+                                    <form action="{{route('file.edit', [$agence->id,$file->id])}}" method="post">
+                                        {{csrf_field()}}
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" name="titre"
+                                                   value="{{$file->titre}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-primary">Modifier</button>
+                                        </div>
+                                    </form>
+                                    <a href="{{route('file.delete', [$agence->id,$file->id])}}" class="btn btn-danger"
+                                       data-method="delete"
+                                       data-confirm="Voulez-vous supprimer ce fichier ?">Supprimer</a>
+                                @endif
+                            @endforeach
+
+                        @else
+
+                            <p class="bg-danger">
+                                Aucun fichier présent.
+                            </p>
+
+                        @endif
 
                         <h1 class="text-right">{{$agence->nom}}</h1>
                         <h3 class="text-right">{{$cdp}}</h3>
@@ -40,6 +74,24 @@ $b_id = 2;
                             <a href="{{route('form.add.projet', $agence->id)}}" class="btn btn-success">
                                 Ajouter un projet
                             </a>
+                            <hr>
+                            <form action="{{route('file.agence', $agence->id)}}" enctype="multipart/form-data"
+                                  method="POST">
+                                {{csrf_field()}}
+                                <div class="form-group">
+                                    <label for="">Nommer votre fichier</label>
+                                    <input class="form-control" type="text" name="titre">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Téleverser un fichier</label>
+                                    <input type="file" name="file" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">
+                                        Téleverser
+                                    </button>
+                                </div>
+                            </form>
                         @endif
 
                         @foreach($agence->projets as $projet)
