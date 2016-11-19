@@ -19,15 +19,70 @@ $b_id = 2;
 
                         <h1 class="text-right">{{$agence->nom}}</h1>
                         <h3 class="text-right">{{$cdp}}</h3>
+                        <h1>Fichiers disponible dans cette agence</h1>
+
+                        @if(!$agence->file->isEmpty())
+
+                            @foreach($agence->file as $file)
+
+                                <p>
+                                    <a href="{{app_path()}}/{{$agence->id}}/{{$file->name}}.{{$file->extension}}"
+                                       download="{{$file->titre}}">
+                                        {{$file->titre}}</a>
+                                @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                                    <hr>
+                                    <form action="{{route('file.edit', [$agence->id,$file->id])}}" method="post">
+                                        {{csrf_field()}}
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" name="titre"
+                                                   value="{{$file->titre}}">
+                                        </div>
+                                        <button class="btn btn-primary">Modifier</button>
+                                    </form>
+                                    <a href="{{route('file.delete', [$agence->id,$file->id])}}" class="btn btn-danger"
+                                       data-method="delete"
+                                       data-confirm="Voulez-vous supprimer ce fichier ?">Supprimer</a>                                </p>
+                                @endif
+                            @endforeach
+
+                            <hr>
+
+                        @else
+
+                            <p class="bg-danger">
+                                Aucun fichier présent.
+                            </p>
+
+                        @endif
+
                         @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
                             <a href="{{route('edit.form.agence', $agence->id)}}" class="btn btn-primary">Modifier
                                 l'agence</a>
                             <a href="{{route('form.add.projet', $agence->id)}}" class="btn btn-success">
                                 Ajouter un projet
                             </a>
+                            <hr>
+                            <form action="{{route('file.agence', $agence->id)}}" enctype="multipart/form-data"
+                                  method="POST">
+                                {{csrf_field()}}
+                                <div class="form-group">
+                                    <label for="">Nommer votre fichier</label>
+                                    <input class="form-control" type="text" name="titre">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Téleverser un fichier</label>
+                                    <input type="file" name="file" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">
+                                        Téleverser
+                                    </button>
+                                </div>
+                            </form>
                         @endif
 
                         @foreach($agence->projets as $projet)
+
                             <?php
                             $travaux = \App\Travail::where('projet_id', $projet->id)->get();
                             $travaux->load('user');
@@ -101,7 +156,10 @@ $b_id = 2;
                                                        aria-controls="#tache{{$tache->id}}">Modifier</a>
                                                 </td>
                                                 <td>
-                                                    <a href="{{action('tacheController@destroy', $tache->id)}}" data-method="delete" data-confirm="Souhaitez-vous réellement supprimer cette tâche ?" class="btn btn-danger">Supprimer</a>
+                                                    <a href="{{action('tacheController@destroy', $tache->id)}}"
+                                                       data-method="delete"
+                                                       data-confirm="Souhaitez-vous réellement supprimer cette tâche ?"
+                                                       class="btn btn-danger">Supprimer</a>
                                                 </td>
                                             @endif
                                         </tr>
