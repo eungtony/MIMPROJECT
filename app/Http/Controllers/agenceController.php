@@ -8,11 +8,15 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 
 class agenceController extends Controller
 {
 
-    public function index($id){
+    public function index($id)
+    {
         $agence = Agence::findOrFail($id);
         $agence->load('projets');
         $cdp_id = $agence->user_id;
@@ -20,16 +24,59 @@ class agenceController extends Controller
         return view('agence.index', compact('id', 'agence', 'cdp', 'cdp_id'));
     }
 
-    public function editForm($id){
+    public function editForm($id)
+    {
         $agence = Agence::findOrFail($id);
         $users = User::where('agence_id', $id)->get();
         $cdp_id = $agence->user_id;
         return view('agence.edit', compact('id', 'agence', 'users', 'cdp_id'));
     }
 
-    public function edit($id, Request $request){
+    public function edit($id, Request $request)
+    {
         $rq = $request->except('_token');
         Agence::findOrFail($id)->update($rq);
         return redirect()->route('agence', [$id]);
+    }
+
+    public function addFile($id)
+    {
+        $path = base_path() . "/file/$id";
+        if (Input::hasFile('file')) {
+            if (!File::exists($path)) {
+                File::makeDirectory($path, 0775, true);
+            }
+            $titre = Input::only('titre')['titre'];
+            $file = Input::file('file')->getClientOriginalName();
+            $extension = Input::file('file')->getClientOriginalExtension();
+            $name_to_explode = Input::file('file')->getClientOriginalName();
+            $explode_name = explode('.', $name_to_explode);
+            $name = $explode_name[0];
+            Input::file('file')->move($path, $file); // uploading file to given path
+            \App\File::create(['agence_id' => $id, 'titre' => $titre, 'extension' => $extension, 'name' => $name]);
+            return redirect()->route('agence', $id);
+        } else {
+            return redirect()->route('agence', $id);
+        }
+    }
+
+    public function editFile($ida, $id, Request $request)
+    {
+        $rq = $request->except('_token');
+        \App\File::findOrFail($ida)->update($rq);
+        return redirect()->route('agence', [$id]);
+    }
+
+    public function deleteFile($ida, $id)
+    {
+        $file = \App\File::findOrFail($id);
+        $file_name = $file->name;
+        $extension = $file->extension;
+        $filename = base_path() . "/file/$ida/$file_name.$extension";
+        if (File::exists($filename)) {
+            File::delete($filename);
+            \App\File::destroy($id);
+        }
+        return redirect()->route('agence', [$ida]);
     }
 }

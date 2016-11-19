@@ -37,7 +37,7 @@ class HomeController extends Controller
             $taches->load('projet');
             $agence_id = $this->auth->user()->agence_id;
             $agence = Agence::findOrFail($agence_id);
-            $agence->load('projets');
+            $agence->load('projets', 'file');
             $cdp_id = $agence->user_id;
             $cdp = User::findOrFail($cdp_id)->name;
             return view('home', compact('id', 'agence', 'cdp', 'cdp_id', 'taches'));
@@ -45,7 +45,7 @@ class HomeController extends Controller
         $agences = Agence::all();
         $agences->load('projets');
         $taches = Travail::where('user_id', $this->auth->user()->id)->where('fait', 0)->get();
-        $taches->load('projet');
+        $taches->load('projet', 'file');
         return view('welcome', compact('agences', 'taches'));
     }
 }
