@@ -17,7 +17,16 @@
                     <ol>
                         @foreach($taches as $tache)
 
-                            <li>{{$tache->titre}}</li>
+                            <li>
+                                {{$tache->titre}}
+                                <?php
+                                $date = \Carbon\Carbon::createFromFormat('Y-m-d', $tache->date);
+                                $difference = ($date->diff($now)->days < 1)
+                                        ? 'today'
+                                        : $date->diffInDays($now);
+                                ?>
+                                /// J - {{$difference}}
+                            </li>
 
                         @endforeach
                     </ol>
