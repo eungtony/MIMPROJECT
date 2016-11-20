@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Agence;
+use App\Etape;
 use App\Projet;
 use App\Travail;
 use Illuminate\Foundation\Auth\User;
@@ -15,12 +16,12 @@ class projetController extends Controller
     public function index($id, $ida){
         $projet = Projet::findOrFail($ida);
         $cdp_id = Agence::findOrFail($id)->user_id;
-        $taches = Travail::where('projet_id', $ida)->get();
-        $taches->load('user');
+        $taches = Travail::where('projet_id', $ida)->with('user')->get();
         $done = Travail::where('projet_id', $ida)->where('fait',1)->get()->count();
         $total = $taches->count();
         $users = User::where('agence_id', $id)->get();
-        return view('projet.index', compact('id','ida','cdp_id','projet', 'taches','done', 'total', 'users'));
+        $etapes = Etape::all();
+        return view('projet.index', compact('id', 'ida', 'cdp_id', 'projet', 'taches', 'done', 'total', 'users', 'etapes'));
     }
 
     public function addForm($id){
@@ -36,7 +37,8 @@ class projetController extends Controller
 
     public function editForm($id, $idp){
         $projet = Projet::findOrFail($idp);
-        return view('projet.edit', compact('projet', 'id', 'idp'));
+        $etapes = Etape::all();
+        return view('projet.edit', compact('projet', 'id', 'idp', 'etapes'));
     }
 
     public function edit($pid, Request $request){

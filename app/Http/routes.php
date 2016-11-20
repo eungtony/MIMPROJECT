@@ -42,6 +42,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/tache/add', 'tacheController@add')->name('add.tache');
     Route::post('/modify/{id}/{pid}', 'tacheController@edit')->name('edit.tache');
     Route::resource('tache', 'tacheController');
+
+//Supervisor
+    Route::get('/supervisor', 'agenceController@supervisor')->name('supervisor');
+    Route::post('/supervisor/add/agence', 'agenceController@add')->name('add.agence');
 });
 
 Route::group(['middleware' => ['restrict']], function () {

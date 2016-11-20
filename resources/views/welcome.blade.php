@@ -25,13 +25,15 @@
 
                 @foreach($agences as $agence)
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
 
                         <h1>
                             <a href="{{route('agence', $agence->id)}}">{{$agence->nom}}</a>
                         </h1>
 
                         <h3>Projets</h3>
+
+                        @if(!$agence->projets->isEmpty())
 
                         <table class="table">
                             <thead>
@@ -61,11 +63,19 @@
                                                  role="progressbar" aria-valuenow="{{$pc}}" aria-valuemin="0"
                                                  aria-valuemax="100" style="width: {{$pc}}%">
                                             </div>
-                                        </div>
+                                            </div>
                                     </td>
                                 </tr>
 
                             @endforeach
+
+                            @else
+
+                                <p class="bg-danger">
+                                    Cette agence ne possède pas de projets !
+                                </p>
+
+                            @endif
 
                             </tbody>
                         </table>
