@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\Redirect;
 class agenceController extends Controller
 {
 
+    protected $auth;
+
+    public function __construct(Guard $auth)
+    {
+        $this->auth = $auth;
+    }
+
     public function index($id)
     {
         $agence = Agence::findOrFail($id);
@@ -22,6 +29,24 @@ class agenceController extends Controller
         $cdp_id = $agence->user_id;
         $cdp = User::findOrFail($cdp_id)->name;
         return view('agence.index', compact('id', 'agence', 'cdp', 'cdp_id'));
+    }
+
+    public function supervisor()
+    {
+        if ($this->auth->user()->statut_id == 1) {
+            $cdp_user = User::where('poste_id', 1)->get();
+            $agences = Agence::with('users')->get();
+            return view('supervisor', compact('cdp_user', 'agences'));
+        } else {
+            return redirect()->back();
+        }
+    }
+
+    public function add(Requests\agenceRequest $request)
+    {
+        $rq = $request->except('_token');
+        Agence::create($rq);
+        return redirect()->route('home');
     }
 
     public function editForm($id)
