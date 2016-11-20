@@ -45,6 +45,7 @@ Route::group(['middleware' => ['web']], function () {
 
 //Supervisor
     Route::get('/supervisor', 'agenceController@supervisor')->name('supervisor');
+    Route::post('/supervisor/add/agence', 'agenceController@add')->name('add.agence');
 });
 
 Route::group(['middleware' => ['restrict']], function () {
