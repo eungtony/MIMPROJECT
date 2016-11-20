@@ -37,6 +37,21 @@ $b_id = 2;
                             {{$projet->encaisse}} € / {{$projet->facturable}} €
                         </p>
 
+                        @if($projet->etape_id !== 0)
+                            @foreach($etapes as $etape)
+                                <p
+                                        @if($etape->id == $projet->etape_id) style="color:forestgreen" @endif
+                                @if($etape->id < $projet->etape_id) style="color:lightgray" @endif
+                                        @if($etape->id > $projet->etape_id) style="color:red" @endif>
+                                    {{$etape->etape}}
+                                </p>
+                            @endforeach
+                        @else
+                            <p class="bg-danger">
+                                Projet non commencé
+                            </p>
+                        @endif
+
                         <hr>
 
                         <h1>
@@ -101,7 +116,8 @@ $b_id = 2;
                                                 <div class="well">
                                                     <form action="{{route('edit.tache', [$tache->id, $tache->projet_id])}}"
                                                           method="POST">
-                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                        <input type="hidden" name="_token"
+                                                               value="{{ csrf_token() }}">
 
                                                         <div class="form-group">
                                                             <input class="form-control" type="text" name="titre"
