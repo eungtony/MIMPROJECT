@@ -2,7 +2,6 @@
 $user_id = Auth::user()->id;
 $statut_id = Auth::user()->statut_id;
 $ca_id = 1;
-$b_id = 2;
 ?>
 @extends('layouts.app')
 
@@ -29,7 +28,7 @@ $b_id = 2;
                                     <a href="{{app_path()}}/{{$agence->id}}/{{$file->name}}.{{$file->extension}}"
                                        download="{{$file->titre}}">
                                         {{$file->titre}}</a>
-                                @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                                @if($user_id == $cdp_id || $statut_id == $ca_id)
                                     <hr>
                                     <form action="{{route('file.edit', [$agence->id,$file->id])}}" method="post">
                                         {{csrf_field()}}
@@ -55,7 +54,7 @@ $b_id = 2;
 
                         @endif
 
-                        @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                        @if($user_id == $cdp_id || $statut_id == $ca_id)
                             <a href="{{route('edit.form.agence', $agence->id)}}" class="btn btn-primary">Modifier
                                 l'agence</a>
                             <a href="{{route('form.add.projet', $agence->id)}}" class="btn btn-success">
@@ -92,7 +91,7 @@ $b_id = 2;
                                 <a href="{{route('projet', [$projet->agence_id, $projet->id])}}">
                                     {{$projet->nom}}
                                 </a>
-                                @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                                @if($user_id == $cdp_id || $statut_id == $ca_id)
                                     <a href="{{route('edit.form.projet', [$projet->agence_id, $projet->id])}}"
                                        class="btn btn-primary">Modifier ce
                                         projet</a>
@@ -105,7 +104,7 @@ $b_id = 2;
                             <hr>
 
                             <h1>Taches
-                                    @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                                @if($user_id == $cdp_id || $statut_id == $ca_id)
                                     <a href="{{route('form.add.tache', [$projet->agence_id, $projet->id])}}"
                                        class="btn btn-warning">Ajouter une tache</a>
                                     @endif
@@ -122,7 +121,7 @@ $b_id = 2;
                                     <th>Commentaire</th>
                                     <th>Etat</th>
                                     <th>Personne assignée</th>
-                                    @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                                    @if($user_id == $cdp_id || $statut_id == $ca_id)
                                         <th>Modifier</th>
                                         <th>Supprimer</th>
                                     @endif
@@ -149,7 +148,7 @@ $b_id = 2;
                                                     Aucune personne assignée
                                                 @endif
                                             </td>
-                                            @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                                            @if($user_id == $cdp_id || $statut_id == $ca_id)
                                                 <td>
                                                     <a href="#tache{{$tache->id}}" class="btn btn-primary"
                                                        data-toggle="collapse" aria-expanded="false"
@@ -165,7 +164,7 @@ $b_id = 2;
                                         </tr>
 
                                         <td>
-                                            @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                                            @if($user_id == $cdp_id || $statut_id == $ca_id)
                                                 <div class="collapse" id="tache{{$tache->id}}">
                                                     <div class="well">
                                                         <form action="{{route('edit.tache', [$tache->id,$tache->projet_id])}}"
