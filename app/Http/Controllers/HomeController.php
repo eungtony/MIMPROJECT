@@ -6,6 +6,7 @@ use App\Agence;
 use App\Http\Requests;
 use App\Travail;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $now = Carbon::now();
         if($this->auth->user()->statut_id == 3 || $this->auth->user()->statut_id == 4){
             $taches = Travail::where('user_id', $this->auth->user()->id)->where('fait', 0)->get();
             $taches->load('projet');
@@ -40,12 +42,12 @@ class HomeController extends Controller
             $agence->load('projets', 'file');
             $cdp_id = $agence->user_id;
             $cdp = User::findOrFail($cdp_id)->name;
-            return view('home', compact('id', 'agence', 'cdp', 'cdp_id', 'taches'));
+            return view('home', compact('id', 'agence', 'cdp', 'cdp_id', 'taches', 'now'));
         }
         $agences = Agence::all();
         $agences->load('projets');
         $taches = Travail::where('user_id', $this->auth->user()->id)->where('fait', 0)->get();
         $taches->load('projet', 'file');
-        return view('welcome', compact('agences', 'taches'));
+        return view('welcome', compact('agences', 'taches', 'now'));
     }
 }
