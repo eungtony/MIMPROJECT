@@ -9,7 +9,41 @@
 
                     <div class="panel-body">
 
-                        BONJOUR
+                        <h1>Ajouter une agence</h1>
+
+                        <form action="{{route('add.agence')}}" method="POST">
+                            {{csrf_field()}}
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="nom">
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" name="user_id" id="">
+                                    @foreach($cdp_user as $user)
+                                        <option value="{{$user->id}}">{{$user->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary">
+                                    Ajouter cette agence
+                                </button>
+                            </div>
+                        </form>
+
+                        <hr>
+
+                        <h1>Liste des agences</h1>
+
+                        @foreach($agences as $agence)
+                            <div class="col-md-3">
+                                <h3>{{$agence->nom}}</h3>
+                                @foreach($agence->users as $user)
+                                    <p>
+                                        {{$user->name}}
+                                    </p>
+                                @endforeach
+                            </div>
+                        @endforeach
 
                     </div>
                 </div>
