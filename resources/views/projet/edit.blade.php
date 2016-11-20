@@ -45,7 +45,16 @@
                                     <input class="form-control" type="number" name="heures_faites" value="{{$projet->heures_faites}}">
                                 </div>
 
-                                <div class="form-group">
+                            <div class="form-group">
+                                <select class="form-control" name="etape_id">
+                                    @foreach($etapes as $etape)
+                                        <option value="{{$etape->id}}"
+                                                @if($etape->id == $projet->etape_id) selected @endif>{{$etape->etape}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
                                     <button type="submit" class="btn btn-primary">
                                         Editer le projet
                                     </button>
