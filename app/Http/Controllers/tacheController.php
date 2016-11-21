@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Input;
 
 class tacheController extends Controller
 {
+    public function index($ida, $pid, $id)
+    {
+        $taches = Travail::findOrFail($id);
+        $taches->load('user');
+        return view('tache.index', compact('taches'));
+    }
+
     public function addForm($id, $idp){
         return view('tache.add', compact('id', 'idp'));
     }
