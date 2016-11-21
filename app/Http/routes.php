@@ -30,6 +30,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/projet/{id}/{ida}', 'projetController@index')->name('projet');
     Route::post('/projet/add', 'projetController@add')->name('add.projet');
     Route::post('/projet/{id}/edit', 'projetController@edit')->name('edit.projet');
+    Route::post('/projet/{ida}/{id}', 'projetController@addFile')->name('file.projet');
+    Route::post('/projet/edit/file/{ida}/{pid}/{id}', 'projetController@editFile')->name('file.edit.projet');
+    Route::delete('/projet/delete/file/{ida}/{pid}/{id}', 'projetController@deleteFile')->name('file.delete.projet');
 
 //Agence
     Route::get('/agence/{id}', 'agenceController@index')->name('agence');
@@ -39,6 +42,7 @@ Route::group(['middleware' => ['web']], function () {
 
 
 //Tâches
+    Route::get('/tache/{ida}/{pid}/{id}', 'tacheController@index')->name('index.tache');
     Route::post('/tache/add', 'tacheController@add')->name('add.tache');
     Route::post('/modify/{id}/{pid}', 'tacheController@edit')->name('edit.tache');
     Route::resource('tache', 'tacheController');

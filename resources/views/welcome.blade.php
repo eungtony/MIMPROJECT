@@ -44,50 +44,50 @@
 
                         @if(!$agence->projets->isEmpty())
 
-                        <table class="table">
-                            <thead>
-                            <th>Nom</th>
-                            <th>Commentaire</th>
-                            <th>Progression</th>
-                            </thead>
-                            <tbody>
+                            <table class="table">
+                                <thead>
+                                <th>Nom</th>
+                                <th>Commentaire</th>
+                                <th>Progression</th>
+                                </thead>
+                                <tbody>
 
-                            @foreach($agence->projets as $projet)
+                                @foreach($agence->projets as $projet)
 
-                                <?php
-                                $done = \App\Travail::where('projet_id', $projet->id)->where('fait', 1)->get()->count();
-                                $total = \App\Travail::where('projet_id', $projet->id)->get()->count();
-                                $pc = 0;
-                                if ($total > 0) {
-                                    $pc = 100 * $done / $total;
-                                }
-                                ?>
+                                    <?php
+                                    $done = \App\Travail::where('projet_id', $projet->id)->where('fait', 1)->get()->count();
+                                    $total = \App\Travail::where('projet_id', $projet->id)->get()->count();
+                                    $pc = 0;
+                                    if ($total > 0) {
+                                        $pc = 100 * $done / $total;
+                                    }
+                                    ?>
 
-                                <tr>
-                                    <td>{{$projet->nom}}</td>
-                                    <td>{{$projet->commentaire}}</td>
-                                    <td>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-success progress-bar-striped"
-                                                 role="progressbar" aria-valuenow="{{$pc}}" aria-valuemin="0"
-                                                 aria-valuemax="100" style="width: {{$pc}}%">
+                                    <tr>
+                                        <td>{{$projet->nom}}</td>
+                                        <td>{{$projet->commentaire}}</td>
+                                        <td>
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-success progress-bar-striped"
+                                                     role="progressbar" aria-valuenow="{{$pc}}" aria-valuemin="0"
+                                                     aria-valuemax="100" style="width: {{$pc}}%">
+                                                </div>
                                             </div>
-                                            </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
 
-                            @endforeach
+                                @endforeach
 
-                            @else
+                                @else
 
-                                <p class="bg-danger">
-                                    Cette agence ne possède pas de projets !
-                                </p>
+                                    <p class="bg-danger">
+                                        Cette agence ne possède pas de projets !
+                                    </p>
 
-                            @endif
+                                @endif
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
 
                     </div>
 

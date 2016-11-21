@@ -10,11 +10,14 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Input;
 
 class projetController extends Controller
 {
     public function index($id, $ida){
         $projet = Projet::findOrFail($ida);
+        $projet->load('file');
         $cdp_id = Agence::findOrFail($id)->user_id;
         $taches = Travail::where('projet_id', $ida)->with('user')->get();
         $done = Travail::where('projet_id', $ida)->where('fait',1)->get()->count();
@@ -46,5 +49,46 @@ class projetController extends Controller
         $agence_id = Projet::findOrFail($pid)->agence_id;
         Projet::findOrFail($pid)->update($rq);
         return redirect()->route('projet', [$agence_id,$pid]);
+    }
+
+    public function addFile($ida, $pid)
+    {
+        $path = base_path() . "/file/$ida/$pid";
+        if (Input::hasFile('file') && Input::has('titre')) {
+            if (!File::exists($path)) {
+                File::makeDirectory($path, 0775, true);
+            }
+            $titre = Input::only('titre')['titre'];
+            $file = Input::file('file')->getClientOriginalName();
+            $extension = Input::file('file')->getClientOriginalExtension();
+            $name_to_explode = Input::file('file')->getClientOriginalName();
+            $explode_name = explode('.', $name_to_explode);
+            $name = $explode_name[0];
+            Input::file('file')->move($path, $file); // uploading file to given path
+            \App\File::create(['agence_id' => $ida, 'projet_id' => $pid, 'titre' => $titre, 'extension' => $extension, 'name' => $name]);
+            return redirect()->route('projet', [$ida, $pid]);
+        } else {
+            return redirect()->route('projet', [$ida, $pid]);
+        }
+    }
+
+    public function editFile($ida, $pid, $id, Request $request)
+    {
+        $rq = $request->except('_token');
+        \App\File::findOrFail($id)->update($rq);
+        return redirect()->route('projet', [$ida, $pid]);
+    }
+
+    public function deleteFile($ida, $pid, $id)
+    {
+        $file = \App\File::findOrFail($id);
+        $file_name = $file->name;
+        $extension = $file->extension;
+        $filename = base_path() . "/file/$ida/$pid/$file_name.$extension";
+        if (File::exists($filename)) {
+            File::delete($filename);
+            \App\File::destroy($id);
+        }
+        return redirect()->route('projet', [$ida, $pid]);
     }
 }

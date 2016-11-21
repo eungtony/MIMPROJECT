@@ -99,7 +99,7 @@ $ca_id = 1;
                             </h1>
                             <p>
                                 {{$projet->commentaire}}
-                                </p>
+                            </p>
 
                             <hr>
 
@@ -107,7 +107,7 @@ $ca_id = 1;
                                 @if($user_id == $cdp_id || $statut_id == $ca_id)
                                     <a href="{{route('form.add.tache', [$projet->agence_id, $projet->id])}}"
                                        class="btn btn-warning">Ajouter une tache</a>
-                                    @endif
+                                @endif
                             </h1>
                             @if($travaux->isEmpty())
                                 <p class="bg-danger">
@@ -132,12 +132,14 @@ $ca_id = 1;
                                     @foreach($travaux as $tache)
 
                                         <tr @if($tache->fait == 1) class="bg-success" @endif>
-                                                <td>
+                                            <td>
+                                                <a href="{{route('index.tache', [$tache->agence_id, $tache->projet_id, $tache->id])}}">
                                                     {{$tache->titre}}
-                                                </td>
-                                                <td>
-                                                    {{$tache->commentaire}}
-                                                </td>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                {{$tache->commentaire}}
+                                            </td>
                                             <td>
                                                 @if($tache->fait == 1) Fait @else Non Fait @endif
                                             </td>
@@ -203,7 +205,7 @@ $ca_id = 1;
                                                             </div>
                                                         </form>
                                                     </div>
-                                                    </div>
+                                                </div>
                                             @endif
 
                                         </td>
