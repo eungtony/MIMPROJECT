@@ -37,6 +37,63 @@ $b_id = 2;
                             {{$projet->encaisse}} € / {{$projet->facturable}} €
                         </p>
 
+                        @if(!$projet->file->isEmpty())
+
+                            @foreach($projet->file as $file)
+
+                                <p>
+                                    <a href="{{app_path()}}/{{$projet->agence_id}}/{{$projet->projet_id}}/{{$file->name}}.{{$file->extension}}"
+                                       download="{{$file->titre}}">
+                                        {{$file->titre}}</a>
+                                @if($user_id == $cdp_id || $statut_id == $ca_id)
+                                    <hr>
+                                    <form action="{{route('file.edit.projet', [$projet->agence_id,$projet->id,$file->id])}}"
+                                          method="post">
+                                        {{csrf_field()}}
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" name="titre"
+                                                   value="{{$file->titre}}">
+                                        </div>
+                                        <button class="btn btn-primary">Modifier</button>
+                                    </form>
+                                    <a href="{{route('file.delete.projet', [$file->agence_id,$file->projet_id,$file->id])}}"
+                                       class="btn btn-danger"
+                                       data-method="delete"
+                                       data-confirm="Voulez-vous supprimer ce fichier ?">Supprimer</a>                                </p>
+                                @endif
+                            @endforeach
+
+                            <hr>
+
+                        @else
+
+                            <p class="bg-danger">
+                                Aucun fichier présent.
+                            </p>
+
+                        @endif
+
+                        @if($user_id == $cdp_id || $statut_id == $ca_id)
+                            <form action="{{route('file.projet', [$projet->agence_id, $projet->id])}}"
+                                  enctype="multipart/form-data"
+                                  method="POST">
+                                {{csrf_field()}}
+                                <div class="form-group">
+                                    <label for="">Nommer votre fichier</label>
+                                    <input class="form-control" type="text" name="titre">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Téleverser un fichier</label>
+                                    <input type="file" name="file" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">
+                                        Téleverser
+                                    </button>
+                                </div>
+                            </form>
+                        @endif
+
                         @if($projet->etape_id !== 0)
                             @foreach($etapes as $etape)
                                 <p
