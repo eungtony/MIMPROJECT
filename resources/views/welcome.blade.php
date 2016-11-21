@@ -7,7 +7,7 @@
 
             <div class="panel-body">
 
-                <h1>Mes tâches</h1>
+                <h1>Mes tâches ({{$taches->count()}})</h1>
 
                 @if($taches->isEmpty())
                     <p class="bg-danger">
@@ -18,9 +18,14 @@
                         @foreach($taches as $tache)
 
                             <li>
-                                <a href="{{route('index.tache', [$tache->agence_id, $tache->projet_id, $tache->id])}}">
-                                    {{$tache->titre}}
-                                </a>
+                                {{$tache->titre}}
+                                <?php
+                                $date = \Carbon\Carbon::createFromFormat('Y-m-d', $tache->date);
+                                $difference = ($date->diff($now)->days < 1)
+                                        ? 'today'
+                                        : $date->diffInDays($now);
+                                ?>
+                                /// J - {{$difference}}
                             </li>
 
                         @endforeach
