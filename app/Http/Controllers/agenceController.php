@@ -67,7 +67,7 @@ class agenceController extends Controller
     public function addFile($id)
     {
         $path = base_path() . "/file/$id";
-        if (Input::hasFile('file')) {
+        if (Input::hasFile('file') && Input::has('titre')) {
             if (!File::exists($path)) {
                 File::makeDirectory($path, 0775, true);
             }
