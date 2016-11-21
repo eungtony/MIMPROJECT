@@ -76,7 +76,9 @@ $b_id = 2;
                             @foreach($taches as $tache)
                                 <tr @if($tache->fait == 1) class="bg-success" @endif>
                                     <td>
-                                        {{$tache->titre}}
+                                        <a href="{{route('index.tache', [$tache->agence_id, $tache->projet_id, $tache->id])}}">
+                                            {{$tache->titre}}
+                                        </a>
                                     </td>
                                     <td>
                                         {{$tache->commentaire}}
