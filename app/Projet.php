@@ -16,4 +16,9 @@ class Projet extends Model
     public function travail(){
         return $this->hasMany('App\Travail');
     }
+
+    public function file()
+    {
+        return $this->hasMany('App\File');
+    }
 }
