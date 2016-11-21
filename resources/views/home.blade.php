@@ -25,7 +25,11 @@ $b_id = 2;
                             <ol>
                                 @foreach($taches as $tache)
 
-                                    <li>{{$tache->titre}}</li>
+                                    <li>
+                                        <a href="{{route('index.tache', [$tache->agence_id, $tache->projet_id, $tache->id])}}">
+                                            {{$tache->titre}}
+                                        </a>
+                                    </li>
 
                                 @endforeach
                             </ol>
@@ -146,7 +150,9 @@ $b_id = 2;
 
                                         <tr @if($tache->fait == 1) class="bg-success" @endif>
                                             <td>
-                                                {{$tache->titre}}
+                                                <a href="{{route('index.tache', [$tache->agence_id, $tache->projet_id, $tache->id])}}">
+                                                    {{$tache->titre}}
+                                                </a>
                                             </td>
                                             <td>
                                                 {{$tache->commentaire}}
