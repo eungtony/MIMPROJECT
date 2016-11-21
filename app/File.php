@@ -12,4 +12,9 @@ class File extends Model
     {
         return $this->belongsTo('App/Agence');
     }
+
+    public function projet()
+    {
+        return $this->belongsTo('App/Projet');
+    }
 }
