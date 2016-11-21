@@ -39,6 +39,7 @@ Route::group(['middleware' => ['web']], function () {
 
 
 //Tâches
+    Route::get('/tache/{ida}/{pid}/{id}', 'tacheController@index')->name('index.tache');
     Route::post('/tache/add', 'tacheController@add')->name('add.tache');
     Route::post('/modify/{id}/{pid}', 'tacheController@edit')->name('edit.tache');
     Route::resource('tache', 'tacheController');
