@@ -15,7 +15,7 @@ $b_id = 2;
 
                     <div class="panel-body">
 
-                        <h1>Mes tâches</h1>
+                        <h1>Mes tâches ({{$taches->count()}})</h1>
 
                         @if($taches->isEmpty())
                             <p class="bg-danger">
