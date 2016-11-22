@@ -28,7 +28,8 @@ class agenceController extends Controller
         $agence->load('projets');
         $cdp_id = $agence->user_id;
         $cdp = User::findOrFail($cdp_id)->name;
-        return view('agence.index', compact('id', 'agence', 'cdp', 'cdp_id'));
+        $users = User::where('agence_id', $id)->get();
+        return view('agence.index', compact('id', 'agence', 'cdp', 'cdp_id', 'users'));
     }
 
     public function supervisor()
