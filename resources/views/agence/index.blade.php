@@ -15,9 +15,19 @@ $ca_id = 1;
                     <div class="panel-body">
 
                         <a href="{{url()->previous()}}">Retour</a>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3>Membres</h3>
+                                @foreach($users as $user)
+                                    <p>{{$user->name}}</p>
+                                @endforeach
+                            </div>
+                            <div class="col-md-6">
+                                <h1 class="text-right">{{$agence->nom}}</h1>
+                                <h3 class="text-right">{{$cdp}}</h3>
+                            </div>
+                        </div>
 
-                        <h1 class="text-right">{{$agence->nom}}</h1>
-                        <h3 class="text-right">{{$cdp}}</h3>
                         <h1>Fichiers disponible dans cette agence</h1>
 
                         @if(!$agence->file->isEmpty())
