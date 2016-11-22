@@ -39,7 +39,7 @@ class HomeController extends Controller
             $taches->load('projet');
             $agence_id = $this->auth->user()->agence_id;
             $agence = Agence::findOrFail($agence_id);
-            $agence->load('projets', 'file');
+            $agence->load('projets', 'file', 'users');
             $cdp_id = $agence->user_id;
             $cdp = User::findOrFail($cdp_id)->name;
             return view('home', compact('id', 'agence', 'cdp', 'cdp_id', 'taches', 'now'));
