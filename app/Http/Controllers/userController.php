@@ -35,4 +35,11 @@ class userController extends Controller
         $user->load('agence','poste', 'statut');
         return view('user.index', compact('user'));
     }
+
+    public function user($id)
+    {
+        $user = User::findOrFail($id);
+        $user->load('statut', 'poste', 'agence');
+        return view('user.profile', compact('user'));
+    }
 }

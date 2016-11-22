@@ -24,6 +24,7 @@ Route::group(['middleware' => ['web']], function () {
 
 //User
     Route::get('/user', 'userController@index')->name('user');
+    Route::get('/user/{id}', 'userController@user')->name('profile');
     Route::post('/user/{id}', 'userController@edit');
 
 //Projet

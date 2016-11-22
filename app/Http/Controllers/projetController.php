@@ -24,7 +24,8 @@ class projetController extends Controller
         $total = $taches->count();
         $users = User::where('agence_id', $id)->get();
         $etapes = Etape::all();
-        return view('projet.index', compact('id', 'ida', 'cdp_id', 'projet', 'taches', 'done', 'total', 'users', 'etapes'));
+        $total_etape = Etape::all()->count();
+        return view('projet.index', compact('id', 'ida', 'cdp_id', 'projet', 'taches', 'done', 'total', 'users', 'etapes', 'total_etape'));
     }
 
     public function addForm($id){

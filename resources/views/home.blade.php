@@ -15,6 +15,19 @@ $b_id = 2;
 
                     <div class="panel-body">
 
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3>Membres</h3>
+                                @foreach($agence->users as $user)
+                                    <p><a href="{{route('profile', $user->id)}}">{{$user->name}}</a></p>
+                                @endforeach
+                            </div>
+                            <div class="col-md-6">
+                                <h1 class="text-right">{{$agence->nom}}</h1>
+                                <h3 class="text-right">{{$cdp}}</h3>
+                            </div>
+                        </div>
+
                         <h1>Mes tâches ({{$taches->count()}})</h1>
 
                         @if($taches->isEmpty())
@@ -75,8 +88,6 @@ $b_id = 2;
 
                         @endif
 
-                        <h1 class="text-right">{{$agence->nom}}</h1>
-                        <h3 class="text-right">{{$cdp}}</h3>
                         @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
                             <a href="{{route('edit.form.agence', $agence->id)}}" class="btn btn-primary">Modifier
                                 l'agence</a>
@@ -109,6 +120,18 @@ $b_id = 2;
                             $travaux->load('user');
                             $users = \App\User::where('agence_id', $projet->agence_id)->get();
                             ?>
+                            <?php
+                            $done = \App\Travail::where('projet_id', $projet->id)->where('fait', 1)->get()->count();
+                            $total = \App\Travail::where('projet_id', $projet->id)->get()->count();
+                            $pc = 0;
+                            $pc_projet = 0;
+                            if ($total_etape > 0) {
+                                $pc_projet = 100 * $projet->etape_id / $total_etape;
+                            }
+                            if ($total > 0) {
+                                $pc = 100 * $done / $total;
+                            }
+                            ?>
                             <h1>
                                 <a href="{{route('projet', [$projet->agence_id, $projet->id])}}">
                                     {{$projet->nom}}
@@ -122,6 +145,32 @@ $b_id = 2;
                             <p>
                                 {{$projet->commentaire}}
                             </p>
+
+                            <hr>
+
+                            <h3>Progression du projet</h3>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success progress-bar-striped"
+                                     role="progressbar" aria-valuenow="{{$pc_projet}}" aria-valuemin="0"
+                                     aria-valuemax="100" style="width: {{$pc}}%">
+                                </div>
+                            </div>
+                            <h3>Progression dans les tâches</h3>
+                            @if($projet->etape_id > 0)
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success progress-bar-striped"
+                                         role="progressbar" aria-valuenow="{{$pc}}" aria-valuemin="0"
+                                         aria-valuemax="100" style="width: {{$pc}}%">
+                                    </div>
+                                </div>
+                            @else
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger progress-bar-striped"
+                                         role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                                         aria-valuemax="100" style="width: {{$pc}}%">
+                                    </div>
+                                </div>
+                            @endif
 
                             <hr>
 

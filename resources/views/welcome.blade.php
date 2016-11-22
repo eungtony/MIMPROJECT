@@ -48,7 +48,8 @@
                                 <thead>
                                 <th>Nom</th>
                                 <th>Commentaire</th>
-                                <th>Progression</th>
+                                <th>Progression du projet</th>
+                                <th>Progression des tâches</th>
                                 </thead>
                                 <tbody>
 
@@ -58,6 +59,10 @@
                                     $done = \App\Travail::where('projet_id', $projet->id)->where('fait', 1)->get()->count();
                                     $total = \App\Travail::where('projet_id', $projet->id)->get()->count();
                                     $pc = 0;
+                                    $pc_projet = 0;
+                                    if ($total_etape > 0) {
+                                        $pc_projet = 100 * $projet->etape_id / $total_etape;
+                                    }
                                     if ($total > 0) {
                                         $pc = 100 * $done / $total;
                                     }
@@ -69,10 +74,27 @@
                                         <td>
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-success progress-bar-striped"
-                                                     role="progressbar" aria-valuenow="{{$pc}}" aria-valuemin="0"
+                                                     role="progressbar" aria-valuenow="{{$pc_projet}}" aria-valuemin="0"
                                                      aria-valuemax="100" style="width: {{$pc}}%">
                                                 </div>
                                             </div>
+                                        </td>
+                                        <td>
+                                            @if($projet->etape_id > 0)
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-success progress-bar-striped"
+                                                         role="progressbar" aria-valuenow="{{$pc}}" aria-valuemin="0"
+                                                         aria-valuemax="100" style="width: {{$pc}}%">
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-danger progress-bar-striped"
+                                                         role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                                                         aria-valuemax="100" style="width: {{$pc}}%">
+                                                    </div>
+                                                </div>
+                                            @endif
                                         </td>
                                     </tr>
 
