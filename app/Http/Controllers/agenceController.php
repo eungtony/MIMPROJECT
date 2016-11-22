@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Agence;
+use App\Etape;
 use App\User;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
@@ -29,7 +30,8 @@ class agenceController extends Controller
         $cdp_id = $agence->user_id;
         $cdp = User::findOrFail($cdp_id)->name;
         $users = User::where('agence_id', $id)->get();
-        return view('agence.index', compact('id', 'agence', 'cdp', 'cdp_id', 'users'));
+        $total_etape = Etape::all()->count();
+        return view('agence.index', compact('id', 'agence', 'cdp', 'cdp_id', 'users', 'total_etape'));
     }
 
     public function supervisor()
