@@ -97,6 +97,18 @@ $ca_id = 1;
                             $travaux->load('user');
                             $users = \App\User::where('agence_id', $projet->agence_id)->get();
                             ?>
+                            <?php
+                            $done = \App\Travail::where('projet_id', $projet->id)->where('fait', 1)->get()->count();
+                            $total = \App\Travail::where('projet_id', $projet->id)->get()->count();
+                            $pc = 0;
+                            $pc_projet = 0;
+                            if ($total_etape > 0) {
+                                $pc_projet = 100 * $projet->etape_id / $total_etape;
+                            }
+                            if ($total > 0) {
+                                $pc = 100 * $done / $total;
+                            }
+                            ?>
                             <h1>
                                 <a href="{{route('projet', [$projet->agence_id, $projet->id])}}">
                                     {{$projet->nom}}
@@ -110,6 +122,31 @@ $ca_id = 1;
                             <p>
                                 {{$projet->commentaire}}
                             </p>
+
+                            <hr>
+                            <h3>Progression du projet</h3>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success progress-bar-striped"
+                                     role="progressbar" aria-valuenow="{{$pc_projet}}" aria-valuemin="0"
+                                     aria-valuemax="100" style="width: {{$pc}}%">
+                                </div>
+                            </div>
+                            <h3>Progression dans les tâches</h3>
+                            @if($projet->etape_id > 0)
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success progress-bar-striped"
+                                         role="progressbar" aria-valuenow="{{$pc}}" aria-valuemin="0"
+                                         aria-valuemax="100" style="width: {{$pc}}%">
+                                    </div>
+                                </div>
+                            @else
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger progress-bar-striped"
+                                         role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                                         aria-valuemax="100" style="width: {{$pc}}%">
+                                    </div>
+                                </div>
+                            @endif
 
                             <hr>
 
