@@ -25,7 +25,9 @@
                                         ? 'today'
                                         : $date->diffInDays($now);
                                 ?>
-                                /// J - {{$difference}}
+                                <span class="label label-success">
+                                    J - {{$difference}}
+                                </span>
                             </li>
 
                         @endforeach
@@ -58,8 +60,6 @@
                                     <?php
                                     $done = \App\Travail::where('projet_id', $projet->id)->where('fait', 1)->get()->count();
                                     $total = \App\Travail::where('projet_id', $projet->id)->get()->count();
-                                    $pc = 0;
-                                    $pc_projet = 0;
                                     if ($total_etape > 0) {
                                         $pc_projet = 100 * $projet->etape_id / $total_etape;
                                     }
@@ -75,7 +75,7 @@
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-success progress-bar-striped"
                                                      role="progressbar" aria-valuenow="{{$pc_projet}}" aria-valuemin="0"
-                                                     aria-valuemax="100" style="width: {{$pc}}%">
+                                                     aria-valuemax="100" style="width: {{$pc_projet}}%">
                                                 </div>
                                             </div>
                                         </td>
