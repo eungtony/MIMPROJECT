@@ -15,6 +15,19 @@ $b_id = 2;
 
                     <div class="panel-body">
 
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3>Membres</h3>
+                                @foreach($agence->users as $user)
+                                    <p><a href="{{route('profile', $user->id)}}">{{$user->name}}</a></p>
+                                @endforeach
+                            </div>
+                            <div class="col-md-6">
+                                <h1 class="text-right">{{$agence->nom}}</h1>
+                                <h3 class="text-right">{{$cdp}}</h3>
+                            </div>
+                        </div>
+
                         <h1>Mes tâches ({{$taches->count()}})</h1>
 
                         @if($taches->isEmpty())
@@ -75,8 +88,6 @@ $b_id = 2;
 
                         @endif
 
-                        <h1 class="text-right">{{$agence->nom}}</h1>
-                        <h3 class="text-right">{{$cdp}}</h3>
                         @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
                             <a href="{{route('edit.form.agence', $agence->id)}}" class="btn btn-primary">Modifier
                                 l'agence</a>
