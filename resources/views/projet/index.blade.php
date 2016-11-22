@@ -4,6 +4,20 @@ $statut_id = Auth::user()->statut_id;
 $ca_id = 1;
 $b_id = 2;
 ?>
+
+<?php
+$done = \App\Travail::where('projet_id', $projet->id)->where('fait', 1)->get()->count();
+$total = \App\Travail::where('projet_id', $projet->id)->get()->count();
+$pc = 0;
+$pc_projet = 0;
+if ($total_etape > 0) {
+    $pc_projet = 100 * $projet->etape_id / $total_etape;
+}
+if ($total > 0) {
+    $pc = 100 * $done / $total;
+}
+?>
+
 @extends('layouts.app')
 
 @section('content')
@@ -59,7 +73,7 @@ $b_id = 2;
                                     <a href="{{route('file.delete.projet', [$file->agence_id,$file->projet_id,$file->id])}}"
                                        class="btn btn-danger"
                                        data-method="delete"
-                                       data-confirm="Voulez-vous supprimer ce fichier ?">Supprimer</a>                                </p>
+                                       data-confirm="Voulez-vous supprimer ce fichier ?">Supprimer</a>
                                 @endif
                             @endforeach
 
@@ -107,6 +121,32 @@ $b_id = 2;
                             <p class="bg-danger">
                                 Projet non commencé
                             </p>
+                        @endif
+
+                        <hr>
+
+                        <h3>Progression du projet</h3>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success progress-bar-striped"
+                                 role="progressbar" aria-valuenow="{{$pc_projet}}" aria-valuemin="0"
+                                 aria-valuemax="100" style="width:{{$pc_projet}}%">
+                            </div>
+                        </div>
+                        <h3>Progression dans les tâches</h3>
+                        @if($projet->etape_id > 0)
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success progress-bar-striped"
+                                     role="progressbar" aria-valuenow="{{$pc}}" aria-valuemin="0"
+                                     aria-valuemax="100" style="width:{{$pc}}%">
+                                </div>
+                            </div>
+                        @else
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-danger progress-bar-striped"
+                                     role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                                     aria-valuemax="100" style="width: {{$pc}}%">
+                                </div>
+                            </div>
                         @endif
 
                         <hr>
