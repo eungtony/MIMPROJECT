@@ -128,7 +128,7 @@ $ca_id = 1;
                             <div class="progress">
                                 <div class="progress-bar progress-bar-success progress-bar-striped"
                                      role="progressbar" aria-valuenow="{{$pc_projet}}" aria-valuemin="0"
-                                     aria-valuemax="100" style="width: {{$pc}}%">
+                                     aria-valuemax="100" style="width: {{$pc_projet}}%">
                                 </div>
                             </div>
                             <h3>Progression dans les tâches</h3>
