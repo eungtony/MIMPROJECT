@@ -14,9 +14,15 @@
                         <form action="{{route('add.agence')}}" method="POST">
                             {{csrf_field()}}
                             <div class="form-group">
+                                <label for="">
+                                    Nom de l'agence
+                                </label>
                                 <input class="form-control" type="text" name="nom">
                             </div>
                             <div class="form-group">
+                                <label for="">
+                                    Choisissez le chef de projet
+                                </label>
                                 <select class="form-control" name="user_id" id="">
                                     @foreach($cdp_user as $user)
                                         <option value="{{$user->id}}">{{$user->name}}</option>
