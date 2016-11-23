@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categorie;
 use App\Travail;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,8 @@ class tacheController extends Controller
     }
 
     public function addForm($id, $idp){
-        return view('tache.add', compact('id', 'idp'));
+        $categories = Categorie::all();
+        return view('tache.add', compact('id', 'idp', 'categories'));
     }
 
     public function add(Requests\tacheRequest $request){
