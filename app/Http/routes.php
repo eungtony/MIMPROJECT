@@ -64,6 +64,6 @@ Route::group(['middleware' => ['restrict']], function () {
     Route::get('/projet/edit/{id}/{idp}', 'projetController@editForm')->name('edit.form.projet');
 
 //Tâches
-    Route::get('/tache/add/{id}/{idp}', 'tacheController@addForm')->name('form.add.tache');
+    Route::get('/add/tache/{id}/{idp}', 'tacheController@addForm')->name('form.add.tache');
 
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categorie;
 use App\Travail;
 use Illuminate\Http\Request;
 
@@ -13,12 +14,13 @@ class tacheController extends Controller
     public function index($ida, $pid, $id)
     {
         $taches = Travail::findOrFail($id);
-        $taches->load('user');
+        $taches->load('user', 'categorie');
         return view('tache.index', compact('taches'));
     }
 
     public function addForm($id, $idp){
-        return view('tache.add', compact('id', 'idp'));
+        $categories = Categorie::all();
+        return view('tache.add', compact('id', 'idp', 'categories'));
     }
 
     public function add(Requests\tacheRequest $request){

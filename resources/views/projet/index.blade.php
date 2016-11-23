@@ -164,6 +164,7 @@ if ($total > 0) {
                             <th>Commentaire</th>
                             <th>Date limite</th>
                             <th>Personne assignée</th>
+                            <th>Catégorie</th>
                             <th>Etat</th>
                             </thead>
 
@@ -188,6 +189,9 @@ if ($total > 0) {
                                         @else
                                             Aucune personne assignée
                                         @endif
+                                    </td>
+                                    <td>
+                                        {{$tache->categorie->titre}}
                                     </td>
                                     <td>
                                         @if($tache->fait == 1) Fait @else Non Fait @endif

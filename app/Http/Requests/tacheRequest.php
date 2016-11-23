@@ -28,6 +28,7 @@ class tacheRequest extends Request
             'projet_id' => 'required',
             'titre' => 'required',
             'commentaire' => 'required',
+            'categorie_id' => 'required',
             'date' => 'required'
         ];
     }
