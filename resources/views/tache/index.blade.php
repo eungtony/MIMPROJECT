@@ -20,6 +20,7 @@ $b_id = 2;
                         <h1>{{$taches->titre}}</h1>
                         <p>{{$taches->commentaire}}</p>
                         <p class="text-right">{{$taches->date}}</p>
+                        <p class="text-right">{{$taches->categorie->titre}}</p>
                         <p class="text-right">{{$taches->user->name}}</p>
 
                     </div>
