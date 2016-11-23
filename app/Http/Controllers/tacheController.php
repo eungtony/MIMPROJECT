@@ -14,7 +14,7 @@ class tacheController extends Controller
     public function index($ida, $pid, $id)
     {
         $taches = Travail::findOrFail($id);
-        $taches->load('user');
+        $taches->load('user', 'categorie');
         return view('tache.index', compact('taches'));
     }
 
