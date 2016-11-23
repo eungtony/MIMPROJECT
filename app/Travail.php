@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Travail extends Model
 {
-    protected $fillable = ['titre', 'commentaire', 'date', 'projet_id', 'agence_id','user_id', 'fait'];
+    protected $fillable = ['titre', 'commentaire', 'date', 'projet_id', 'agence_id', 'user_id', 'fait', 'categorie_id'];
 
     public function projet(){
         return $this->belongsTo('App\Projet');
