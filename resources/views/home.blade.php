@@ -198,6 +198,7 @@ $b_id = 2;
                                     <thead>
                                     <th>Titre</th>
                                     <th>Commentaire</th>
+                                    <th>Catégorie</th>
                                     <th>Etat</th>
                                     <th>Personne assignée</th>
                                     @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
@@ -218,6 +219,9 @@ $b_id = 2;
                                             </td>
                                             <td>
                                                 {{$tache->commentaire}}
+                                            </td>
+                                            <td>
+                                                {{$tache->categorie->titre}}
                                             </td>
                                             <td>
                                                 @if($tache->fait == 1) Fait @else Non Fait @endif

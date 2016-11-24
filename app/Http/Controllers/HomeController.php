@@ -38,7 +38,7 @@ class HomeController extends Controller
         $total_etape = Etape::all()->count();
         if($this->auth->user()->statut_id == 3 || $this->auth->user()->statut_id == 4){
             $taches = Travail::where('user_id', $this->auth->user()->id)->where('fait', 0)->get();
-            $taches->load('projet');
+            $taches->load('projet', 'user', 'categorie');
             $agence_id = $this->auth->user()->agence_id;
             $agence = Agence::findOrFail($agence_id);
             $agence->load('projets', 'file', 'users');
