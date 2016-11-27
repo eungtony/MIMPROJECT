@@ -41,7 +41,7 @@ class agenceController extends Controller
             $agences = Agence::with('users')->get();
             return view('supervisor', compact('cdp_user', 'agences'));
         } else {
-            return redirect()->back();
+            return redirect()->back()->with('error', 'Vous n\'avez pas accès à cette page !');
         }
     }
 
