@@ -34,14 +34,14 @@ class HeadProject
         $chef_id = $agence->user_id;
 
         if ($this->auth->guest()) {
-            return response('Unauthorized.', 401);
+            return redirect()->back()->with('error', 'Désolé tu ne peux pas accéder à cette page !');
         } else {
             if ($chef_id == $user_id ||
                 $statut_id == self::SUPERVISOR_GROUP_ID
             ) {
                 return $next($request);
             } else {
-                return response('Unauthorized.', 401);
+                return redirect()->back()->with('error', 'Désolé tu ne peux pas accéder à cette page !');
             }
         }
     }
