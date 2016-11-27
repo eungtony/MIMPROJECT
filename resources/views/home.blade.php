@@ -143,6 +143,7 @@ $b_id = 2;
                                     <th>Commentaire</th>
                                     <th>Etat</th>
                                     <th>Personne assignée</th>
+                                    <th>Date limite</th>
                                     @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
                                         <th>Modifier</th>
                                         <th>Supprimer</th>
@@ -164,6 +165,9 @@ $b_id = 2;
                                             </td>
                                             <td>
                                                 @if($tache->fait == 1) Fait @else Non Fait @endif
+                                            </td>
+                                            <td>
+                                                {{$tache->date}}
                                             </td>
                                             <td>
                                                 @if($tache->user)
