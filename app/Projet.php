@@ -21,4 +21,9 @@ class Projet extends Model
     {
         return $this->hasMany('App\File');
     }
+
+    public function etape()
+    {
+        return $this->belongsTo('App\Etape');
+    }
 }
