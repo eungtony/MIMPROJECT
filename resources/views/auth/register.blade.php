@@ -76,7 +76,7 @@
                             ?>
 
                             <div class="form-group">
-                                <select name="agence_id" class="form-control">
+                                <select class="form-control" name="agence_id">
                                     @foreach($agences as $agence)
                                         <option value="{{$agence->id}}">{{$agence->nom}}</option>
                                     @endforeach
@@ -84,7 +84,7 @@
                             </div>
 
                             <div class="form-group">
-                                <select name="poste_id" class="form-control">
+                                <select class="form-control" name="poste_id">
                                     @foreach($postes as $poste)
                                         <option value="{{$poste->id}}">{{$poste->nom}}</option>
                                     @endforeach
@@ -92,7 +92,7 @@
                             </div>
 
                             <div class="form-group">
-                                <select name="statut_id" class="form-control">
+                                <select class="form-control" name="statut_id">
                                     @foreach($statuts as $statut)
                                         <option value="{{$statut->id}}">{{$statut->titre}}</option>
                                     @endforeach
