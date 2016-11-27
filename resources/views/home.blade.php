@@ -3,6 +3,7 @@ $user_id = Auth::user()->id;
 $statut_id = Auth::user()->statut_id;
 $ca_id = 1;
 $b_id = 2;
+$projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->get();
 ?>
 @extends('layouts.app')
 
@@ -123,7 +124,7 @@ $b_id = 2;
                             </form>
                         @endif
 
-                        @foreach($agence->projets as $projet)
+                        @foreach($projets as $projet)
                             <?php
                             $travaux = \App\Travail::where('projet_id', $projet->id)->get();
                             $travaux->load('user');
