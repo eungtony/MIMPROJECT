@@ -77,6 +77,7 @@
         </div>
     </nav>
 
+@include('flash')
     @yield('content')
 
     <!-- JavaScripts -->
