@@ -52,6 +52,12 @@ class projetController extends Controller
         return redirect()->route('projet', [$agence_id, $pid])->with('success', 'Le projet a bien été modifié !');
     }
 
+    public function destroy($ida, $id)
+    {
+        Projet::destroy($id);
+        return redirect()->route('agence', $ida)->with('success', 'Le projet a bien été supprimé !');
+    }
+
     public function addFile($ida, $pid)
     {
         $path = base_path() . "/file/$ida/$pid";
