@@ -19,37 +19,38 @@ Route::get('/home', 'HomeController@index');
 
 Route::auth();
 
-    Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 
 //User
-    Route::get('/user', 'userController@index')->name('user');
-    Route::get('/user/{id}', 'userController@user')->name('profile');
-    Route::post('/user/{id}', 'userController@edit');
+Route::get('/user', 'userController@index')->name('user');
+Route::get('/user/{id}', 'userController@user')->name('profile');
+Route::post('/user/{id}', 'userController@edit');
 
 //Projet
-    Route::get('/projet/{id}/{ida}', 'projetController@index')->name('projet');
-    Route::post('/projet/add', 'projetController@add')->name('add.projet');
-    Route::post('/projet/{id}/edit', 'projetController@edit')->name('edit.projet');
-    Route::post('/projet/{ida}/{id}', 'projetController@addFile')->name('file.projet');
-    Route::post('/projet/edit/file/{ida}/{pid}/{id}', 'projetController@editFile')->name('file.edit.projet');
-    Route::delete('/projet/delete/file/{ida}/{pid}/{id}', 'projetController@deleteFile')->name('file.delete.projet');
+Route::get('/projet/{id}/{ida}', 'projetController@index')->name('projet');
+Route::post('/projet/add', 'projetController@add')->name('add.projet');
+Route::post('/projet/{id}/edit', 'projetController@edit')->name('edit.projet');
+Route::delete('/projet/delete/{ida}/{id}', 'projetController@destroy')->name('projet.destroy');
+Route::post('/projet/{ida}/{id}', 'projetController@addFile')->name('file.projet');
+Route::post('/projet/edit/file/{ida}/{pid}/{id}', 'projetController@editFile')->name('file.edit.projet');
+Route::delete('/projet/delete/file/{ida}/{pid}/{id}', 'projetController@deleteFile')->name('file.delete.projet');
 
 //Agence
-    Route::get('/agence/{id}', 'agenceController@index')->name('agence');
-    Route::post('/agence/{id}', 'agenceController@addFile')->name('file.agence');
-    Route::post('/agence/edit/file/{ida}/{id}', 'agenceController@editFile')->name('file.edit');
-    Route::delete('/agence/delete/file/{ida}/{id}', 'agenceController@deleteFile')->name('file.delete');
+Route::get('/agence/{id}', 'agenceController@index')->name('agence');
+Route::post('/agence/{id}', 'agenceController@addFile')->name('file.agence');
+Route::post('/agence/edit/file/{ida}/{id}', 'agenceController@editFile')->name('file.edit');
+Route::delete('/agence/delete/file/{ida}/{id}', 'agenceController@deleteFile')->name('file.delete');
 
 
 //Tâches
-    Route::get('/tache/{ida}/{pid}/{id}', 'tacheController@index')->name('index.tache');
-    Route::post('/tache/add', 'tacheController@add')->name('add.tache');
-    Route::post('/modify/{id}/{pid}', 'tacheController@edit')->name('edit.tache');
-    Route::resource('tache', 'tacheController');
+Route::get('/tache/{ida}/{pid}/{id}', 'tacheController@index')->name('index.tache');
+Route::post('/tache/add', 'tacheController@add')->name('add.tache');
+Route::post('/modify/{id}/{pid}', 'tacheController@edit')->name('edit.tache');
+Route::resource('tache', 'tacheController');
 
 //Supervisor
-    Route::get('/supervisor', 'agenceController@supervisor')->name('supervisor');
-    Route::post('/supervisor/add/agence', 'agenceController@add')->name('add.agence');
+Route::get('/supervisor', 'agenceController@supervisor')->name('supervisor');
+Route::post('/supervisor/add/agence', 'agenceController@add')->name('add.agence');
 
 Route::group(['middleware' => ['restrict']], function () {
 
