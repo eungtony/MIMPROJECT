@@ -111,21 +111,6 @@ if ($total > 0) {
                             </form>
                         @endif
 
-                        @if($projet->etape_id !== 0)
-                            @foreach($etapes as $etape)
-                                <p
-                                        @if($etape->id == $projet->etape_id) style="color:forestgreen" @endif
-                                @if($etape->id < $projet->etape_id) style="color:lightgray" @endif
-                                        @if($etape->id > $projet->etape_id) style="color:red" @endif>
-                                    {{$etape->etape}}
-                                </p>
-                            @endforeach
-                        @else
-                            <p class="bg-danger">
-                                Projet non commencé
-                            </p>
-                        @endif
-
                         <hr>
 
                         <h3>Progression du projet</h3>
@@ -135,6 +120,22 @@ if ($total > 0) {
                                  aria-valuemax="100" style="width:{{$pc_projet}}%">
                             </div>
                         </div>
+                        @if($projet->etape_id !== 0)
+                            @foreach($etapes as $etape)
+                                <p
+                                        @if($etape->id == $projet->etape_id) class="label label-success" @endif
+                                @if($etape->id < $projet->etape_id) class="label label-primary" style="opacity:0.2;"
+                                        @endif
+                                        @if($etape->id > $projet->etape_id) class="label label-danger"
+                                        style="opacity:0.2;" @endif>
+                                    {{$etape->etape}}
+                                </p>
+                            @endforeach
+                        @else
+                            <p class="bg-danger">
+                                Projet non commencé
+                            </p>
+                        @endif
                         <h3>Progression dans les tâches</h3>
                         @if($projet->etape_id > 0)
                             <div class="progress">

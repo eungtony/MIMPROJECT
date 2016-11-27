@@ -2,6 +2,7 @@
 $user_id = Auth::user()->id;
 $statut_id = Auth::user()->statut_id;
 $ca_id = 1;
+$projets = \App\Projet::where('agence_id', $id)->take(5)->get();
 ?>
 @extends('layouts.app')
 
@@ -25,6 +26,13 @@ $ca_id = 1;
                             <div class="col-md-6">
                                 <h1 class="text-right">{{$agence->nom}}</h1>
                                 <h3 class="text-right">{{$cdp}}</h3>
+                                @if($user_id == $cdp_id || $statut_id == $ca_id)
+                                    <a href="{{route('edit.form.agence', $agence->id)}}" class="btn btn-primary">Modifier
+                                        l'agence</a>
+                                    <a href="{{route('form.add.projet', $agence->id)}}" class="btn btn-success">
+                                        Ajouter un projet
+                                    </a>
+                                @endif
                             </div>
                         </div>
 
@@ -65,12 +73,6 @@ $ca_id = 1;
                         @endif
 
                         @if($user_id == $cdp_id || $statut_id == $ca_id)
-                            <a href="{{route('edit.form.agence', $agence->id)}}" class="btn btn-primary">Modifier
-                                l'agence</a>
-                            <a href="{{route('form.add.projet', $agence->id)}}" class="btn btn-success">
-                                Ajouter un projet
-                            </a>
-                            <hr>
                             <form action="{{route('file.agence', $agence->id)}}" enctype="multipart/form-data"
                                   method="POST">
                                 {{csrf_field()}}
@@ -90,14 +92,12 @@ $ca_id = 1;
                             </form>
                         @endif
 
-                        @foreach($agence->projets as $projet)
+                        @foreach($projets as $projet)
 
                             <?php
                             $travaux = \App\Travail::where('projet_id', $projet->id)->get();
                             $travaux->load('user');
                             $users = \App\User::where('agence_id', $projet->agence_id)->get();
-                            ?>
-                            <?php
                             $done = \App\Travail::where('projet_id', $projet->id)->where('fait', 1)->get()->count();
                             $total = \App\Travail::where('projet_id', $projet->id)->get()->count();
                             $pc = 0;
@@ -107,6 +107,10 @@ $ca_id = 1;
                             }
                             if ($total > 0) {
                                 $pc = 100 * $done / $total;
+                            }
+                            $etape = "Le projet n'a pas encore commencé";
+                            if ($projet->etape_id > 0) {
+                                $etape = \App\Etape::findOrFail($projet->etape_id);
                             }
                             ?>
                             <h1>
@@ -129,7 +133,16 @@ $ca_id = 1;
                             </p>
 
                             <hr>
-                            <h3>Progression du projet</h3>
+                            <h3>Progression du projet
+                                @if($projet->etape_id > 0)
+                                    <span class="label label-success" style="font-size:10px;">
+                                    {!! $etape->etape !!}
+                                        @else
+                                            <span class="label label-warning" style="font-size:10px;">
+                                    {{ $etape }}
+                                                @endif
+                            </span>
+                            </h3>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-success progress-bar-striped"
                                      role="progressbar" aria-valuenow="{{$pc_projet}}" aria-valuemin="0"
@@ -227,7 +240,8 @@ $ca_id = 1;
                                                                    value="{{ csrf_token() }}">
 
                                                             <div class="form-group">
-                                                                <input class="form-control" type="text" name="titre"
+                                                                <input class="form-control" type="text"
+                                                                       name="titre"
                                                                        value="{{$tache->titre}}">
                                                             </div>
                                                             <div class="form-group">
@@ -251,7 +265,8 @@ $ca_id = 1;
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
-                                                                <button class="btn btn-success" type="submit">
+                                                                <button class="btn btn-success"
+                                                                        type="submit">
                                                                     Modifier cette tâche
                                                                 </button>
                                                             </div>
