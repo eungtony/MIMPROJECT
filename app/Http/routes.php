@@ -19,7 +19,6 @@ Route::get('/home', 'HomeController@index');
 
 Route::auth();
 
-Route::group(['middleware' => ['web']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
 //User
@@ -51,7 +50,6 @@ Route::group(['middleware' => ['web']], function () {
 //Supervisor
     Route::get('/supervisor', 'agenceController@supervisor')->name('supervisor');
     Route::post('/supervisor/add/agence', 'agenceController@add')->name('add.agence');
-});
 
 Route::group(['middleware' => ['restrict']], function () {
 
@@ -65,4 +63,5 @@ Route::group(['middleware' => ['restrict']], function () {
 
 //Tâches
     Route::get('/add/tache/{id}/{idp}', 'tacheController@addForm')->name('form.add.tache');
+
 });
