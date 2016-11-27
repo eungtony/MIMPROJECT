@@ -200,8 +200,8 @@ $b_id = 2;
                                     <th>Commentaire</th>
                                     <th>Catégorie</th>
                                     <th>Etat</th>
-                                    <th>Personne assignée</th>
                                     <th>Date limite</th>
+                                    <th>Personne assignée</th>
                                     @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
                                         <th>Modifier</th>
                                         <th>Supprimer</th>
