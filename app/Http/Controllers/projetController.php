@@ -49,7 +49,13 @@ class projetController extends Controller
         $rq = $request->except('_token');
         $agence_id = Projet::findOrFail($pid)->agence_id;
         Projet::findOrFail($pid)->update($rq);
-        return redirect()->route('projet', [$agence_id, $pid])->with('success', 'Le projet a été édité avec succès !');
+        return redirect()->route('projet', [$agence_id, $pid])->with('success', 'Le projet a bien été modifié !');
+    }
+
+    public function destroy($ida, $id)
+    {
+        Projet::destroy($id);
+        return redirect()->route('agence', $ida)->with('success', 'Le projet a bien été supprimé !');
     }
 
     public function addFile($ida, $pid)

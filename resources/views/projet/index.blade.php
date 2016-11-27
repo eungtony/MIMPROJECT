@@ -35,6 +35,10 @@ if ($total > 0) {
                                    class="btn btn-primary">
                                     Modifier
                                 </a>
+                                <a href="{{route('projet.destroy', [$projet->projet_id, $projet->id])}}"
+                                   class="btn btn-danger"
+                                   data-method="delete"
+                                   data-confirm="Voulez-vous réellement supprimer ce projet ?">Supprimer ce projet</a>
                             @endif
                         </h1>
 
