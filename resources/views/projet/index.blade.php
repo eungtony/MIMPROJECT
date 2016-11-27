@@ -2,7 +2,6 @@
 $user_id = Auth::user()->id;
 $statut_id = Auth::user()->statut_id;
 $ca_id = 1;
-$b_id = 2;
 ?>
 @extends('layouts.app')
 
@@ -17,7 +16,7 @@ $b_id = 2;
                         <a href="{{url()->previous()}}">Retour</a>
                         <h1>
                             {{$projet->nom}}
-                            @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                            @if($user_id == $cdp_id || $statut_id == $ca_id)
                                 <a href="{{route('edit.form.projet', [$projet->agence_id,$projet->id])}}"
                                    class="btn btn-primary">
                                     Modifier
@@ -113,7 +112,7 @@ $b_id = 2;
 
                         <h1>
                             Tâches ({{$done}}/{{$total}})
-                            @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                            @if($user_id == $cdp_id || $statut_id == $ca_id)
                                 <a href="{{route('form.add.tache', [$projet->agence_id, $projet->id])}}"
                                    class="btn btn-warning">Ajouter une tache</a>
                             @endif
@@ -153,7 +152,7 @@ $b_id = 2;
                                     <td>
                                         @if($tache->fait == 1) Fait @else Non Fait @endif
                                     </td>
-                                    @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                                    @if($user_id == $cdp_id || $statut_id == $ca_id)
                                         <td>
                                             <a href="#tache{{$tache->id}}" class="btn btn-primary"
                                                data-toggle="collapse" aria-expanded="false"
@@ -168,7 +167,7 @@ $b_id = 2;
                                     @endif
                                 </tr>
 
-                                @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                                @if($user_id == $cdp_id || $statut_id == $ca_id)
                                     <tr>
                                         <td>
                                             <div class="collapse" id="tache{{$tache->id}}">
