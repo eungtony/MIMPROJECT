@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Input;
 
 class projetController extends Controller
 {
+    /**
+     * @param $id
+     * @param $ida
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index($id, $ida){
         $projet = Projet::findOrFail($ida);
         $projet->load('file', 'etape');
@@ -28,10 +33,18 @@ class projetController extends Controller
         return view('projet.index', compact('id', 'ida', 'cdp_id', 'projet', 'taches', 'done', 'total', 'users', 'etapes', 'total_etape'));
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function addForm($id){
         return view('projet.add', compact('id'));
     }
 
+    /**
+     * @param Requests\projetRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function add(Requests\projetRequest $request){
         $rq = $request->except('_token');
         $id = $rq['agence_id'];
@@ -39,12 +52,22 @@ class projetController extends Controller
         return redirect()->route('agence', [$id])->with('success', 'Le projet a été ajouté avec succès !');
     }
 
+    /**
+     * @param $id
+     * @param $idp
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function editForm($id, $idp){
         $projet = Projet::findOrFail($idp);
         $etapes = Etape::all();
         return view('projet.edit', compact('projet', 'id', 'idp', 'etapes'));
     }
 
+    /**
+     * @param $pid
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function edit($pid, Request $request){
         $rq = $request->except('_token');
         $agence_id = Projet::findOrFail($pid)->agence_id;
@@ -52,12 +75,24 @@ class projetController extends Controller
         return redirect()->route('projet', [$agence_id, $pid])->with('success', 'Le projet a bien été modifié !');
     }
 
+    /**
+     * @param $ida
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy($ida, $id)
     {
         Projet::destroy($id);
         return redirect()->route('agence', $ida)->with('success', 'Le projet a bien été supprimé !');
     }
 
+    /************************************** FILE *******************************************/
+
+    /**
+     * @param $ida
+     * @param $pid
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function addFile($ida, $pid)
     {
         $path = base_path() . "/file/$ida/$pid";
@@ -79,6 +114,13 @@ class projetController extends Controller
         }
     }
 
+    /**
+     * @param $ida
+     * @param $pid
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function editFile($ida, $pid, $id, Request $request)
     {
         $rq = $request->except('_token');
@@ -86,6 +128,12 @@ class projetController extends Controller
         return redirect()->route('projet', [$ida, $pid])->with('success', 'Le fichier a bien été modifié !');
     }
 
+    /**
+     * @param $ida
+     * @param $pid
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function deleteFile($ida, $pid, $id)
     {
         $file = \App\File::findOrFail($id);

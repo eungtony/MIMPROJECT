@@ -23,6 +23,10 @@ class agenceController extends Controller
         $this->auth = $auth;
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index($id)
     {
         $agence = Agence::findOrFail($id);
@@ -33,6 +37,9 @@ class agenceController extends Controller
         return view('agence.index', compact('id', 'agence', 'cdp', 'cdp_id', 'users', 'total_etape'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function supervisor()
     {
         if ($this->auth->user()->statut_id == 1) {
@@ -44,6 +51,10 @@ class agenceController extends Controller
         }
     }
 
+    /**
+     * @param Requests\agenceRequest $request
+     * @return mixed
+     */
     public function add(Requests\agenceRequest $request)
     {
         $rq = $request->except('_token');
@@ -51,6 +62,10 @@ class agenceController extends Controller
         return redirect()->route('home');
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function editForm($id)
     {
         $agence = Agence::findOrFail($id);
@@ -59,6 +74,11 @@ class agenceController extends Controller
         return view('agence.edit', compact('id', 'agence', 'users', 'cdp_id'));
     }
 
+    /**
+     * @param $id
+     * @param Request $request
+     * @return mixed
+     */
     public function edit($id, Request $request)
     {
         $rq = $request->except('_token');
@@ -66,6 +86,12 @@ class agenceController extends Controller
         return redirect()->route('agence', [$id])->with('success', 'Votre agence a été modifié avec succès !');
     }
 
+    /************************************** FILE *******************************************/
+
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function addFile($id)
     {
         $path = base_path() . "/file/$id";
@@ -87,6 +113,12 @@ class agenceController extends Controller
         }
     }
 
+    /**
+     * @param $ida
+     * @param $id
+     * @param Request $request
+     * @return mixed
+     */
     public function editFile($ida, $id, Request $request)
     {
         $rq = $request->except('_token');
@@ -94,6 +126,11 @@ class agenceController extends Controller
         return redirect()->route('agence', [$id])->with('success', 'Le fichier a été édité avec succès');
     }
 
+    /**
+     * @param $ida
+     * @param $id
+     * @return mixed
+     */
     public function deleteFile($ida, $id)
     {
         $file = \App\File::findOrFail($id);
