@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Input;
 
 class tacheController extends Controller
 {
+    /**
+     * @param $ida
+     * @param $pid
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index($ida, $pid, $id)
     {
         $taches = Travail::findOrFail($id);
@@ -18,11 +24,20 @@ class tacheController extends Controller
         return view('tache.index', compact('taches'));
     }
 
+    /**
+     * @param $id
+     * @param $idp
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function addForm($id, $idp){
         $categories = Categorie::all();
         return view('tache.add', compact('id', 'idp', 'categories'));
     }
 
+    /**
+     * @param Requests\tacheRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function add(Requests\tacheRequest $request){
         $rq = $request->except('_token');
         $id = $request->only('projet_id');
@@ -31,11 +46,21 @@ class tacheController extends Controller
         return redirect()->route('projet', [$ida['agence_id'], $id['projet_id']])->with('success', 'La tâche a bien été ajoutée !');
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function editForm($id){
         $taches = Travail::findOrFail($id);
         return view('tache.edit', compact('taches', 'id'));
     }
 
+    /**
+     * @param $id
+     * @param $pid
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function edit($id,$pid,Request $request){
         $ida = Travail::findOrFail($id)->agence_id;
         $rq = $request->except('_token', 'fait');
@@ -48,6 +73,10 @@ class tacheController extends Controller
         return redirect()->route('projet', [$ida, $pid])->with('success', 'La tâche a bien été éditée !');
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy($id){
         Travail::findOrFail($id)->delete();
         return redirect()->route('home')->with('success', 'Le tâche a bien été supprimée !');

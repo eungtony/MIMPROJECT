@@ -18,7 +18,7 @@
                         @foreach($taches as $tache)
 
                             <li>
-                                {{$tache->titre}}
+                                <a href="{{route('index.tache', [$tache->agence_id, $tache->projet_id, $tache->id])}}">{{$tache->titre}}</a>
                                 <?php
                                 $date = \Carbon\Carbon::createFromFormat('Y-m-d', $tache->date);
                                 $difference = ($date->diff($now)->days < 1)
