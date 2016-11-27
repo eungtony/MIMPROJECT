@@ -36,7 +36,7 @@ class projetController extends Controller
         $rq = $request->except('_token');
         $id = $rq['agence_id'];
         Projet::create($rq);
-        return redirect()->route('agence', [$id]);
+        return redirect()->route('agence', [$id])->with('success', 'Le projet a été ajouté avec succès !');
     }
 
     public function editForm($id, $idp){
@@ -49,7 +49,7 @@ class projetController extends Controller
         $rq = $request->except('_token');
         $agence_id = Projet::findOrFail($pid)->agence_id;
         Projet::findOrFail($pid)->update($rq);
-        return redirect()->route('projet', [$agence_id,$pid]);
+        return redirect()->route('projet', [$agence_id, $pid])->with('success', 'Le projet a été édité avec succès !');
     }
 
     public function addFile($ida, $pid)
@@ -67,9 +67,9 @@ class projetController extends Controller
             $name = $explode_name[0];
             Input::file('file')->move($path, $file); // uploading file to given path
             \App\File::create(['agence_id' => $ida, 'projet_id' => $pid, 'titre' => $titre, 'extension' => $extension, 'name' => $name]);
-            return redirect()->route('projet', [$ida, $pid]);
+            return redirect()->route('projet', [$ida, $pid])->with('success', 'Le fichier a bien été uploadé !');
         } else {
-            return redirect()->route('projet', [$ida, $pid]);
+            return redirect()->route('projet', [$ida, $pid])->with('success', 'Le fichier a bien été uploadé !');
         }
     }
 
@@ -77,7 +77,7 @@ class projetController extends Controller
     {
         $rq = $request->except('_token');
         \App\File::findOrFail($id)->update($rq);
-        return redirect()->route('projet', [$ida, $pid]);
+        return redirect()->route('projet', [$ida, $pid])->with('success', 'Le fichier a bien été modifié !');
     }
 
     public function deleteFile($ida, $pid, $id)
@@ -90,6 +90,6 @@ class projetController extends Controller
             File::delete($filename);
             \App\File::destroy($id);
         }
-        return redirect()->route('projet', [$ida, $pid]);
+        return redirect()->route('projet', [$ida, $pid])->with('success', 'Le fichier a bien été supprimé !');
     }
 }

@@ -28,7 +28,7 @@ class tacheController extends Controller
         $id = $request->only('projet_id');
         $ida = $request->only('agence_id');
         Travail::create($rq);
-        return redirect()->route('projet', [$ida['agence_id'], $id['projet_id']]);
+        return redirect()->route('projet', [$ida['agence_id'], $id['projet_id']])->with('success', 'La tâche a bien été ajoutée !');
     }
 
     public function editForm($id){
@@ -45,11 +45,11 @@ class tacheController extends Controller
         }else{
             Travail::findOrFail($id)->update(['fait'=> 0]);
         }
-        return redirect()->route('projet', [$ida, $pid]);
+        return redirect()->route('projet', [$ida, $pid])->with('success', 'La tâche a bien été éditée !');
     }
 
     public function destroy($id){
         Travail::findOrFail($id)->delete();
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', 'Le tâche a bien été supprimée !');
     }
 }

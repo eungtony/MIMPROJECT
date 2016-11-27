@@ -64,7 +64,7 @@ class agenceController extends Controller
     {
         $rq = $request->except('_token');
         Agence::findOrFail($id)->update($rq);
-        return redirect()->route('agence', [$id]);
+        return redirect()->route('agence', [$id])->with('success', 'Votre agence a été modifié avec succès !');
     }
 
     public function addFile($id)
@@ -82,9 +82,9 @@ class agenceController extends Controller
             $name = $explode_name[0];
             Input::file('file')->move($path, $file); // uploading file to given path
             \App\File::create(['agence_id' => $id, 'titre' => $titre, 'extension' => $extension, 'name' => $name]);
-            return redirect()->route('agence', $id);
+            return redirect()->route('agence', $id)->with('success', 'Le fichier a été uploadé avec succès !');
         } else {
-            return redirect()->route('agence', $id);
+            return redirect()->route('agence', $id)->with('success', 'Le fichier a été uploadé avec succès !');
         }
     }
 
@@ -92,7 +92,7 @@ class agenceController extends Controller
     {
         $rq = $request->except('_token');
         \App\File::findOrFail($ida)->update($rq);
-        return redirect()->route('agence', [$id]);
+        return redirect()->route('agence', [$id])->with('success', 'Le fichier a été édité avec succès');
     }
 
     public function deleteFile($ida, $id)
@@ -105,6 +105,6 @@ class agenceController extends Controller
             File::delete($filename);
             \App\File::destroy($id);
         }
-        return redirect()->route('agence', [$ida]);
+        return redirect()->route('agence', [$ida])->with('success', 'Le fichier a bien été supprimé !');
     }
 }
