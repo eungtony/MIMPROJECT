@@ -26,7 +26,6 @@ class agenceController extends Controller
     public function index($id)
     {
         $agence = Agence::findOrFail($id);
-        $agence->load('projets');
         $cdp_id = $agence->user_id;
         $cdp = User::findOrFail($cdp_id)->name;
         $users = User::where('agence_id', $id)->get();
