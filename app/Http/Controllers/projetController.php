@@ -16,6 +16,14 @@ use Illuminate\Support\Facades\Input;
 class projetController extends Controller
 {
     /**
+     * projetController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * @param $id
      * @param $ida
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

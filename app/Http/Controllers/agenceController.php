@@ -18,8 +18,13 @@ class agenceController extends Controller
 
     protected $auth;
 
+    /**
+     * agenceController constructor.
+     * @param Guard $auth
+     */
     public function __construct(Guard $auth)
     {
+        $this->middleware('auth');
         $this->auth = $auth;
     }
 

@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Input;
 class tacheController extends Controller
 {
     /**
+     * tacheController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * @param $ida
      * @param $pid
      * @param $id
@@ -29,7 +37,8 @@ class tacheController extends Controller
      * @param $idp
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addForm($id, $idp){
+    public function addForm($id, $idp)
+    {
         $categories = Categorie::all();
         return view('tache.add', compact('id', 'idp', 'categories'));
     }
@@ -38,7 +47,8 @@ class tacheController extends Controller
      * @param Requests\tacheRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function add(Requests\tacheRequest $request){
+    public function add(Requests\tacheRequest $request)
+    {
         $rq = $request->except('_token');
         $id = $request->only('projet_id');
         $ida = $request->only('agence_id');
@@ -50,7 +60,8 @@ class tacheController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($id){
+    public function editForm($id)
+    {
         $taches = Travail::findOrFail($id);
         return view('tache.edit', compact('taches', 'id'));
     }
@@ -61,14 +72,15 @@ class tacheController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit($id,$pid,Request $request){
+    public function edit($id, $pid, Request $request)
+    {
         $ida = Travail::findOrFail($id)->agence_id;
         $rq = $request->except('_token', 'fait');
         Travail::findOrFail($id)->update($rq);
-        if(Input::get('fait') == "0"){
-            Travail::findOrFail($id)->update(['fait'=> 1]);
-        }else{
-            Travail::findOrFail($id)->update(['fait'=> 0]);
+        if (Input::get('fait') == "0") {
+            Travail::findOrFail($id)->update(['fait' => 1]);
+        } else {
+            Travail::findOrFail($id)->update(['fait' => 0]);
         }
         return redirect()->route('projet', [$ida, $pid])->with('success', 'La tâche a bien été éditée !');
     }
@@ -77,7 +89,8 @@ class tacheController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id){
+    public function destroy($id)
+    {
         Travail::findOrFail($id)->delete();
         return redirect()->route('home')->with('success', 'Le tâche a bien été supprimée !');
     }
