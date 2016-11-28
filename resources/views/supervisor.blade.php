@@ -45,7 +45,7 @@
                                 <h3>{{$agence->nom}}</h3>
                                 @foreach($agence->users as $user)
                                     <p>
-                                        <a href="{{route('profile', $user->id)}}">{{$user->name}}</a>
+                                        <a href="{{route('edit.user', $user->id)}}">{{$user->name}}</a>
                                     </p>
                                 @endforeach
                             </div>
