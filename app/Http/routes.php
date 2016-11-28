@@ -24,7 +24,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 //User
 Route::get('/user', 'userController@index')->name('user');
 Route::get('/user/{id}', 'userController@user')->name('profile');
-Route::post('/user/{id}', 'userController@edit');
+Route::get('/user/edit/{id}', 'userController@editForm')->name('edit.user');
+Route::post('/user/{id}/edit', 'userController@edit')->name('user.edit');
 
 //Projet
 Route::get('/projet/{id}/{ida}', 'projetController@index')->name('projet');
