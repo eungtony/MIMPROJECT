@@ -68,19 +68,23 @@
                                 <p class="text-danger">Vous n'avez pas de tâches en cours</p>
                             @else
                                 @foreach($taches as $tache)
-                                    <a href="index.html#">
-                                        <div class="task-info">
-                                            <div class="desc">DashGum Admin Panel</div>
-                                            <div class="percent">40%</div>
+                                    <?php
+                                    $date = \Carbon\Carbon::createFromFormat('Y-m-d', $tache->date);
+                                    $difference = ($date->diff($now)->days < 1) ? 'today' : $date->diffInDays($now);
+                                    ?>
+                                    <div class="task-info">
+                                        <div class="desc">
+                                            <a href="{{route('index.tache', [$tache->agence_id, $tache->projet_id, $tache->id])}}">
+                                                {{$tache->titre}}
+                                                @if($difference > 0)
+                                                    <span class="label label-info">J - {{ $difference }}</span>
+                                                @else
+                                                    <span class="label label-danger">{{ $difference }}
+                                                        de retard !!</span>
+                                                @endif
+                                            </a>
                                         </div>
-                                        <div class="progress progress-striped">
-                                            <div class="progress-bar progress-bar-success" role="progressbar"
-                                                 aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                                 style="width: 40%">
-                                                <span class="sr-only">40% Complete (success)</span>
-                                            </div>
-                                        </div>
-                                    </a>
+                                    </div>
                                 @endforeach
                             @endif
                         </li>
