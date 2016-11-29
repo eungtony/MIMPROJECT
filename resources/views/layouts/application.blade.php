@@ -1,3 +1,6 @@
+<?php
+$taches = \App\Travail::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('fait', 0)->get();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,7 +64,7 @@
                     <ul class="dropdown-menu extended tasks-bar">
                         <div class="notify-arrow notify-arrow-green"></div>
                         <li>
-                            <p class="green">You have {{ $taches->count() }} pending tasks</p>
+                            <p class="green">Vous n'avez aucune tâche assignée</p>
                         </li>
                         <li>
                             @if($taches->isEmpty())
@@ -89,7 +92,7 @@
                             @endif
                         </li>
                         <li class="external">
-                            <a href="#">See All Tasks</a>
+                            <a href="#">Voir toutes les tâches</a>
                         </li>
                     </ul>
                 </li>
@@ -128,7 +131,7 @@
         </div>
         <div class="top-menu">
             <ul class="nav pull-right top-menu">
-                <li><a class="logout" href="{{ url('/logout') }}">Logout</a></li>
+                <li><a class="logout" href="{{ url('/logout') }}">Déconnexion</a></li>
             </ul>
         </div>
     </header>
