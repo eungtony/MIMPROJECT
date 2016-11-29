@@ -151,7 +151,7 @@ $taches = \App\Travail::where('user_id', \Illuminate\Support\Facades\Auth::user(
                 <li class="mt">
                     <a class="active" href="{{ url('/home') }}">
                         <i class="fa fa-dashboard"></i>
-                        <span>Tableau de Bords</span>
+                        <span>Tableau de bord</span>
                     </a>
                 </li>
 
