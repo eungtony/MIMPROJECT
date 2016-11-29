@@ -136,8 +136,10 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                             <!-- TELECHARGEMENT -->
             </div>
         </div>
-
         @include('sidebar')
+    </div>
+
+    <div class="row mt">
 
         @foreach($projets as $projet)
         <?php
@@ -195,7 +197,7 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                                      role="progressbar" aria-valuenow="{{$pc_projet}}" aria-valuemin="0"
                                      aria-valuemax="100" style="width: {{$pc_projet}}%">
                                 </div>
-                            </div>
+                                    </div>
                             <h3>Progression dans les tâches</h3>
                             @if($projet->etape_id > 0)
                                 <div class="progress">
@@ -204,7 +206,7 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                                          aria-valuemax="100" style="width: {{$pc}}%">
                                     </div>
                                 </div>
-                            @else
+                                    @else
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-danger progress-bar-striped"
                                          role="progressbar" aria-valuenow="100" aria-valuemin="0"
@@ -315,7 +317,7 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                                                         </button>
                                                     </div>
                                                 </form>
-                                            </div>
+                                                    </div>
                                         </div>
                                     @endif
                                 </td>
