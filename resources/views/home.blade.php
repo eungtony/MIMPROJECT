@@ -14,14 +14,14 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
             <div class="content-panel">
                 <h1 style="display: inline-block;">{{ $agence->nom }}</h1>
                 @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
-                    <button class="btn btn-primary btn-xs" style="margin-bottom:15px;margin-left:20px;"
-                            href="{{ route('edit.form.agence', $agence->id) }}">
+                    <a class="btn btn-primary btn-xs" style="margin-bottom:15px;margin-left:20px;"
+                       href="{{ route('edit.form.agence', $agence->id) }}">
                         <i class="fa fa-pencil"></i> Modifier l'Agence
-                    </button>
-                    <button class="btn btn-success btn-xs" style="margin-bottom: 15px;"
+                    </a>
+                    <a class="btn btn-success btn-xs" style="margin-bottom: 15px;"
                             href="{{ route('form.add.projet', $agence->id) }}">
                         <i class="fa fa-trash-o "></i> Ajouter un projet
-                    </button>
+                    </a>
                 @endif
             </div>
             <div class="content-panel">
@@ -31,7 +31,7 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                     <thead>
                     <tr>
                         <th><i class="fa fa-bullhorn"></i> Titre</th>
-                        <th class="hidden-phone"><i class="fa fa-question-circle"></i> Commentaires</th>
+                        <th class="hidden-phone"><i class="fa fa-question-circle"></i> Commentaire</th>
                         <th><i class=" fa fa-edit"></i> Etat</th>
                         <th><i class=" fa fa-edit"></i> Date limite</th>
                         <th></th>
@@ -52,24 +52,20 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                                 <td>
                                     <a href="{{ route('index.tache', [$tache->agence_id, $tache->projet_id, $tache->id]) }}">{{ $tache->titre }}</a>
                                 </td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td><span class="label label-warning label-mini">En cour</span></td>
+                                <td class="hidden-phone">{{$tache->commentaire}}</td>
+                                <td><span class="label label-warning label-mini">En cours</span></td>
                                 <?php
                                 $date = \Carbon\Carbon::createFromFormat('Y-m-d', $tache->date);
                                 $difference = ($date->diff($now)->days < 1) ? 'today' : $date->diffInDays($now);
                                 ?>
                                 @if($difference > 0)
-                                    <td class="hidden-phone"><span class="label label-info">J - {{ $difference }}</span>
+                                    <td class="hidden-phone"><span
+                                                class="label label-success">J - {{ $difference }}</span>
                                     </td>
                                 @else
                                     <td class="hidden-phone"><span class="label label-danger">{{ $difference }} de retard !!</span>
                                     </td>
                                 @endif
-                                <td>
-                                    <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                                    <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                                    <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                                </td>
                             </tr>
                         @endforeach
                     @endif
