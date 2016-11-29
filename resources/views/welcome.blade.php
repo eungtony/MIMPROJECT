@@ -1,12 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.application')
 
 @section('content')
-    <div class="container">
-        <div class="panel panel-default">
-            <div class="panel-heading">Welcome</div>
 
-            <div class="panel-body">
-
+    <div class="row mt">
+        <div class="col-lg-9">
+            <div class="content-panel">
                 <h1>Mes tâches ({{$taches->count()}})</h1>
 
                 @if($taches->isEmpty())
@@ -33,10 +31,14 @@
                         @endforeach
                     </ol>
                 @endif
+            </div>
+        </div>
+
+        @include('sidebar')
 
                 @foreach($agences as $agence)
 
-                    <div class="col-md-12">
+            <div class="content-panel">
 
                         <h1>
                             <a href="{{route('agence', $agence->id)}}">{{$agence->nom}}</a>
@@ -114,7 +116,5 @@
                     </div>
 
                 @endforeach
-            </div>
-        </div>
     </div>
 @endsection
