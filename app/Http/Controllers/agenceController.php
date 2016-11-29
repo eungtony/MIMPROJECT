@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Agence;
 use App\Etape;
+use App\Travail;
 use App\User;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
@@ -39,7 +40,9 @@ class agenceController extends Controller
         $cdp = User::findOrFail($cdp_id)->name;
         $users = User::where('agence_id', $id)->get();
         $total_etape = Etape::all()->count();
-        return view('agence.index', compact('id', 'agence', 'cdp', 'cdp_id', 'users', 'total_etape'));
+        $taches = Travail::where('user_id', $this->auth->user()->id)->get();
+        $now = \Carbon\Carbon::now();
+        return view('agence.index', compact('id', 'agence', 'cdp', 'cdp_id', 'users', 'total_etape', 'taches', 'now'));
     }
 
     /**
@@ -127,8 +130,8 @@ class agenceController extends Controller
     public function editFile($ida, $id, Request $request)
     {
         $rq = $request->except('_token');
-        \App\File::findOrFail($ida)->update($rq);
-        return redirect()->route('agence', [$id])->with('success', 'Le fichier a été édité avec succès');
+        \App\File::findOrFail($id)->update($rq);
+        return redirect()->route('agence', [$ida])->with('success', 'Le fichier a été édité avec succès');
     }
 
     /**
