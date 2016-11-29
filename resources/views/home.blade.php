@@ -71,7 +71,6 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                     @endif
                     </tbody>
                 </table>
-                <button class="btn btn-success btn-xs"><i class="fa fa-check fa-fw"></i>Ajouter des Tâches</button>
             </div><!-- /content-panel -->
             <div class="content-panel">
                 <!-- TELECHARGEMENT -->
@@ -320,7 +319,7 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                     @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
                         <a class="btn btn-success btn-xs"
                            href="{{ route('form.add.tache', [$projet->agence_id, $projet->id]) }}"><i
-                                    class="fa fa-check fa-fw"></i>Ajouter des Tâches</a>
+                                    class="fa fa-check fa-fw"></i>Ajouter une tâche</a>
                     @endif
                 </div><!-- /content-panel -->
             </div><!-- /col-md-12 -->
