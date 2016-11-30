@@ -32,7 +32,7 @@
                     <!-- WHITE PANEL - TOP USER -->
                     <div class="white-panel pn">
                         <div class="white-header">
-                            <h5>TOP USER</h5>
+                            <h5><strong>PROFIL</strong></h5>
                         </div>
                         <p><img src="{{ asset('img/ui-zac.jpg') }}" class="img-circle" width="50"></p>
                         <p><b>{{$user->name}}</b></p>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ba3e9b70-aed7-4aa7-8380-aa8ed648dc52" name="Default" comment="add new css font awesome and new icons">
+    <list default="true" id="ba3e9b70-aed7-4aa7-8380-aa8ed648dc52" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/user/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/user/index.blade.php" />
     </list>
@@ -47,8 +47,8 @@
       <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/user/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="19" column="85" lean-forward="false" selection-start-line="19" selection-start-column="85" selection-end-line="19" selection-end-column="85" />
+            <state relative-caret-position="345">
+              <caret line="32" column="46" lean-forward="false" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -365,14 +365,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1478977753876</updated>
-      <workItem from="1480499232687" duration="2356000" />
-    </task>
-    <task id="LOCAL-00042" summary="add category to the task view">
-      <created>1479938217396</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1479938217396</updated>
+      <workItem from="1480499232687" duration="2688000" />
     </task>
     <task id="LOCAL-00043" summary="show category of task">
       <created>1479938238108</created>
@@ -710,11 +703,18 @@
       <option name="project" value="LOCAL" />
       <updated>1480411717478</updated>
     </task>
-    <option name="localTasksCounter" value="91" />
+    <task id="LOCAL-00091" summary="Finish to stylizing user profile page">
+      <created>1480501615549</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1480501615550</updated>
+    </task>
+    <option name="localTasksCounter" value="92" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2356000" />
+    <option name="totallyTimeSpent" value="2688000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -766,7 +766,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="include flash blade php" />
     <MESSAGE value="reformat code" />
     <MESSAGE value="add error message" />
     <MESSAGE value="add error messages" />
@@ -791,7 +790,8 @@
     <MESSAGE value="add new layouts and modify login register and home" />
     <MESSAGE value="add css js and update login register and home" />
     <MESSAGE value="add new css font awesome and new icons" />
-    <option name="LAST_COMMIT_MESSAGE" value="add new css font awesome and new icons" />
+    <MESSAGE value="Finish to stylizing user profile page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finish to stylizing user profile page" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1135,8 +1135,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/user/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="19" column="85" lean-forward="false" selection-start-line="19" selection-start-column="85" selection-end-line="19" selection-end-column="85" />
+        <state relative-caret-position="345">
+          <caret line="32" column="46" lean-forward="false" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
           <folding />
         </state>
       </provider>
