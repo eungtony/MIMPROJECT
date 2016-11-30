@@ -2,7 +2,6 @@
 $user_id = Auth::user()->id;
 $statut_id = Auth::user()->statut_id;
 $ca_id = 1;
-$b_id = 2;
 $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->get();
 ?>
 @extends('layouts.application')
@@ -13,65 +12,71 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
         <div class="col-lg-9" style="margin-bottom: 15px;">
             <div class="content-panel">
                 <h1 style="display: inline-block;">{{ $agence->nom }}</h1>
-                @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
-                    <a class="btn btn-primary btn-xs" style="margin-bottom:15px;margin-left:20px;"
-                       href="{{ route('edit.form.agence', $agence->id) }}">
+                @if($user_id == $cdp_id || $statut_id == $ca_id)
+                    <a href="#agence{{$agence->id}}" class="btn btn-primary btn-xs"
+                       data-toggle="collapse" aria-expanded="false"
+                       aria-controls="#agence{{$agence->id}}" style="margin-bottom: 15px;">
                         <i class="fa fa-pencil"></i> Modifier l'Agence
                     </a>
-                    <a class="btn btn-success btn-xs" style="margin-bottom: 15px;"
-                            href="{{ route('form.add.projet', $agence->id) }}">
+                    <a href="#projet{{$agence->id}}" class="btn btn-success btn-xs"
+                       data-toggle="collapse" aria-expanded="false"
+                       aria-controls="#projet{{$agence->id}}" style="margin-bottom: 15px;">
                         <i class="fa fa-trash-o "></i> Ajouter un projet
                     </a>
+                    <div class="collapse" id="projet{{$agence->id}}">
+                        <form action="{{route('add.projet')}}" method="POST">
+                            <input class="form-control" type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                            <input class="form-control" type="hidden" value="{{$agence->id}}" name="agence_id">
+
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="nom" class="form-control"
+                                       placeholder="Nom du projet">
+                            </div>
+
+                            <div class="form-group">
+                                <textarea class="form-control" type="text" name="commentaire" class="form-control"
+                                          placeholder="Description du projet"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Total heures requis</label><br>
+                                <input class="form-control" type="number" name="total_heures">
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">
+                                    Ajouter le projet
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="collapse" id="agence{{$agence->id}}">
+                        <form action="{{route('edit.agence', $agence->id)}}">
+
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="nom" value="{{$agence->nom}}">
+                            </div>
+
+                            <h4>Sélectionnez le chef de l'agence</h4>
+
+                            <div class="form-group">
+                                <select name="user_id" class="form-control" value="{{$agence->user_id}}">
+                                    @foreach($users as $user)
+                                        <option value="{{$user->id}}"
+                                                @if($user->id == $cdp_id) selected @endif>{{$user->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit">Modifier l'agence</button>
+                            </div>
+
+                        </form>
+                    </div>
                 @endif
             </div>
-            <div class="content-panel">
-                <table class="table table-striped table-advance table-hover">
-                    <h4><i class="fa fa-angle-right"></i> Mes tâches ({{ $taches->count() }})</h4>
-                    <hr>
-                    <thead>
-                    <tr>
-                        <th><i class="fa fa-bullhorn"></i> Titre</th>
-                        <th class="hidden-phone"><i class="fa fa-question-circle"></i> Commentaire</th>
-                        <th><i class=" fa fa-edit"></i> Etat</th>
-                        <th><i class=" fa fa-edit"></i> Date limite</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @if($taches->isEmpty())
-                        <tr>
-                            <td><p class="text-danger">Vous n'avez pas de tâche assignée !</p></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    @else
-                        @foreach($taches as $tache)
-                            <tr>
-                                <td>
-                                    <a href="{{ route('index.tache', [$tache->agence_id, $tache->projet_id, $tache->id]) }}">{{ $tache->titre }}</a>
-                                </td>
-                                <td class="hidden-phone">{{$tache->commentaire}}</td>
-                                <td><span class="label label-warning label-mini">En cours</span></td>
-                                <?php
-                                $date = \Carbon\Carbon::createFromFormat('Y-m-d', $tache->date);
-                                $difference = ($date->diff($now)->days < 1) ? 'today' : $date->diffInDays($now);
-                                ?>
-                                @if($difference > 0)
-                                    <td class="hidden-phone"><span
-                                                class="label label-success">J - {{ $difference }}</span>
-                                    </td>
-                                @else
-                                    <td class="hidden-phone"><span class="label label-danger">{{ $difference }} de retard !!</span>
-                                    </td>
-                                @endif
-                            </tr>
-                        @endforeach
-                    @endif
-                    </tbody>
-                </table>
-            </div><!-- /content-panel -->
             <div class="content-panel">
                 <!-- TELECHARGEMENT -->
                 <h3>Fichiers disponible dans cette agence</h3>
@@ -83,7 +88,7 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                         <a href="{{app_path()}}/{{$agence->id}}/{{$file->name}}.{{$file->extension}}"
                            download="{{$file->titre}}">
                             {{$file->titre}}</a>
-                        @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                        @if($user_id == $cdp_id || $statut_id == $ca_id)
                             <hr>
                             <form action="{{route('file.edit', [$agence->id,$file->id])}}" method="post">
                                 {{csrf_field()}}
@@ -109,7 +114,7 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
 
                 @endif
 
-                @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                @if($user_id == $cdp_id || $statut_id == $ca_id)
                     <form action="{{route('file.agence', $agence->id)}}" enctype="multipart/form-data"
                           method="POST">
                         {{csrf_field()}}
@@ -159,7 +164,7 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                     <h1 style="display: inline-block;"><a
                                 href="{{ route('projet', [$projet->agence_id, $projet->id]) }}">{{ $projet->nom }}</a>
                     </h1>
-                    @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                    @if($user_id == $cdp_id || $statut_id == $ca_id)
                         <a class="btn btn-primary btn-xs" style="margin-bottom: 15px;margin-left: 20px;"
                            href="{{ route('edit.form.projet', [$projet->agence_id, $projet->id]) }}">
                             <i class="fa fa-pencil"></i>
@@ -207,7 +212,7 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                 </div>
                 <div class="content-panel">
                     <table class="table table-striped table-advance table-hover">
-                        <h4><i class="fa fa-angle-right"></i> Tâches ({{ $taches->count() }})</h4>
+                        <h4><i class="fa fa-angle-right"></i> Tâches</h4>
                         <hr>
                         <thead>
                         <tr>
@@ -257,7 +262,7 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                                         @endif
                                     </td>
                                     <td>
-                                        @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                                        @if($user_id == $cdp_id || $statut_id == $ca_id)
                                             <a href="" class="btn btn-success btn-xs"><i class="fa fa-check"></i></a>
                                             <a href="#tache{{$tache->id}}" class="btn btn-primary btn-xs"
                                                data-toggle="collapse" aria-expanded="false"
@@ -269,7 +274,7 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                                         @endif
                                     </td>
                                     <td>
-                                        @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                                        @if($user_id == $cdp_id || $statut_id == $ca_id)
                                             <div class="collapse" id="tache{{$tache->id}}">
                                                 <div class="well">
                                                     <form action="{{route('edit.tache', [$tache->id,$tache->projet_id])}}"
@@ -316,7 +321,7 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                         @endif
                         </tbody>
                     </table>
-                    @if($user_id == $cdp_id || $statut_id == $ca_id || $statut_id == $b_id)
+                    @if($user_id == $cdp_id || $statut_id == $ca_id)
                         <a class="btn btn-success btn-xs"
                            href="{{ route('form.add.tache', [$projet->agence_id, $projet->id]) }}"><i
                                     class="fa fa-check fa-fw"></i>Ajouter une tâche</a>

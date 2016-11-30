@@ -59,6 +59,7 @@
                                 if ($total_etape > 0) {
                                     $pc_projet = 100 * $projet->etape_id / $total_etape;
                                 }
+                                $pc = 0;
                                 if ($total > 0) {
                                     $pc = 100 * $done / $total;
                                 }
