@@ -44,7 +44,8 @@ class HomeController extends Controller
             $agence->load('file', 'users');
             $cdp_id = $agence->user_id;
             $cdp = User::findOrFail($cdp_id)->name;
-            return view('home', compact('id', 'agence', 'cdp', 'cdp_id', 'taches', 'now', 'total_etape'));
+            $users = User::where('statut_id', 3)->get();
+            return view('home', compact('id', 'agence', 'cdp', 'cdp_id', 'taches', 'now', 'total_etape', 'users'));
         }
         $agences = Agence::all();
         $taches = Travail::where('user_id', $this->auth->user()->id)->where('fait', 0)->get();
