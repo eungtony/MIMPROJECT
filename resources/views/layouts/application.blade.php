@@ -1,5 +1,6 @@
 <?php
 $taches = \App\Travail::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('fait', 0)->get();
+$now = \Carbon\Carbon::now();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +65,7 @@ $taches = \App\Travail::where('user_id', \Illuminate\Support\Facades\Auth::user(
                     <ul class="dropdown-menu extended tasks-bar">
                         <div class="notify-arrow notify-arrow-green"></div>
                         <li>
-                            <p class="green">Vous n'avez aucune tâche assignée</p>
+                            <p class="green">Mes tâches</p>
                         </li>
                         <li>
                             @if($taches->isEmpty())
