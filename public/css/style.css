@@ -2342,4 +2342,16 @@ label {
     min-height: 900px;
 }
 
+.register-input {
+    margin-bottom: 10px;
+}
+
+.register-button {
+    width: 100%;
+}
+
+.register-form {
+    height: 470px;
+}
+
 
