@@ -11,7 +11,8 @@
                 <h2 class="form-login-heading">Connexion</h2>
 
                 <div class="login-wrap">
-                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}"
+                           placeholder="Adresse mail">
 
                     @if ($errors->has('email'))
                         <span class="help-block">
@@ -21,7 +22,8 @@
 
                     <br>
 
-                    <input id="password" type="password" class="form-control" name="password">
+                    <input id="password" type="password" class="form-control" name="password"
+                           placeholder="Mot de passe">
 
                     @if ($errors->has('password'))
                         <span class="help-block">
