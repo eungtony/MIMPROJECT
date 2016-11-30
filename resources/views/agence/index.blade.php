@@ -13,14 +13,39 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
             <div class="content-panel">
                 <h1 style="display: inline-block;">{{ $agence->nom }}</h1>
                 @if($user_id == $cdp_id || $statut_id == $ca_id)
-                    <a class="btn btn-primary btn-xs" style="margin-bottom:15px;margin-left:20px;"
-                       href="{{ route('edit.form.agence', $agence->id) }}">
+                    <a href="#agence{{$agence->id}}" class="btn btn-primary btn-xs"
+                       data-toggle="collapse" aria-expanded="false"
+                       aria-controls="#agence{{$agence->id}}" style="margin-bottom: 15px;">
                         <i class="fa fa-pencil"></i> Modifier l'Agence
                     </a>
                     <a class="btn btn-success btn-xs" style="margin-bottom: 15px;"
                        href="{{ route('form.add.projet', $agence->id) }}">
                         <i class="fa fa-trash-o "></i> Ajouter un projet
                     </a>
+                    <div class="collapse" id="agence{{$agence->id}}">
+                        <form action="{{route('edit.agence', $id)}}">
+
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="nom" value="{{$agence->nom}}">
+                            </div>
+
+                            <h4>Sélectionnez le chef de l'agence</h4>
+
+                            <div class="form-group">
+                                <select name="user_id" class="form-control" value="{{$agence->user_id}}">
+                                    @foreach($users as $user)
+                                        <option value="{{$user->id}}"
+                                                @if($user->id == $cdp_id) selected @endif>{{$user->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit">Modifier l'agence</button>
+                            </div>
+
+                        </form>
+                    </div>
                 @endif
             </div>
             <div class="content-panel">
