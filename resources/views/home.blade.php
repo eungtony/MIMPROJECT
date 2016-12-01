@@ -215,127 +215,136 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                                         </div>
                         @endif
                     </div>
-                    <div class="content-panel">
-                        <table class="table table-striped table-advance table-hover">
-                            <h4><i class="fa fa-angle-right"></i> Tâches</h4>
-                            <hr>
-                            <thead>
-                            <tr>
-                                <th><i class="fa fa-bullhorn"></i> Titre</th>
-                                <th class="hidden-phone"><i class="fa fa-question-circle"></i> Commentaires</th>
-                                <th><i class="fa fa-bookmark"></i> Catégorie</th>
-                                <th><i class=" fa fa-edit"></i> Etat</th>
-                                <th><i class=" fa fa-edit"></i> Date limite</th>
-                                <th><i class=" fa fa-edit"></i> Personne assignée</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @if($travaux->isEmpty())
+                    <h3><a href="#task{{$projet->id}}"
+                           data-toggle="collapse" aria-expanded="false"
+                           aria-controls="#task{{$projet->id}}">
+                            Tâches
+                        </a>
+                    </h3>
+                    <div class="collapse" id="task{{$projet->id}}">
+                        <div class="content-panel">
+                            <table class="table table-striped table-advance table-hover">
+                                <h4><i class="fa fa-angle-right"></i> Tâches</h4>
+                                <hr>
+                                <thead>
                                 <tr>
-                                    <td><p class="text-danger">Ce projet ne possède pas de tâches !</p></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <th><i class="fa fa-bullhorn"></i> Titre</th>
+                                    <th class="hidden-phone"><i class="fa fa-question-circle"></i> Commentaires</th>
+                                    <th><i class="fa fa-bookmark"></i> Catégorie</th>
+                                    <th><i class=" fa fa-edit"></i> Etat</th>
+                                    <th><i class=" fa fa-edit"></i> Date limite</th>
+                                    <th><i class=" fa fa-edit"></i> Personne assignée</th>
+                                    <th></th>
                                 </tr>
-                            @else
-                                @foreach($travaux as $tache)
+                                </thead>
+                                <tbody>
+                                @if($travaux->isEmpty())
                                     <tr>
-                                        <td>
-                                            <a href="{{route('index.tache', [$tache->agence_id, $tache->projet_id, $tache->id])}}">
-                                                {{$tache->titre}}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            {{$tache->commentaire}}
-                                        </td>
-                                        <td>
-                                            {{$tache->categorie->titre}}
-                                        </td>
-                                        <td>
-                                            @if($tache->fait == 1) Fait @else Non Fait @endif
-                                        </td>
-                                        <td>
-                                            {{$tache->date}}
-                                        </td>
-                                        <td class="hidden-phone">
-                                            @if($tache->user)
-                                                {{$tache->user['name']}}
-                                            @else
-                                                Aucune personne assignée
-                                            @endif
-                                        </td>
-                                        <td>
+                                        <td><p class="text-danger">Ce projet ne possède pas de tâches !</p></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                @else
+                                    @foreach($travaux as $tache)
+                                        <tr>
+                                            <td>
+                                                <a href="{{route('index.tache', [$tache->agence_id, $tache->projet_id, $tache->id])}}">
+                                                    {{$tache->titre}}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                {{$tache->commentaire}}
+                                            </td>
+                                            <td>
+                                                {{$tache->categorie->titre}}
+                                            </td>
+                                            <td>
+                                                @if($tache->fait == 1) Fait @else Non Fait @endif
+                                            </td>
+                                            <td>
+                                                {{$tache->date}}
+                                            </td>
+                                            <td class="hidden-phone">
+                                                @if($tache->user)
+                                                    {{$tache->user['name']}}
+                                                @else
+                                                    Aucune personne assignée
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($user_id == $cdp_id || $statut_id == $ca_id)
+                                                    <a href="" class="btn btn-success btn-xs"><i
+                                                                class="fa fa-check"></i></a>
+                                                    <a href="#tache{{$tache->id}}" class="btn btn-primary btn-xs"
+                                                       data-toggle="modal" aria-expanded="false"
+                                                       aria-controls="#tache{{$tache->id}}"><i class="fa fa-pencil"></i></a>
+                                                    <a href="{{ action('tacheController@destroy', $tache->id) }}"
+                                                       class="btn btn-danger btn-xs" data-method="delete"
+                                                       data-confirm="Souhaitez-vous réellement supprimer cette tâche ?"><i
+                                                                class="fa fa-trash-o "></i></a>
+                                                @endif
+                                            </td>
                                             @if($user_id == $cdp_id || $statut_id == $ca_id)
-                                                <a href="" class="btn btn-success btn-xs"><i
-                                                            class="fa fa-check"></i></a>
-                                                <a href="#tache{{$tache->id}}" class="btn btn-primary btn-xs"
-                                                   data-toggle="modal" aria-expanded="false"
-                                                   aria-controls="#tache{{$tache->id}}"><i class="fa fa-pencil"></i></a>
-                                                <a href="{{ action('tacheController@destroy', $tache->id) }}"
-                                                   class="btn btn-danger btn-xs" data-method="delete"
-                                                   data-confirm="Souhaitez-vous réellement supprimer cette tâche ?"><i
-                                                            class="fa fa-trash-o "></i></a>
-                                            @endif
-                                        </td>
-                                        @if($user_id == $cdp_id || $statut_id == $ca_id)
-                                            <div class="modal fade" id="tache{{$tache->id}}" role="dialog">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            Modifier cette tâche
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form action="{{route('edit.tache', [$tache->id,$tache->projet_id])}}"
-                                                                  method="POST">
-                                                                <input type="hidden" name="_token"
-                                                                       value="{{ csrf_token() }}">
+                                                <div class="modal fade" id="tache{{$tache->id}}" role="dialog">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                Modifier cette tâche
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="{{route('edit.tache', [$tache->id,$tache->projet_id])}}"
+                                                                      method="POST">
+                                                                    <input type="hidden" name="_token"
+                                                                           value="{{ csrf_token() }}">
 
-                                                                <div class="form-group">
-                                                                    <input class="form-control" type="text" name="titre"
-                                                                           value="{{$tache->titre}}">
-                                                                </div>
-                                                                <div class="form-group">
+                                                                    <div class="form-group">
+                                                                        <input class="form-control" type="text"
+                                                                               name="titre"
+                                                                               value="{{$tache->titre}}">
+                                                                    </div>
+                                                                    <div class="form-group">
                                         <textarea class="form-control" name="commentaire" id=""
                                                   cols="30"
                                                   rows="2">{{$tache->commentaire}}</textarea>
-                                                                </div>
-                                                                <label for="" class="checkbox-inline">
-                                                                    <input type="checkbox" name="fait"
-                                                                           value="{{$tache->fait}}"
-                                                                           @if($tache->fait == 1) checked @endif>
-                                                                    Etat de la tâche
-                                                                </label>
-                                                                <hr>
-                                                                <div class="form-group">
-                                                                    <select name="user_id" class="form-control">
-                                                                        @foreach($users as $u)
-                                                                            <option value="{{$u->id}}"
-                                                                                    @if($u->id == $tache->user_id) selected @endif >{{$u->name}}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <button class="btn btn-success" type="submit">
-                                                                        Modifier cette tâche
-                                                                    </button>
-                                                                </div>
-                                                            </form>
+                                                                    </div>
+                                                                    <label for="" class="checkbox-inline">
+                                                                        <input type="checkbox" name="fait"
+                                                                               value="{{$tache->fait}}"
+                                                                               @if($tache->fait == 1) checked @endif>
+                                                                        Etat de la tâche
+                                                                    </label>
+                                                                    <hr>
+                                                                    <div class="form-group">
+                                                                        <select name="user_id" class="form-control">
+                                                                            @foreach($users as $u)
+                                                                                <option value="{{$u->id}}"
+                                                                                        @if($u->id == $tache->user_id) selected @endif >{{$u->name}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <button class="btn btn-success" type="submit">
+                                                                            Modifier cette tâche
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                    @endif
-                                @endforeach
+                                        @endif
+                                    @endforeach
+                                @endif
+                                </tbody>
+                            </table>
+                            @if($user_id == $cdp_id || $statut_id == $ca_id)
+                                <a class="btn btn-success btn-xs"
+                                   href="{{ route('form.add.tache', [$projet->agence_id, $projet->id]) }}"><i
+                                            class="fa fa-check fa-fw"></i>Ajouter une tâche</a>
                             @endif
-                            </tbody>
-                        </table>
-                        @if($user_id == $cdp_id || $statut_id == $ca_id)
-                            <a class="btn btn-success btn-xs"
-                               href="{{ route('form.add.tache', [$projet->agence_id, $projet->id]) }}"><i
-                                        class="fa fa-check fa-fw"></i>Ajouter une tâche</a>
-                        @endif
+                        </div>
                     </div>
                 </div><!-- /content-panel -->
             </div><!-- /col-md-12 -->
