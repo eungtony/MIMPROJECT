@@ -32,9 +32,7 @@ $projets = \App\Projet::where('agence_id', \Illuminate\Support\Facades\Auth::use
                 <h3>Fichiers disponible dans cette agence</h3>
 
                 @if(!$agence->file->isEmpty())
-
                     @foreach($agence->file as $file)
-
                         <a href="{{app_path()}}/{{$agence->id}}/{{$file->name}}.{{$file->extension}}"
                            download="{{$file->titre}}">
                             {{$file->titre}}</a>
@@ -46,15 +44,11 @@ $projets = \App\Projet::where('agence_id', \Illuminate\Support\Facades\Auth::use
                                data-confirm="Voulez-vous supprimer ce fichier ?">Supprimer</a>
                         @endif
                     @endforeach
-
                 @else
-
                     <p class="bg-danger">
                         Aucun fichier présent.
                     </p>
-
                 @endif
-
                 @if($user_id == $cdp_id || $statut_id == $ca_id)
                     <a href="#file" class="btn btn-primary"
                        data-toggle="collapse" aria-expanded="false"
