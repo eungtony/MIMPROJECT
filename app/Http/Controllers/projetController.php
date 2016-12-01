@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Agence;
+use App\Categorie;
 use App\Etape;
 use App\Projet;
 use App\Travail;
@@ -37,8 +38,9 @@ class projetController extends Controller
         $total = $taches->count();
         $users = User::where('agence_id', $id)->get();
         $etapes = Etape::all();
+        $categories = Categorie::all();
         $total_etape = Etape::all()->count();
-        return view('projet.index', compact('id', 'ida', 'cdp_id', 'projet', 'taches', 'done', 'total', 'users', 'etapes', 'total_etape'));
+        return view('projet.index', compact('id', 'categories', 'ida', 'cdp_id', 'projet', 'taches', 'done', 'total', 'users', 'etapes', 'total_etape'));
     }
 
     /**
