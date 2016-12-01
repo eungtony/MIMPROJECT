@@ -99,6 +99,8 @@ $projets = \App\Projet::where('agence_id', \Illuminate\Support\Facades\Auth::use
                             {{ $projet->nom }}
                         </a>
                     </h1>
+                    <a href="{{route('projet', [$projet->agence_id, $projet->id])}}" class="btn btn-success btn-xs"
+                       style="margin-bottom: 15px;margin-left: 20px;">Détail du projet</a>
                     @if($user_id == $cdp_id || $statut_id == $ca_id)
                         <a class="btn btn-primary btn-xs" style="margin-bottom: 15px;margin-left: 20px;"
                            href="#edit{{$projet->id}}" data-toggle="modal" aria-controls="#edit{{$projet->id}}">
