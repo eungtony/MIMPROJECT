@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Agence;
+use App\Categorie;
 use App\Etape;
 use App\Travail;
 use App\User;
@@ -42,7 +43,9 @@ class agenceController extends Controller
         $total_etape = Etape::all()->count();
         $taches = Travail::where('user_id', $this->auth->user()->id)->get();
         $now = \Carbon\Carbon::now();
-        return view('agence.index', compact('id', 'agence', 'cdp', 'cdp_id', 'users', 'total_etape', 'taches', 'now'));
+        $etapes = Etape::all();
+        $categories = Categorie::all();
+        return view('agence.index', compact('id', 'etapes', 'categories', 'agence', 'cdp', 'cdp_id', 'users', 'total_etape', 'taches', 'now'));
     }
 
     /**
