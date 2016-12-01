@@ -2,7 +2,7 @@
 $user_id = Auth::user()->id;
 $statut_id = Auth::user()->statut_id;
 $ca_id = 1;
-$projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->get();
+$projets = \App\Projet::where('agence_id', \Illuminate\Support\Facades\Auth::user()->agence_id)->take(5)->get();
 ?>
 @extends('layouts.application')
 
@@ -115,25 +115,34 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                 @endif
 
                 @if($user_id == $cdp_id || $statut_id == $ca_id)
-                    <form action="{{route('file.agence', $agence->id)}}" enctype="multipart/form-data"
-                          method="POST">
-                        {{csrf_field()}}
-                        <div class="form-group">
-                            <label for="">Nommer votre fichier</label>
-                            <input class="form-control" type="text" name="titre">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Téleverser un fichier</label>
-                            <input type="file" name="file" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">
-                                Téleverser
-                            </button>
-                        </div>
-                    </form>
+                    <a href="#file" class="btn btn-primary"
+                       data-toggle="collapse" aria-expanded="false"
+                       aria-controls="#file">
+                        Téléverser un fichier
+                    </a>
+                    <div class="collapse" id="file">
+                        <hr>
+                        <form action="{{route('file.agence', $agence->id)}}" enctype="multipart/form-data"
+                              method="POST">
+                            {{csrf_field()}}
+                            <div class="form-group">
+                                <label for="">Nommer votre fichier</label>
+                                <input class="form-control" type="text" name="titre">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Téleverser un fichier</label>
+                                <input type="file" name="file" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">
+                                    Téleverser
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                     @endif
                             <!-- TELECHARGEMENT -->
+                    <h1 class="text-right">Projets de l'agence</h1>
             </div>
             @foreach($projets as $projet)
             <?php
@@ -170,7 +179,7 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                     </h1>
                     @if($user_id == $cdp_id || $statut_id == $ca_id)
                         <a class="btn btn-primary btn-xs" style="margin-bottom: 15px;margin-left: 20px;"
-                           href="{{ route('edit.form.projet', [$projet->agence_id, $projet->id]) }}">
+                           href="#edit{{$projet->id}}" data-toggle="modal" aria-controls="#edit{{$projet->id}}">
                             <i class="fa fa-pencil"></i>
                         </a>
                         <a class="btn btn-danger btn-xs" style="margin-bottom: 15px;"
@@ -178,6 +187,73 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                            data-confirm="Voulez-vous réellement supprimer ce projet ?">
                             <i class="fa fa-trash-o "></i>
                         </a>
+                        <div class="modal fade" id="edit{{$projet->id}}" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        Editer le projet
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{route('edit.projet', $projet->id)}}" method="POST">
+
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" name="nom"
+                                                       value="{{$projet->nom}}" class="form-control"
+                                                       placeholder="Nom du projet">
+                                            </div>
+
+                                            <div class="form-group">
+                                    <textarea class="form-control" type="text" name="commentaire" class="form-control"
+                                              placeholder="Description du projet">
+                                        {{$projet->commentaire}}
+                                    </textarea>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="">Encaissé</label><br>
+                                                <input class="form-control" type="number" name="encaisse"
+                                                       value="{{$projet->encaisse}}">
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="">Facturable</label><br>
+                                                <input class="form-control" type="number" name="facturable"
+                                                       value="{{$projet->facturable}}">
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="">Total heures requis</label><br>
+                                                <input class="form-control" type="number" name="total_heures"
+                                                       value="{{$projet->total_heures}}">
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="">Heures faites</label><br>
+                                                <input class="form-control" type="number" name="heures_faites"
+                                                       value="{{$projet->heures_faites}}">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <select class="form-control" name="etape_id">
+                                                    @foreach($etapes as $etape)
+                                                        <option value="{{$etape->id}}"
+                                                                @if($etape->id == $projet->etape_id) selected @endif>{{$etape->etape}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary">
+                                                    Editer le projet
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     @endif
                     <div class="collapse" id="pr{{$projet->id}}">
                         <hr>
@@ -215,7 +291,8 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                                         </div>
                         @endif
                     </div>
-                    <h3><a href="#task{{$projet->id}}"
+                    <h3><i class="fa fa-angle-right"></i>
+                        <a href="#task{{$projet->id}}"
                            data-toggle="collapse" aria-expanded="false"
                            aria-controls="#task{{$projet->id}}">
                             Tâches
@@ -224,7 +301,7 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                     <div class="collapse" id="task{{$projet->id}}">
                         <div class="content-panel">
                             <table class="table table-striped table-advance table-hover">
-                                <h4><i class="fa fa-angle-right"></i> Tâches</h4>
+                                <h4>Tâches</h4>
                                 <hr>
                                 <thead>
                                 <tr>
@@ -239,13 +316,74 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                                 </thead>
                                 <tbody>
                                 @if($travaux->isEmpty())
-                                    <tr>
-                                        <td><p class="text-danger">Ce projet ne possède pas de tâches !</p></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                    @if($user_id == $cdp_id || $statut_id == $ca_id)
+                                        <a class="btn btn-success btn-xs"
+                                           href="#addtask{{$projet->id}}" data-toggle="modal"
+                                           data-target="#addtask{{$projet->id}}"><i
+                                                    class="fa fa-check fa-fw"></i>Ajouter une tâche</a>
+                                        <div class="modal fade" id="addtask{{$projet->id}}" role="dialog">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        Ajouter une tâche
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="{{route('add.tache')}}" method="POST">
+
+                                                            <input type="hidden" name="_token"
+                                                                   value="{{ csrf_token() }}">
+
+                                                            <input type="hidden" value="{{$projet->id}}"
+                                                                   name="projet_id">
+                                                            <input type="hidden" value="{{$projet->agence_id}}"
+                                                                   name="agence_id">
+
+                                                            <div class="form-group">
+                                                                <input class="form-control" type="text" class=""
+                                                                       name="titre"
+                                                                       placeholder="Titre de la tâche">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                        <textarea class="form-control"
+                                                                                  name="commentaire"
+                                                                                  placeholder="Commentaire de la tâche"></textarea>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="">Catégorie de la tâche</label>
+                                                                <select name="categorie_id" id=""
+                                                                        class="form-control">
+                                                                    @foreach($categories as $categorie)
+                                                                        <option value="{{$categorie->id}}">{{$categorie->titre}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="">Date</label><br>
+                                                                <input type="text" id="datepicker" name="date"
+                                                                       class="form-control">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <button type="submit" class="btn btn-primary">
+                                                                    Ajouter la tâche
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                        <tr>
+                                            <td><p class="text-danger">Ce projet ne possède pas de tâches !</p></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
                                 @else
                                     @foreach($travaux as $tache)
                                         <tr>
@@ -279,15 +417,16 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                                                                 class="fa fa-check"></i></a>
                                                     <a href="#tache{{$tache->id}}" class="btn btn-primary btn-xs"
                                                        data-toggle="modal" aria-expanded="false"
-                                                       aria-controls="#tache{{$tache->id}}"><i class="fa fa-pencil"></i></a>
+                                                       aria-controls="#tache{{$tache->id}}"><i
+                                                                class="fa fa-pencil"></i></a>
                                                     <a href="{{ action('tacheController@destroy', $tache->id) }}"
                                                        class="btn btn-danger btn-xs" data-method="delete"
                                                        data-confirm="Souhaitez-vous réellement supprimer cette tâche ?"><i
                                                                 class="fa fa-trash-o "></i></a>
                                                 @endif
                                             </td>
-                                            @if($user_id == $cdp_id || $statut_id == $ca_id)
-                                                <div class="modal fade" id="tache{{$tache->id}}" role="dialog">
+                                                @if($user_id == $cdp_id || $statut_id == $ca_id)
+                                                <div class="modal fade" id="tache{{$projet->id}}" role="dialog">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -325,8 +464,75 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                                                                         </select>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <button class="btn btn-success" type="submit">
+                                                                        <button class="btn btn-success"
+                                                                                type="submit">
                                                                             Modifier cette tâche
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                <a class="btn btn-success btn-xs"
+                                                   href="#addtask{{$projet->id}}" data-toggle="modal"
+                                                   data-target="#addtask{{$projet->id}}"><i
+                                                            class="fa fa-check fa-fw"></i>Ajouter une tâche</a>
+
+                                                <div class="modal fade" id="addtask{{$projet->id}}" role="dialog">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                Ajouter une tâche
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="{{route('add.tache')}}" method="POST">
+
+                                                                    <input type="hidden" name="_token"
+                                                                           value="{{ csrf_token() }}">
+
+                                                                    <input type="hidden"
+                                                                           value="{{$tache->projet_id}}"
+                                                                           name="projet_id">
+                                                                    <input type="hidden"
+                                                                           value="{{$tache->agence_id}}"
+                                                                           name="agence_id">
+
+                                                                    <div class="form-group">
+                                                                        <input class="form-control" type="text"
+                                                                               class=""
+                                                                               name="titre"
+                                                                               placeholder="Titre de la tâche">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <textarea class="form-control"
+                                                                                  name="commentaire"
+                                                                                  placeholder="Commentaire de la tâche"></textarea>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="">Catégorie de la tâche</label>
+                                                                        <select name="categorie_id" id=""
+                                                                                class="form-control">
+                                                                            @foreach($categories as $categorie)
+                                                                                <option value="{{$categorie->id}}">{{$categorie->titre}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="">Date</label><br>
+                                                                        <input type="text" id="datepicker"
+                                                                               name="date"
+                                                                               class="form-control">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <button type="submit"
+                                                                                class="btn btn-primary">
+                                                                            Ajouter la tâche
                                                                         </button>
                                                                     </div>
                                                                 </form>
@@ -340,9 +546,6 @@ $projets = \App\Projet::where('agence_id', Auth::user()->agence_id)->take(5)->ge
                                 </tbody>
                             </table>
                             @if($user_id == $cdp_id || $statut_id == $ca_id)
-                                <a class="btn btn-success btn-xs"
-                                   href="{{ route('form.add.tache', [$projet->agence_id, $projet->id]) }}"><i
-                                            class="fa fa-check fa-fw"></i>Ajouter une tâche</a>
                             @endif
                         </div>
                     </div>

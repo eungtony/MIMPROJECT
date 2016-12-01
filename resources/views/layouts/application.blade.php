@@ -21,6 +21,7 @@ $now = \Carbon\Carbon::now();
     <link rel="stylesheet" type="text/css" href="{{ asset('css/zabuto_calendar.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('js/gritter/css/jquery.gritter.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('lineicons/style.css') }}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -227,6 +228,7 @@ $now = \Carbon\Carbon::now();
 <!--script for this page-->
 <script src="{{ asset('js/sparkline-chart.js') }}"></script>
 <script src="{{url('/js/laravel.js')}}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
     $(function () {
         $("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});

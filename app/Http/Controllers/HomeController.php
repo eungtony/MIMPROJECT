@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Agence;
+use App\Categorie;
 use App\Etape;
 use App\Http\Requests;
 use App\Travail;
@@ -45,7 +46,9 @@ class HomeController extends Controller
             $cdp_id = $agence->user_id;
             $cdp = User::findOrFail($cdp_id)->name;
             $users = User::where('statut_id', 3)->get();
-            return view('home', compact('id', 'agence', 'cdp', 'cdp_id', 'taches', 'now', 'total_etape', 'users'));
+            $etapes = Etape::all();
+            $categories = Categorie::all();
+            return view('home', compact('id', 'agence', 'etapes', 'categories', 'cdp', 'cdp_id', 'taches', 'now', 'total_etape', 'users'));
         }
         $agences = Agence::all();
         $taches = Travail::where('user_id', $this->auth->user()->id)->where('fait', 0)->get();
