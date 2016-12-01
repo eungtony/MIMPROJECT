@@ -23,6 +23,9 @@ $agence->load('file', 'users');
     <!-- USERS ONLINE SECTION -->
     <h3>TEAM MEMBERS</h3>
     @foreach($agence->users as $user)
+        <?php
+        $statut = \App\Poste::findOrFail($user->poste_id);
+        ?>
         <div class="desc">
             <div class="thumb">
                 <img class="img-circle" src="{{ asset('img/ui-divya.jpg') }}" width="35px" height="35px"
@@ -30,7 +33,7 @@ $agence->load('file', 'users');
             </div>
             <div class="details">
                 <p><a href="{{ route('profile', $user->id) }}">{{ $user->name }}</a><br/>
-                    <muted>Available</muted>
+                    <muted>{{$statut['nom']}}</muted>
                 </p>
             </div>
         </div>
