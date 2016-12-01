@@ -214,9 +214,9 @@ $projets = \App\Projet::where('agence_id', \Illuminate\Support\Facades\Auth::use
                                                     <a href="" class="btn btn-success btn-xs"><i
                                                                 class="fa fa-check"></i></a>
                                                     <a href="#tache{{$tache->id}}" class="btn btn-primary btn-xs"
-                                                       data-toggle="modal" aria-expanded="false"
-                                                       aria-controls="#tache{{$tache->id}}"><i
-                                                                class="fa fa-pencil"></i></a>
+                                                       data-toggle="modal" data-target="#tache{{$tache->id}}">
+                                                        <i class="fa fa-pencil"></i></a>
+                                                    @include('tache.edit')
                                                     <a href="{{ action('tacheController@destroy', $tache->id) }}"
                                                        class="btn btn-danger btn-xs" data-method="delete"
                                                        data-confirm="Souhaitez-vous réellement supprimer cette tâche ?"><i
@@ -224,7 +224,6 @@ $projets = \App\Projet::where('agence_id', \Illuminate\Support\Facades\Auth::use
                                                 @endif
                                             </td>
                                             @if($user_id == $cdp_id || $statut_id == $ca_id)
-                                                @include('tache.edit')
                                                 <a class="btn btn-success btn-xs"
                                                    href="#addtask{{$projet->id}}" data-toggle="modal"
                                                    data-target="#addtask{{$projet->id}}"><i
