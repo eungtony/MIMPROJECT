@@ -2,7 +2,7 @@
 $taches = \App\Travail::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('fait', 0)->get();
 $now = \Carbon\Carbon::now();
 ?>
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -84,7 +84,7 @@ $now = \Carbon\Carbon::now();
                                                 @if($difference > 0)
                                                     <span class="label label-info">J - {{ $difference }}</span>
                                                 @else
-                                                    <span class="label label-danger">{{ $difference }}
+                                                    <span class="label label-danger">{{ $difference }} jours
                                                         de retard !!</span>
                                                 @endif
                                             </a>
@@ -176,6 +176,27 @@ $now = \Carbon\Carbon::now();
                         </a>
                         <ul class="sub">
                             <li><a href="{{ url('/supervisor') }}">Voir les Agences</a></li>
+                        </ul>
+                    </li>
+                @endif
+                @if(Auth::user()->statut_id == 1 || Auth::user()->statut_id == 2)
+                    <?php
+                    $agences = \App\Agence::all();
+                    ?>
+                    <li class="sub-menu">
+                        <a href="javascript:;">
+                            <i class="fa fa-cogs"></i>
+                            <span>Les agences</span>
+                        </a>
+                        <ul class="sub">
+                            @foreach($agences as $agence)
+                                <li class="mt">
+                                    <a href="{{ route('agence', $agence) }}">
+                                        <i class="fa fa-dashboard"></i>
+                                        <span>{{$agence->nom}}</span>
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </li>
                 @endif
