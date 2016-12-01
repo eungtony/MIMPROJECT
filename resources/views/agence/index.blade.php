@@ -2,7 +2,7 @@
 $user_id = Auth::user()->id;
 $statut_id = Auth::user()->statut_id;
 $ca_id = 1;
-$projets = \App\Projet::where('agence_id', $id)->take(5)->get();
+$projets = \App\Projet::where('agence_id', \Illuminate\Support\Facades\Auth::user()->agence_id)->take(5)->get();
 ?>
 @extends('layouts.application')
 
@@ -99,6 +99,8 @@ $projets = \App\Projet::where('agence_id', $id)->take(5)->get();
                             {{ $projet->nom }}
                         </a>
                     </h1>
+                    <a href="{{route('projet', [$projet->agence_id, $projet->id])}}" class="btn btn-success btn-xs"
+                       style="margin-bottom: 15px;margin-left: 20px;">Détail du projet</a>
                     @if($user_id == $cdp_id || $statut_id == $ca_id)
                         <a class="btn btn-primary btn-xs" style="margin-bottom: 15px;margin-left: 20px;"
                            href="#edit{{$projet->id}}" data-toggle="modal" aria-controls="#edit{{$projet->id}}">
@@ -111,6 +113,14 @@ $projets = \App\Projet::where('agence_id', $id)->take(5)->get();
                         </a>
                         @include('projet.edit')
                     @endif
+                    <span style="margin-left:30px;">
+                        <a href="#task{{$projet->id}}"
+                           data-toggle="collapse" aria-expanded="false"
+                           aria-controls="#task{{$projet->id}}"
+                           style="font-size:25px;">
+                            Voir les tâches
+                        </a>
+                    </span>
                     <div class="collapse" id="pr{{$projet->id}}">
                         <hr>
                         <p><strong>Description :</strong> {{ $projet->commentaire }}</p>
@@ -147,13 +157,6 @@ $projets = \App\Projet::where('agence_id', $id)->take(5)->get();
                                         </div>
                         @endif
                     </div>
-                    <h3><i class="fa fa-angle-right"></i>
-                        <a href="#task{{$projet->id}}"
-                           data-toggle="collapse" aria-expanded="false"
-                           aria-controls="#task{{$projet->id}}">
-                            Tâches
-                        </a>
-                    </h3>
                     <div class="collapse" id="task{{$projet->id}}">
                         <div class="content-panel">
                             <table class="table table-striped table-advance table-hover">
@@ -181,10 +184,6 @@ $projets = \App\Projet::where('agence_id', $id)->take(5)->get();
                                     @endif
                                     <tr>
                                         <td><p class="text-danger">Ce projet ne possède pas de tâches !</p></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
                                     </tr>
                                 @else
                                     @foreach($travaux as $tache)
@@ -218,8 +217,9 @@ $projets = \App\Projet::where('agence_id', $id)->take(5)->get();
                                                     <a href="" class="btn btn-success btn-xs"><i
                                                                 class="fa fa-check"></i></a>
                                                     <a href="#tache{{$tache->id}}" class="btn btn-primary btn-xs"
-                                                       data-toggle="modal" aria-expanded="false"
-                                                       aria-controls="#tache{{$tache->id}}"><i class="fa fa-pencil"></i></a>
+                                                       data-toggle="modal" data-target="#tache{{$tache->id}}">
+                                                        <i class="fa fa-pencil"></i></a>
+                                                    @include('tache.edit')
                                                     <a href="{{ action('tacheController@destroy', $tache->id) }}"
                                                        class="btn btn-danger btn-xs" data-method="delete"
                                                        data-confirm="Souhaitez-vous réellement supprimer cette tâche ?"><i
@@ -227,7 +227,6 @@ $projets = \App\Projet::where('agence_id', $id)->take(5)->get();
                                                 @endif
                                             </td>
                                             @if($user_id == $cdp_id || $statut_id == $ca_id)
-                                                @include('tache.edit')
                                                 <a class="btn btn-success btn-xs"
                                                    href="#addtask{{$projet->id}}" data-toggle="modal"
                                                    data-target="#addtask{{$projet->id}}"><i

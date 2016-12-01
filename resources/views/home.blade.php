@@ -113,6 +113,14 @@ $projets = \App\Projet::where('agence_id', \Illuminate\Support\Facades\Auth::use
                         </a>
                         @include('projet.edit')
                     @endif
+                    <span style="margin-left:30px;">
+                        <a href="#task{{$projet->id}}"
+                           data-toggle="collapse" aria-expanded="false"
+                           aria-controls="#task{{$projet->id}}"
+                           style="font-size:25px;">
+                            Voir les tâches
+                        </a>
+                    </span>
                     <div class="collapse" id="pr{{$projet->id}}">
                         <hr>
                         <p><strong>Description :</strong> {{ $projet->commentaire }}</p>
@@ -149,13 +157,6 @@ $projets = \App\Projet::where('agence_id', \Illuminate\Support\Facades\Auth::use
                                         </div>
                         @endif
                     </div>
-                    <h3><i class="fa fa-angle-right"></i>
-                        <a href="#task{{$projet->id}}"
-                           data-toggle="collapse" aria-expanded="false"
-                           aria-controls="#task{{$projet->id}}">
-                            Tâches
-                        </a>
-                    </h3>
                     <div class="collapse" id="task{{$projet->id}}">
                         <div class="content-panel">
                             <table class="table table-striped table-advance table-hover">
