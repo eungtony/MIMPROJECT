@@ -42,6 +42,7 @@ Route::get('/agence/{id}', 'agenceController@index')->name('agence');
 Route::post('/agence/{id}', 'agenceController@addFile')->name('file.agence');
 Route::post('/agence/edit/file/{ida}/{id}', 'agenceController@editFile')->name('file.edit');
 Route::delete('/agence/delete/file/{ida}/{id}', 'agenceController@deleteFile')->name('file.delete');
+Route::post('/agence/message/{ida}/{id}', 'agenceController@addMessage')->name('message.agence');
 
 
 //Tâches
