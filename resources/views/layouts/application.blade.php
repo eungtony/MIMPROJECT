@@ -180,7 +180,7 @@ $now = \Carbon\Carbon::now();
                     <li class="sub-menu">
                         <a href="javascript:;">
                             <i class="fa fa-cogs"></i>
-                            <span>Supervisor</span>
+                            <span>Administration</span>
                         </a>
                         <ul class="sub">
                             <li><a href="{{ url('/supervisor') }}">Voir les Agences</a></li>
