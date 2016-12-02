@@ -2,7 +2,7 @@
 $agence_id = \Illuminate\Support\Facades\Auth::user()->agence_id;
 $agence = \App\Agence::findOrFail($agence_id);
 $agence->load('file', 'users');
-$messages = \App\Message::where('agence_id', Auth::user()->agence_id)->get();
+$messages = \App\Message::where('agence_id', Auth::user()->agence_id)->take(5)->get();
 ?>
         <!--  RIGHT SIDEBAR CONTENT -->
 <div class="col-lg-3 ds">
@@ -62,7 +62,21 @@ $messages = \App\Message::where('agence_id', Auth::user()->agence_id)->get();
                                  width="35px" height="35px">
                         @endif
                     </div>
-                    {{$message->titre}}
+                    <a href="#message{{$message->id}}" data-toggle="modal">
+                        {{$message->titre}}
+                    </a>
+                </div>
+            </div>
+            <div class="modal fade" id="message{{$message->id}}" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            {{$message->titre}}
+                        </div>
+                        <div class="modal-body">
+                            {{$message->message}}
+                        </div>
+                    </div>
                 </div>
             </div>
         @endforeach
