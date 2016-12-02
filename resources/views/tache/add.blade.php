@@ -10,11 +10,10 @@
                     <input type="hidden" name="_token"
                            value="{{ csrf_token() }}">
 
-                    <input type="hidden" value="{{$tache->projet_id}}"
+                    <input type="hidden" value="{{$projet->id}}"
                            name="projet_id">
-                    <input type="hidden" value="{{$tache->agence_id}}"
+                    <input type="hidden" value="{{$projet->agence_id}}"
                            name="agence_id">
-
                     <div class="form-group">
                         <input class="form-control" type="text" class=""
                                name="titre"
