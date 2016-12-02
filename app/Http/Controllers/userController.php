@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
 
 class userController extends Controller
 {
@@ -68,4 +69,15 @@ class userController extends Controller
         return redirect()->route('profile', $id)->with('success', 'Le profil a été modifié avec succès !');
     }
 
+    public function editAvatar($id)
+    {
+        $path = public_path() . "/avatars";
+        if (!Input::hasFile('avatar')) {
+            return redirect()->route('home')->with('success', 'Vous n\'avez pas upload d\'avatar !');
+        }
+        $extension = Input::file('avatar')->getClientOriginalExtension();
+        Input::file('avatar')->move($path, $id . '.' . $extension); // uploading file to given path
+        User::findOrFail($id)->update(['extension' => $extension, 'avatar' => 1]);
+        return redirect()->route('home')->with('success', 'Votre avatar a été modifé avec succès !');
+    }
 }
