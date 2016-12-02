@@ -28,13 +28,35 @@ $agence->load('file', 'users');
         ?>
         <div class="desc">
             <div class="thumb">
-                <img class="img-circle" src="{{ asset('img/ui-divya.jpg') }}" width="35px" height="35px"
-                     align="">
+                @if($user->avatar == 0)
+                    <img class="img-circle" src="{{ asset('avatars/user.png') }}" width="35px" height="35px"
+                         align="">
+                @else
+                    <img src="{{ asset('avatars/'.$user->id.'.'.$user->extension) }}" class="img-circle" width="35px"
+                         height="35px">
+                @endif
             </div>
             <div class="details">
                 <p><a href="{{ route('profile', $user->id) }}">{{ $user->name }}</a><br/>
                     <muted>{{$statut['nom']}}</muted>
                 </p>
+            </div>
+        </div>
+    @endforeach
+    <h3>MESSAGES DE VOTRE AGENCE</h3>
+    @foreach($agence->users as $user)
+        <div class="desc">
+            <div class="details">
+                <div class="thumb">
+                    @if($user->avatar == 0)
+                        <img class="img-circle" src="{{ asset('avatars/user.png') }}" width="35px" height="35px"
+                             align="">
+                    @else
+                        <img src="{{ asset('avatars/'.$user->id.'.'.$user->extension) }}" class="img-circle"
+                             width="35px" height="35px">
+                    @endif
+                </div>
+                Messages LOL
             </div>
         </div>
     @endforeach
