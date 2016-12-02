@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Agence;
 use App\Categorie;
 use App\Etape;
+use App\Message;
 use App\Travail;
 use App\User;
 use Illuminate\Contracts\Auth\Guard;
@@ -153,5 +154,12 @@ class agenceController extends Controller
             \App\File::destroy($id);
         }
         return redirect()->route('agence', [$ida])->with('success', 'Le fichier a bien été supprimé !');
+    }
+
+    public function addMessage($ida, $id, Requests\messageRequest $request)
+    {
+        $rq = $request->except('_token');
+        Message::create($rq);
+        return redirect()->route('home')->with('success', 'Votre message a bien été publié !');
     }
 }
