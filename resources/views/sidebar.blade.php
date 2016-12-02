@@ -2,6 +2,7 @@
 $agence_id = \Illuminate\Support\Facades\Auth::user()->agence_id;
 $agence = \App\Agence::findOrFail($agence_id);
 $agence->load('file', 'users');
+$messages = \App\Message::where('agence_id', $agence_id)->get();
 ?>
         <!--  RIGHT SIDEBAR CONTENT -->
 <div class="col-lg-3 ds">
@@ -44,20 +45,26 @@ $agence->load('file', 'users');
         </div>
     @endforeach
     <h3>MESSAGES DE VOTRE AGENCE</h3>
-    @foreach($agence->users as $user)
-        <div class="desc">
-            <div class="details">
-                <div class="thumb">
-                    @if($user->avatar == 0)
-                        <img class="img-circle" src="{{ asset('avatars/user.png') }}" width="35px" height="35px"
-                             align="">
-                    @else
-                        <img src="{{ asset('avatars/'.$user->id.'.'.$user->extension) }}" class="img-circle"
-                             width="35px" height="35px">
-                    @endif
+    @if($messages->isEmpty())
+        <p class="alert alert-error">
+            Aucun message de publié dans votre agence.
+        </p>
+    @else
+        @foreach($messages as $message)
+            <div class="desc">
+                <div class="details">
+                    <div class="thumb">
+                        @if($user->avatar == 0)
+                            <img class="img-circle" src="{{ asset('avatars/user.png') }}" width="35px" height="35px"
+                                 align="">
+                        @else
+                            <img src="{{ asset('avatars/'.$user->id.'.'.$user->extension) }}" class="img-circle"
+                                 width="35px" height="35px">
+                        @endif
+                    </div>
+                    {{$message->titre}}
                 </div>
-                Messages LOL
             </div>
-        </div>
-    @endforeach
+        @endforeach
+    @endif
 </div><!-- /col-lg-3 -->
