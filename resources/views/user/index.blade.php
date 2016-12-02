@@ -33,6 +33,12 @@
                     <div class="white-panel pn">
                         <div class="white-header">
                             <h5><strong>PROFIL</strong></h5>
+                            <span>
+                                <a href="#avatar" class="btn btn-primary btn-xs" data-toggle="modal"
+                                   data-target="#avatar">
+                                    Changer mon avatar
+                                </a>
+                            </span>
                         </div>
                         <p><img src="{{ asset('img/ui-zac.jpg') }}" class="img-circle" width="50"></p>
                         <p><b>{{$user->name}}</b></p>
@@ -51,8 +57,41 @@
                             </div>
                         </div>
                     </div>
+                    <hr>
                 </div><!-- /col-md-4 -->
                 @include('sidebar')
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal fade" id="avatar" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Modifier mon avatar
+                </div>
+                <div class="modal-body text-center">
+
+                    <h3>Votre avatar</h3>
+                    <hr>
+                    @if(Auth::user()->avatar == 0)
+                        <img src="{{ asset('avatars/user.png') }}" alt="default" class="img-circle" width="60">
+                    @else
+                        <img src="{{ asset('avatars/'.Auth::user()->id.'.'.Auth::user()->extension) }}" alt="default"
+                             class="img-circle" width="60">
+                    @endif
+                    <hr>
+                    <form action="{{route('user.avatar', Auth::user())}}" method="POST" enctype="multipart/form-data">
+                        {{csrf_field()}}
+                        <div class="form-group">
+                            <input type="file" class="form-control" name="avatar">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Modifier votre avatar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
