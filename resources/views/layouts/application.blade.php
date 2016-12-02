@@ -146,8 +146,16 @@ $now = \Carbon\Carbon::now();
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
 
-                <p class="centered"><a href="profile.html"><img src="{{ asset('img/ui-sam.jpg') }}" class="img-circle"
-                                                                width="60"></a></p>
+                <p class="centered">
+                    <a href="{{route('profile', Auth::user())}}">
+                        @if(Auth::user()->avatar == 0)
+                            <img src="{{ asset('img/ui-sam.jpg') }}" class="img-circle" width="60">
+                        @else
+                            <img src="{{ asset('avatars/'.Auth::user()->id.'.'.Auth::user()->extension) }}"
+                                 class="img-circle" width="60">
+                        @endif
+                    </a>
+                </p>
                 <h5 class="centered">{{ Auth::user()->name }}</h5>
 
                 <li class="mt">
