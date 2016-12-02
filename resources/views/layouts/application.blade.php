@@ -212,6 +212,7 @@ $now = \Carbon\Carbon::now();
     <section id="main-content">
         <section class="wrapper">
 
+            @include('flash')
             @yield('content')
 
         </section>
