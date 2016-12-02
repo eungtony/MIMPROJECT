@@ -2,7 +2,7 @@
 $agence_id = \Illuminate\Support\Facades\Auth::user()->agence_id;
 $agence = \App\Agence::findOrFail($agence_id);
 $agence->load('file', 'users');
-$messages = \App\Message::where('agence_id', $agence_id)->get();
+$messages = \App\Message::where('agence_id', Auth::user()->agence_id)->get();
 ?>
         <!--  RIGHT SIDEBAR CONTENT -->
 <div class="col-lg-3 ds">
