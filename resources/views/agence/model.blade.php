@@ -152,9 +152,7 @@
                                 <thead>
                                 <tr>
                                     <th><i class="fa fa-bullhorn"></i> Titre</th>
-                                    <th class="hidden-phone"><i class="fa fa-question-circle"></i> Commentaires</th>
                                     <th><i class="fa fa-bookmark"></i> Catégorie</th>
-                                    <th><i class=" fa fa-edit"></i> Etat</th>
                                     <th><i class=" fa fa-edit"></i> Date limite</th>
                                     <th><i class=" fa fa-edit"></i> Personne assignée</th>
                                     <th></th>
@@ -188,13 +186,7 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                {{$tache->commentaire}}
-                                            </td>
-                                            <td>
                                                 {{$tache->categorie->titre}}
-                                            </td>
-                                            <td>
-                                                @if($tache->fait == 1) Fait @else Non Fait @endif
                                             </td>
                                             <td>
                                                 {{$tache->date}}
