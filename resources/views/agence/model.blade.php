@@ -15,6 +15,11 @@
                        aria-controls="#projet{{$agence->id}}" style="margin-bottom: 15px;">
                         <i class="fa fa-trash-o "></i> Ajouter un projet
                     </a>
+                    <a href="#message" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#message"
+                       style="margin-bottom: 15px;">
+                        <i class="fa fa-mail-reply"></i> Publier un message
+                    </a>
+                    @include('agence.message')
                     @include('projet.add')
                     @include('agence.edit')
                 @endif
