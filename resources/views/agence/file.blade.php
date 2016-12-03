@@ -1,6 +1,6 @@
 <div class="collapse" id="file">
     <hr>
-    <form action="{{route('file.agence', $agence->id)}}" enctype="multipart/form-data"
+    <form action="{{route('file.agence', $agence->id)}}" class="form-inline" enctype="multipart/form-data"
           method="POST">
         {{csrf_field()}}
         <div class="form-group">
