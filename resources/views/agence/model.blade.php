@@ -3,7 +3,9 @@
     <div class="row mt">
         <div class="col-lg-9" style="margin-bottom: 15px;">
             <div class="content-panel">
-                <h1 style="display: inline-block;">{{ $agence->nom }}</h1>
+                @if(Route::is('home'))
+                    @include('info')
+                @endif
                 @if($user_id == $cdp_id || $statut_id == $ca_id)
                     <a href="#agence{{$agence->id}}" class="btn btn-primary btn-xs"
                        data-toggle="collapse" aria-expanded="false"
@@ -32,13 +34,11 @@
                     @foreach($agence->file as $file)
                         <a href="{{app_path()}}/{{$agence->id}}/{{$file->name}}.{{$file->extension}}"
                            download="{{$file->titre}}">
-                            {{$file->titre}}</a>
+                            {{$file->titre}}
+                        </a><br>
+                        <hr>
                         @if($user_id == $cdp_id || $statut_id == $ca_id)
-                            <hr>
                             @include('agence.editFile')
-                            <a href="{{route('file.delete', [$agence->id,$file->id])}}" class="btn btn-danger"
-                               data-method="delete"
-                               data-confirm="Voulez-vous supprimer ce fichier ?">Supprimer</a>
                         @endif
                     @endforeach
                 @else
@@ -47,6 +47,7 @@
                     </p>
                 @endif
                 @if($user_id == $cdp_id || $statut_id == $ca_id)
+                    <hr>
                     <a href="#file" class="btn btn-primary"
                        data-toggle="collapse" aria-expanded="false"
                        aria-controls="#file">
@@ -55,7 +56,7 @@
                     @include('agence.file')
                     @endif
                             <!-- TELECHARGEMENT -->
-                    <h1 class="text-right">Projets de l'agence</h1>
+                    <h3 class="text-right">Projets de l'agence</h3>
             </div>
             @foreach($projets as $projet)
             <?php
@@ -83,13 +84,13 @@
                     <!-- TABLEAU PROJETS -->
             <div style="margin-bottom: 15px;">
                 <div class="content-panel">
-                    <h1 style="display: inline-block;">
+                    <h3 style="display: inline-block;">
                         <a href="#pr{{$projet->id}}"
                            data-toggle="collapse" aria-expanded="false"
                            aria-controls="#pr{{$projet->id}}">
                             {{ $projet->nom }}
                         </a>
-                    </h1>
+                    </h3>
                     <a href="{{route('projet', [$projet->agence_id, $projet->id])}}" class="btn btn-success btn-xs"
                        style="margin-bottom: 15px;margin-left: 20px;">Détail du projet</a>
                     @if($user_id == $cdp_id || $statut_id == $ca_id)
@@ -108,7 +109,7 @@
                         <a href="#task{{$projet->id}}"
                            data-toggle="collapse" aria-expanded="false"
                            aria-controls="#task{{$projet->id}}"
-                           style="font-size:25px;">
+                           style="font-size:12px;">
                             <i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
                             Voir les tâches
                         </a>
