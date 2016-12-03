@@ -146,10 +146,8 @@ if ($total > 0) {
                 <table class="table">
                     <thead>
                     <th>Titre</th>
-                    <th>Commentaire</th>
                     <th>Date limite</th>
                     <th>Personne assignée</th>
-                    <th>Catégorie</th>
                     <th>Etat</th>
                     </thead>
 
@@ -164,9 +162,6 @@ if ($total > 0) {
                                 </a>
                             </td>
                             <td>
-                                {{$tache->commentaire}}
-                            </td>
-                            <td>
                                 {{$tache->date}}
                             </td>
                             <td>
@@ -178,9 +173,6 @@ if ($total > 0) {
                             </td>
                             <td>
                                 {{$tache->categorie->titre}}
-                            </td>
-                            <td>
-                                @if($tache->fait == 1) Fait @else Non Fait @endif
                             </td>
                             @if($user_id == $cdp_id || $statut_id == $ca_id)
                                 <td>
