@@ -60,11 +60,11 @@ class userController extends Controller
 
     public function edit($id, Request $request)
     {
-        if (!$request->has('new_password')) {
-            return back()->with('error', 'Vous n\'avez pas rentré de mot de passe !');
-        }
-        $user = User::findOrFail($id);
         $rq = $request->except('_token', 'new_password');
+        if (!$request->has('new_password')) {
+            User::findOrFail($id)->update($rq);
+            return redirect()->route('profile', $id)->with('success', 'Le profil a été modifié avec succès ! (le mot de passe n\'a pas été modifié)');
+        }
         $apw = $request->new_password;
         $cpw = bcrypt($apw);
         User::findOrFail($id)->update(['password' => $cpw]);
