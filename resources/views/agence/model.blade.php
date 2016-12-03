@@ -187,9 +187,11 @@
                                     @foreach($travaux as $tache)
                                         <tr>
                                             <td>
-                                                <a href="{{route('index.tache', [$tache->agence_id, $tache->projet_id, $tache->id])}}">
+                                                <a href="#tache{{$tache->id}}" data-toggle="modal"
+                                                   data-target="#tache{{$tache->id}}">
                                                     {{$tache->titre}}
                                                 </a>
+                                                @include('tache.index')
                                             </td>
                                             <td>
                                                 {{$tache->categorie->titre}}
