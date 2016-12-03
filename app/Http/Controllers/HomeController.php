@@ -6,6 +6,8 @@ use App\Agence;
 use App\Categorie;
 use App\Etape;
 use App\Http\Requests;
+use App\Message;
+use App\Projet;
 use App\Travail;
 use App\User;
 use Carbon\Carbon;
@@ -48,7 +50,13 @@ class HomeController extends Controller
             $users = User::where('statut_id', 3)->get();
             $etapes = Etape::all();
             $categories = Categorie::all();
-            return view('home', compact('id', 'agence', 'etapes', 'categories', 'cdp', 'cdp_id', 'taches', 'now', 'total_etape', 'users'));
+            $messages = Message::where('agence_id', $agence_id)->get();
+            $projets = Projet::where('agence_id', $agence_id)->get();
+            $bankable = 0;
+            foreach ($projets as $projet) {
+                $bankable = $bankable + $projet->encaisse;
+            }
+            return view('home', compact('id', 'bankable', 'messages', 'projets', 'agence', 'etapes', 'categories', 'cdp', 'cdp_id', 'taches', 'now', 'total_etape', 'users'));
         }
         $agences = Agence::all();
         $taches = Travail::where('user_id', $this->auth->user()->id)->where('fait', 0)->get();
