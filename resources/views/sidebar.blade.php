@@ -6,6 +6,7 @@ $messages = \App\Message::where('agence_id', Auth::user()->agence_id)->take(5)->
 ?>
         <!--  RIGHT SIDEBAR CONTENT -->
 <div class="col-lg-3 ds">
+    <h3 style="margin-bottom: 10px">{{$agence->nom}}</h3>
     <!--COMPLETED ACTIONS DONUTS CHART-->
     <h3>NOTIFICATIONS</h3>
     <!-- First Action -->
@@ -51,6 +52,7 @@ $messages = \App\Message::where('agence_id', Auth::user()->agence_id)->take(5)->
         </p>
     @else
         @foreach($messages as $message)
+            <?php $user = \App\User::findOrFail($message->user_id); ?>
             <div class="desc">
                 <div class="details">
                     <div class="thumb">
@@ -65,6 +67,9 @@ $messages = \App\Message::where('agence_id', Auth::user()->agence_id)->take(5)->
                     <a href="#message{{$message->id}}" data-toggle="modal">
                         {{$message->titre}}
                     </a>
+                    <p class="text-right">
+                        {{$message->created_at}}
+                    </p>
                 </div>
             </div>
             <div class="modal fade" id="message{{$message->id}}" role="dialog">
