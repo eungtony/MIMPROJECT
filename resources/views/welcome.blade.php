@@ -4,10 +4,80 @@
 
     <div class="row mt">
         <div class="col-lg-9">
-            <div class="content-panel">
+            <div class="panel-content">
                 @include('admininfo')
-            </div>
-            <div id="accordion">
+                <div class="row mt">
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    Dernières tâches réalisées
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <td>Titre de la tâche</td>
+                                            <td>Catégorie</td>
+                                            <td>Nom du projet</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @if(!$tasks->isEmpty())
+                                            @foreach($tasks as $task)
+                                                <tr>
+                                                    <td>{{$task->titre}}</td>
+                                                    <td>{{$task->categorie->titre}}</td>
+                                                    <td>{{$task->projet->nom}}</td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <p class="alert alert-danger">
+                                                    Aucun montant ajouté !
+                                                </p>
+                                            </tr>
+                                        @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    Livret de compte
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <td>Date</td>
+                                            <td>Libéllé</td>
+                                            <td>Montant</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @if(!$tresorerie->isEmpty())
+                                            @foreach($tresorerie as $tr)
+                                                <tr>
+                                                    <td>{{$tr->created_at}}</td>
+                                                    <td>{{$tr->libelle}}</td>
+                                                    <td>{{$tr->montant}} €</td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <p class="alert alert-danger">
+                                                Aucune tâche n'a été effectuée !
+                                            </p>
+                                        @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 @foreach($agences as $agence)
                     <?php
                     $cdp_id = $agence->user_id;
