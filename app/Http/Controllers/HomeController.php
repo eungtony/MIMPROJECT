@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Message;
 use App\Projet;
 use App\Travail;
+use App\Tresorerie;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Guard;
@@ -71,6 +72,21 @@ class HomeController extends Controller
         }
         $taches = Travail::where('user_id', $this->auth->user()->id)->where('fait', 0)->get();
         $taches->load('projet', 'file');
-        return view('welcome', compact('agences', 'taches', 'now', 'total_etape', 'facturable', 'encaisse', 'nb_projet'));
+        $tasks = Travail::where('fait', 1)->take(5)->get();
+        $tasks->load('categorie', 'projet');
+        $tresorerie = Tresorerie::all()->take(5);
+        $tresoreries = Tresorerie::all();
+        $total_tres = 0;
+        foreach ($tresoreries as $tresorery) {
+            $total_tres = $total_tres + $tresorery->montant;
+        }
+        return view('welcome', compact('agences', 'tasks', 'total_tres', 'tresorerie', 'taches', 'now', 'total_etape', 'facturable', 'encaisse', 'nb_projet'));
+    }
+
+    public function addOrRemoveMoney(Request $request)
+    {
+        $rq = $request->except('_token');
+        Tresorerie::create($rq);
+        return redirect()->route('home')->with('success', 'La trésorerie a bien été modifiée !');
     }
 }
