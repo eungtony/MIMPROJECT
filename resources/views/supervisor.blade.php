@@ -40,14 +40,7 @@
                     </div>
 
                     <hr>
-
-                    <a href="#listagence"
-                       data-toggle="collapse" aria-expanded="false"
-                       aria-controls="#listagence">
                         <h1>Liste des agences</h1>
-                    </a>
-
-                    <div class="collapse" id="listagence">
                         @foreach($agences as $agence)
                             <div class="col-md-3">
                                 <h3>{{$agence->nom}}</h3>
@@ -58,7 +51,6 @@
                                 @endforeach
                             </div>
                         @endforeach
-                    </div>
 
                 </div>
             </div>
