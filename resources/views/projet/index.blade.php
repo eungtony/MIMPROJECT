@@ -93,29 +93,21 @@ if ($total > 0) {
                     </div>
                 @endif
                 <hr>
-                <h3>Progression du projet</h3>
+                <h3>Progression du projet
+                    <span>
+                        <a href="#progression_projet" data-toggle="modal" class="btn btn-info btn-xs">
+                            <i class="fa fa-info"></i>
+                            Détail de la progression
+                        </a>
+                    </span>
+                </h3>
+                @include('projet.progression')
                 <div class="progress">
                     <div class="progress-bar progress-bar-success progress-bar-striped"
                          role="progressbar" aria-valuenow="{{$pc_projet}}" aria-valuemin="0"
                          aria-valuemax="100" style="width:{{$pc_projet}}%">
                     </div>
                 </div>
-                @if($projet->etape_id !== 0)
-                    @foreach($etapes as $etape)
-                        <p
-                                @if($etape->id == $projet->etape_id) class="label label-success" @endif
-                        @if($etape->id < $projet->etape_id) class="label label-primary" style="opacity:0.2;"
-                                @endif
-                                @if($etape->id > $projet->etape_id) class="label label-danger"
-                                style="opacity:0.2;" @endif>
-                            {{$etape->etape}}
-                        </p>
-                    @endforeach
-                @else
-                    <p class="bg-danger">
-                        Projet non commencé
-                    </p>
-                @endif
                 <h3>Progression dans les tâches</h3>
                 @if($projet->etape_id > 0)
                     <div class="progress">
@@ -132,113 +124,7 @@ if ($total > 0) {
                         </div>
                     </div>
                 @endif
-
-                <hr>
-
-                <h1>
-                    Tâches ({{$done}}/{{$total}})
-                    @if($user_id == $cdp_id || $statut_id == $ca_id)
-                        <a href="#addtask{{$projet->id}}" data-toggle="modal" data-target="#addtask{{$projet->id}}"
-                           class="btn btn-warning">Ajouter une tache</a>
-                    @endif
-                </h1>
-
-                <table class="table">
-                    <thead>
-                    <th>Titre</th>
-                    <th>Date limite</th>
-                    <th>Personne assignée</th>
-                    <th>Etat</th>
-                    </thead>
-
-                    <tbody>
-
-                    @foreach($taches as $tache)
-                        @include('tache.add')
-                        <tr @if($tache->fait == 1) class="bg-success" @endif>
-                            <td>
-                                <a href="{{route('index.tache', [$tache->agence_id, $tache->projet_id, $tache->id])}}">
-                                    {{$tache->titre}}
-                                </a>
-                            </td>
-                            <td>
-                                {{$tache->date}}
-                            </td>
-                            <td>
-                                @if($tache->user)
-                                    {{$tache->user->name}}
-                                @else
-                                    Aucune personne assignée
-                                @endif
-                            </td>
-                            <td>
-                                {{$tache->categorie->titre}}
-                            </td>
-                            @if($user_id == $cdp_id || $statut_id == $ca_id)
-                                <td>
-                                    <a href="#tache{{$tache->id}}" class="btn btn-primary"
-                                       data-toggle="collapse" aria-expanded="false"
-                                       aria-controls="#tache{{$tache->id}}">Modifier</a>
-                                </td>
-                                <td>
-                                    <a href="{{action('tacheController@destroy', $tache->id)}}"
-                                       data-method="delete"
-                                       data-confirm="Souhaitez-vous réellement supprimer cette tâche ?"
-                                       class="btn btn-danger">Supprimer</a>
-                                </td>
-                            @endif
-                        </tr>
-
-                        @if($user_id == $cdp_id || $statut_id == $ca_id)
-                            <div class="collapse" id="tache{{$tache->id}}">
-                                <div class="well">
-                                    <form action="{{route('edit.tache', [$tache->id, $tache->projet_id])}}"
-                                          method="POST">
-                                        <input type="hidden" name="_token"
-                                               value="{{ csrf_token() }}">
-
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" name="titre"
-                                                   value="{{$tache->titre}}">
-                                        </div>
-                                        <div class="form-group">
-                                                        <textarea class="form-control" name="commentaire" id=""
-                                                                  cols="30" rows="2">{{$tache->commentaire}}</textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Date</label><br>
-                                            <input type="text" id="datepicker" name="date"
-                                                   value="{{$tache->date}}" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="" class="checkbox-inline">
-                                                <input type="checkbox" name="fait" id="fait"
-                                                       value="{{$tache->fait}}"
-                                                       @if($tache->fait == 1) checked @endif>
-                                                Etat de la tâche
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <select name="user_id" class="form-control">
-                                                @foreach($users as $u)
-                                                    <option value="{{$u->id}}"
-                                                            @if($u->id == $tache->user_id) selected @endif >{{$u->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <hr>
-                                        <div class="form-group">
-                                            <button class="btn btn-success" type="submit">
-                                                Modifier cette tâche
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        @endif
-                    @endforeach
-                    </tbody>
-                </table>
+                @include('tache.list')
             </div>
         </div>
         @include('sidebar')
