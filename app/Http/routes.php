@@ -49,6 +49,7 @@ Route::resource('tache', 'tacheController');
 //Supervisor
 Route::get('/supervisor', 'agenceController@supervisor')->name('supervisor');
 Route::post('/supervisor/add/agence', 'agenceController@add')->name('add.agence');
+Route::post('/supervisor/addorremovemoney', 'HomeController@addOrRemoveMoney')->name('money');
 
 Route::group(['middleware' => ['restrict']], function () {
 
