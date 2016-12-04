@@ -194,6 +194,16 @@ $now = \Carbon\Carbon::now();
                     <li class="sub-menu">
                         <a href="javascript:;">
                             <i class="fa fa-cogs"></i>
+                            <span>Trésorerie</span>
+                        </a>
+                        <ul class="sub">
+                            <li><a href="{{ url('/supervisor') }}">Gérer la trésorerie</a></li>
+                            <li><a href="#money" data-toggle="modal">Ajouter un montant</a></li>
+                        </ul>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="javascript:;">
+                            <i class="fa fa-cogs"></i>
                             <span>Les agences</span>
                         </a>
                         <ul class="sub">
