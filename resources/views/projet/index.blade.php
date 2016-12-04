@@ -6,6 +6,7 @@ $done = \App\Travail::where('projet_id', $projet->id)->where('fait', 1)->get()->
 $total = \App\Travail::where('projet_id', $projet->id)->get()->count();
 $pc = 0;
 $pc_projet = 0;
+$now = \Carbon\Carbon::now();
 if ($total_etape > 0) {
     $pc_projet = 100 * $projet->etape_id / $total_etape;
 }
