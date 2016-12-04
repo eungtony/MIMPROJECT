@@ -59,8 +59,18 @@ class HomeController extends Controller
             return view('home', compact('id', 'bankable', 'messages', 'projets', 'agence', 'etapes', 'categories', 'cdp', 'cdp_id', 'taches', 'now', 'total_etape', 'users'));
         }
         $agences = Agence::all();
+        $agences->load('projets');
+        $facturable = 0;
+        $encaisse = 0;
+        $nb_projet = Projet::all()->count();
+        foreach ($agences as $agence) {
+            foreach ($agence->projets as $projet) {
+                $facturable = $facturable + $projet->facturable;
+                $encaisse = $encaisse + $projet->encaisse;
+            }
+        }
         $taches = Travail::where('user_id', $this->auth->user()->id)->where('fait', 0)->get();
         $taches->load('projet', 'file');
-        return view('welcome', compact('agences', 'taches', 'now', 'total_etape'));
+        return view('welcome', compact('agences', 'taches', 'now', 'total_etape', 'facturable', 'encaisse', 'nb_projet'));
     }
 }
