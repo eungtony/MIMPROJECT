@@ -1,31 +1,31 @@
 <div class="row mtbox">
     <div class="col-md-3 col-sm-2 box0">
         <div class="box1">
-            <span class="li_cloud"></span>
-            <h3>{{$agence->file->count()}} fichier(s)</h3>
+            <span class="li_data"></span>
+            <h3>{{$nb_projet}} projet(s)</h3>
         </div>
-        <p>{{$agence->file->count()}} fichier(s) dans votre agence</p>
+        <p>{{$nb_projet}} projet(s) sont en cours dans l'association</p>
     </div>
     <div class="col-md-3 col-sm-2 box0">
         <div class="box1">
-            <span class="li_news"></span>
-            <h3>{{$messages->count()}} message(s)</h3>
+            <span class="li_diamond"></span>
+            <h3>XXX €</h3>
         </div>
-        <p>Vous avez {{$messages->count()}} message(s) dans votre agence</p>
+        <p>XXX € dans la trésorerie</p>
     </div>
     <div class="col-md-3 col-sm-2 box0">
         <div class="box1">
             <span class="li_banknote"></span>
-            <h3>{{$bankable}} €</h3>
+            <h3>{{$encaisse}} €</h3>
         </div>
-        <p>Vous avez récolté {{$bankable}} euros</p>
+        <p>{{$encaisse}} € ont été encaissé par l'association</p>
     </div>
     <div class="col-md-3 col-sm-2 box0">
         <div class="box1">
-            <span class="li_data"></span>
-            <h3>{{$projets->count()}} projet(s)</h3>
+            <span class="li_shop"></span>
+            <h3>{{$facturable}} €</h3>
         </div>
-        <p>Vous avez {{$projets->count()}} projet(s) en cours</p>
+        <p>{{$facturable}} € de projets facturables</p>
     </div>
 
 </div><!-- /row mt -->
