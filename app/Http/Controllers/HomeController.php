@@ -59,7 +59,7 @@ class HomeController extends Controller
             return view('home', compact('id', 'bankable', 'messages', 'projets', 'agence', 'etapes', 'categories', 'cdp', 'cdp_id', 'taches', 'now', 'total_etape', 'users'));
         }
         $agences = Agence::all();
-        $agences->load('projets');
+        $agences->load('projets', 'users');
         $facturable = 0;
         $encaisse = 0;
         $nb_projet = Projet::all()->count();
