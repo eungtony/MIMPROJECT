@@ -63,7 +63,7 @@
             </div>
             @foreach($projets as $projet)
             <?php
-            $taches = \App\Travail::where('projet_id', $projet->id)->get();
+            $taches = \App\Travail::where('projet_id', $projet->id)->where('fait', 0)->get();
             $taches->load('user');
             $users = \App\User::where('agence_id', $projet->agence_id)->get();
             $done = \App\Travail::where('projet_id', $projet->id)->where('fait', 1)->get()->count();
@@ -123,13 +123,12 @@
                         <hr>
                         @if($projet->etape_id > 0)
                             <span class="label label-success" style="font-size:10px;">
-                {!! $etape->etape !!}
+                                 {!! $etape->etape !!}
                                 @else
                                     <span class="label label-warning" style="font-size:10px;">
-                {{ $etape }}
+                                {{ $etape }}
                                         @endif
-            </span>
-                                    </h3>
+                            </span>
                                     <div class="progress">
                                         <div class="progress-bar progress-bar-success progress-bar-striped"
                                              role="progressbar" aria-valuenow="{{$pc_projet}}" aria-valuemin="0"
