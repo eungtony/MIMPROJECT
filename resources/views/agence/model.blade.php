@@ -63,8 +63,8 @@
             </div>
             @foreach($projets as $projet)
             <?php
-            $travaux = \App\Travail::where('projet_id', $projet->id)->get();
-            $travaux->load('user');
+            $taches = \App\Travail::where('projet_id', $projet->id)->get();
+            $taches->load('user');
             $users = \App\User::where('agence_id', $projet->agence_id)->get();
             $done = \App\Travail::where('projet_id', $projet->id)->where('fait', 1)->get()->count();
             $total = \App\Travail::where('projet_id', $projet->id)->get()->count();
@@ -154,82 +154,7 @@
                         @endif
                     </div>
                     <div class="collapse" id="task{{$projet->id}}">
-                        <div class="content-panel">
-                            <table class="table table-striped table-advance table-hover">
-                                <h4>Tâches</h4>
-                                <hr>
-                                <thead>
-                                <tr>
-                                    <th><i class="fa fa-bullhorn"></i> Titre</th>
-                                    <th><i class="fa fa-bookmark"></i> Catégorie</th>
-                                    <th><i class=" fa fa-edit"></i> Date limite</th>
-                                    <th><i class=" fa fa-edit"></i> Personne assignée</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @if($travaux->isEmpty())
-                                    @if($user_id == $cdp_id || $statut_id == $ca_id)
-                                        <a class="btn btn-success btn-xs"
-                                           href="#addtask{{$projet->id}}" data-toggle="modal"
-                                           data-target="#addtask{{$projet->id}}"><i
-                                                    class="fa fa-check fa-fw"></i>Ajouter une tâche</a>
-                                        @include('tache.add')
-                                    @endif
-                                    <tr>
-                                        <td><p class="text-danger">Ce projet ne possède pas de tâches !</p></td>
-                                    </tr>
-                                @else
-                                    @if($user_id == $cdp_id || $statut_id == $ca_id)
-                                        <a class="btn btn-success btn-xs"
-                                           href="#addtask{{$projet->id}}" data-toggle="modal"
-                                           data-target="#addtask{{$projet->id}}"><i
-                                                    class="fa fa-check fa-fw"></i>Ajouter une tâche</a>
-                                        @include('tache.add')
-                                    @endif
-                                    @foreach($travaux as $tache)
-                                        <tr>
-                                            <td>
-                                                <a href="#voirtache{{$tache->id}}" data-toggle="modal"
-                                                   data-target="#voirtache{{$tache->id}}">
-                                                    {{$tache->titre}}
-                                                </a>
-                                                @include('tache.index')
-                                            </td>
-                                            <td>
-                                                {{$tache->categorie->titre}}
-                                            </td>
-                                            <td>
-                                                {{$tache->date}}
-                                            </td>
-                                            <td class="hidden-phone">
-                                                @if($tache->user)
-                                                    {{$tache->user['name']}}
-                                                @else
-                                                    Aucune personne assignée
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if($user_id == $cdp_id || $statut_id == $ca_id)
-                                                    <a href="" class="btn btn-success btn-xs"><i
-                                                                class="fa fa-check"></i></a>
-                                                    <a href="#tache{{$tache->id}}" class="btn btn-primary btn-xs"
-                                                       data-toggle="modal" data-target="#tache{{$tache->id}}">
-                                                        <i class="fa fa-pencil"></i></a>
-                                                    @include('tache.edit')
-                                                    <a href="{{ action('tacheController@destroy', $tache->id) }}"
-                                                       class="btn btn-danger btn-xs" data-method="delete"
-                                                       data-confirm="Souhaitez-vous réellement supprimer cette tâche ?"><i
-                                                                class="fa fa-trash-o "></i></a>
-                                                @endif
-                                            </td>
-                                    @endforeach
-                                @endif
-                                </tbody>
-                            </table>
-                            @if($user_id == $cdp_id || $statut_id == $ca_id)
-                            @endif
-                        </div>
+                        @include('tache.list')
                     </div>
                 </div><!-- /content-panel -->
             </div><!-- /col-md-12 -->
