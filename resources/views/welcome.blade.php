@@ -5,6 +5,7 @@
     <div class="row mt">
         <div class="col-lg-9">
             <div class="content-panel">
+                @include('admininfo')
                 <h1>Mes tâches ({{$taches->count()}})</h1>
 
                 @if($taches->isEmpty())
