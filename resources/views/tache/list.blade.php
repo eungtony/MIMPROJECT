@@ -19,6 +19,10 @@
             <div class="panel-body">
                 <div class="task-content">
                     @foreach($taches as $tache)
+                        <?php
+                        $date = \Carbon\Carbon::createFromFormat('Y-m-d', $tache->date);
+                        $difference = ($date->diff($now)->days < 1) ? 'today' : $date->diffInDays($now);
+                        ?>
                         <ul class="task-list" style="margin-bottom: 20px;">
                             <li>
                                 <div class="task-title">
@@ -35,22 +39,24 @@
                                                             {{$tache->categorie->titre}}
                                                         </span>
                                                         <span class="badge bg-danger">
-                                                            {{$tache->date}}
+                                                            J - {{$difference}}
                                                         </span>
-                                    <div class="pull-right hidden-phone">
-                                        <button class="btn btn-success btn-xs"><i
-                                                    class=" fa fa-check"></i></button>
-                                        <a href="#tache{{$tache->id}}"
-                                           class="btn btn-primary btn-xs"
-                                           data-toggle="modal"
-                                           aria-controls="#tache{{$tache->id}}"><i
-                                                    class="fa fa-pencil"></i></a>
-                                        <a href="{{action('tacheController@destroy', $tache->id)}}"
-                                           data-method="delete"
-                                           data-confirm="Souhaitez-vous réellement supprimer cette tâche ?"
-                                           class="btn btn-danger btn-xs"><i
-                                                    class="fa fa-trash-o "></i></a>
-                                    </div>
+                                    @if($user_id == $cdp_id || $statut_id == $ca_id)
+                                        <div class="pull-right hidden-phone">
+                                            <button class="btn btn-success btn-xs"><i
+                                                        class=" fa fa-check"></i></button>
+                                            <a href="#tache{{$tache->id}}"
+                                               class="btn btn-primary btn-xs"
+                                               data-toggle="modal"
+                                               aria-controls="#tache{{$tache->id}}"><i
+                                                        class="fa fa-pencil"></i></a>
+                                            <a href="{{action('tacheController@destroy', $tache->id)}}"
+                                               data-method="delete"
+                                               data-confirm="Souhaitez-vous réellement supprimer cette tâche ?"
+                                               class="btn btn-danger btn-xs"><i
+                                                        class="fa fa-trash-o "></i></a>
+                                        </div>
+                                    @endif
                                 </div>
                             </li>
                         </ul>
