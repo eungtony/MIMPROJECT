@@ -6,6 +6,9 @@
                 @if(Route::is('home'))
                     @include('info')
                 @endif
+                @if(Route::is('agence'))
+                    <h3 class="text-right">{{$agence->nom}}</h3>
+                @endif
                 @if($user_id == $cdp_id || $statut_id == $ca_id)
                     <a href="#agence{{$agence->id}}" class="btn btn-primary btn-xs"
                        data-toggle="collapse" aria-expanded="false"
@@ -187,8 +190,8 @@
                                     @foreach($travaux as $tache)
                                         <tr>
                                             <td>
-                                                <a href="#tache{{$tache->id}}" data-toggle="modal"
-                                                   data-target="#tache{{$tache->id}}">
+                                                <a href="#voirtache{{$tache->id}}" data-toggle="modal"
+                                                   data-target="#voirtache{{$tache->id}}">
                                                     {{$tache->titre}}
                                                 </a>
                                                 @include('tache.index')
