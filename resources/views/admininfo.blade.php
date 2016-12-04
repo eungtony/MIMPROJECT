@@ -8,10 +8,10 @@
     </div>
     <div class="col-md-3 col-sm-2 box0">
         <div class="box1">
-            <span class="li_diamond"></span>
-            <h3>XXX €</h3>
+            <span class="li_diamond" style="color:lightblue"></span>
+            <h3>{{$total_tres}} €</h3>
         </div>
-        <p>XXX € dans la trésorerie</p>
+        <p>{{$total_tres}} € dans la trésorerie</p>
     </div>
     <div class="col-md-3 col-sm-2 box0">
         <div class="box1">
@@ -22,10 +22,11 @@
     </div>
     <div class="col-md-3 col-sm-2 box0">
         <div class="box1">
-            <span class="li_shop"></span>
+            <span class="li_shop" style="color:lightblue"></span>
             <h3>{{$facturable}} €</h3>
         </div>
         <p>{{$facturable}} € de projets facturables</p>
     </div>
 
 </div><!-- /row mt -->
+@include('tresorerie.add')
