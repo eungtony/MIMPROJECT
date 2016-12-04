@@ -1,4 +1,4 @@
-<div class="modal fade" id="tache{{$tache->id}}" role="dialog">
+<div class="modal fade" id="voirtache{{$tache->id}}" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
