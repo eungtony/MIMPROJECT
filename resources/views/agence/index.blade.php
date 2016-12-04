@@ -3,6 +3,7 @@ $user_id = Auth::user()->id;
 $statut_id = Auth::user()->statut_id;
 $ca_id = 1;
 $projets = \App\Projet::where('agence_id', $id)->take(5)->get();
+$now = \Carbon\Carbon::now();
 ?>
 @extends('layouts.application')
 
