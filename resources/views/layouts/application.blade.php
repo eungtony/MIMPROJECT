@@ -163,7 +163,7 @@ $now = \Carbon\Carbon::now();
                     <ul class="sub">
                         @foreach ($agences as $agence)
                             @if ($agence->id != Auth::user()->agence_id)
-                                <li><a href="">{{ $agence->nom }}</a></li>
+                                <li><a href="{{ url('agence/show/' . $agence->id) }}">{{ $agence->nom }}</a></li>
                             @endif
                         @endforeach
                     </ul>

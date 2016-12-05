@@ -23,7 +23,7 @@ $messages = \App\Message::where('agence_id', Auth::user()->agence_id)->take(5)->
         </div>
     </div>
     <!-- USERS ONLINE SECTION -->
-    <h3>TEAM MEMBERS</h3>
+    <h3>MEMBRES</h3>
     @foreach($agence->users as $user)
         <?php
         $statut = \App\Poste::findOrFail($user->poste_id);

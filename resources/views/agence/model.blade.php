@@ -18,7 +18,7 @@
                     </a>
                     <a href="#message" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#message"
                        style="margin-bottom: 15px;">
-                        <i class="fa fa-mail-reply fa-fw"></i> Message
+                        <i class="fa fa-envelope fa-fw"></i> Message
                     </a>
 
                     @include('agence.message')
@@ -75,7 +75,7 @@
                 <!-- TELECHARGEMENT -->
             </div>
 
-            <h2 class="text-center">Projets de l'agence</h2>
+            <h2 class="text-center" style="margin-bottom: 40px;">Projets de l'agence</h2>
 
             @foreach($projets as $projet)
             <?php

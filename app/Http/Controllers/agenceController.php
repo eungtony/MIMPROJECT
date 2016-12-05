@@ -49,6 +49,16 @@ class agenceController extends Controller
         return view('agence.index', compact('id', 'etapes', 'categories', 'agence', 'cdp', 'cdp_id', 'users', 'total_etape', 'taches', 'now'));
     }
 
+    public function show($id)
+    {
+        // On recupère l'agence en question
+        $agence = Agence::findOrFail($id);
+        // On recupère les membres de cette agence
+        $members = User::where('agence_id', $id)->get();
+        // Puis on retourne la vue adéquat
+        return view('agence.show', ['agence' => $agence, 'members' => $members]);
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
