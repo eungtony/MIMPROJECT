@@ -134,7 +134,9 @@
                                         ?>
 
                                         <tr>
-                                            <td>{{$projet->nom}}</td>
+                                            <td>
+                                                <a href="{{route('projet', [$projet->agence_id, $projet->id])}}">{{$projet->nom}}</a>
+                                            </td>
                                             <td>
                                                 <div class="progress">
                                                     <div class="progress-bar progress-bar-success progress-bar-striped"
