@@ -1,35 +1,46 @@
 @section('content')
 
     <div class="row mt">
-        <div class="col-lg-9" style="margin-bottom: 15px;">
-            <div class="content-panel">
-                @if(Route::is('home'))
-                    @include('info')
-                @endif
-                @if(Route::is('agence'))
-                    <h3 class="text-right">{{$agence->nom}}</h3>
-                @endif
+        <div class="col-lg-9">
+            <div class="text-center">
+                <h1>{{ $agence->nom }}</h1>
+
                 @if($user_id == $cdp_id || $statut_id == $ca_id)
                     <a href="#agence{{$agence->id}}" class="btn btn-primary btn-xs"
                        data-toggle="collapse" aria-expanded="false"
                        aria-controls="#agence{{$agence->id}}" style="margin-bottom: 15px;">
-                        <i class="fa fa-pencil"></i> Modifier l'Agence
+                        <i class="fa fa-pencil fa-fw"></i> Editer
                     </a>
                     <a href="#projet{{$agence->id}}" class="btn btn-success btn-xs"
                        data-toggle="collapse" aria-expanded="false"
                        aria-controls="#projet{{$agence->id}}" style="margin-bottom: 15px;">
-                        <i class="fa fa-plus "></i> Ajouter un projet
+                        <i class="fa fa-plus fa-fw"></i> Projet
                     </a>
                     <a href="#message" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#message"
                        style="margin-bottom: 15px;">
-                        <i class="fa fa-mail-reply"></i> Publier un message
+                        <i class="fa fa-mail-reply fa-fw"></i> Message
                     </a>
+
                     @include('agence.message')
+
                     @include('projet.add')
+
                     @include('agence.edit')
                 @endif
             </div>
-            <div class="content-panel">
+
+            <div>
+                @if(Route::is('home'))
+                    @include('info')
+                @endif
+
+                @if(Route::is('agence'))
+                    <h3 class="text-right">{{$agence->nom}}</h3>
+                @endif
+
+            </div>
+
+            <div>
                 <!-- TELECHARGEMENT -->
                 <h3>Fichiers disponible dans cette agence</h3>
 
@@ -45,22 +56,27 @@
                         @endif
                     @endforeach
                 @else
-                    <p class="bg-danger">
+                    <span class="badge bg-important">
                         Aucun fichier présent.
-                    </p>
+                    </span>
                 @endif
+
                 @if($user_id == $cdp_id || $statut_id == $ca_id)
                     <hr>
-                    <a href="#file" class="btn btn-primary"
+                    <a href="#file" class="btn btn-primary btn-sm"
                        data-toggle="collapse" aria-expanded="false"
                        aria-controls="#file">
                         Téléverser un fichier
                     </a>
+
                     @include('agence.file')
-                    @endif
-                            <!-- TELECHARGEMENT -->
-                    <h3 class="text-right">Projets de l'agence</h3>
+
+                @endif
+                <!-- TELECHARGEMENT -->
             </div>
+
+            <h2 class="text-center">Projets de l'agence</h2>
+
             @foreach($projets as $projet)
             <?php
             $taches = \App\Travail::where('projet_id', $projet->id)->where('fait', 0)->get();
@@ -129,37 +145,41 @@
                                 {{ $etape }}
                                         @endif
                             </span>
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-success progress-bar-striped"
-                                             role="progressbar" aria-valuenow="{{$pc_projet}}" aria-valuemin="0"
-                                             aria-valuemax="100" style="width: {{$pc_projet}}%">
-                                        </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success progress-bar-striped"
+                                     role="progressbar" aria-valuenow="{{$pc_projet}}" aria-valuemin="0"
+                                     aria-valuemax="100" style="width: {{$pc_projet}}%">
+                                </div>
+                            </div>
+                            <h3>Progression dans les tâches</h3>
+                            @if($projet->etape_id > 0)
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success progress-bar-striped"
+                                         role="progressbar" aria-valuenow="{{$pc}}" aria-valuemin="0"
+                                         aria-valuemax="100" style="width: {{$pc}}%">
                                     </div>
-                                    <h3>Progression dans les tâches</h3>
-                                    @if($projet->etape_id > 0)
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-success progress-bar-striped"
-                                                 role="progressbar" aria-valuenow="{{$pc}}" aria-valuemin="0"
-                                                 aria-valuemax="100" style="width: {{$pc}}%">
-                                            </div>
-                                        </div>
-                                    @else
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-danger progress-bar-striped"
-                                                 role="progressbar" aria-valuenow="100" aria-valuemin="0"
-                                                 aria-valuemax="100" style="width: {{$pc}}%">
-                                            </div>
-                                        </div>
+                                </div>
+                            @else
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger progress-bar-striped"
+                                         role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                                         aria-valuemax="100" style="width: {{$pc}}%">
+                                    </div>
+                                </div>
                         @endif
                     </div>
+
                     <div class="collapse" id="task{{$projet->id}}">
                         @include('tache.list')
                     </div>
+
                 </div><!-- /content-panel -->
             </div><!-- /col-md-12 -->
             <!-- TABLEAU PROJETS -->
             @endforeach
         </div>
+
         @include('sidebar')
+        
     </div>
 @endsection

@@ -169,6 +169,17 @@ $now = \Carbon\Carbon::now();
                     </ul>
                 </li>
 
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-user"></i>
+                        <span>Notifications</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{ url('add/notif/global') }}">Globale</a></li>
+                        <li><a href="{{ url('add/notif/team') }}">Equipe</a></li>
+                    </ul>
+                </li>
+
                 @if(Auth::user()->statut_id == 1)
                     <li class="sub-menu">
                         <a href="javascript:;">
