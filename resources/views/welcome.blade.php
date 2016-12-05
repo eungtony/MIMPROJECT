@@ -102,7 +102,7 @@
                             <span class="btn btn-info" style="margin-right:20px;">
                                 {{$facturable}} €
                             </span>
-                            <a href="{{route('agence', $agence->id)}}" class="btn btn-success btn-xs" target="_blank">Voir
+                            <a href="{{route('agence', $agence->id)}}" class="btn btn-success btn-xs">Voir
                                 l'agence</a>
                         </h4>
 
