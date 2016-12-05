@@ -10,8 +10,8 @@
         </div>
 
         <div class="form-group">
-                                <textarea class="form-control" type="text" name="commentaire" class="form-control"
-                                          placeholder="Description du projet"></textarea>
+            <textarea class="form-control" type="text" name="commentaire" class="form-control"
+                      placeholder="Description du projet"></textarea>
         </div>
 
         <div class="form-group">

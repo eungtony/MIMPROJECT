@@ -93,40 +93,18 @@ $now = \Carbon\Carbon::now();
                                 @endforeach
                             @endif
                         </li>
-                        <li class="external">
-                            <a href="#">Voir toutes les tâches</a>
-                        </li>
+                        @if (count($taches) != 0)
+                            <li class="external">
+                                <a href="#">Voir toutes les tâches</a>
+                            </li>
+                        @endif
                     </ul>
                 </li>
                 <!-- settings end -->
                 <!-- inbox dropdown start-->
-                <li id="header_inbox_bar" class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="badge bg-theme">1</span>
-                    </a>
-                    <ul class="dropdown-menu extended inbox">
-                        <div class="notify-arrow notify-arrow-green"></div>
-                        <li>
-                            <p class="green">You have 1 new messages</p>
-                        </li>
-                        <li>
-                            <a href="index.html#">
-                                <span class="photo"><img alt="avatar" src="assets/img/ui-zac.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Zac Snider</span>
-                                    <span class="time">Just now</span>
-                                    </span>
-                                    <span class="message">
-                                        Hi mate, how is everything?
-                                    </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">See all messages</a>
-                        </li>
-                    </ul>
-                </li>
+                
+                @include('notifications');
+
                 <!-- inbox dropdown end -->
             </ul>
             <!--  notification end -->
@@ -240,8 +218,8 @@ $now = \Carbon\Carbon::now();
     <!--footer start-->
     <footer class="site-footer">
         <div class="text-center">
-            2017 - TPZ
-            <a href="#" class="go-top">
+            2017 - TPZ - version 1.0
+            <a href="index.html#" class="go-top">
                 <i class="fa fa-angle-up"></i>
             </a>
         </div>

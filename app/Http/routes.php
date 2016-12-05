@@ -51,6 +51,12 @@ Route::get('/supervisor', 'agenceController@supervisor')->name('supervisor');
 Route::post('/supervisor/add/agence', 'agenceController@add')->name('add.agence');
 Route::post('/supervisor/addorremovemoney', 'HomeController@addOrRemoveMoney')->name('money');
 
+//Notifications
+Route::get('add/notif/{type}/{id?}', 'NotificationsController@create')->name('form.add.notif');
+Route::get('add/notif/', 'NotificationsController@store')->name('add.notif');
+Route::get('show/notif/all', 'NotificationsController@showAll')->name('show.notif.all');
+// Route::get('show/notif/{id}', 'NotificationsController@show')->name('show.notif');
+
 Route::group(['middleware' => ['restrict']], function () {
 
 //Agence

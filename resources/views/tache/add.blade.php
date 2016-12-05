@@ -21,9 +21,9 @@
                     </div>
 
                     <div class="form-group">
-                                                                        <textarea class="form-control"
-                                                                                  name="commentaire"
-                                                                                  placeholder="Commentaire de la tâche"></textarea>
+                        <textarea class="form-control"
+                                  name="commentaire"
+                                  placeholder="Commentaire de la tâche"></textarea>
                     </div>
 
                     <div class="form-group">
