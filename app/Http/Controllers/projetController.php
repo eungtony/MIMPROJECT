@@ -29,14 +29,15 @@ class projetController extends Controller
      * @param $ida
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index($id, $ida){
-        $projet = Projet::findOrFail($ida);
+    public function index($ida, $id)
+    {
+        $projet = Projet::findOrFail($id);
         $projet->load('file', 'etape');
-        $cdp_id = Agence::findOrFail($id)->user_id;
-        $taches = Travail::where('projet_id', $ida)->where('fait', 0)->with('user', 'categorie')->get();
-        $done = Travail::where('projet_id', $ida)->where('fait',1)->get()->count();
+        $cdp_id = Agence::findOrFail($ida)->user_id;
+        $taches = Travail::where('projet_id', $id)->where('fait', 0)->with('user', 'categorie')->get();
+        $done = Travail::where('projet_id', $id)->where('fait', 1)->get()->count();
         $total = $taches->count();
-        $users = User::where('agence_id', $id)->get();
+        $users = User::where('agence_id', $ida)->get();
         $etapes = Etape::all();
         $categories = Categorie::all();
         $total_etape = Etape::all()->count();
