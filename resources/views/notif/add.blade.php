@@ -13,13 +13,13 @@
                     </div>
 
                     <div class="panel-body">
-                        <form action="{{ route('add.notif') }}" method="POST">
+                        <form action="" method="POST">
 
                             {{ csrf_field() }}
 
                             <input type="hidden" name="type" value="{{ $type }}">
 
-                            @if ($type == 'personnal')
+                            @if ($type == 'personal')
                                 <input type="hidden" name="to" value="{{ $id }}">
                             @endif
 

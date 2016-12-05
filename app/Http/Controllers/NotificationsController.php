@@ -59,14 +59,14 @@ class NotificationsController extends Controller
                 $notif['sender'] = Auth::user()->id;
                 // On défini le type de notifiation
                 $notif['type'] = $request->type;
-                // On défini le receveur de la notification comme NULL
-                $notif['to'] = NULL;
+                // On défini le receveur de la notification comme 0
+                $notif['to'] = 0;
                 // On défini le message de la notification
                 $notif['message'] = $request->message;
                 // On sauvegarde le notification
                 $notif->save();
                 // Enfin on redirige l'utilisateur
-                return redirect('/add/notif')->withMessage('Notification envoyée avec succès !');
+                return redirect('/home')->withMessage('Notification envoyée avec succès !');
 
             } else {
                 // On redirige l'utilisateur avec une erreur
@@ -86,7 +86,7 @@ class NotificationsController extends Controller
             // On sauvegarde le notification
             $notif->save();
             // Enfin on redirige l'utilisateur
-            return redirect('/add/notif')->withMessage('Notification envoyée avec succès !');
+            return redirect('/home')->withMessage('Notification envoyée avec succès !');
         }
     }
 

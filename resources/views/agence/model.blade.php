@@ -18,7 +18,7 @@
                     <a href="#projet{{$agence->id}}" class="btn btn-success btn-xs"
                        data-toggle="collapse" aria-expanded="false"
                        aria-controls="#projet{{$agence->id}}" style="margin-bottom: 15px;">
-                        <i class="fa fa-trash-o "></i> Ajouter un projet
+                        <i class="fa fa-plus "></i> Ajouter un projet
                     </a>
                     <a href="#message" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#message"
                        style="margin-bottom: 15px;">

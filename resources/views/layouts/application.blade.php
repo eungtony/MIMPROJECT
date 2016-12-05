@@ -1,8 +1,9 @@
 <?php
 $taches = \App\Travail::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('fait', 0)->get();
+$agences = \App\Agence::get();
 $now = \Carbon\Carbon::now();
 ?>
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -151,6 +152,20 @@ $now = \Carbon\Carbon::now();
                     <ul class="sub">
                         <li><a href="{{ route('user') }}">Mon profil</a></li>
                         <li><a href="{{ url('/logout') }}">Déconnexion</a></li>
+                    </ul>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-user"></i>
+                        <span>Autres Equipes</span>
+                    </a>
+                    <ul class="sub">
+                        @foreach ($agences as $agence)
+                            @if ($agence->id != Auth::user()->agence_id)
+                                <li><a href="">{{ $agence->nom }}</a></li>
+                            @endif
+                        @endforeach
                     </ul>
                 </li>
 

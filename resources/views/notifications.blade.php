@@ -8,12 +8,22 @@
 <li id="header_inbox_bar" class="dropdown">
     <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
         <i class="fa fa-envelope-o"></i>
-        <span class="badge bg-theme">{{ count($notifs) }}</span>
+        <span class="badge bg-theme">
+            @if (count($notifs) != 0)
+                new
+            @else
+                0
+            @endif
+        </span>
     </a>
     <ul class="dropdown-menu extended inbox">
         <div class="notify-arrow notify-arrow-green"></div>
         <li>
-            <p class="green">Vous avez {{ count($notifs) }} notifications</p>
+            @if (count($notifs) != 0)
+                <p class="green">Vous avez de nouvelles notifications</p>
+            @else
+                <p class="green">Vous n'avez pas de nouvelles notifications</p>
+            @endif
         </li>
         <li>
             <!-- Pour chaque notifications -->

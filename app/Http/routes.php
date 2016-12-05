@@ -53,7 +53,7 @@ Route::post('/supervisor/addorremovemoney', 'HomeController@addOrRemoveMoney')->
 
 //Notifications
 Route::get('add/notif/{type}/{id?}', 'NotificationsController@create')->name('form.add.notif');
-Route::get('add/notif/', 'NotificationsController@store')->name('add.notif');
+Route::post('add/notif/{type}/{id?}', 'NotificationsController@store');
 Route::get('show/notif/all', 'NotificationsController@showAll')->name('show.notif.all');
 // Route::get('show/notif/{id}', 'NotificationsController@show')->name('show.notif');
 
