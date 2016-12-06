@@ -3,7 +3,7 @@ $taches = \App\Travail::where('user_id', \Illuminate\Support\Facades\Auth::user(
 $agences = \App\Agence::get();
 $now = \Carbon\Carbon::now();
 ?>
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -80,7 +80,7 @@ $now = \Carbon\Carbon::now();
                                     ?>
                                     <div class="task-info">
                                         <div class="desc">
-                                            <a href="{{route('index.tache', [$tache->agence_id, $tache->projet_id, $tache->id])}}">
+                                            <a href="#voirtache{{$tache->id}}" data-toggle="modal">
                                                 {{$tache->titre}}
                                                 @if($difference > 0)
                                                     <span class="label label-info">J - {{ $difference }}</span>
@@ -103,7 +103,7 @@ $now = \Carbon\Carbon::now();
                 </li>
                 <!-- settings end -->
                 <!-- inbox dropdown start-->
-                
+
                 @include('notifications');
 
                 <!-- inbox dropdown end -->
@@ -233,10 +233,11 @@ $now = \Carbon\Carbon::now();
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper">
-
+            @foreach($taches as $tache)
+                @include('tache.index')
+            @endforeach
             @include('flash')
             @yield('content')
-
         </section>
     </section>
 
