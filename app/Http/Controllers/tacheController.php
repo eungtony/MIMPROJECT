@@ -94,4 +94,24 @@ class tacheController extends Controller
         Travail::findOrFail($id)->delete();
         return redirect()->route('home')->with('success', 'Le tâche a bien été supprimée !');
     }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function checkTask(Request $request)
+    {
+        $id = $request->only('id')['id'];
+        $tache = Travail::findOrFail($id);
+        $tache->update(['fait' => 1]);
+        return back()->with('success', 'La tâche a été mis a à jour !');
+    }
+
+    public function uncheckTask(Request $request)
+    {
+        $id = $request->only('id')['id'];
+        $tache = Travail::findOrFail($id);
+        $tache->update(['fait' => 0]);
+        return back()->with('success', 'La tâche a été mise à jour !');
+    }
 }

@@ -45,6 +45,8 @@ Route::get('agence/show/{id}', 'agenceController@show')->name('show.agence');
 Route::get('/tache/{ida}/{pid}/{id}', 'tacheController@index')->name('index.tache');
 Route::post('/tache/add', 'tacheController@add')->name('add.tache');
 Route::post('/modify/{id}/{pid}', 'tacheController@edit')->name('edit.tache');
+Route::post('/tache/check', 'tacheController@checkTask')->name('check.tache');
+Route::post('/tache/uncheck', 'tacheController@uncheckTask')->name('uncheck.tache');
 Route::resource('tache', 'tacheController');
 
 //Supervisor
