@@ -23,7 +23,7 @@ $messages = \App\Message::where('agence_id', Auth::user()->agence_id)->take(5)->
         </div>
     </div>
     <!-- USERS ONLINE SECTION -->
-    <h3>TEAM MEMBERS</h3>
+    <h3>MEMBRES</h3>
     @foreach($agence->users as $user)
         <?php
         $statut = \App\Poste::findOrFail($user->poste_id);
@@ -39,7 +39,10 @@ $messages = \App\Message::where('agence_id', Auth::user()->agence_id)->take(5)->
                 @endif
             </div>
             <div class="details">
-                <p><a href="{{ route('profile', $user->id) }}">{{ $user->name }}</a><br/>
+                <p>
+                    <a href="{{ route('profile', $user->id) }}">{{ $user->name }}</a>
+                    -
+                    <a href="{{ url('add/notif/personal/' . $user->id) }}" class="fa fa-envelope fa-fw"></a><br/>
                     <muted>{{$statut['nom']}}</muted>
                 </p>
             </div>

@@ -38,6 +38,7 @@ Route::post('/agence/{id}', 'agenceController@addFile')->name('file.agence');
 Route::post('/agence/edit/file/{ida}/{id}', 'agenceController@editFile')->name('file.edit');
 Route::delete('/agence/delete/file/{ida}/{id}', 'agenceController@deleteFile')->name('file.delete');
 Route::post('/agence/message/{ida}/{id}', 'agenceController@addMessage')->name('message.agence');
+Route::get('agence/show/{id}', 'agenceController@show')->name('show.agence');
 
 
 //Tâches
@@ -50,6 +51,12 @@ Route::resource('tache', 'tacheController');
 Route::get('/supervisor', 'agenceController@supervisor')->name('supervisor');
 Route::post('/supervisor/add/agence', 'agenceController@add')->name('add.agence');
 Route::post('/supervisor/addorremovemoney', 'HomeController@addOrRemoveMoney')->name('money');
+
+//Notifications
+Route::get('add/notif/{type}/{id?}', 'NotificationsController@create')->name('form.add.notif');
+Route::post('add/notif/{type}/{id?}', 'NotificationsController@store');
+Route::get('show/notif/all', 'NotificationsController@showAll')->name('show.notif.all');
+// Route::get('show/notif/{id}', 'NotificationsController@show')->name('show.notif');
 
 Route::group(['middleware' => ['restrict']], function () {
 
