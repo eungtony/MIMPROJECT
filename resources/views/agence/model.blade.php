@@ -34,10 +34,6 @@
                     @include('info')
                 @endif
 
-                @if(Route::is('agence'))
-                    <h3 class="text-right">{{$agence->nom}}</h3>
-                @endif
-
             </div>
 
             <div>
