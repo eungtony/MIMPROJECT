@@ -66,7 +66,7 @@ class NotificationsController extends Controller
                 // On sauvegarde le notification
                 $notif->save();
                 // Enfin on redirige l'utilisateur
-                return redirect('/home')->withMessage('Notification envoyée avec succès !');
+                return redirect('/home')->with('success', 'Notification envoyée avec succès !');
 
             } else {
                 // On redirige l'utilisateur avec une erreur
@@ -86,7 +86,7 @@ class NotificationsController extends Controller
             // On sauvegarde le notification
             $notif->save();
             // Enfin on redirige l'utilisateur
-            return redirect('/home')->withMessage('Notification envoyée avec succès !');
+            return redirect('/home')->with('success', 'Notification envoyée avec succès !');
         }
     }
 
