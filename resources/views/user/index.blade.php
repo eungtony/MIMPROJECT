@@ -27,7 +27,6 @@
                         </div>
                     </div>
                 </div>
-                <! -- /col-md-4 -->
                 <div class="col-lg-5 col-md-5 col-sm-5 mb">
                     <!-- WHITE PANEL - TOP USER -->
                     <div class="white-panel pn">
