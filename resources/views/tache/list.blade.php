@@ -19,7 +19,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        Toutes les tâches du projet {{$projet->nom}}
+                                        Toutes les tâches du projet: {{$projet->nom}}
                                     </div>
                                     <div class="modal-body">
                                         <?php
