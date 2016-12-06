@@ -112,9 +112,9 @@ class NotificationsController extends Controller
     public function show($id)
     {
         // On recupère les notifications
-        $notifs = Notifications::Where('id', $id)->get();
+        $notifs = Notifications::findOrFail($id);
         // Puis on retourne la vue adéquat
-        return view('notif.show', ['notifs' => $notifs]);
+        return view('notif.show', compact($notifs));
     }
 
     /**
