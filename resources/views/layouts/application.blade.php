@@ -96,7 +96,7 @@ $now = \Carbon\Carbon::now();
                         </li>
                         @if (count($taches) != 0)
                             <li class="external">
-                                <a href="#">Voir toutes les tâches</a>
+                                <a href="#mestaches" data-toggle="modal">Voir toutes les tâches</a>
                             </li>
                         @endif
                     </ul>
@@ -221,6 +221,7 @@ $now = \Carbon\Carbon::now();
             @foreach($taches as $tache)
                 @include('tache.index')
             @endforeach
+            @include('user.taches')
             @include('flash')
             @yield('content')
         </section>
