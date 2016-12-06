@@ -26,7 +26,8 @@
                         <ul class="task-list" style="margin-bottom: 20px;">
                             <li>
                                 <div class="task-title">
-                                    <span class="task-title-sp">{{$tache->titre}}</span>
+                                    <span class="task-title-sp"><a href="#voirtache{{$tache->id}}"
+                                                                   data-toggle="modal">{{$tache->titre}}</a></span>
                                     <span class="badge bg-theme">A faire</span>
                                                         <span class="badge bg-success">
                                                             @if($tache->user)
@@ -63,6 +64,7 @@
                         @if($user_id == $cdp_id || $statut_id == $ca_id)
                             @include('tache.edit')
                         @endif
+                        @include('tache.index')
                     @endforeach
                 </div>
             </div>
