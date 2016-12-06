@@ -40,9 +40,9 @@ class HomeController extends Controller
     {
         $now = Carbon::now();
         $total_etape = Etape::all()->count();
+        $taches = Travail::where('user_id', $this->auth->user()->id)->where('fait', 0)->get();
+        $taches->load('projet', 'user', 'categorie');
         if($this->auth->user()->statut_id == 3 || $this->auth->user()->statut_id == 4){
-            $taches = Travail::where('user_id', $this->auth->user()->id)->where('fait', 0)->get();
-            $taches->load('projet', 'user', 'categorie');
             $agence_id = $this->auth->user()->agence_id;
             $agence = Agence::findOrFail($agence_id);
             $agence->load('file', 'users');
@@ -70,8 +70,6 @@ class HomeController extends Controller
                 $encaisse = $encaisse + $projet->encaisse;
             }
         }
-        $taches = Travail::where('user_id', $this->auth->user()->id)->where('fait', 0)->get();
-        $taches->load('projet', 'file');
         $tasks = Travail::where('fait', 1)->take(5)->get();
         $tasks->load('categorie', 'projet');
         $tresorerie = Tresorerie::all()->take(5);
