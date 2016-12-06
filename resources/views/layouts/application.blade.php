@@ -154,21 +154,6 @@ $now = \Carbon\Carbon::now();
                         <li><a href="{{ url('/logout') }}">Déconnexion</a></li>
                     </ul>
                 </li>
-                @if(Auth::user()->statut_id != 1)
-                    <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class="fa fa-user"></i>
-                            <span>Autres Equipes</span>
-                        </a>
-                        <ul class="sub">
-                            @foreach ($agences as $agence)
-                                @if ($agence->id != Auth::user()->agence_id)
-                                    <li><a href="{{ url('agence/show/' . $agence->id) }}">{{ $agence->nom }}</a></li>
-                                @endif
-                            @endforeach
-                        </ul>
-                    </li>
-                @endif
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-user"></i>
