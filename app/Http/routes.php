@@ -54,6 +54,7 @@ Route::resource('tache', 'tacheController');
 Route::get('/supervisor', 'agenceController@supervisor')->name('supervisor');
 Route::post('/supervisor/add/agence', 'agenceController@add')->name('add.agence');
 Route::post('/supervisor/addorremovemoney', 'HomeController@addOrRemoveMoney')->name('money');
+Route::get('/livret-de-compte', 'HomeController@livret')->name('livret');
 
 //Notifications
 Route::get('add/notif/{type}/{id?}', 'NotificationsController@create')->name('form.add.notif');
