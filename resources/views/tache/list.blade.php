@@ -23,7 +23,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <?php
-                                        $allTask = \App\Travail::where('projet_id', $projet->id)->get();
+                                        $allTask = \App\Travail::where('projet_id', $projet->id)->with('user')->get();
                                         ?>
                                         <div class="task-content">
                                             @foreach($allTask as $tache)
@@ -34,22 +34,34 @@
                                                 <ul class="task-list" style="margin-bottom: 20px;">
                                                     <li>
                                                         <div class="task-title">
+                                                            <span>#{{$tache->id}}</span>
                                                             <span class="task-title-sp"><a
                                                                         href="#voirtache{{$tache->id}}"
                                                                         data-toggle="modal">{{$tache->titre}}</a></span>
-                                                        <span class="badge bg-success">
-                                                            @if($tache->user)
-                                                                {{$tache->user->name}}
+                                                            @if($tache->fait == 0)
+                                                                <span class="badge bg-info">
+                                                                A faire
+                                                            </span>
                                                             @else
-                                                                Aucune personne assignée
+                                                                <span class="badge bg-succes">
+                                                                Fait
+                                                            </span>
                                                             @endif
+                                                            <span class="badge bg-success">
+                                                            @if($tache->user)
+                                                                    {{$tache->user->name}}
+                                                                @else
+                                                                    Aucune personne assignée
+                                                                @endif
                                                         </span>
                                                         <span class="badge bg-important">
                                                             {{$tache->categorie->titre}}
                                                         </span>
-                                                        <span class="badge bg-danger">
+                                                            @if($tache->fait == 0)
+                                                                <span class="badge bg-danger">
                                                             J - {{$difference}}
                                                         </span>
+                                                            @endif
                                                             @if($user_id == $cdp_id || $statut_id == $ca_id)
                                                                 <div class="pull-right hidden-phone">
                                                                     <form action="
@@ -91,9 +103,6 @@
                                                         </div>
                                                     </li>
                                                 </ul>
-                                                @if($user_id == $cdp_id || $statut_id == $ca_id)
-                                                    @include('tache.edit')
-                                                @endif
                                             @endforeach
                                         </div>
                                     </div>
@@ -119,6 +128,7 @@
                             <ul class="task-list" style="margin-bottom: 20px;">
                                 <li>
                                     <div class="task-title">
+                                        <span>#{{$tache->id}}</span>
                                     <span class="task-title-sp"><a href="#voirtache{{$tache->id}}"
                                                                    data-toggle="modal">{{$tache->titre}}</a></span>
                                         <span class="badge bg-theme">A faire</span>
