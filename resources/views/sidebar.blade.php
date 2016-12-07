@@ -88,5 +88,11 @@ $messages = \App\Message::where('agence_id', Auth::user()->agence_id)->take(5)->
                 </div>
             </div>
         @endforeach
+        <div class="desc">
+            <p class="text-center">
+                <a href="#messages" data-toggle="modal">Voir tous les messages</a>
+            </p>
+        </div>
+        @include('agence.messages')
     @endif
 </div><!-- /col-lg-3 -->
