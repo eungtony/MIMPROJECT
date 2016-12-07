@@ -166,10 +166,27 @@ class agenceController extends Controller
         return redirect()->route('agence', [$ida])->with('success', 'Le fichier a bien été supprimé !');
     }
 
+    /**
+     * @param $ida
+     * @param $id
+     * @param Requests\messageRequest $request
+     * @return mixed
+     */
     public function addMessage($ida, $id, Requests\messageRequest $request)
     {
         $rq = $request->except('_token');
         Message::create($rq);
         return redirect()->route('home')->with('success', 'Votre message a bien été publié !');
+    }
+
+    /**
+     * @param $ida
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteMessage($ida, $id)
+    {
+        Message::destroy($id);
+        return back()->with('success', 'Le message a bien été supprimé !');
     }
 }
