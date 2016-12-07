@@ -46,7 +46,8 @@
                         <div class="col-md-6">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
-                                    Livret de compte
+                                    Livret de compte <a href="{{route('livret')}}" class="label label-info">Voir le
+                                        livret</a>
                                 </div>
                                 <div class="panel-body">
                                     @if(!$tresorerie->isEmpty())
