@@ -232,7 +232,7 @@ $now = \Carbon\Carbon::now();
     <footer class="site-footer">
         <div class="text-center">
             2017 - TPZ - version 1.0
-            <a href="index.html#" class="go-top">
+            <a href="#" class="go-top">
                 <i class="fa fa-angle-up"></i>
             </a>
         </div>
