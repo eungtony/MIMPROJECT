@@ -87,4 +87,10 @@ class HomeController extends Controller
         Tresorerie::create($rq);
         return redirect()->route('home')->with('success', 'La trésorerie a bien été modifiée !');
     }
+
+    public function livret()
+    {
+        $livrets = Tresorerie::orderBy('id', 'desc')->paginate(10);
+        return view('livret', compact('livrets'));
+    }
 }
