@@ -63,7 +63,7 @@ class HomeController extends Controller
         $agences->load('projets', 'users');
         $facturable = 0;
         $encaisse = 0;
-        $nb_projet = Projet::all()->count();
+        $nb_projet = Projet::where('etape_id', '>', '0')->count();
         foreach ($agences as $agence) {
             foreach ($agence->projets as $projet) {
                 $facturable = $facturable + $projet->facturable;
