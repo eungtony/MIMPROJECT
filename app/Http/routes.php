@@ -38,6 +38,7 @@ Route::post('/agence/{id}', 'agenceController@addFile')->name('file.agence');
 Route::post('/agence/edit/file/{ida}/{id}', 'agenceController@editFile')->name('file.edit');
 Route::delete('/agence/delete/file/{ida}/{id}', 'agenceController@deleteFile')->name('file.delete');
 Route::post('/agence/message/{ida}/{id}', 'agenceController@addMessage')->name('message.agence');
+Route::delete('/agence/delete/message/{ida}/{id}', 'agenceController@deleteMessage')->name('message.delete');
 Route::get('agence/show/{id}', 'agenceController@show')->name('show.agence');
 
 
