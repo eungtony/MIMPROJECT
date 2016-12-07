@@ -14,16 +14,16 @@
                                     Dernières tâches réalisées
                                 </div>
                                 <div class="panel-body">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <td>Titre de la tâche</td>
-                                            <td>Catégorie</td>
-                                            <td>Nom du projet</td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @if(!$tasks->isEmpty())
+                                    @if(!$tasks->isEmpty())
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <td>Titre de la tâche</td>
+                                                <td>Catégorie</td>
+                                                <td>Nom du projet</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
                                             @foreach($tasks as $task)
                                                 <tr>
                                                     <td>{{$task->titre}}</td>
@@ -31,15 +31,15 @@
                                                     <td>{{$task->projet->nom}}</td>
                                                 </tr>
                                             @endforeach
-                                        @else
-                                            <tr>
-                                                <p class="alert alert-danger">
-                                                    Aucun montant ajouté !
-                                                </p>
-                                            </tr>
-                                        @endif
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    @else
+                                        <tr>
+                                            <p class="alert alert-danger">
+                                                Aucune tâche n'a été effectué !
+                                            </p>
+                                        </tr>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -49,16 +49,16 @@
                                     Livret de compte
                                 </div>
                                 <div class="panel-body">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <td>Date</td>
-                                            <td>Libéllé</td>
-                                            <td>Montant</td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @if(!$tresorerie->isEmpty())
+                                    @if(!$tresorerie->isEmpty())
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <td>Date</td>
+                                                <td>Libéllé</td>
+                                                <td>Montant</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
                                             @foreach($tresorerie as $tr)
                                                 <tr>
                                                     <td>{{$tr->created_at}}</td>
@@ -66,13 +66,13 @@
                                                     <td>{{$tr->montant}} €</td>
                                                 </tr>
                                             @endforeach
-                                        @else
-                                            <p class="alert alert-danger">
-                                                Aucune tâche n'a été effectuée !
-                                            </p>
-                                        @endif
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    @else
+                                        <p class="alert alert-danger">
+                                            Aucune montant n'a été ajouté !
+                                        </p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
