@@ -92,7 +92,6 @@
                                                 @if($user_id == $cdp_id || $statut_id == $ca_id)
                                                     @include('tache.edit')
                                                 @endif
-                                                @include('tache.index')
                                             @endforeach
                                         </div>
                                     </div>
