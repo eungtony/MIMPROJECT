@@ -65,12 +65,14 @@
                                                                         @if($tache->fait == 0)
                                                                             <button type="submit"
                                                                                     class="btn btn-success btn-xs"><i
-                                                                                        class=" fa fa-check"></i>
+                                                                                        class=" fa fa-check"
+                                                                                        onclick="confirm('Cette tâche a bien été réalisé ?')"></i>
                                                                             </button>
                                                                         @else
                                                                             <button type="submit"
                                                                                     class="btn btn-danger btn-xs"><i
-                                                                                        class="fa fa-check"></i>
+                                                                                        class="fa fa-check"
+                                                                                        onclick="confirm('Remettre cette tâche a réalisé ?')"></i>
                                                                             </button>
                                                                         @endif
                                                                         <a href="#tache{{$tache->id}}"
@@ -139,7 +141,9 @@
                                                     {{csrf_field()}}
                                                     <input type="hidden" name="id" value="{{$tache->id}}">
                                                     <button type="submit" class="btn btn-success btn-xs"><i
-                                                                class=" fa fa-check"></i></button>
+                                                                class=" fa fa-check"
+                                                                onclick="confirm('Cette tâche a bien été réalisé ?')"></i>
+                                                    </button>
                                                     <a href="#tache{{$tache->id}}"
                                                        class="btn btn-primary btn-xs"
                                                        data-toggle="modal"
