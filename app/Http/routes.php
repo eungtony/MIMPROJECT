@@ -55,6 +55,8 @@ Route::get('/supervisor', 'agenceController@supervisor')->name('supervisor');
 Route::post('/supervisor/add/agence', 'agenceController@add')->name('add.agence');
 Route::post('/supervisor/addorremovemoney', 'HomeController@addOrRemoveMoney')->name('money');
 Route::get('/livret-de-compte', 'HomeController@livret')->name('livret');
+Route::post('/livret/edit/{id}', 'HomeController@editMontant')->name('edit.montant');
+Route::delete('/livret/delete/{id}', 'HomeController@deleteMontant')->name('delete.montant');
 
 //Notifications
 Route::get('add/notif/{type}/{id?}', 'NotificationsController@create')->name('form.add.notif');
