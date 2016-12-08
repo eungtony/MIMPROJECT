@@ -140,5 +140,8 @@ class NotificationsController extends Controller
     public function destroy($id)
     {
         // On supprime la notification 
+        Notifications::where('id', $id)->delete();
+        // Puis on redirig l'utilisateur
+        return redirect('show/notif/all')->withMessage('Notification supprimé avec succès !');
     }
 }
