@@ -28,18 +28,20 @@
         <li>
             <!-- Pour chaque notifications -->
             @foreach ($notifs as $notif)
-            <?php
-            $user = \App\User::findOrFail($notif->sender);
-            $user_id = 'user';
-            $user_extension = 'png';
-            if ($user->avatar) {
-                $user_id = $user->id;
-                $user_extension = $user->extension;
-            }
-            ?>
+                
+                @php
+                    $user = \App\User::findOrFail($notif->sender);
+                    $user_id = 'user';
+                    $user_extension = 'png';
+                    if ($user->avatar) {
+                        $user_id = $user->id;
+                        $user_extension = $user->extension;
+                    }
+                @endphp
+
                 <!-- On verifie que les noifications sont destinées à l'utilisateur ou son équipe -->
                 @if ($notif->type == 'team' && $notif->to == Auth::user()->agence_id)
-                    <a href="{{ url('show/notif' . $notif->id) }}">
+                    <a href="{{ url('show/notif/all') }}">
                         <span class="photo"><img alt="avatar" class="img-circle"
                                                  src="{{ asset('avatars/'.$user_id.'.'.$user_extension) }}"></span>
                         <span class="subject">
@@ -52,7 +54,7 @@
                     </a>
                 <!-- On verifie que les notifications sont destinées personnellement à l'utilsateur -->
                 @elseif($notif->type == 'personal' && $notif->to == Auth::user()->id)
-                    <a href="{{ url('show/notif' . $notif->id) }}">
+                    <a href="{{ url('show/notif/all') }}">
                         <span class="photo"><img alt="avatar" class="img-circle"
                                                  src="{{ asset('avatars/'.$user_id.'.'.$user_extension) }}"></span>
                         <span class="subject">
@@ -65,7 +67,7 @@
                     </a>
                 <!-- On verifie si les notifications sont pour tout le monde -->
                 @elseif($notif->type == 'global')
-                    <a href="{{ url('show/notif' . $notif->id) }}">
+                    <a href="{{ url('show/notif/all') }}">
                         <span class="photo"><img alt="avatar" class="img-circle"
                                                  src="{{ asset('avatars/'.$user_id.'.'.$user_extension) }}"></span>
                         <span class="subject">

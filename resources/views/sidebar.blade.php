@@ -1,16 +1,15 @@
-<?php
-$agence_id = \Illuminate\Support\Facades\Auth::user()->agence_id;
-$agence = \App\Agence::findOrFail($agence_id);
-$agence->load('file', 'users');
-$messages = \App\Message::where('agence_id', Auth::user()->agence_id)->take(5)->orderBy('id', 'desc')->get();
-$user_id = Auth::user()->id;
-$statut_id = Auth::user()->statut_id;
-?>
-        <!--  RIGHT SIDEBAR CONTENT -->
+@php
+    $agence_id = \Illuminate\Support\Facades\Auth::user()->agence_id;
+    $agences = \App\Agence::get();
+    $agence = \App\Agence::findOrFail($agence_id);
+    $agence->load('file', 'users');
+    $messages = \App\Message::where('agence_id', Auth::user()->agence_id)->take(5)->orderBy('id', 'desc')->get();
+@endphp
+
+<!--  RIGHT SIDEBAR CONTENT -->
 <div class="col-lg-3 ds">
-    <h3 style="margin-bottom: 10px">{{$agence->nom}}</h3>
     <!--COMPLETED ACTIONS DONUTS CHART-->
-    <h3>NOTIFICATIONS</h3>
+    <h3>EVENEMENTS</h3>
     <!-- First Action -->
     <div class="desc">
         <div class="thumb">
@@ -27,9 +26,11 @@ $statut_id = Auth::user()->statut_id;
     <!-- USERS ONLINE SECTION -->
     <h3>MEMBRES</h3>
     @foreach($agence->users as $user)
-        <?php
-        $statut = \App\Poste::findOrFail($user->poste_id);
-        ?>
+        
+        @php
+            $statut = \App\Poste::findOrFail($user->poste_id);
+        @endphp
+
         <div class="desc">
             <div class="thumb">
                 @if($user->avatar == 0)
@@ -50,6 +51,7 @@ $statut_id = Auth::user()->statut_id;
             </div>
         </div>
     @endforeach
+    <!-- MESSAGES DE L'AGENCE -->
     <h3>MESSAGES DE VOTRE AGENCE</h3>
     @if($messages->isEmpty())
         <p class="alert alert-error">
@@ -103,4 +105,17 @@ $statut_id = Auth::user()->statut_id;
         </div>
         @include('agence.messages')
     @endif
+
+    <h3>AUTRES AGENCES</h3>
+    <div class="desc">
+        <div class="details">
+            <ul>
+                @foreach ($agences as $agence)
+                    <li>
+                        <a href="{{ url('agence/' . $agence->id) }}" class="green">{{ $agence->nom }}</a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
 </div><!-- /col-lg-3 -->

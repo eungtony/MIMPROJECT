@@ -6,16 +6,19 @@
                 <h1>{{ $agence->nom }}</h1>
 
                 @if($user_id == $cdp_id || $statut_id == $ca_id)
+
                     <a href="#agence{{$agence->id}}" class="btn btn-primary btn-xs"
                        data-toggle="collapse" aria-expanded="false"
                        aria-controls="#agence{{$agence->id}}" style="margin-bottom: 15px;">
                         <i class="fa fa-pencil fa-fw"></i> Editer
                     </a>
+
                     <a href="#projet{{$agence->id}}" class="btn btn-success btn-xs"
                        data-toggle="collapse" aria-expanded="false"
                        aria-controls="#projet{{$agence->id}}" style="margin-bottom: 15px;">
                         <i class="fa fa-plus fa-fw"></i> Projet
                     </a>
+                    
                     <a href="#message" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#message"
                        style="margin-bottom: 15px;">
                         <i class="fa fa-envelope fa-fw"></i> Message
@@ -35,8 +38,24 @@
                 @endif
 
             </div>
+            
+            <!-- Visite de la page d'une autre agence -->
+            @if (isset($members))
+                <div class="content-panel">
+                    <!-- MEMBRES -->
+                    <h3>Membres de l'agence</h3>
+                    <ul>
+                        @foreach ($members as $member)
+                            <li>
+                                <a href="">{{ $member->name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <!-- Visite de la page d'une autre agence -->
 
-            <div>
+            <div class="content-panel" style="margin-top:25px;">
                 <!-- TELECHARGEMENT -->
                 <h3>Fichiers disponible dans cette agence</h3>
 
