@@ -32,14 +32,16 @@
                                 <a href="#editlivret{{$livret->id}}"
                                    class="btn btn-primary btn-xs"
                                    data-toggle="modal"><i class="fa fa-pencil"></i></a>
-                                <a href="{{action('tacheController@destroy', $livret->id)}}"
+                                <a href="{{route('delete.montant', $livret->id)}}"
                                    data-method="delete"
                                    data-confirm="Souhaitez-vous réellement supprimer ce montant ?"
                                    class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
                             </td>
                         </tr>
+                        @include('tresorerie.edit')
                     @endforeach
                     </tbody>
+                    y
                 </table>
                 {{$livrets->links()}}
             </div>
