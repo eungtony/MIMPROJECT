@@ -41,7 +41,6 @@
                         @include('tresorerie.edit')
                     @endforeach
                     </tbody>
-                    y
                 </table>
                 {{$livrets->links()}}
             </div>
