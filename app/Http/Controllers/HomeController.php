@@ -91,6 +91,19 @@ class HomeController extends Controller
     public function livret()
     {
         $livrets = Tresorerie::orderBy('id', 'desc')->paginate(10);
-        return view('livret', compact('livrets'));
+        return view('tresorerie.livret', compact('livrets'));
+    }
+
+    public function editMontant($id, Request $request)
+    {
+        $rq = $request->except('_token');
+        Tresorerie::findOrFail($id)->update($rq);
+        return back()->with('success', 'Le montant a bien été modifié !');
+    }
+
+    public function deleteMontant($id)
+    {
+        Tresorerie::destroy($id);
+        return back()->with('success', 'Le montant a bien été supprimé !');
     }
 }
