@@ -42,12 +42,24 @@ class userController extends Controller
         return view('user.index', compact('user'));
     }
 
+    /**
+     * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+
     public function user($id)
     {
         $user = User::findOrFail($id);
         $user->load('statut', 'poste', 'agence');
         return view('user.profile', compact('user'));
     }
+
+    /**
+     * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
 
     public function editForm($id)
     {
@@ -57,6 +69,13 @@ class userController extends Controller
         $agences = Agence::all();
         return view('user.edit', compact('user', 'postes', 'statuts', 'agences'));
     }
+
+    /**
+     * @param $id
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
 
     public function edit($id, Request $request)
     {
@@ -71,6 +90,12 @@ class userController extends Controller
         User::findOrFail($id)->update($rq);
         return redirect()->route('profile', $id)->with('success', 'Le profil a été modifié avec succès !');
     }
+
+    /**
+     * @param $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
 
     public function editAvatar($id)
     {

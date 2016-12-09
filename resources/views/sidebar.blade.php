@@ -6,7 +6,7 @@ $messages = \App\Message::where('agence_id', Auth::user()->agence_id)->take(5)->
 $user_id = Auth::user()->id;
 $statut_id = Auth::user()->statut_id;
 ?>
-        <!--  RIGHT SIDEBAR CONTENT -->
+<!--  RIGHT SIDEBAR CONTENT -->
 <div class="col-lg-3 ds">
     <h3 style="margin-bottom: 10px">{{$agence->nom}}</h3>
     <!--COMPLETED ACTIONS DONUTS CHART-->
@@ -75,10 +75,15 @@ $statut_id = Auth::user()->statut_id;
                     <p class="text-right">
                         {{$message->created_at}}
                         @if($user_id == $cdp_id || $statut_id == 1)
+                            <a href="#editmessage{{$message->id}}"
+                               data-toggle="modal"
+                               class="btn btn-primary btn-xs" style="color:white;"><i
+                                        class="fa fa-pencil-square-o"></i></a>
                             <a href="{{action('agenceController@deleteMessage', [$message->agence_id,$message->id])}}"
                                data-method="delete"
                                data-confirm="Souhaitez-vous réellement supprimer ce message ?"
                                class="btn btn-danger btn-xs" style="color:white;"><i class="fa fa-trash-o"></i></a>
+                            @include('agence.editMessageM')
                         @endif
                     </p>
                 </div>

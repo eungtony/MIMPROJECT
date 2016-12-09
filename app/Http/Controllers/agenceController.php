@@ -32,8 +32,11 @@ class agenceController extends Controller
     }
 
     /**
+     * Show agency index view
+     *
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+*@return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index($id)
     {
@@ -60,6 +63,8 @@ class agenceController extends Controller
     }
 
     /**
+     * Show the supervisor administration panel
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function supervisor()
@@ -74,8 +79,11 @@ class agenceController extends Controller
     }
 
     /**
+     * Method to add an agency
+     *
      * @param Requests\agenceRequest $request
-     * @return mixed
+     *
+*@return mixed
      */
     public function add(Requests\agenceRequest $request)
     {
@@ -85,8 +93,11 @@ class agenceController extends Controller
     }
 
     /**
+     * View to edit an agency
+     *
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+*@return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function editForm($id)
     {
@@ -97,6 +108,8 @@ class agenceController extends Controller
     }
 
     /**
+     * Method to edit an agency
+     *
      * @param $id
      * @param Request $request
      * @return mixed
@@ -111,6 +124,8 @@ class agenceController extends Controller
     /************************************** FILE *******************************************/
 
     /**
+     * Method to add a new file to an agency
+     *
      * @param $id
      * @return mixed
      */
@@ -136,6 +151,8 @@ class agenceController extends Controller
     }
 
     /**
+     * Method to edit the name of a file
+     *
      * @param $ida
      * @param $id
      * @param Request $request
@@ -149,6 +166,8 @@ class agenceController extends Controller
     }
 
     /**
+     * Method to delete a file
+     *
      * @param $ida
      * @param $id
      * @return mixed
@@ -167,6 +186,8 @@ class agenceController extends Controller
     }
 
     /**
+     * Method to send a message to an agency
+     *
      * @param $ida
      * @param $id
      * @param Requests\messageRequest $request
@@ -180,6 +201,21 @@ class agenceController extends Controller
     }
 
     /**
+     * Method to edit a message
+     *
+     * @param $id
+     * @param Request $request
+     */
+    public function editMessage($id, Request $request)
+    {
+        $rq = $request->except('_token');
+        Message::findOrFail($id)->update($rq);
+        return back()->with('success', 'Votre message a bien été édité !');
+    }
+
+    /**
+     * Method to delete a message
+     *
      * @param $ida
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
