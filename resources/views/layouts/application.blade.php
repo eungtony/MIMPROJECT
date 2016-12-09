@@ -5,6 +5,8 @@ $taches = \App\Travail::where('user_id', \Illuminate\Support\Facades\Auth::user(
         ->get();
 $agences = \App\Agence::get();
 $now = \Carbon\Carbon::now();
+$agence = \App\Agence::findOrFail(Auth::user()->agence_id);
+$cdp_id = $agence->user_id;
 ?>
         <!DOCTYPE html>
 <html lang="en">
@@ -133,7 +135,7 @@ $now = \Carbon\Carbon::now();
                 <p class="centered">
                     <a href="{{route('profile', Auth::user())}}">
                         @if(Auth::user()->avatar == 0)
-                            <img src="{{ asset('img/ui-sam.jpg') }}" class="img-circle" width="60">
+                            <img src="{{ asset('avatars/user.png') }}" class="img-circle" width="60">
                         @else
                             <img src="{{ asset('avatars/'.Auth::user()->id.'.'.Auth::user()->extension) }}"
                                  class="img-circle" width="60">
