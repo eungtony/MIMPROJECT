@@ -81,6 +81,13 @@ class HomeController extends Controller
         return view('welcome', compact('agences', 'tasks', 'total_tres', 'tresorerie', 'taches', 'now', 'total_etape', 'facturable', 'encaisse', 'nb_projet'));
     }
 
+    /**
+     * Remove or add money into the tresorery
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function addOrRemoveMoney(Request $request)
     {
         $rq = $request->except('_token');
@@ -88,12 +95,25 @@ class HomeController extends Controller
         return redirect()->route('home')->with('success', 'La trésorerie a bien été modifiée !');
     }
 
+    /**
+     * View of the livret de compte
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function livret()
     {
         $livrets = Tresorerie::orderBy('id', 'desc')->paginate(10);
         return view('tresorerie.livret', compact('livrets'));
     }
 
+    /**
+     * Method to edit an amount
+     *
+     * @param $id
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function editMontant($id, Request $request)
     {
         $rq = $request->except('_token');
@@ -101,6 +121,13 @@ class HomeController extends Controller
         return back()->with('success', 'Le montant a bien été modifié !');
     }
 
+    /**
+     * Method to delete an amount
+     *
+     * @param $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function deleteMontant($id)
     {
         Tresorerie::destroy($id);
