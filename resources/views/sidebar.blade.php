@@ -6,7 +6,7 @@ $messages = \App\Message::where('agence_id', Auth::user()->agence_id)->take(5)->
 $user_id = Auth::user()->id;
 $statut_id = Auth::user()->statut_id;
 ?>
-        <!--  RIGHT SIDEBAR CONTENT -->
+<!--  RIGHT SIDEBAR CONTENT -->
 <div class="col-lg-3 ds">
     <h3 style="margin-bottom: 10px">{{$agence->nom}}</h3>
     <!--COMPLETED ACTIONS DONUTS CHART-->
