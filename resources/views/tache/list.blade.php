@@ -36,8 +36,8 @@
                                                         <div class="task-title">
                                                             <span>#{{$tache->id}}</span>
                                                             <span class="task-title-sp"><a
-                                                                        href="#voirtache{{$tache->id}}"
-                                                                        data-toggle="modal">{{$tache->titre}}</a></span>
+                                                                        href="#voirTache{{$tache->id}}"
+                                                                        data-toggle="collapse">{{$tache->titre}}</a></span>
                                                             @if($tache->fait == 0)
                                                                 <span class="badge bg-info">
                                                                 A faire
@@ -103,6 +103,7 @@
                                                         </div>
                                                     </li>
                                                 </ul>
+                                                @include('tache.indexC')
                                             @endforeach
                                         </div>
                                     </div>
