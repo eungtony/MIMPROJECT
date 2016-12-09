@@ -1,5 +1,7 @@
 @extends('layouts.application')
 
+@section('title') Troyes Point Zéro - Support @endsection
+
 @section('content')
 
     <div class="row mt">

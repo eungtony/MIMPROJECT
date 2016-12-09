@@ -32,6 +32,9 @@
             <div>
                 @if(Route::is('home'))
                     @include('info')
+                @section('title') Troyes Point Zéro - Support @endsection
+                @else
+                @section('title') {{$agence->nom}} - Troyes Point Zéro - Support @endsection
                 @endif
 
             </div>
