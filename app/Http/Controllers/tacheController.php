@@ -107,6 +107,12 @@ class tacheController extends Controller
         return back()->with('success', 'La tâche a été mis a à jour !');
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
     public function uncheckTask(Request $request)
     {
         $id = $request->only('id')['id'];
