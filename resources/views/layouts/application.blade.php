@@ -1,5 +1,8 @@
 <?php
-$taches = \App\Travail::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('fait', 0)->get();
+$taches = \App\Travail::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)
+        ->with('projet', 'categorie')
+        ->where('fait', 0)
+        ->get();
 $agences = \App\Agence::get();
 $now = \Carbon\Carbon::now();
 ?>
@@ -81,7 +84,9 @@ $now = \Carbon\Carbon::now();
                                     <div class="task-info">
                                         <div class="desc">
                                             <a href="#voirtache{{$tache->id}}" data-toggle="modal">
-                                                {{$tache->titre}}
+                                                {{$tache->titre}}<br>
+                                                <span class="label label-danger">{{$tache->categorie->titre}}</span>
+                                                <span class="label label-primary ">{{$tache->projet->nom}}</span>
                                                 @if($difference > 0)
                                                     <span class="label label-info">J - {{ $difference }}</span>
                                                 @else
