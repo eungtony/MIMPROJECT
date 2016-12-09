@@ -5,7 +5,7 @@
                 <div class="pull-left">
                     <h5>
                         <i class="fa fa-tasks"></i>
-                        Tâches ({{$done}}/{{$total}})
+                        Tâches ({{$done}} sur {{$total}} taches ont été terminé !)
                         @if($user_id == $cdp_id || $statut_id == $ca_id)
                             <a href="#addtask{{$projet->id}}" data-toggle="modal"
                                data-target="#addtask{{$projet->id}}"
