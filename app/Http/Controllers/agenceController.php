@@ -209,9 +209,7 @@ class agenceController extends Controller
     public function editMessage($id, Request $request)
     {
         $rq = $request->except('_token');
-        dd($rq);
         Message::findOrFail($id)->update($rq);
-
         return back()->with('success', 'Votre message a bien été édité !');
     }
 
