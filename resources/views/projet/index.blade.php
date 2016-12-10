@@ -130,5 +130,4 @@ if ($total > 0) {
         </div>
         @include('sidebar')
     </div>
-
 @endsection
