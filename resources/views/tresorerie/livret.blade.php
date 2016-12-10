@@ -5,7 +5,8 @@
     <div class="row mt">
         <div class="col-lg-9">
             <div class="content-panel">
-                <h2>Livret de compte de l'association</h2>
+                <h2>Livret de compte de l'association <a href="#money" data-toggle="modal" class="btn btn-success">Ajouter
+                        un montant</a></h2>
                 <table class="table">
                     <thead>
                     <tr>
