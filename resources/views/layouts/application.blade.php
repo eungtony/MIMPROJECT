@@ -159,6 +159,7 @@ $statut_id = Auth::user()->statut_id;
                     </a>
                     <ul class="sub">
                         <li><a href="{{ route('user') }}">Mon profil</a></li>
+                        <li><a href="{{ route('agence', Auth::user()->agence_id) }}">Mon agence</a></li>
                         <li><a href="{{ url('/logout') }}">Déconnexion</a></li>
                     </ul>
                 </li>
