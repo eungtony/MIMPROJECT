@@ -78,7 +78,7 @@
 
             @foreach($projets as $projet)
             <?php
-            $taches = \App\Travail::where('projet_id', $projet->id)->where('fait', 0)->get();
+            $taches = \App\Travail::where('projet_id', $projet->id)->orderBy('id', 'desc')->where('fait', 0)->get();
             $taches->load('user');
             $users = \App\User::where('agence_id', $projet->agence_id)->get();
             $done = \App\Travail::where('projet_id', $projet->id)->where('fait', 1)->get()->count();
