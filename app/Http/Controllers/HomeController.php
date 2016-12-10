@@ -70,6 +70,7 @@ class HomeController extends Controller
                 $encaisse = $encaisse + $projet->encaisse;
             }
         }
+        $allTask = Travail::where('fait', 1)->orderBy('id', 'desc')->with('user')->get();
         $tasks = Travail::where('fait', 1)->orderBy('id', 'desc')->take(5)->get();
         $tasks->load('categorie', 'projet');
         $tresorerie = Tresorerie::orderBy('id', 'desc')->take(5)->get();
@@ -78,7 +79,7 @@ class HomeController extends Controller
         foreach ($tresoreries as $tresorery) {
             $total_tres = $total_tres + $tresorery->montant;
         }
-        return view('welcome', compact('agences', 'tasks', 'total_tres', 'tresorerie', 'taches', 'now', 'total_etape', 'facturable', 'encaisse', 'nb_projet'));
+        return view('welcome', compact('agences', 'tasks', 'total_tres', 'allTask', 'tresorerie', 'taches', 'now', 'total_etape', 'facturable', 'encaisse', 'nb_projet'));
     }
 
     /**
