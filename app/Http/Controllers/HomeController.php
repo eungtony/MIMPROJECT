@@ -70,9 +70,9 @@ class HomeController extends Controller
                 $encaisse = $encaisse + $projet->encaisse;
             }
         }
-        $tasks = Travail::where('fait', 1)->take(5)->get();
+        $tasks = Travail::where('fait', 1)->orderBy('id', 'desc')->take(5)->get();
         $tasks->load('categorie', 'projet');
-        $tresorerie = Tresorerie::all()->take(5);
+        $tresorerie = Tresorerie::orderBy('id', 'desc')->take(5)->get();
         $tresoreries = Tresorerie::all();
         $total_tres = 0;
         foreach ($tresoreries as $tresorery) {
