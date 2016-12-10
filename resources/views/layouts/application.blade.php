@@ -193,7 +193,7 @@ $cdp_id = $agence->user_id;
                             <span>Trésorerie</span>
                         </a>
                         <ul class="sub">
-                            <li><a href="{{ url('/supervisor') }}">Gérer la trésorerie</a></li>
+                            <li><a href="{{ route('livret') }}">Livret de compte</a></li>
                             <li><a href="#money" data-toggle="modal">Ajouter un montant</a></li>
                         </ul>
                     </li>
@@ -230,6 +230,7 @@ $cdp_id = $agence->user_id;
             @endforeach
             @include('user.taches')
             @include('flash')
+            @include('tresorerie.add')
             @yield('content')
         </section>
     </section>
