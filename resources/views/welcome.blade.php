@@ -67,7 +67,7 @@
                                             @foreach($tresorerie as $tr)
                                                 <tr>
                                                     <td>{{$tr->created_at}}</td>
-                                                    <td>{{$tr->libelle}}</td>
+                                                    <td>{{\Illuminate\Support\Str::limit($tr->libelle, 50, '...')}}</td>
                                                     <td>{{$tr->montant}} €</td>
                                                 </tr>
                                             @endforeach
