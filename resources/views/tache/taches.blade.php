@@ -12,37 +12,39 @@
         <li>
             <div class="task-title">
                 <span>#{{$tache->id}}</span>
-                                                            <span class="task-title-sp"><a
-                                                                        href="#voirTache{{$tache->id}}"
-                                                                        data-toggle="collapse">{{$tache->titre}}</a></span>
+                <span class="task-title-sp">
+                    <a href="#voirTache{{$tache->id}}" data-toggle="collapse">
+                        {{$tache->titre}}
+                    </a>
+                </span>
                 @if($tache->fait == 0)
                     <span class="badge bg-info">
-                                                                A faire
-                                                            </span>
+                        A faire
+                    </span>
                 @else
                     <span class="badge bg-succes">
-                                                                Fait
-                                                            </span>
+                        Fait
+                    </span>
                 @endif
                 <span class="badge bg-success">
-                                                            @if($tache->user)
+                    @if($tache->user)
                         {{$tache->user->name}}
                     @else
                         Aucune personne assignée
                     @endif
-                                                        </span>
-                                                        <span class="badge bg-important">
-                                                            {{$tache->categorie->titre}}
-                                                        </span>
+                </span>
+                <span class="badge bg-important">
+                    {{$tache->categorie->titre}}
+                </span>
                 @if($tache->fait == 0)
                     <span class="badge bg-danger">
-                                                            J - {{$difference}}
-                                                        </span>
+                        J - {{$difference}}
+                    </span>
                 @endif
                 @if($user_id == $cdp_id || $statut_id == $ca_id)
                     <div class="pull-right hidden-phone">
                         <form action="
-                                                                    @if($tache->fait == 0)
+                         @if($tache->fait == 0)
                         {{route('check.tache')}}
                         @else
                         {{route('uncheck.tache')}}
