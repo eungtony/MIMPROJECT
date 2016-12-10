@@ -5,6 +5,7 @@ $agence->load('file', 'users');
 $messages = \App\Message::where('agence_id', Auth::user()->agence_id)->take(5)->orderBy('id', 'desc')->get();
 $user_id = Auth::user()->id;
 $statut_id = Auth::user()->statut_id;
+$cdp_id = $agence->user_id;
 ?>
 <!--  RIGHT SIDEBAR CONTENT -->
 <div class="col-lg-3 ds">
