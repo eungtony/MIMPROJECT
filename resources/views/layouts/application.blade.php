@@ -7,6 +7,7 @@ $agences = \App\Agence::get();
 $now = \Carbon\Carbon::now();
 $agence = \App\Agence::findOrFail(Auth::user()->agence_id);
 $cdp_id = $agence->user_id;
+$statut_id = Auth::user()->statut_id;
 ?>
         <!DOCTYPE html>
 <html lang="en">
