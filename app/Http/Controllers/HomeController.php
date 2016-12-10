@@ -70,7 +70,7 @@ class HomeController extends Controller
                 $encaisse = $encaisse + $projet->encaisse;
             }
         }
-        $allTask = Travail::where('fait', 1)->orderBy('id', 'desc')->with('user')->get();
+        $allTask = Travail::where('fait', 1)->orderBy('id', 'desc')->with('user')->take(20)->get();
         $tasks = Travail::where('fait', 1)->orderBy('id', 'desc')->take(5)->get();
         $tasks->load('categorie', 'projet');
         $tresorerie = Tresorerie::orderBy('id', 'desc')->take(5)->get();
