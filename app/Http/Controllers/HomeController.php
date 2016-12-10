@@ -102,9 +102,6 @@ class HomeController extends Controller
      */
     public function livret()
     {
-        if ($this->auth->user()->statut_id != 1 || $this->auth->user()->statut_id != 2) {
-            return redirect()->route('home')->with('error', 'Vous n\'avez pas le droite d\'accéder à cette page !');
-        }
         $livrets = Tresorerie::orderBy('id', 'desc')->paginate(10);
         return view('tresorerie.livret', compact('livrets'));
     }
