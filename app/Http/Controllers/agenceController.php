@@ -45,7 +45,7 @@ class agenceController extends Controller
         $cdp = User::findOrFail($cdp_id)->name;
         $users = User::where('agence_id', $id)->get();
         $total_etape = Etape::all()->count();
-        $taches = Travail::where('user_id', $this->auth->user()->id)->where('fait', 0)->get();
+        $taches = Travail::where('user_id', $this->auth->user()->id)->where('fait', 0)->orderBy('id', 'desc')->get();
         $now = \Carbon\Carbon::now();
         $etapes = Etape::all();
         $categories = Categorie::all();

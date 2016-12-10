@@ -37,7 +37,7 @@ class projetController extends Controller
         $projet = Projet::findOrFail($id);
         $projet->load('file', 'etape');
         $cdp_id = Agence::findOrFail($ida)->user_id;
-        $taches = Travail::where('projet_id', $id)->where('fait', 0)->with('user', 'categorie')->get();
+        $taches = Travail::where('projet_id', $id)->where('fait', 0)->orderBy('id', 'desc')->with('user', 'categorie')->get();
         $done = Travail::where('projet_id', $id)->where('fait', 1)->get()->count();
         $total = $taches->count();
         $users = User::where('agence_id', $ida)->get();
