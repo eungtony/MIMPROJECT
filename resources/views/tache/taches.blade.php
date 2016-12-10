@@ -11,12 +11,12 @@
     <ul class="task-list" style="margin-bottom: 20px;">
         <li>
             <div class="task-title">
-                <span>#{{$tache->id}}</span>
-                <span class="task-title-sp">
+                <div class="task-title-sp" style="margin-bottom:10px;">
+                    #{{$tache->id}}
                     <a href="#voirTache{{$tache->id}}" data-toggle="collapse">
                         {{$tache->titre}}
                     </a>
-                </span>
+                </div>
                 @if($tache->fait == 0)
                     <span class="badge bg-info">
                         A faire
@@ -83,4 +83,5 @@
         </li>
     </ul>
     @include('tache.indexC')
+    <hr>
 @endforeach
