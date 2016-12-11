@@ -1,11 +1,12 @@
-@php
-    $agence_id = \Illuminate\Support\Facades\Auth::user()->agence_id;
-    $agences = \App\Agence::get();
-    $agence = \App\Agence::findOrFail($agence_id);
-    $agence->load('file', 'users');
-    $messages = \App\Message::where('agence_id', Auth::user()->agence_id)->take(5)->orderBy('id', 'desc')->get();
-@endphp
-
+<?php
+$agence_id = \Illuminate\Support\Facades\Auth::user()->agence_id;
+$agence = \App\Agence::findOrFail($agence_id);
+$agence->load('file', 'users');
+$messages = \App\Message::where('agence_id', Auth::user()->agence_id)->take(5)->orderBy('id', 'desc')->get();
+$user_id = Auth::user()->id;
+$statut_id = Auth::user()->statut_id;
+$cdp_id = $agence->user_id;
+?>
 <!--  RIGHT SIDEBAR CONTENT -->
 <div class="col-lg-3 ds">
     <!--COMPLETED ACTIONS DONUTS CHART-->
@@ -77,10 +78,15 @@
                     <p class="text-right">
                         {{$message->created_at}}
                         @if($user_id == $cdp_id || $statut_id == 1)
+                            <a href="#editmessage{{$message->id}}"
+                               data-toggle="modal"
+                               class="btn btn-primary btn-xs" style="color:white;"><i
+                                        class="fa fa-pencil-square-o"></i></a>
                             <a href="{{action('agenceController@deleteMessage', [$message->agence_id,$message->id])}}"
                                data-method="delete"
                                data-confirm="Souhaitez-vous réellement supprimer ce message ?"
                                class="btn btn-danger btn-xs" style="color:white;"><i class="fa fa-trash-o"></i></a>
+                            @include('agence.editMessageM')
                         @endif
                     </p>
                 </div>

@@ -14,14 +14,19 @@ $messages = \App\Message::where('agence_id', $agence_id)->orderBy('id', 'desc')-
                             <h4>{{$message->titre}}</h4>
                             <p>{{$message->message}}</p>
                             <p class="text-right">{{$message->created_at}}</p>
+                            @if($user_id == $cdp_id || $statut_id == 1)
                             <div class="text-right">
-                                @if($user_id == $cdp_id || $statut_id == 1)
+                                <a href="#editMessage{{$message->id}}"
+                                   data-toggle="collapse"
+                                   class="btn btn-primary btn-xs" style="color:white;"><i
+                                            class="fa fa-pencil-square-o"></i></a>
                                     <a href="{{action('agenceController@deleteMessage', [$message->agence_id,$message->id])}}"
                                        data-method="delete"
                                        data-confirm="Souhaitez-vous réellement supprimer ce message ?"
                                        class="btn btn-danger btn-xs" style="color:white;"><i class="fa fa-trash-o"></i></a>
-                                @endif
                             </div>
+                                @include('agence.editMessage')
+                            @endif
                         </div>
                     @endforeach
                 </div>

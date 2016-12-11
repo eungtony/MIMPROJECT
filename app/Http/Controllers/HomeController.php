@@ -70,17 +70,25 @@ class HomeController extends Controller
                 $encaisse = $encaisse + $projet->encaisse;
             }
         }
-        $tasks = Travail::where('fait', 1)->take(5)->get();
+        $allTask = Travail::where('fait', 1)->orderBy('id', 'desc')->with('user')->take(20)->get();
+        $tasks = Travail::where('fait', 1)->orderBy('id', 'desc')->take(5)->get();
         $tasks->load('categorie', 'projet');
-        $tresorerie = Tresorerie::all()->take(5);
+        $tresorerie = Tresorerie::orderBy('id', 'desc')->take(5)->get();
         $tresoreries = Tresorerie::all();
         $total_tres = 0;
         foreach ($tresoreries as $tresorery) {
             $total_tres = $total_tres + $tresorery->montant;
         }
-        return view('welcome', compact('agences', 'tasks', 'total_tres', 'tresorerie', 'taches', 'now', 'total_etape', 'facturable', 'encaisse', 'nb_projet'));
+        return view('welcome', compact('agences', 'tasks', 'total_tres', 'allTask', 'tresorerie', 'taches', 'now', 'total_etape', 'facturable', 'encaisse', 'nb_projet'));
     }
 
+    /**
+     * Remove or add money into the tresorery
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function addOrRemoveMoney(Request $request)
     {
         $rq = $request->except('_token');
@@ -88,12 +96,25 @@ class HomeController extends Controller
         return redirect()->route('home')->with('success', 'La trésorerie a bien été modifiée !');
     }
 
+    /**
+     * View of the livret de compte
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function livret()
     {
         $livrets = Tresorerie::orderBy('id', 'desc')->paginate(10);
         return view('tresorerie.livret', compact('livrets'));
     }
 
+    /**
+     * Method to edit an amount
+     *
+     * @param $id
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function editMontant($id, Request $request)
     {
         $rq = $request->except('_token');
@@ -101,6 +122,13 @@ class HomeController extends Controller
         return back()->with('success', 'Le montant a bien été modifié !');
     }
 
+    /**
+     * Method to delete an amount
+     *
+     * @param $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function deleteMontant($id)
     {
         Tresorerie::destroy($id);

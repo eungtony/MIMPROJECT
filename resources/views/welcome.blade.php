@@ -1,5 +1,7 @@
 @extends('layouts.application')
 
+@section('title') Troyes Point Zéro - Support @endsection
+
 @section('content')
 
     <div class="row mt">
@@ -12,6 +14,21 @@
                             <div class="panel panel-info">
                                 <div class="panel-heading">
                                     Dernières tâches réalisées
+                                    <a href="#voirTaches" data-toggle="modal" class="label label-primary">
+                                        Voir toutes les tâches réalisées
+                                    </a>
+                                </div>
+                                <div class="modal fade" id="voirTaches" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                Les dernières tâches réalisées !
+                                            </div>
+                                            <div class="modal-body">
+                                                @include('tache.allTask')
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="panel-body">
                                     @if(!$tasks->isEmpty())
@@ -46,8 +63,10 @@
                         <div class="col-md-6">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
-                                    Livret de compte <a href="{{route('livret')}}" class="label label-info">Voir le
-                                        livret</a>
+                                    Livret de compte
+                                    <a href="{{route('livret')}}" class="label label-info">Voir le livret</a>
+                                    <a href="#money" data-toggle="modal" class="label label-success">Ajouter un
+                                        montant</a>
                                 </div>
                                 <div class="panel-body">
                                     @if(!$tresorerie->isEmpty())
@@ -63,7 +82,7 @@
                                             @foreach($tresorerie as $tr)
                                                 <tr>
                                                     <td>{{$tr->created_at}}</td>
-                                                    <td>{{$tr->libelle}}</td>
+                                                    <td>{{\Illuminate\Support\Str::limit($tr->libelle, 50, '...')}}</td>
                                                     <td>{{$tr->montant}} €</td>
                                                 </tr>
                                             @endforeach
