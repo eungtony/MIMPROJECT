@@ -9,9 +9,8 @@ $cdp_id = $agence->user_id;
 ?>
 <!--  RIGHT SIDEBAR CONTENT -->
 <div class="col-lg-3 ds">
-    <h3 style="margin-bottom: 10px">{{$agence->nom}}</h3>
     <!--COMPLETED ACTIONS DONUTS CHART-->
-    <h3>NOTIFICATIONS</h3>
+    <h3>EVENEMENTS</h3>
     <!-- First Action -->
     <div class="desc">
         <div class="thumb">
@@ -28,9 +27,11 @@ $cdp_id = $agence->user_id;
     <!-- USERS ONLINE SECTION -->
     <h3>MEMBRES</h3>
     @foreach($agence->users as $user)
-        <?php
-        $statut = \App\Poste::findOrFail($user->poste_id);
-        ?>
+        
+        @php
+            $statut = \App\Poste::findOrFail($user->poste_id);
+        @endphp
+
         <div class="desc">
             <div class="thumb">
                 @if($user->avatar == 0)
@@ -51,6 +52,7 @@ $cdp_id = $agence->user_id;
             </div>
         </div>
     @endforeach
+    <!-- MESSAGES DE L'AGENCE -->
     <h3>MESSAGES DE VOTRE AGENCE</h3>
     @if($messages->isEmpty())
         <p class="alert alert-error">
@@ -109,4 +111,17 @@ $cdp_id = $agence->user_id;
         </div>
         @include('agence.messages')
     @endif
+
+    <h3>AUTRES AGENCES</h3>
+    <div class="desc">
+        <div class="details">
+            <ul>
+                @foreach ($agences as $agence)
+                    <li>
+                        <a href="{{ url('agence/' . $agence->id) }}" class="green">{{ $agence->nom }}</a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
 </div><!-- /col-lg-3 -->
