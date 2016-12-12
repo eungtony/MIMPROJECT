@@ -6,6 +6,7 @@
     $user_id = Auth::user()->id;
     $statut_id = Auth::user()->statut_id;
     $agences = \App\Agence::get();
+$cdp_id = $agence->user_id;
 @endphp
 <!--  RIGHT SIDEBAR CONTENT -->
 <div class="col-lg-3 ds">
@@ -27,7 +28,6 @@
     <!-- USERS ONLINE SECTION -->
     <h3>MEMBRES</h3>
     @foreach($agence->users as $user)
-        
         @php
             $statut = \App\Poste::findOrFail($user->poste_id);
         @endphp
