@@ -16,9 +16,9 @@
                                value="{{$tache->titre}}">
                     </div>
                     <div class="form-group">
-                                        <textarea class="form-control" name="commentaire" id=""
-                                                  cols="30"
-                                                  rows="2">{{$tache->commentaire}}</textarea>
+                        <textarea class="form-control" name="commentaire" id="" cols="30" rows="10">
+                            {{$tache->commentaire}}
+                        </textarea>
                     </div>
                     <label for="" class="checkbox-inline">
                         <input type="checkbox" name="fait"

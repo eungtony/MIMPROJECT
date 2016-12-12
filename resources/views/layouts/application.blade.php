@@ -1,7 +1,13 @@
 <?php
-$taches = \App\Travail::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('fait', 0)->get();
+$taches = \App\Travail::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)
+        ->with('projet', 'categorie')
+        ->where('fait', 0)
+        ->get();
 $agences = \App\Agence::get();
 $now = \Carbon\Carbon::now();
+$agence = \App\Agence::findOrFail(Auth::user()->agence_id);
+$cdp_id = $agence->user_id;
+$statut_id = Auth::user()->statut_id;
 ?>
         <!DOCTYPE html>
 <html lang="en">
@@ -84,7 +90,9 @@ $now = \Carbon\Carbon::now();
                                     <div class="task-info">
                                         <div class="desc">
                                             <a href="#voirtache{{$tache->id}}" data-toggle="modal">
-                                                {{$tache->titre}}
+                                                {{$tache->titre}}<br>
+                                                <span class="label label-danger">{{$tache->categorie->titre}}</span>
+                                                <span class="label label-primary ">{{$tache->projet->nom}}</span>
                                                 @if($difference > 0)
                                                     <span class="label label-info">J - {{ $difference }}</span>
                                                 @else
@@ -131,7 +139,7 @@ $now = \Carbon\Carbon::now();
                 <p class="centered">
                     <a href="{{route('profile', Auth::user())}}">
                         @if(Auth::user()->avatar == 0)
-                            <img src="{{ asset('img/ui-sam.jpg') }}" class="img-circle" width="60">
+                            <img src="{{ asset('avatars/user.png') }}" class="img-circle" width="60">
                         @else
                             <img src="{{ asset('avatars/'.Auth::user()->id.'.'.Auth::user()->extension) }}"
                                  class="img-circle" width="60">
@@ -154,6 +162,7 @@ $now = \Carbon\Carbon::now();
                     </a>
                     <ul class="sub">
                         <li><a href="{{ route('user') }}">Mon profil</a></li>
+                        <li><a href="{{ route('agence', Auth::user()->agence_id) }}">Mon agence</a></li>
                         <li><a href="{{ url('/logout') }}">Déconnexion</a></li>
                     </ul>
                 </li>
@@ -189,7 +198,7 @@ $now = \Carbon\Carbon::now();
                             <span>Trésorerie</span>
                         </a>
                         <ul class="sub">
-                            <li><a href="{{ url('/supervisor') }}">Gérer la trésorerie</a></li>
+                            <li><a href="{{ route('livret') }}">Livret de compte</a></li>
                             <li><a href="#money" data-toggle="modal">Ajouter un montant</a></li>
                         </ul>
                     </li>
@@ -226,6 +235,7 @@ $now = \Carbon\Carbon::now();
             @endforeach
             @include('user.taches')
             @include('flash')
+            @include('tresorerie.add')
             @yield('content')
         </section>
     </section>

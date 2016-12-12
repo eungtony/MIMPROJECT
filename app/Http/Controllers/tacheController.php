@@ -20,10 +20,13 @@ class tacheController extends Controller
     }
 
     /**
+     * Show a task
+     *
      * @param $ida
      * @param $pid
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+*@return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index($ida, $pid, $id)
     {
@@ -33,9 +36,12 @@ class tacheController extends Controller
     }
 
     /**
+     * View of the form to add a task
+     *
      * @param $id
      * @param $idp
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+*@return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function addForm($id, $idp)
     {
@@ -44,8 +50,11 @@ class tacheController extends Controller
     }
 
     /**
+     * Method to add a task
+     *
      * @param Requests\tacheRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     *
+*@return \Illuminate\Http\RedirectResponse
      */
     public function add(Requests\tacheRequest $request)
     {
@@ -57,6 +66,8 @@ class tacheController extends Controller
     }
 
     /**
+     * View of the form to edit a task
+     *
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -67,6 +78,8 @@ class tacheController extends Controller
     }
 
     /**
+     * Method to edit a task
+     *
      * @param $id
      * @param $pid
      * @param Request $request
@@ -86,6 +99,8 @@ class tacheController extends Controller
     }
 
     /**
+     * Method to delete a task
+     *
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -96,6 +111,8 @@ class tacheController extends Controller
     }
 
     /**
+     * Method to put a task as done
+     *
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -107,6 +124,13 @@ class tacheController extends Controller
         return back()->with('success', 'La tâche a été mis a à jour !');
     }
 
+    /**
+     * Method to put a task as 'to make'
+     *
+     * @param Request $request
+     *
+*@return \Illuminate\Http\RedirectResponse
+     */
     public function uncheckTask(Request $request)
     {
         $id = $request->only('id')['id'];

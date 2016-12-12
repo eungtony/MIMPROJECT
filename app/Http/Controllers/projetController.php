@@ -25,16 +25,19 @@ class projetController extends Controller
     }
 
     /**
+     * View of a project
+     *
      * @param $id
      * @param $ida
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+*@return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index($ida, $id)
     {
         $projet = Projet::findOrFail($id);
         $projet->load('file', 'etape');
         $cdp_id = Agence::findOrFail($ida)->user_id;
-        $taches = Travail::where('projet_id', $id)->where('fait', 0)->with('user', 'categorie')->get();
+        $taches = Travail::where('projet_id', $id)->where('fait', 0)->orderBy('id', 'desc')->with('user', 'categorie')->get();
         $done = Travail::where('projet_id', $id)->where('fait', 1)->get()->count();
         $total = $taches->count();
         $users = User::where('agence_id', $ida)->get();
@@ -45,16 +48,22 @@ class projetController extends Controller
     }
 
     /**
+     * View of the form to add a project
+     *
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+*@return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function addForm($id){
         return view('projet.add', compact('id'));
     }
 
     /**
+     * Method to add a project
+     *
      * @param Requests\projetRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     *
+*@return \Illuminate\Http\RedirectResponse
      */
     public function add(Requests\projetRequest $request){
         $rq = $request->except('_token');
@@ -64,6 +73,8 @@ class projetController extends Controller
     }
 
     /**
+     * View of the form to edit the project
+     *
      * @param $id
      * @param $idp
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -75,6 +86,8 @@ class projetController extends Controller
     }
 
     /**
+     * Method to edit a project
+     *
      * @param $pid
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
@@ -87,6 +100,8 @@ class projetController extends Controller
     }
 
     /**
+     * Method to destroy a project
+     *
      * @param $ida
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
@@ -100,6 +115,8 @@ class projetController extends Controller
     /************************************** FILE *******************************************/
 
     /**
+     * Method to add a file in a project
+     *
      * @param $ida
      * @param $pid
      * @return \Illuminate\Http\RedirectResponse
@@ -126,6 +143,8 @@ class projetController extends Controller
     }
 
     /**
+     * Method to edit the name of a file
+     *
      * @param $ida
      * @param $pid
      * @param $id
@@ -140,6 +159,8 @@ class projetController extends Controller
     }
 
     /**
+     * Method to delete a file
+     *
      * @param $ida
      * @param $pid
      * @param $id
