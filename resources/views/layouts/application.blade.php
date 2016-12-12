@@ -166,6 +166,8 @@ $statut_id = Auth::user()->statut_id;
                         <li><a href="{{ url('/logout') }}">Déconnexion</a></li>
                     </ul>
                 </li>
+
+                @if(Auth::user()->statut_id == 2 || Auth::user()->id == $cdp_id)
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-user"></i>
@@ -176,6 +178,7 @@ $statut_id = Auth::user()->statut_id;
                         <li><a href="{{ url('add/notif/team') }}">Equipe</a></li>
                     </ul>
                 </li>
+                @endif
 
                 @if(Auth::user()->statut_id == 1)
                     <li class="sub-menu">
