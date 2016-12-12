@@ -1,0 +1,33 @@
+h3.notif-title {
+	margin-left: 20px;
+	margin-bottom: 25px;
+}
+
+div.notif.panel div.block {
+	position: relative;
+	width: auto;
+}
+
+div.notif-panel > div.block > div.notif-avatar, div.info-notif, div.notif-options {
+	display: inline-block;
+	width: auto;
+}
+
+div.notif-panel > div.block > div.notif-avatar, div.info-notif { padding: 10px; }
+
+div.notif-panel > div.block > div.notif-avatar { 
+	float: left; 
+	margin-top: 0px;
+}
+
+div.notif-panel > div.block > div.notif-options { 
+	float: right;
+	margin-right: 15px;
+	margin-top: 10px;
+}
+
+div.notif-panel > div.block > div.notif-message { 
+	margin-top: 10px;
+	margin-left: 15px;
+}
+

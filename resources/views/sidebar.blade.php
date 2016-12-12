@@ -1,9 +1,11 @@
 @php
     $agence_id = \Illuminate\Support\Facades\Auth::user()->agence_id;
-    $agences = \App\Agence::get();
     $agence = \App\Agence::findOrFail($agence_id);
     $agence->load('file', 'users');
     $messages = \App\Message::where('agence_id', Auth::user()->agence_id)->take(5)->orderBy('id', 'desc')->get();
+    $user_id = Auth::user()->id;
+    $statut_id = Auth::user()->statut_id;
+    $agences = \App\Agence::get();
 @endphp
 
 <!--  RIGHT SIDEBAR CONTENT -->
@@ -98,12 +100,15 @@
                 </div>
             </div>
         @endforeach
+
         <div class="desc">
             <p class="text-center">
                 <a href="#messages" data-toggle="modal">Voir tous les messages</a>
             </p>
         </div>
+
         @include('agence.messages')
+
     @endif
 
     <h3>AUTRES AGENCES</h3>

@@ -28,6 +28,9 @@ $now = \Carbon\Carbon::now();
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet">
 
+    <!-- Our Custom code -->
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+
     <script src="{{ asset('js/chart-master/Chart.js') }}"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->

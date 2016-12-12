@@ -7,7 +7,7 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>DASHGUM - Bootstrap Admin Template</title>
+    <title>TPZ - Projects Administration</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
@@ -27,10 +27,6 @@
 
 <body>
 
-<!-- **********************************************************************************************************************************************************
-MAIN CONTENT
-*********************************************************************************************************************************************************** -->
-
 @yield('content')
 
         <!-- js placed at the end of the document so the pages load faster -->
@@ -43,7 +39,6 @@ MAIN CONTENT
 <script>
     $.backstretch("{{ asset('img/login-bg.jpg') }}", {speed: 500});
 </script>
-
 
 </body>
 </html>
