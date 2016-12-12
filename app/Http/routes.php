@@ -63,7 +63,7 @@ Route::delete('/livret/delete/{id}', 'HomeController@deleteMontant')->name('dele
 Route::get('add/notif/{type}/{id?}', 'NotificationsController@create')->name('form.add.notif');
 Route::post('add/notif/{type}/{id?}', 'NotificationsController@store');
 Route::get('show/notif/all', 'NotificationsController@showAll')->name('show.notif.all');
-// Route::get('show/notif/{id}', 'NotificationsController@show')->name('show.notif');
+Route::get('delete/notif/{id}', 'NotificationsController@destroy');
 
 Route::group(['middleware' => ['restrict']], function () {
 

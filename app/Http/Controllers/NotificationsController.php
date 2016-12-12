@@ -99,8 +99,10 @@ class NotificationsController extends Controller
     {
         // On recupère les notifications
         $notifs = Notifications::get();
+        // On recupère les utilisateurs
+        $users = User::get();
         // Puis on retourne la vue adéquat
-        return view('notif.show', ['notifs' => $notifs]);
+        return view('notif.show', ['notifs' => $notifs, 'users' => $users]);
     }
 
     /**
@@ -137,6 +139,9 @@ class NotificationsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // On supprime la notification 
+        Notifications::where('id', $id)->delete();
+        // Puis on redirig l'utilisateur
+        return redirect('show/notif/all')->withMessage('Notification supprimé avec succès !');
     }
 }
