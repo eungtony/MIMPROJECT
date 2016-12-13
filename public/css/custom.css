@@ -39,3 +39,20 @@ div.notif-panel > div.block > div.notif-message {
 }
 
 div.row-info { padding: 20px; }
+
+img.profile-img { 
+	margin-top: 15px;
+	margin-left: 25px;
+	max-width: 50px; 
+	float: left; 
+}
+
+img.profile-img, h1.user-name { display: inline-block; }
+
+h1.user-name { padding-left: 25px; }
+
+div.user-info { margin-top: 25px; }
+
+div.details > a.agence { padding-left: 15px; } 
+
+div.details > a.agence-notif { float: right; }

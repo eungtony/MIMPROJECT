@@ -29,6 +29,7 @@
                     @include('projet.add')
 
                     @include('agence.edit')
+
                 @endif
             </div>
 
@@ -50,7 +51,7 @@
                     <ul>
                         @foreach ($members as $member)
                             <li>
-                                <a href="">{{ $member->name }}</a>
+                                <a href="{{ url('user/' . $member->id) }}">{{ $member->name }}</a>
                             </li>
                         @endforeach
                     </ul>
