@@ -10,10 +10,6 @@ Refondre la page "projet" d'une agence
 
 Refondre les pages notifications
 
-Rendre la partie "notification" fonctionnelle dans la sidebar
-
-Retirer le ";" chelou à coté des notifs dans la nav
-
 ## BACK
 Finir le système de notification (CEDRIC)
 
