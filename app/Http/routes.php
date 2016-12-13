@@ -50,6 +50,7 @@ Route::post('/modify/{id}/{pid}', 'tacheController@edit')->name('edit.tache');
 Route::post('/tache/check', 'tacheController@checkTask')->name('check.tache');
 Route::post('/tache/uncheck', 'tacheController@uncheckTask')->name('uncheck.tache');
 Route::resource('tache', 'tacheController');
+Route::post('/addcommentaire', 'tacheController@addCommentaire')->name('add.tache.commentaire');
 
 //Supervisor
 Route::get('/supervisor', 'agenceController@supervisor')->name('supervisor');
@@ -77,5 +78,4 @@ Route::group(['middleware' => ['restrict']], function () {
 
 //Tâches
     Route::get('/add/tache/{id}/{idp}', 'tacheController@addForm')->name('form.add.tache');
-
 });
