@@ -115,7 +115,7 @@ $statut_id = Auth::user()->statut_id;
                 <!-- settings end -->
                 <!-- inbox dropdown start-->
 
-                @include('notifications');
+                @include('notifications')
 
                 <!-- inbox dropdown end -->
             </ul>

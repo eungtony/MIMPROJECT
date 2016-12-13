@@ -3,6 +3,13 @@ h3.notif-title {
 	margin-bottom: 25px;
 }
 
+h3.upload-title { padding-bottom: 15px; }
+
+h2.project-title { 
+	margin-top: 50px;
+	padding: 20px; 
+}
+
 div.notif.panel div.block {
 	position: relative;
 	width: auto;
@@ -31,3 +38,4 @@ div.notif-panel > div.block > div.notif-message {
 	margin-left: 15px;
 }
 
+div.row-info { padding: 20px; }
