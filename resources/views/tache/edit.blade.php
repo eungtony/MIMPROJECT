@@ -39,16 +39,17 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="">Date</label><br>
+                        <input type="text" id="calendar" name="date" value="{{$tache->date}}"
+                               class="form-control" style="color:black; padding:10px;">
+                    </div>
+                    <div class="form-group">
                         <label for="" class="checkbox-inline">
                             <input type="checkbox" name="fait"
                                    value="{{$tache->fait}}"
                                    @if($tache->fait == 1) checked @endif>
                             Etat de la tâche
                         </label>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Date</label><br>
-                        <input id="datepicker2" name="date" value="{{$tache->date}}" class="form-control">
                     </div>
                     <div class="form-group">
                         <button class="btn btn-success"
@@ -61,8 +62,3 @@
         </div>
     </div>
 </div>
-<script>
-    $(function () {
-        $("#datepicker2").datepicker({dateFormat: 'yy-mm-dd'});
-    });
-</script>
