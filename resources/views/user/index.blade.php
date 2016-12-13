@@ -42,23 +42,23 @@
                         <!-- SIDEBAR MENU -->
                         <div class="profile-usermenu">
                             <ul class="nav">
-                                <li class="active">
-                                    <a href="#">
+                                <li class="active" id="apropos-panel">
+                                    <a href="#" id="apropos">
                                     <i class="fa fa-user"></i>
                                     A propos </a>
                                 </li>
-                                <li>
-                                    <a href="#">
+                                <li id="parameters-panel">
+                                    <a href="#" id="parameters">
                                     <i class="fa fa-cogs"></i>
                                     Paramètres <span class="badge badge-xs coming">Coming</span></a>
                                 </li>
-                                <li>
-                                    <a href="#">
+                                <li id="taches-panel">
+                                    <a href="#" id="taches">
                                     <i class="fa fa-check"></i>
                                     Tâches </a>
                                 </li>
-                                <li>
-                                    <a href="#">
+                                <li id="help-panel">
+                                    <a href="#" id="help">
                                     <i class="fa fa-question"></i>
                                     Aide <span class="badge badge-xs coming">Coming</span></a>
                                 </li>
@@ -68,17 +68,65 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="profile-content panel-content">
-                        <p style="font-size:24px">Description</p>
-                        <p>{{ $user->description }}</p>
-                        <a href="#description" class="btn btn-success btn-sm" type="button" data-toggle="modal"
-                           data-target="#description">
-                            <i class="fa fa-cogs fa-fw"></i> Modifier ma description
-                        </a>
+                    <div class="profile-content content-panel">
+                        
+                        <div id="apropos-content">
+                            <p style="font-size:24px">Description</p>
+                            <p>{{ $user->description }}</p>
+                            <a href="#description" class="btn btn-success btn-sm" type="button" data-toggle="modal"
+                               data-target="#description">
+                                <i class="fa fa-cogs fa-fw"></i> Modifier ma description
+                            </a>
+                        </div>
+                        
+                        <div id="taches-content" style="display: none;">
+                            <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                  <th>Titre</th>
+                                  <th>Catégorie</th>
+                                  <th>Projet associé</th>
+                                  <th>Remaining Time</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($taches as $tache)
+                                    @php
+                                        $date = \Carbon\Carbon::createFromFormat('Y-m-d', $tache->date);
+                                        $difference = ($date->diff($now)->days < 1) ? 'today' : $date->diffInDays($now);
+                                    @endphp
+
+                                    <tr>
+                                        <td>
+                                            <a href="#voirtache{{$tache->id}}" data-toggle="modal">
+                                              {{$tache->titre}}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <span class="label label-danger">{{$tache->categorie->titre}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="label label-primary ">{{$tache->projet->nom}}</span>
+                                        </td>
+                                        <td>
+                                            @if($difference > 0)
+                                                <span class="label label-info">J - {{ $difference }}</span>
+                                            @else
+                                                <span class="label label-danger">{{ $difference }} jours
+                                                    de retard !!</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Inclusion de la sidebar -->
                 @include('sidebar')
+                <!-- Inclusion de la sidebar -->
 
             </div>
         </div>

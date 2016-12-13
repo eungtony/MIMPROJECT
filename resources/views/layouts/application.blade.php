@@ -282,5 +282,8 @@ $statut_id = Auth::user()->statut_id;
     });
 </script>
 
+<!-- Custom JS -->
+<script src="{{ asset('js/custom.js') }}"></script>
+
 </body>
 </html>
