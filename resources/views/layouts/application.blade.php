@@ -247,7 +247,7 @@ $statut_id = Auth::user()->statut_id;
     <!--footer start-->
     <footer class="site-footer">
         <div class="text-center">
-            2017 - TPZ - version 1.0
+            2017 - TPZ - version 1.3
             <a href="#" class="go-top">
                 <i class="fa fa-angle-up"></i>
             </a>
