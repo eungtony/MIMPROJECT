@@ -7,6 +7,7 @@ use App\Poste;
 use App\Statut;
 use Illuminate\Contracts\Auth\Guard;
 use App\User;
+use App\Travail;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -40,7 +41,12 @@ class userController extends Controller
         $id = $this->auth->user()->id;
         $user = User::findOrFail($id);
         $user->load('agence', 'poste', 'statut');
-        return view('user.index', compact('user'));
+        $taches = Travail::where('user_id', Auth::user()->id)
+            ->with('projet', 'categorie')
+            ->where('fait', 0)
+            ->get();
+        $now = \Carbon\Carbon::now();
+        return view('user.index', compact('user', 'taches', 'now'));
     }
 
     /**
