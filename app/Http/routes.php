@@ -22,6 +22,7 @@ Route::get('/user/{id}', 'userController@user')->name('profile');
 Route::get('/user/edit/{id}', 'userController@editForm')->name('edit.user');
 Route::post('/user/{id}/edit', 'userController@edit')->name('user.edit');
 Route::post('/user/edit/avatar/{id}', 'userController@editAvatar')->name('user.avatar');
+Route::post('/user/description/{id}', 'userController@editDescription')->name('user.description');
 
 //Projet
 Route::get('/projet/{id}/{ida}', 'projetController@index')->name('projet');

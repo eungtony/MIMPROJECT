@@ -13,6 +13,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Auth;
 
 class userController extends Controller
 {
@@ -107,5 +108,24 @@ class userController extends Controller
         Input::file('avatar')->move($path, $id . '.' . $extension); // uploading file to given path
         User::findOrFail($id)->update(['extension' => $extension, 'avatar' => 1]);
         return redirect()->route('home')->with('success', 'Votre avatar a été modifé avec succès !');
+    }
+
+    public function editDescription(Request $request, $id)
+    {
+        // On verifie que la description changer est
+        // bien celle de l'utilisateur en cour
+        if (Auth::user()->id == $id) {
+            // On stocke la nouvelle description
+            $description = $request->description;
+            // Puis on update la description
+            User::where('id', $id)->update(['description' => $description]);
+            // Puis on redirige l'utilisateur
+            return redirect('/user');
+        } else {
+            // On déconnecte l'utilisateur
+            Auth::logout();
+            // Puis on le redirige
+            return redirect('/');
+        }
     }
 }
