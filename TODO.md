@@ -12,7 +12,7 @@ Refondre les pages notifications
 
 Rendre la partie "notification" fonctionnelle dans la sidebar
 
-Retirer le ";" chelou à coté des notifs dans la nav
+Afficher les tâches à effectuer sur le page profile de l'utilisateur
 
 ## BACK
 Finir le système de notification (CEDRIC)
