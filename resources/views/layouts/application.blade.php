@@ -180,6 +180,17 @@ $statut_id = Auth::user()->statut_id;
                 </li>
                 @endif
 
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-user"></i>
+                        <span>Evènements</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="">Créer un évenements</a></li>
+                        <li><a href="">Voir les évenements</a></li>
+                    </ul>
+                </li>
+
                 @if(Auth::user()->statut_id == 1)
                     <li class="sub-menu">
                         <a href="javascript:;">

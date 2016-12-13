@@ -26,7 +26,7 @@ $cdp_id = $agence->user_id;
         </div>
     </div>
     <!-- USERS ONLINE SECTION -->
-    <h3>MEMBRES</h3>
+    <h3>MEMBRES DE L'AGENCE</h3>
     @foreach($agence->users as $user)
         @php
             $statut = \App\Poste::findOrFail($user->poste_id);
@@ -66,7 +66,7 @@ $cdp_id = $agence->user_id;
         @foreach($messages as $message)
             <?php $user = \App\User::findOrFail($message->user_id); ?>
             <div class="desc">
-                <div class="details">
+                <div class="">
                     <div class="thumb">
                         @if($user->avatar == 0)
                             <img class="img-circle" src="{{ asset('avatars/user.png') }}" width="35px" height="35px"
@@ -79,20 +79,7 @@ $cdp_id = $agence->user_id;
                     <a href="#message{{$message->id}}" data-toggle="modal">
                         {{$message->titre}}
                     </a>
-                    <p class="text-right">
-                        {{$message->created_at}}
-                        @if($user_id == $cdp_id || $statut_id == 1)
-                            <a href="#editmessage{{$message->id}}"
-                               data-toggle="modal"
-                               class="btn btn-primary btn-xs" style="color:white;"><i
-                                        class="fa fa-pencil-square-o"></i></a>
-                            <a href="{{action('agenceController@deleteMessage', [$message->agence_id,$message->id])}}"
-                               data-method="delete"
-                               data-confirm="Souhaitez-vous réellement supprimer ce message ?"
-                               class="btn btn-danger btn-xs" style="color:white;"><i class="fa fa-trash-o"></i></a>
-                            @include('agence.editMessageM')
-                        @endif
-                    </p>
+                    <p>{{ $message->created_at }}</p>
                 </div>
             </div>
             <div class="modal fade" id="message{{$message->id}}" role="dialog">

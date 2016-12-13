@@ -1,5 +1,6 @@
-<?php $agence_id = Auth::user()->agence_id;
-$messages = \App\Message::where('agence_id', $agence_id)->orderBy('id', 'desc')->get();
+<?php 
+    $agence_id = Auth::user()->agence_id;
+    $messages = \App\Message::where('agence_id', $agence_id)->orderBy('id', 'desc')->get();
 ?>
 <div class="modal fade" id="messages" role="dialog">
     <div class="modal-dialog">
