@@ -50,7 +50,7 @@
                                 <li>
                                     <a href="#">
                                     <i class="fa fa-cogs"></i>
-                                    Paramètres de compte </a>
+                                    Paramètres <span class="badge badge-xs coming">Coming</span></a>
                                 </li>
                                 <li>
                                     <a href="#">
@@ -60,7 +60,7 @@
                                 <li>
                                     <a href="#">
                                     <i class="fa fa-question"></i>
-                                    Aide </a>
+                                    Aide <span class="badge badge-xs coming">Coming</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -70,10 +70,7 @@
                 <div class="col-md-6">
                     <div class="profile-content panel-content">
                         <p style="font-size:24px">Description</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut cumque iure temporibus molestias aspernatur. Quo praesentium quibusdam quaerat eos, deleniti dolorem sint expedita omnis similique veniam eveniet repellendus. Recusandae, sequi!</p>
-                        <p>Totam voluptatum id explicabo voluptatibus recusandae, nobis laboriosam iure repudiandae minima autem rem accusamus voluptas quos laudantium eaque, praesentium aut molestias libero officiis repellendus veniam eos fugiat officia. Assumenda, eum?</p>
-                        <p>Expedita sequi reiciendis voluptas dicta saepe possimus, quas temporibus, porro eius vero corporis hic enim, quaerat sint incidunt similique sunt placeat accusantium officia, nesciunt tempore fugit! Atque incidunt similique, quo.</p>
-                        <p>Voluptas, vitae. Earum distinctio harum doloribus temporibus est soluta provident sunt, tenetur suscipit iste, laboriosam quae inventore sapiente magni exercitationem nesciunt nobis, consequatur nostrum ad. Magni nulla, autem quibusdam id.</p>
+                        <p>{{ $user->description }}</p>
                         <a href="#description" class="btn btn-success btn-sm" type="button" data-toggle="modal"
                            data-target="#description">
                             <i class="fa fa-cogs fa-fw"></i> Modifier ma description
@@ -128,12 +125,14 @@
                 <div class="modal-body text-center">
 
                     <h3>Votre Description</h3>
-                    <form action="{{route('user.avatar', Auth::user())}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ url('user/description/' . $user->id) }}" method="POST">
                         
                         {{csrf_field()}}
 
                          <div class="form-group">
-                            <textarea name="message" id="" cols="30" rows="10" class="form-control"></textarea>
+                            <textarea name="description" id="" cols="30" rows="10" class="form-control">
+                                {{ $user->description }}
+                            </textarea>
                         </div>
 
                         <div class="form-group">
