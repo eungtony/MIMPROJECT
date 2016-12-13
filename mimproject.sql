@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 12 Décembre 2016 à 15:11
+-- Généré le :  Mar 13 Décembre 2016 à 18:06
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -221,7 +221,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `notifications`
@@ -229,7 +229,8 @@ CREATE TABLE IF NOT EXISTS `notifications` (
 
 INSERT INTO `notifications` (`id`, `sender`, `type`, `to`, `message`, `created_at`, `updated_at`) VALUES
 (2, 1, 'personal', 1, 'Test !!', '2016-12-05 19:52:09', '2016-12-05 19:52:09'),
-(4, 1, 'team', 1, 'Test Equipe !!', '2016-12-05 21:53:07', '2016-12-05 21:53:07');
+(4, 1, 'team', 1, 'Test Equipe !!', '2016-12-05 21:53:07', '2016-12-05 21:53:07'),
+(5, 4, 'personal', 5, 'Salut mec', '2016-12-13 10:26:11', '2016-12-13 10:26:11');
 
 -- --------------------------------------------------------
 
@@ -330,6 +331,36 @@ INSERT INTO `statuts` (`id`, `created_at`, `updated_at`, `titre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `tache_commentaires`
+--
+
+CREATE TABLE IF NOT EXISTS `tache_commentaires` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `commentaire` text COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `travail_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `projet_id` int(11) NOT NULL,
+  `agence_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+
+--
+-- Contenu de la table `tache_commentaires`
+--
+
+INSERT INTO `tache_commentaires` (`id`, `commentaire`, `created_at`, `updated_at`, `travail_id`, `user_id`, `projet_id`, `agence_id`) VALUES
+(1, 'Ceci est un commentaire', NULL, NULL, 28, 4, 2, 2),
+(2, 'f,kel,flke', '2016-12-13 12:15:34', '2016-12-13 12:15:34', 28, 4, 2, 2),
+(3, 'test', '2016-12-13 14:22:00', '2016-12-13 14:22:00', 28, 4, 2, 2),
+(4, 'test', '2016-12-13 14:39:36', '2016-12-13 14:39:36', 28, 4, 2, 2),
+(5, '', '2016-12-13 14:43:18', '2016-12-13 14:43:18', 28, 4, 2, 2),
+(6, 'bhjhjjhgj', '2016-12-13 14:54:56', '2016-12-13 14:54:56', 25, 3, 1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `travails`
 --
 
@@ -346,19 +377,24 @@ CREATE TABLE IF NOT EXISTS `travails` (
   `user_id` int(11) NOT NULL,
   `categorie_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=33 ;
 
 --
 -- Contenu de la table `travails`
 --
 
 INSERT INTO `travails` (`id`, `created_at`, `updated_at`, `date`, `commentaire`, `projet_id`, `agence_id`, `fait`, `titre`, `user_id`, `categorie_id`) VALUES
-(21, '2016-11-27 12:48:53', '2016-12-10 15:05:09', '2017-01-26', 'oklm', 3, 1, 1, 'Une tache a faire', 1, 3),
+(21, '2016-11-27 12:48:53', '2016-12-12 21:03:27', '2017-01-26', 'oklm', 3, 1, 0, 'Une tache a faire', 1, 3),
 (22, '2016-11-27 15:12:34', '2016-11-27 15:14:33', '2016-12-30', 'test', 7, 4, 0, 'test', 9, 1),
-(24, '2016-12-01 22:16:23', '2016-12-11 19:23:59', '2016-12-31', 'Une tache a faire: description', 1, 1, 0, 'Une tache a faire', 3, 2),
+(24, '2016-12-01 22:16:23', '2016-12-12 20:59:35', '2016-12-31', '                            Une tache a faire: description\r\n                        ', 1, 1, 0, 'Une tache a faire', 1, 2),
 (25, '2016-12-04 15:53:33', '2016-12-07 06:51:42', '2017-04-21', 'Une autre tache', 1, 1, 0, 'Une autre tache', 1, 3),
 (26, '2016-12-10 13:59:20', '2016-12-11 19:37:33', '2017-03-24', '                            Une autre tache 43\r\n                        ', 6, 3, 0, 'Une autre tache 43', 6, 3),
-(27, '2016-12-10 14:07:35', '2016-12-10 14:08:03', '2016-12-29', '                            Une autre tache biatch\r\n                        ', 6, 3, 0, 'Une autre tache biatch', 8, 1);
+(27, '2016-12-10 14:07:35', '2016-12-10 14:08:03', '2016-12-29', '                            Une autre tache biatch\r\n                        ', 6, 3, 0, 'Une autre tache biatch', 8, 1),
+(28, '2016-12-12 21:02:38', '2016-12-13 13:21:23', '2017-01-27', '                            Tâche #46\r\n                        ', 1, 1, 1, 'Tâche #46', 1, 3),
+(29, '2016-12-12 21:04:22', '2016-12-12 21:05:17', '2017-02-15', '                            Tache #48\r\n                        ', 4, 1, 0, 'Tache #48', 3, 1),
+(30, '2016-12-12 21:04:54', '2016-12-12 21:05:06', '2016-12-17', '                            Tâche #77\r\n                        ', 4, 1, 0, 'Tâche #77', 3, 2),
+(31, '2016-12-12 21:07:14', '2016-12-13 07:09:27', '2017-03-03', '                                                                                    Tâche #97\r\n                        \r\n                        \r\n                        ', 4, 1, 0, 'Tâche #97', 3, 1),
+(32, '2016-12-13 08:13:52', '2016-12-13 08:21:01', '2016-12-31', '                                                                                                                                                                        tache #28\r\n                        \r\n                        \r\n                        \r\n                        \r\n                        \r\n                        ', 2, 2, 0, 'tache #28', 2, 3);
 
 -- --------------------------------------------------------
 
@@ -394,6 +430,7 @@ INSERT INTO `tresoreries` (`id`, `created_at`, `updated_at`, `libelle`, `montant
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -412,17 +449,17 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Contenu de la table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `agence_id`, `poste_id`, `statut_id`, `extension`, `avatar`) VALUES
-(1, 'Tony Eung', 'eungtony@outlook.fr', '$2y$10$TWHglceWmSQrjntIOlPzBuVSs7XEoM2kuz.gflotGOpkEgPqDtDeC', 'N86StLWBW6z8xgmPDpIIpyic04yuJgvBnTIWn1tWK4Kf9tbPARgSwEOlJ7ND', '2016-11-12 18:13:09', '2016-12-12 12:35:31', 1, 1, 3, 'jpg', 1),
-(2, 'Dev1', 'dev1@test.com', '$2y$10$LEpv3B.p.V0R.pqqijOKZuIvh9lpADE/FWgaJt6mDsFI2WY4fnaaG', 'SpBz4p8ibT7V8xvViwlOKBBKG65Z9Kssgg5TFlzxhdNwansys7kweO8iE689', '2016-11-14 20:52:20', '2016-12-11 19:43:45', 2, 3, 4, '', 0),
-(3, 'Dev2', 'dev2@test.com', '$2y$10$Dj982gKolHMHF3wSLRLzBOzwuICFqGc3GZaXMOTf.dcsRJtxrLmI.', 'oLdtCKJfz4opl2FHnoFXoDZOsuoeSjwE4SERlWAnBdFsm2k827zlM6eR4Z6I', '2016-11-14 20:56:58', '2016-12-12 12:36:38', 1, 3, 4, 'png', 1),
-(4, 'CDP2', 'cdp2@test.com', '$2y$10$Yn/ggKqvuDHRkPXT6.43quKzZc1schRgF5w/cbRmI7b4MLEVIN0UC', 'bwctPf6P3OfZryDHNyyHdk1qqtgGLeCYploS9hTz4ZRdWLkp7sV7sZtHt6Pq', '2016-11-15 20:00:33', '2016-12-11 19:43:57', 2, 1, 3, '', 0),
-(5, 'Supervisor', 'supervisor@test.com', '$2y$10$71C1V/cnBi.E9WDAZMFIkeseIeSuWESl1LAJKnLFWsigPx6zSYUcW', 'mNibeveXDXs1RBQZyeSLF5CLkoSYeuLHFPA8buaqFF62EZ7cEdiIjg7Mbwgb', '2016-11-15 21:47:04', '2016-12-12 09:34:55', 2, 3, 1, '', 0),
-(6, 'Bureau1', 'bureau1@test.com', '$2y$10$Xc7WHj.8GpCKPZaOra5rQuOJDEa0Wj7xP81.xwQC7QDPXrSAeaAGO', 'iULNIF5vNIpCV3p0lBlhIxwOHH4D57pgpGgEjbS1JWPhuD0ZcyPNVPsQ35xw', '2016-11-15 21:50:08', '2016-12-11 20:25:26', 3, 1, 2, '', 0),
-(7, 'Bureau2', 'bureau2@test.com', '$2y$10$gkTml1A65WaUqYi5O0g4TuC2UM8KI44wSs4VvfbaNnK51jd8kVn.q', 'zmmyAaWEIYs7hZ1adEPuZBsRYMqGkrHfEGrcU63bujS9Jcwy0GqX95hJVrOe', '2016-11-15 21:51:50', '2016-12-04 22:25:50', 4, 2, 2, '', 0),
-(8, 'dev3', 'dev3@test.com', '$2y$10$Upc6G238Qj/QbKQtyud4A.cr8yyydzd67xgh0zc86E563ddoSMQfa', 'bGPWd6HetSyUlSjrOPCcdUYIVT1ptjVIbIZJuAcfE9EjN7rMum4XSvVgmg1z', '2016-11-24 20:42:51', '2016-12-01 18:44:03', 3, 2, 4, '', 0),
-(9, 'dev4', 'dev4@test.com', '$2y$10$oSERMnpxVH4S/Mu1e65rPev9MkYPRkB0YHrCIw9F8lqiwiu/75X/e', 'mlelWvPzqwtqaPCfJZzxW2cz0tSvXblIBsP5ST6lchgGgM0fX4VEWA8dmbtt', '2016-11-24 20:43:47', '2016-12-02 15:21:08', 4, 2, 4, '', 0),
-(10, 'CDP4', 'cdp4@test.com', '$2y$10$BzqcWhUrbCavR/0N8bAjie9vlsHcYawbwEdE4C8RjhnZBiPiR5hdq', 'FEQHD1h5Sal5xDdwmWMfRh5yRoUdr8CQ7Dex6U7acTbdSEtVguCM5vGh3loB', '2016-11-24 20:44:40', '2016-11-27 21:07:27', 4, 1, 3, '', 0);
+INSERT INTO `users` (`id`, `name`, `description`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `agence_id`, `poste_id`, `statut_id`, `extension`, `avatar`) VALUES
+(1, 'Tony Eung', 'Bonjour je suis Tony, Développeur web à l''agence DnD :)', 'eungtony@outlook.fr', '$2y$10$TWHglceWmSQrjntIOlPzBuVSs7XEoM2kuz.gflotGOpkEgPqDtDeC', 'dkkdNfSSkmtDtSv4kVs22OAZoIE6JegP0m7a2mzkWZ2hEHJbTdu6cwIwHQyR', '2016-11-12 18:13:09', '2016-12-13 13:22:20', 1, 1, 3, 'jpg', 1),
+(2, 'Dev10', '', 'test@test.com', '$2y$10$LEpv3B.p.V0R.pqqijOKZuIvh9lpADE/FWgaJt6mDsFI2WY4fnaaG', 'SpBz4p8ibT7V8xvViwlOKBBKG65Z9Kssgg5TFlzxhdNwansys7kweO8iE689', '2016-11-14 20:52:20', '2016-11-29 12:56:58', 2, 3, 4, '', 0),
+(3, 'Dev20', '', 'test2@test.com', '$2y$10$Dj982gKolHMHF3wSLRLzBOzwuICFqGc3GZaXMOTf.dcsRJtxrLmI.', 'NKFTy5b40lDHjPTa3CAkmfjaOgZpmMihahz6nJUHUpycZec2TB0m0N6r8Kug', '2016-11-14 20:56:58', '2016-12-03 21:02:37', 1, 3, 4, 'png', 1),
+(4, 'CDP2', '', 'test3@test.com', '$2y$10$Yn/ggKqvuDHRkPXT6.43quKzZc1schRgF5w/cbRmI7b4MLEVIN0UC', 'bAshmFekeL2ulsJeRjMEqQGy7gcAbLLOwLzMPvcaQHMktjxvLFF3IzMeiTez', '2016-11-15 20:00:33', '2016-11-20 22:14:57', 2, 1, 3, '', 0),
+(5, 'Supervisor', '', 'supervisor@test.com', '$2y$10$71C1V/cnBi.E9WDAZMFIkeseIeSuWESl1LAJKnLFWsigPx6zSYUcW', 'uGtpZHlH1cUwb98iJ1wp9jAKe8ThINQUguVBvDkPmS7bP1RDUG8jYcbAhlKJ', '2016-11-15 21:47:04', '2016-12-08 18:50:15', 2, 3, 1, '', 0),
+(6, 'Bureau1', '', 'bureau1@test.com', '$2y$10$fns/Kv1Yvsisya18gYTbGe9ScVUNRQgQXO91IEaML7HBNF65h6hBe', '4ZYCLIHzZuc5ErfiBqpdhRjCvhAe8KeqLRkxpq6INzvMWPSRhnLADjtxy8wy', '2016-11-15 21:50:08', '2016-11-28 09:04:44', 3, 1, 2, '', 0),
+(7, 'Bureau2', '', 'bureau2@test.com', '$2y$10$gkTml1A65WaUqYi5O0g4TuC2UM8KI44wSs4VvfbaNnK51jd8kVn.q', 'zmmyAaWEIYs7hZ1adEPuZBsRYMqGkrHfEGrcU63bujS9Jcwy0GqX95hJVrOe', '2016-11-15 21:51:50', '2016-12-04 22:25:50', 4, 2, 2, '', 0),
+(8, 'dev3', '', 'dev3@test.com', '$2y$10$Upc6G238Qj/QbKQtyud4A.cr8yyydzd67xgh0zc86E563ddoSMQfa', 'bGPWd6HetSyUlSjrOPCcdUYIVT1ptjVIbIZJuAcfE9EjN7rMum4XSvVgmg1z', '2016-11-24 20:42:51', '2016-12-01 18:44:03', 3, 2, 4, '', 0),
+(9, 'dev4', '', 'dev4@test.com', '$2y$10$oSERMnpxVH4S/Mu1e65rPev9MkYPRkB0YHrCIw9F8lqiwiu/75X/e', 'mlelWvPzqwtqaPCfJZzxW2cz0tSvXblIBsP5ST6lchgGgM0fX4VEWA8dmbtt', '2016-11-24 20:43:47', '2016-12-02 15:21:08', 4, 2, 4, '', 0),
+(10, 'CDP4', '', 'cdp4@test.com', '$2y$10$BzqcWhUrbCavR/0N8bAjie9vlsHcYawbwEdE4C8RjhnZBiPiR5hdq', 'FEQHD1h5Sal5xDdwmWMfRh5yRoUdr8CQ7Dex6U7acTbdSEtVguCM5vGh3loB', '2016-11-24 20:44:40', '2016-11-27 21:07:27', 4, 1, 3, '', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
