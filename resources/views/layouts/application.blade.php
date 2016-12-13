@@ -278,6 +278,7 @@ $statut_id = Auth::user()->statut_id;
 <script>
     $(function () {
         $("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+        $("#calendar").datepicker({dateFormat: 'yy-mm-dd'});
     });
 </script>
 
