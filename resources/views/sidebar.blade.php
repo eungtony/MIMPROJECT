@@ -45,12 +45,16 @@ $cdp_id = $agence->user_id;
             <div class="details">
                 <p>
                     <a href="{{ route('profile', $user->id) }}">{{ $user->name }}</a>
-                    -
-                    <a href="{{ url('add/notif/personal/' . $user->id) }}" class="fa fa-envelope fa-fw"></a><br/>
-                    <muted>{{$statut['nom']}}</muted>
+                    
+                    <a href="#notify-someone-{{ $user->id }}" class="btn btn-primary btn-xs agence-notif" style="color: white;float: right;" data-toggle="modal" data-target="#notify-someone-{{ $user->id }}">
+                        <i class="fa fa-envelope"></i>
+                    </a>
                 </p>
             </div>
         </div>
+
+        @include('notif.notify-someone')
+
     @endforeach
     <!-- MESSAGES DE L'AGENCE -->
     <h3>MESSAGES DE VOTRE AGENCE</h3>
@@ -116,15 +120,17 @@ $cdp_id = $agence->user_id;
     @endif
 
     <h3>AUTRES AGENCES</h3>
-    <div class="desc">
-        <div class="details">
-            <ul>
-                @foreach ($agences as $agence)
-                    <li>
-                        <a href="{{ url('agence/' . $agence->id) }}" class="green">{{ $agence->nom }}</a>
-                    </li>
-                @endforeach
-            </ul>
+    @foreach ($agences as $agence)
+        <div class="desc">
+            <div class="details">
+                <a href="{{ url('agence/' . $agence->id) }}" class="green agence">{{ $agence->nom }}</a>
+                <a href="#notify-team-{{ $agence->id }}" class="btn btn-primary btn-xs agence-notif" style="color: white;" data-toggle="modal" data-target="#notify-team-{{ $agence->id }}">
+                    <i class="fa fa-envelope"></i>
+                </a>
+            </div>
         </div>
-    </div>
+
+        @include('notif.notify-team')
+
+    @endforeach 
 </div><!-- /col-lg-3 -->

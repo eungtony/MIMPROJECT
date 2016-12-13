@@ -29,6 +29,7 @@
                     @include('projet.add')
 
                     @include('agence.edit')
+
                 @endif
             </div>
 
@@ -50,7 +51,7 @@
                     <ul>
                         @foreach ($members as $member)
                             <li>
-                                <a href="">{{ $member->name }}</a>
+                                <a href="{{ url('user/' . $member->id) }}">{{ $member->name }}</a>
                             </li>
                         @endforeach
                     </ul>
@@ -58,9 +59,9 @@
             @endif
             <!-- Visite de la page d'une autre agence -->
 
-            <div class="content-panel" style="margin-top:25px;">
+            <div class="content-panel upload-panel">
                 <!-- TELECHARGEMENT -->
-                <h3>Fichiers disponible dans cette agence</h3>
+                <h3 class="upload-title">Fichiers partagés</h3>
 
                 @if(!$agence->file->isEmpty())
                     @foreach($agence->file as $file)
@@ -93,7 +94,7 @@
                 <!-- TELECHARGEMENT -->
             </div>
 
-            <h2 class="text-center" style="margin-bottom: 40px;">Projets de l'agence</h2>
+            <h2 class="text-center project-title" style="margin-bottom: 40px;">Projets de l'agence</h2>
 
             @foreach($projets as $projet)
             <?php
