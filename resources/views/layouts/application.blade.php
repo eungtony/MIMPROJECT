@@ -115,7 +115,7 @@ $statut_id = Auth::user()->statut_id;
                 <!-- settings end -->
                 <!-- inbox dropdown start-->
 
-                @include('notifications');
+                @include('notifications')
 
                 <!-- inbox dropdown end -->
             </ul>
@@ -265,7 +265,6 @@ $statut_id = Auth::user()->statut_id;
 <script src="{{ asset('js/jquery.nicescroll.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/jquery.sparkline.js') }}"></script>
 
-
 <!--common script for all pages-->
 <script src="{{ asset('js/common-scripts.js') }}"></script>
 
@@ -275,7 +274,7 @@ $statut_id = Auth::user()->statut_id;
 <!--script for this page-->
 <script src="{{ asset('js/sparkline-chart.js') }}"></script>
 <script src="{{url('/js/laravel.js')}}"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{{ asset('js/jquery-ui.js') }}"></script>
 <script>
     $(function () {
         $("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
