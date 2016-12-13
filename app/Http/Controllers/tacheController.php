@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Categorie;
+use App\TacheCommentaire;
 use App\Travail;
 use Illuminate\Http\Request;
 
@@ -122,6 +123,19 @@ class tacheController extends Controller
         $tache = Travail::findOrFail($id);
         $tache->update(['fait' => 1]);
         return back()->with('success', 'La tâche a été mis a à jour !');
+    }
+
+
+    /**
+     * Method to put a task as done
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addCommentaire(Request $request)
+    {
+        $rq = $request->except('_token');
+        TacheCommentaire::create($rq);
+        return back()->with('success', 'Le commentaire a été ajouté !');
     }
 
     /**
