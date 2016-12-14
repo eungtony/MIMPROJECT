@@ -73,6 +73,11 @@ Route::post('add/notif/{type}/{id?}', 'NotificationsController@store')->where('i
 Route::get('show/notif/all', 'NotificationsController@showAll')->name('show.notif.all');
 Route::get('delete/notif/{id}', 'NotificationsController@destroy');
 
+// Events
+Route::post('add/event', 'EventsController@store')->name('add.event');
+// Route::post('register/event/{event}/{student}', 'EventsController@register')->name('register.event');
+// Route::post('unregister/event/{event}/{student}', 'EventsController@unregister')->name('unregister.event');
+
 Route::group(['middleware' => ['restrict']], function () {
 
 //Agence

@@ -18,14 +18,17 @@ use Illuminate\Support\Facades\Auth;
 
 class NotificationsController extends Controller
 {
+    protected $auth;
+
     /**
-     * Display a listing of the resource.
+     * Create a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function index()
+    public function __construct(Guard $auth)
     {
-        //
+        $this->middleware('auth');
+        $this->auth = $auth;
     }
 
     /**

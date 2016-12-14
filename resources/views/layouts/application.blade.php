@@ -186,7 +186,7 @@ $statut_id = Auth::user()->statut_id;
                         <span>Evènements</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="">Créer un évenements</a></li>
+                        <li><a href="#addevent" data-toggle="modal">Créer un évenements</a></li>
                         <li><a href="">Voir les évenements</a></li>
                     </ul>
                 </li>
@@ -244,13 +244,21 @@ $statut_id = Auth::user()->statut_id;
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper">
+
             @foreach($taches as $tache)
                 @include('tache.index')
             @endforeach
+
             @include('user.taches')
+
             @include('flash')
+
             @include('tresorerie.add')
+
+            @include('events.add')
+
             @yield('content')
+
         </section>
     </section>
 
