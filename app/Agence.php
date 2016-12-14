@@ -23,4 +23,9 @@ class Agence extends Model
     public function file(){
         return $this->hasMany('App\File');
     }
+
+    public function commentaire()
+    {
+        return $this->hasMany('App\TacheCommentaire');
+    }
 }

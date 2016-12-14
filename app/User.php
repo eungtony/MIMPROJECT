@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Statut');
     }
+
+    public function commentaire()
+    {
+        return $this->hasMany('App\TacheCommentaire');
+    }
 }

@@ -26,4 +26,9 @@ class Projet extends Model
     {
         return $this->belongsTo('App\Etape');
     }
+
+    public function commentaire()
+    {
+        return $this->hasMany('App\TacheCommentaire');
+    }
 }
