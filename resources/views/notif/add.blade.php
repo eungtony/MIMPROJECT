@@ -8,8 +8,7 @@
                 <div class="form-panel">
 
                     <div class="panel-heading">
-                        <h1>Créer une Notification</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis quidem quae inventore. Dignissimos repudiandae velit inventore quos, aliquam quaerat sit, architecto cumque consequuntur porro assumenda, repellat. Nesciunt quia, ut doloremque!</p>
+                        <h1>Notifier {{$user->name}}</h1>
                     </div>
 
                     <div class="panel-body">
