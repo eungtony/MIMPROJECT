@@ -18,6 +18,23 @@ $commentaires = \App\TacheCommentaire::where('travail_id', $tache->id)->with('us
                 @endif
                 <hr>
                 <h3>Commentaires</h3>
+
+                @if(session()->has('success'.$tache->id))
+                    <p class="alert alert-success">
+                        Votre commentaire a été ajouté avec succès !
+                    </p>
+                @endif
+                @if(session()->has('destroy'.$tache->id))
+                    <p class="alert alert-success">
+                        Votre commentaire a été supprimé avec succès !
+                    </p>
+                @endif
+                @if(session()->has('edit'.$tache->id))
+                    <p class="alert alert-success">
+                        Votre commentaire a bien été édité !
+                    </p>
+                @endif
+
                 @if($commentaires->isEmpty())
                     <p class="alert alert-warning">
                         Aucun commentaire n'a été posté !
@@ -33,7 +50,37 @@ $commentaires = \App\TacheCommentaire::where('travail_id', $tache->id)->with('us
                                 <p class="text-right">
                                     {{$commentaire->created_at}}
                                 </p>
+                                @if($commentaire->user_id == Auth::user()->id)
+                                    <p class="text-right">
+                                        <a href="#editcommentaire{{$commentaire->id}}"
+                                           class="btn btn-primary btn-xs"
+                                           data-toggle="collapse"
+                                           aria-controls="#editcommentaire{{$commentaire->id}}"><i
+                                                    class="fa fa-pencil"></i></a>
+                                        <a href="{{action('tacheController@deleteCommentaire', [$tache->id, $commentaire->id])}}"
+                                           data-method="delete"
+                                           data-confirm="Souhaitez-vous réellement supprimer votre commentaire ?"
+                                           class="btn btn-danger btn-xs"><i
+                                                    class="fa fa-trash-o "></i></a>
+                                    </p>
+                                @endif
                             </li>
+                            <div class="collapse" id="editcommentaire{{$commentaire->id}}">
+                                <p class="alert alert-info">
+                                <form action="{{route('edit.tache.commentaire', [$tache->id, $commentaire->id])}}"
+                                      method="POST">
+                                    {{csrf_field()}}
+                                    <div class="form-group">
+                                    <textarea name="commentaire" class="form-control" id="" cols="30" rows="10">
+                                        {{$commentaire->commentaire}}
+                                    </textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Editer votre commentaire</button>
+                                    </div>
+                                </form>
+                                </p>
+                            </div>
                         @endforeach
                     </ul>
                 @endif
@@ -61,3 +108,12 @@ $commentaires = \App\TacheCommentaire::where('travail_id', $tache->id)->with('us
         </div>
     </div>
 </div>
+
+@if(session()->has('success'.$tache->id) || session()->has('destroy'.$tache->id) || session()->has('edit'.$tache->id))
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/jquery-1.8.3.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script>
+        $('#voirtache{{$tache->id}}').modal('toggle');
+    </script>
+@endif
