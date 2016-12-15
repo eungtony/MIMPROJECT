@@ -125,7 +125,6 @@ class tacheController extends Controller
         return back()->with('success', 'La tâche a été mis a à jour !');
     }
 
-
     /**
      * Method to put a task as done
      *
@@ -135,7 +134,35 @@ class tacheController extends Controller
     {
         $rq = $request->except('_token');
         TacheCommentaire::create($rq);
-        return back()->with('success', 'Le commentaire a été ajouté !');
+        $taskId = $request->only('travail_id')['travail_id'];
+        return back()->with('success' . $taskId, 'Le commentaire a été ajouté avec succès !');
+    }
+
+    /**
+     * Method to delete a commentary
+     *
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function editCommentaire($tid, $id, Request $request)
+    {
+        $rq = $request->except('_token');
+        TacheCommentaire::findOrFail($id)->update($rq);
+        return back()->with('edit' . $tid, 'La commentaire a été édité avec succès !');
+    }
+
+    /**
+     * Method to delete a commentary
+     *
+     * @param $tid
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteCommentaire($tid, $id)
+    {
+        TacheCommentaire::destroy($id);
+        return back()->with('destroy' . $tid, 'Le commentaire a bien été supprimé !');
     }
 
     /**
