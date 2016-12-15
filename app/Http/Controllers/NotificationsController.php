@@ -37,8 +37,9 @@ class NotificationsController extends Controller
     {
         // On recupère toute les agences
         $agences = Agence::with('users')->get();
+        $user = User::findOrFail($id);
         // On retourne la vue adéquat
-        return view('notif.add', ['agences' => $agences, 'type' => $type, 'id' => $id]);
+        return view('notif.add', ['agences' => $agences, 'type' => $type, 'id' => $id, 'user' => $user]);
     }
 
     /**
