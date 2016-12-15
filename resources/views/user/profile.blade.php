@@ -19,7 +19,7 @@
                         <p>Appartient à l'agence <strong>{{$user->agence->nom}}</strong></p>
                         <p>Et ocupe le poste de : <strong>{{$user->poste->nom}}</strong></p>
                         <p><strong>Description :</strong></p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id repudiandae, optio enim, eos maiores a accusantium hic amet veritatis commodi perspiciatis omnis nesciunt ipsam voluptatibus sequi consequatur odio laboriosam eaque.</p>
+                        <p>{{$user->description}}</p>
                     </div>
 
                     <div class="user-options">
