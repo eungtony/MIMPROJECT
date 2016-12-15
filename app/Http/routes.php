@@ -52,6 +52,8 @@ Route::post('/tache/check', 'tacheController@checkTask')->name('check.tache');
 Route::post('/tache/uncheck', 'tacheController@uncheckTask')->name('uncheck.tache');
 Route::resource('tache', 'tacheController');
 Route::post('/addcommentaire', 'tacheController@addCommentaire')->name('add.tache.commentaire');
+Route::post('/editcommentaire/{tid}/{id}', 'tacheController@editCommentaire')->name('edit.tache.commentaire');
+Route::delete('/destroy/commentary/{tid}/{id}', 'tacheController@deleteCommentaire')->name('destroy.tache.commentaire');
 
 //Supervisor
 Route::get('/supervisor', 'agenceController@supervisor')->name('supervisor');
