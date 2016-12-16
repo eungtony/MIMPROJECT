@@ -169,12 +169,11 @@
                     </span>
                             </div>
                             <div class="collapse" id="pr{{$projet->id}}">
-                                <hr>
-                                <p><strong>Description :</strong> {{ $projet->commentaire }}</p>
-                                <hr>
+                                <p style="margin-top:25px; margin-bottom:25px;"><strong>Description
+                                        :</strong> {{ $projet->commentaire }}</p>
                                 @if($projet->etape_id > 0)
                                     <span class="label label-success" style="font-size:10px;">
-                                 {!! $etape->etape !!}
+                                 {!! $etape->etape !!} ({{round($pc_projet)}} %)
                                         @else
                                             <span class="label label-warning" style="font-size:10px;">
                                 {{ $etape }}
@@ -186,7 +185,7 @@
                                                      aria-valuemax="100" style="width: {{$pc_projet}}%">
                                                 </div>
                                             </div>
-                                            <h3>Progression dans les tâches</h3>
+                                            <h3>Progression dans les tâches ({{ round($pc) }} %)</h3>
                                             @if($projet->etape_id > 0)
                                                 <div class="progress">
                                                     <div class="progress-bar progress-bar-success progress-bar-striped"
