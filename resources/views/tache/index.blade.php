@@ -66,12 +66,11 @@ $commentaires = \App\TacheCommentaire::where('travail_id', $tache->id)->with('us
                                 @endif
                             </li>
                             <div class="collapse" id="editcommentaire{{$commentaire->id}}">
-                                <p class="alert alert-info">
                                 <form action="{{route('edit.tache.commentaire', [$tache->id, $commentaire->id])}}"
                                       method="POST">
                                     {{csrf_field()}}
                                     <div class="form-group">
-                                    <textarea name="commentaire" class="form-control" id="" cols="30" rows="10">
+                                    <textarea name="commentaire" class="form-control" id="" cols="30" rows="5">
                                         {{$commentaire->commentaire}}
                                     </textarea>
                                     </div>
@@ -79,7 +78,6 @@ $commentaires = \App\TacheCommentaire::where('travail_id', $tache->id)->with('us
                                         <button type="submit" class="btn btn-primary">Editer votre commentaire</button>
                                     </div>
                                 </form>
-                                </p>
                             </div>
                         @endforeach
                     </ul>
@@ -108,12 +106,3 @@ $commentaires = \App\TacheCommentaire::where('travail_id', $tache->id)->with('us
         </div>
     </div>
 </div>
-
-@if(session()->has('success'.$tache->id) || session()->has('destroy'.$tache->id) || session()->has('edit'.$tache->id))
-    <script src="{{ asset('js/jquery.js') }}"></script>
-    <script src="{{ asset('js/jquery-1.8.3.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script>
-        $('#voirtache{{$tache->id}}').modal('toggle');
-    </script>
-@endif
