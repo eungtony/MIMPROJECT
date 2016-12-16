@@ -65,43 +65,48 @@ $commentaires = \App\TacheCommentaire::where('travail_id', $tache->id)->with('us
                                     </p>
                                 @endif
                             </li>
-                            <div class="collapse" id="editcommentaire{{$commentaire->id}}">
-                                <form action="{{route('edit.tache.commentaire', [$tache->id, $commentaire->id])}}"
-                                      method="POST">
-                                    {{csrf_field()}}
-                                    <div class="form-group">
+                            @if($tache->agence_id == Auth::user()->agence_id && $tache->user_id == Auth::user()->id)
+                                <div class="collapse" id="editcommentaire{{$commentaire->id}}">
+                                    <form action="{{route('edit.tache.commentaire', [$tache->id, $commentaire->id])}}"
+                                          method="POST">
+                                        {{csrf_field()}}
+                                        <div class="form-group">
                                     <textarea name="commentaire" class="form-control" id="" cols="30" rows="5">
                                         {{$commentaire->commentaire}}
                                     </textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary">Editer votre commentaire</button>
-                                    </div>
-                                </form>
-                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Editer votre commentaire
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            @endif
                         @endforeach
                     </ul>
                 @endif
-                <h4 class="text-center">
-                    <a href="#ajoutCommentaire{{$tache->id}}" data-toggle="collapse">
-                        Ajouter un commentaire
-                    </a>
-                </h4>
-                <div class="collapse" id="ajoutCommentaire{{$tache->id}}">
-                    <form action="{{action('tacheController@addCommentaire')}}" method="post">
-                        {{csrf_field()}}
-                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                        <input type="hidden" name="projet_id" value="{{$tache->projet_id}}">
-                        <input type="hidden" name="travail_id" value="{{$tache->id}}">
-                        <input type="hidden" name="agence_id" value="{{$tache->agence_id}}">
-                        <div class="form-group">
-                            <textarea type="text" class="form-control" name="commentaire" rows="5"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-primary" value="Ajouter un commentaire">
-                        </div>
-                    </form>
-                </div>
+                @if($tache->agence_id == Auth::user()->agence_id && $tache->user_id == Auth::user()->id)
+                    <h4 class="text-center">
+                        <a href="#ajoutCommentaire{{$tache->id}}" data-toggle="collapse">
+                            Ajouter un commentaire
+                        </a>
+                    </h4>
+                    <div class="collapse" id="ajoutCommentaire{{$tache->id}}">
+                        <form action="{{action('tacheController@addCommentaire')}}" method="post">
+                            {{csrf_field()}}
+                            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                            <input type="hidden" name="projet_id" value="{{$tache->projet_id}}">
+                            <input type="hidden" name="travail_id" value="{{$tache->id}}">
+                            <input type="hidden" name="agence_id" value="{{$tache->agence_id}}">
+                            <div class="form-group">
+                                <textarea type="text" class="form-control" name="commentaire" rows="5"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary" value="Ajouter un commentaire">
+                            </div>
+                        </form>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
