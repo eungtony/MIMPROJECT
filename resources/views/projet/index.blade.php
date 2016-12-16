@@ -94,7 +94,7 @@ if ($total > 0) {
                     </div>
                 @endif
                 <hr>
-                <h3>Progression du projet
+                <h3>Progression du projet ({{round($pc_projet)}} %)
                     <span>
                         <a href="#progression_projet" data-toggle="modal" class="btn btn-info btn-xs">
                             <i class="fa fa-info"></i>
@@ -109,7 +109,7 @@ if ($total > 0) {
                          aria-valuemax="100" style="width:{{$pc_projet}}%">
                     </div>
                 </div>
-                <h3>Progression dans les tâches</h3>
+                <h3>Progression dans les tâches ({{round($pc)}} %)</h3>
                 @if($projet->etape_id > 0)
                     <div class="progress">
                         <div class="progress-bar progress-bar-success progress-bar-striped"
