@@ -10,12 +10,14 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                     <div class="form-group">
+                        <label for="">Nom du projet</label>
                         <input class="form-control" type="text" name="nom"
                                value="{{$projet->nom}}" class="form-control"
                                placeholder="Nom du projet">
                     </div>
 
                     <div class="form-group">
+                        <label for="">Description du projet</label>
                                     <textarea class="form-control" type="text" name="commentaire" class="form-control"
                                               placeholder="Description du projet">
                                         {{$projet->commentaire}}
