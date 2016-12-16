@@ -127,29 +127,32 @@
                             <!-- TABLEAU PROJETS -->
                     <div style="margin-bottom: 15px;">
                         <div class="content-panel">
-                            <h3 style="display: inline-block;">
-                                <a href="#pr{{$projet->id}}"
-                                   data-toggle="collapse" aria-expanded="false"
-                                   aria-controls="#pr{{$projet->id}}">
-                                    {{ $projet->nom }}
-                                </a>
-                            </h3>
-                            <a href="{{route('projet', [$projet->agence_id, $projet->id])}}"
-                               class="btn btn-success btn-xs"
-                               style="margin-bottom: 15px;margin-left: 20px;">Détail du projet</a>
-                            @if($user_id == $cdp_id || $statut_id == $ca_id)
-                                <a class="btn btn-primary btn-xs" style="margin-bottom: 15px;margin-left: 20px;"
-                                   href="#edit{{$projet->id}}" data-toggle="modal" aria-controls="#edit{{$projet->id}}">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a class="btn btn-danger btn-xs" style="margin-bottom: 15px;"
-                                   href="{{ route('projet.destroy', [$agence->id, $projet->id]) }}" data-method="delete"
-                                   data-confirm="Voulez-vous réellement supprimer ce projet ?">
-                                    <i class="fa fa-trash-o "></i>
-                                </a>
-                                @include('projet.edit')
-                            @endif
-                            <span style="margin-left:30px;">
+                            <div class="text-center">
+                                <h3 style="display: inline-block;">
+                                    <a href="#pr{{$projet->id}}"
+                                       data-toggle="collapse" aria-expanded="false"
+                                       aria-controls="#pr{{$projet->id}}">
+                                        {{ $projet->nom }}
+                                    </a>
+                                </h3>
+                                <a href="{{route('projet', [$projet->agence_id, $projet->id])}}"
+                                   class="btn btn-success btn-xs"
+                                   style="margin-bottom: 15px;margin-left: 20px;">Détail du projet</a>
+                                @if($user_id == $cdp_id || $statut_id == $ca_id)
+                                    <a class="btn btn-primary btn-xs" style="margin-bottom: 15px;margin-left: 20px;"
+                                       href="#edit{{$projet->id}}" data-toggle="modal"
+                                       aria-controls="#edit{{$projet->id}}">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-danger btn-xs" style="margin-bottom: 15px;"
+                                       href="{{ route('projet.destroy', [$agence->id, $projet->id]) }}"
+                                       data-method="delete"
+                                       data-confirm="Voulez-vous réellement supprimer ce projet ?">
+                                        <i class="fa fa-trash-o "></i>
+                                    </a>
+                                    @include('projet.edit')
+                                @endif
+                                <span style="margin-left:30px;">
                         <a href="#task{{$projet->id}}"
                            data-toggle="collapse" aria-expanded="false"
                            aria-controls="#task{{$projet->id}}"
@@ -157,7 +160,14 @@
                             <i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
                             Voir les tâches
                         </a>
+                                <button class="btn btn-info" style="margin-left:50px;">
+                                    {{$projet->encaisse}} €
+                                </button>
+                                <button class="btn btn-success">
+                                    {{$projet->facturable}} €
+                                </button>
                     </span>
+                            </div>
                             <div class="collapse" id="pr{{$projet->id}}">
                                 <hr>
                                 <p><strong>Description :</strong> {{ $projet->commentaire }}</p>
