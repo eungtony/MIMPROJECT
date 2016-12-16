@@ -27,7 +27,7 @@ class tacheController extends Controller
      * @param $pid
      * @param $id
      *
-*@return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index($ida, $pid, $id)
     {
@@ -42,7 +42,7 @@ class tacheController extends Controller
      * @param $id
      * @param $idp
      *
-*@return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function addForm($id, $idp)
     {
@@ -55,7 +55,7 @@ class tacheController extends Controller
      *
      * @param Requests\tacheRequest $request
      *
-*@return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function add(Requests\tacheRequest $request)
     {
@@ -170,7 +170,7 @@ class tacheController extends Controller
      *
      * @param Request $request
      *
-*@return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function uncheckTask(Request $request)
     {
