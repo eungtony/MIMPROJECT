@@ -97,6 +97,14 @@
                                 @include('tache.edit')
                             @endif
                             @include('tache.index')
+                                @if(session()->has('success'.$tache->id) || session()->has('destroy'.$tache->id) || session()->has('edit'.$tache->id))
+                                    <script src="{{ asset('js/jquery.js') }}"></script>
+                                    <script src="{{ asset('js/jquery-1.8.3.min.js') }}"></script>
+                                    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+                                    <script>
+                                        $('#voirtache{{$tache->id}}').modal('show');
+                                    </script>
+                                @endif
                         @endforeach
                     @else
                         @if($totalTask != 0)
