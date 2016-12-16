@@ -12,5 +12,3 @@ Refondre les pages notifications
 Finir le système de notification (CEDRIC)
 
 Finir le système de commentaire des étapes (OLIVIER)
-
-Créer le système de commentaire pour une tâche (ROMAIN)
