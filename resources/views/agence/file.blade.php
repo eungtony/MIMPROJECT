@@ -13,7 +13,7 @@
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">
-                Téleverser
+                <i class="fa fa-upload" aria-hidden="true"></i>
             </button>
         </div>
     </form>
