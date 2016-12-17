@@ -8,4 +8,9 @@
     <div class="form-group">
         <button class="btn btn-primary">Modifier</button>
     </div>
+    <a href="{{route('file.delete.projet', [$file->agence_id,$file->projet_id,$file->id])}}" class="btn btn-danger"
+       data-method="delete"
+       data-confirm="Voulez-vous supprimer ce fichier ?">
+        <i class="fa fa-trash-o "></i>
+    </a>
 </form>
