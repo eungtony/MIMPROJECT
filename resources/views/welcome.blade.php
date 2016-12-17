@@ -163,6 +163,7 @@
                                                          role="progressbar" aria-valuenow="{{$pc_projet}}"
                                                          aria-valuemin="0"
                                                          aria-valuemax="100" style="width: {{$pc_projet}}%">
+                                                        {{round($pc_projet)}} %
                                                     </div>
                                                 </div>
                                             </td>
@@ -173,6 +174,7 @@
                                                              role="progressbar" aria-valuenow="{{$pc}}"
                                                              aria-valuemin="0"
                                                              aria-valuemax="100" style="width: {{$pc}}%">
+                                                            {{round($pc)}} %
                                                         </div>
                                                     </div>
                                                 @else
@@ -181,6 +183,7 @@
                                                              role="progressbar" aria-valuenow="100" aria-valuemin="0"
                                                              aria-valuemax="100" style="width: {{$pc}}%">
                                                         </div>
+                                                        Le projet n'a pas commencé !
                                                     </div>
                                                 @endif
                                             </td>
