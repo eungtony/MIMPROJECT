@@ -6,12 +6,20 @@ $done = \App\Travail::where('projet_id', $projet->id)->where('fait', 1)->get()->
 $total = \App\Travail::where('projet_id', $projet->id)->get()->count();
 $pc = 0;
 $pc_projet = 0;
+$heures = 0;
+$recolte = 0;
 $now = \Carbon\Carbon::now();
 if ($total_etape > 0) {
     $pc_projet = 100 * $projet->etape_id / $total_etape;
 }
 if ($total > 0) {
     $pc = 100 * $done / $total;
+}
+if ($projet->facturable > 0) {
+    $recolte = 100 * $projet->encaisse / $projet->facturable;
+}
+if ($projet->total_heures > 0) {
+    $heures = 100 * $projet->heures_faites / $projet->total_heures;
 }
 ?>
 @extends('layouts.application')
@@ -39,14 +47,6 @@ if ($total > 0) {
                 <h3>
                     {{$projet->commentaire}}
                 </h3>
-
-                <p>
-                    {{$projet->heures_faites}} heures /{{$projet->total_heures}} heures
-                </p>
-
-                <p>
-                    {{$projet->encaisse}} € / {{$projet->facturable}} €
-                </p>
 
                 @if(Auth::user()->agence_id == $projet->agence_id)
                     <div class="content-panel upload-panel">
@@ -119,6 +119,24 @@ if ($total > 0) {
                         </div>
                     </div>
                 @endif
+
+                <h3>Heures accomplies ({{$projet->heures_faites}}h / {{$projet->total_heures}}h)</h3>
+
+                <div class="progress">
+                    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                         aria-valuenow="{{$heures}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$heures}}%">
+                    </div>
+                </div>
+
+                <h3>Argents récoltés ({{$projet->encaisse}}€ / {{$projet->facturable}}€)</h3>
+
+                <div class="progress">
+                    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                         aria-valuenow="{{$recolte}}" aria-valuemin="0" aria-valuemax="100"
+                         style="width: {{$recolte}}%">
+                    </div>
+                </div>
+
                 @include('tache.list')
             </div>
         </div>
