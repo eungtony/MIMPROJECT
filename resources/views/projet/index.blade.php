@@ -48,52 +48,43 @@ if ($total > 0) {
                     {{$projet->encaisse}} € / {{$projet->facturable}} €
                 </p>
 
-                @if(!$projet->file->isEmpty())
+                <div class="content-panel upload-panel">
+                    <!-- TELECHARGEMENT -->
+                    <h3 class="upload-title">Fichiers partagés</h3>
 
-                    @foreach($projet->file as $file)
-                        <p>
-                            <a href="{{app_path()}}/{{$projet->agence_id}}/{{$projet->projet_id}}/{{$file->name}}.{{$file->extension}}"
+                    <?php $files = \App\File::where('projet_id', $projet->id)->get();?>
+
+                    @if(!$files->isEmpty())
+                        @foreach($files as $file)
+                            <a href="{{app_path()}}/{{$projet->agence_id}}/{{$projet->id}}/{{$file->name}}.{{$file->extension}}"
                                download="{{$file->titre}}">
-                                {{$file->titre}}</a>
-                            @include('projet.file')
+                                {{$file->titre}}
+                            </a><br>
+                            <hr>
                             @if($user_id == $cdp_id || $statut_id == $ca_id)
-                                <a href="{{route('file.delete.projet', [$file->agence_id,$file->projet_id,$file->id])}}"
-                                   class="btn btn-danger"
-                                   data-method="delete"
-                                   data-confirm="Voulez-vous supprimer ce fichier ?">Supprimer</a>
-                        @endif
-                    @endforeach
-                    <hr>
-                @else
-                    <p class="bg-danger">
+                                @include('projet.file')
+                            @endif
+                        @endforeach
+                    @else
+                        <span class="badge bg-important">
                         Aucun fichier présent.
-                    </p>
-                @endif
-                @if($user_id == $cdp_id || $statut_id == $ca_id)
-                    <a href="#upload" class="btn btn-primary" data-toggle="collapse" data-target="#upload">Téléverser un
-                        fichier</a>
-                    <div class="collapse" id="upload">
-                        <form action="{{route('file.projet', [$projet->agence_id, $projet->id])}}"
-                              enctype="multipart/form-data"
-                              method="POST">
-                            {{csrf_field()}}
-                            <div class="form-group">
-                                <label for="">Nommer votre fichier</label>
-                                <input class="form-control" type="text" name="titre">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Téleverser un fichier</label>
-                                <input type="file" name="file" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">
-                                    Téleverser
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                @endif
-                <hr>
+                    </span>
+                    @endif
+
+                    @if($user_id == $cdp_id || $statut_id == $ca_id)
+                        <hr>
+                        <a href="#file" class="btn btn-primary btn-sm"
+                           data-toggle="collapse" aria-expanded="false"
+                           aria-controls="#file">
+                            Téléverser un fichier
+                        </a>
+
+                        @include('projet.addFile')
+
+                        @endif
+                                <!-- TELECHARGEMENT -->
+                </div>
+
                 <h3>Progression du projet ({{round($pc_projet)}} %)
                     <span>
                         <a href="#progression_projet" data-toggle="modal" class="btn btn-info btn-xs">
