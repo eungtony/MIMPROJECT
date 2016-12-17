@@ -18,54 +18,54 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //User
 Route::get('/user', 'userController@index')->name('user');
-Route::get('/user/{id}', 'userController@user')->name('profile');
-Route::get('/user/edit/{id}', 'userController@editForm')->name('edit.user');
-Route::post('/user/{id}/edit', 'userController@edit')->name('user.edit');
-Route::post('/user/edit/avatar/{id}', 'userController@editAvatar')->name('user.avatar');
-Route::post('/user/description/{id}', 'userController@editDescription')->name('user.description');
+Route::get('/user/{id}', 'userController@user')->where('id', '[0-9]+')->name('profile');
+Route::get('/user/edit/{id}', 'userController@editForm')->where('id', '[0-9]+')->name('edit.user');
+Route::post('/user/{id}/edit', 'userController@edit')->where('id', '[0-9]+')->name('user.edit');
+Route::post('/user/edit/avatar/{id}', 'userController@editAvatar')->where('id', '[0-9]+')->name('user.avatar');
+Route::post('/user/description/{id}', 'userController@editDescription')->where('id', '[0-9]+')->name('user.description');
 
 //Projet
-Route::get('/projet/{id}/{ida}', 'projetController@index')->name('projet');
+Route::get('/projet/{id}/{ida}', 'projetController@index')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('projet');
 Route::post('/projet/add', 'projetController@add')->name('add.projet');
-Route::post('/projet/{id}/edit', 'projetController@edit')->name('edit.projet');
-Route::delete('/projet/delete/{ida}/{id}', 'projetController@destroy')->name('projet.destroy');
-Route::post('/projet/{ida}/{id}', 'projetController@addFile')->name('file.projet');
+Route::post('/projet/{id}/edit', 'projetController@edit')->where('id', '[0-9]+')->name('edit.projet');
+Route::delete('/projet/delete/{ida}/{id}', 'projetController@destroy')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('projet.destroy');
+Route::post('/projet/{ida}/{id}', 'projetController@addFile')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('file.projet');
 Route::post('/projet/edit/file/{ida}/{pid}/{id}', 'projetController@editFile')->name('file.edit.projet');
 Route::delete('/projet/delete/file/{ida}/{pid}/{id}', 'projetController@deleteFile')->name('file.delete.projet');
 
 //Agence
-Route::get('/agence/{id}', 'agenceController@index')->name('agence');
-Route::post('/agence/{id}', 'agenceController@addFile')->name('file.agence');
-Route::post('/agence/edit/file/{ida}/{id}', 'agenceController@editFile')->name('file.edit');
-Route::delete('/agence/delete/file/{ida}/{id}', 'agenceController@deleteFile')->name('file.delete');
-Route::post('/agence/message/{ida}/{id}', 'agenceController@addMessage')->name('message.agence');
-Route::post('/message/edit/{id}', 'agenceController@editMessage')->name('message.edit');
-Route::delete('/agence/delete/message/{ida}/{id}', 'agenceController@deleteMessage')->name('message.delete');
-Route::get('agence/show/{id}', 'agenceController@show')->name('show.agence');
+Route::get('/agence/{id}', 'agenceController@index')->where('id', '[0-9]+')->name('agence');
+Route::post('/agence/{id}', 'agenceController@addFile')->where('id', '[0-9]+')->name('file.agence');
+Route::post('/agence/edit/file/{ida}/{id}', 'agenceController@editFile')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('file.edit');
+Route::delete('/agence/delete/file/{ida}/{id}', 'agenceController@deleteFile')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('file.delete');
+Route::post('/agence/message/{ida}/{id}', 'agenceController@addMessage')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('message.agence');
+Route::post('/message/edit/{id}', 'agenceController@editMessage')->where('id', '[0-9]+')->name('message.edit');
+Route::delete('/agence/delete/message/{ida}/{id}', 'agenceController@deleteMessage')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('message.delete');
+Route::get('agence/show/{id}', 'agenceController@show')->where('id', '[0-9]+')->name('show.agence');
 
 
 //Tâches
 Route::get('/tache/{ida}/{pid}/{id}', 'tacheController@index')->name('index.tache');
 Route::post('/tache/add', 'tacheController@add')->name('add.tache');
-Route::post('/modify/{id}/{pid}', 'tacheController@edit')->name('edit.tache');
+Route::post('/modify/{id}/{pid}', 'tacheController@edit')->where(['id' => '[0-9]+', 'pid' => '[0-9]+'])->name('edit.tache');
 Route::post('/tache/check', 'tacheController@checkTask')->name('check.tache');
 Route::post('/tache/uncheck', 'tacheController@uncheckTask')->name('uncheck.tache');
 Route::resource('tache', 'tacheController');
 Route::post('/addcommentaire', 'tacheController@addCommentaire')->name('add.tache.commentaire');
-Route::post('/editcommentaire/{tid}/{id}', 'tacheController@editCommentaire')->name('edit.tache.commentaire');
-Route::delete('/destroy/commentary/{tid}/{id}', 'tacheController@deleteCommentaire')->name('destroy.tache.commentaire');
+Route::post('/editcommentaire/{tid}/{id}', 'tacheController@editCommentaire')->where(['id' => '[0-9]+', 'tid' => '[0-9]+'])->name('edit.tache.commentaire');
+Route::delete('/destroy/commentary/{tid}/{id}', 'tacheController@deleteCommentaire')->where(['id' => '[0-9]+', 'tid' => '[0-9]+'])->name('destroy.tache.commentaire');
 
 //Supervisor
 Route::get('/supervisor', 'agenceController@supervisor')->name('supervisor');
 Route::post('/supervisor/add/agence', 'agenceController@add')->name('add.agence');
 Route::post('/supervisor/addorremovemoney', 'HomeController@addOrRemoveMoney')->name('money');
 Route::get('/livret-de-compte', 'HomeController@livret')->name('livret');
-Route::post('/livret/edit/{id}', 'HomeController@editMontant')->name('edit.montant');
-Route::delete('/livret/delete/{id}', 'HomeController@deleteMontant')->name('delete.montant');
+Route::post('/livret/edit/{id}', 'HomeController@editMontant')->where('id', '[0-9]+')->name('edit.montant');
+Route::delete('/livret/delete/{id}', 'HomeController@deleteMontant')->where('id', '[0-9]+')->name('delete.montant');
 
 //Notifications
-Route::get('add/notif/{type}/{id?}', 'NotificationsController@create')->name('form.add.notif');
-Route::post('add/notif/{type}/{id?}', 'NotificationsController@store');
+Route::get('add/notif/{type}/{id?}', 'NotificationsController@create')->where('id', '[0-9]+')->name('form.add.notif');
+Route::post('add/notif/{type}/{id?}', 'NotificationsController@store')->where('id', '[0-9]+');
 Route::get('show/notif/all', 'NotificationsController@showAll')->name('show.notif.all');
 Route::get('delete/notif/{id}', 'NotificationsController@destroy');
 
