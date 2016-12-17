@@ -48,42 +48,45 @@ if ($total > 0) {
                     {{$projet->encaisse}} € / {{$projet->facturable}} €
                 </p>
 
-                <div class="content-panel upload-panel">
-                    <!-- TELECHARGEMENT -->
-                    <h3 class="upload-title">Fichiers partagés</h3>
+                @if(Auth::user()->agence_id == $projet->agence_id)
+                    <div class="content-panel upload-panel">
+                        <!-- TELECHARGEMENT -->
+                        <h3 class="upload-title">Fichiers partagés</h3>
 
-                    <?php $files = \App\File::where('projet_id', $projet->id)->get();?>
+                        <?php $files = \App\File::where('projet_id', $projet->id)->get();?>
 
-                    @if(!$files->isEmpty())
-                        @foreach($files as $file)
-                            <a href="{{app_path()}}/{{$projet->agence_id}}/{{$projet->id}}/{{$file->name}}.{{$file->extension}}"
-                               download="{{$file->titre}}">
-                                {{$file->titre}}
-                            </a><br>
-                            <hr>
-                            @if($user_id == $cdp_id || $statut_id == $ca_id)
-                                @include('projet.file')
-                            @endif
-                        @endforeach
-                    @else
-                        <span class="badge bg-important">
+                        @if(!$files->isEmpty())
+                            @foreach($files as $file)
+                                <a href="{{app_path()}}/{{$projet->agence_id}}/{{$projet->id}}/{{$file->name}}.{{$file->extension}}"
+                                   download="{{$file->titre}}">
+                                    {{$file->titre}}
+                                </a>
+                                <a href="#editFile{{$file->id}}" data-toggle="collapse" class="btn btn-primary btn-xs">Modifier
+                                    le fichier</a>
+                                @if($user_id == $cdp_id || $statut_id == $ca_id)
+                                    @include('projet.file')
+                                @endif
+                            @endforeach
+                        @else
+                            <span class="badge bg-important">
                         Aucun fichier présent.
                     </span>
-                    @endif
-
-                    @if($user_id == $cdp_id || $statut_id == $ca_id)
-                        <hr>
-                        <a href="#file" class="btn btn-primary btn-sm"
-                           data-toggle="collapse" aria-expanded="false"
-                           aria-controls="#file">
-                            Téléverser un fichier
-                        </a>
-
-                        @include('projet.addFile')
-
                         @endif
-                                <!-- TELECHARGEMENT -->
-                </div>
+
+                        @if($user_id == $cdp_id || $statut_id == $ca_id)
+                            <hr>
+                            <a href="#file" class="btn btn-primary btn-sm"
+                               data-toggle="collapse" aria-expanded="false"
+                               aria-controls="#file">
+                                Téléverser un fichier
+                            </a>
+
+                            @include('projet.addFile')
+
+                            @endif
+                                    <!-- TELECHARGEMENT -->
+                    </div>
+                @endif
 
                 <h3>Progression du projet ({{round($pc_projet)}} %)
                     <span>

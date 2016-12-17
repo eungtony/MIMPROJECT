@@ -59,42 +59,45 @@
                 @endif
                         <!-- Visite de la page d'une autre agence -->
 
-                <div class="content-panel upload-panel">
-                    <!-- TELECHARGEMENT -->
-                    <h3 class="upload-title">Fichiers partagés</h3>
+                @if(Auth::user()->agence_id == $agence->id)
+                    <div class="content-panel upload-panel">
+                        <!-- TELECHARGEMENT -->
+                        <h3 class="upload-title">Fichiers partagés</h3>
 
-                    <?php $files = \App\File::where('agence_id', $agence->id)->where('projet_id', NULL)->get(); ?>
+                        <?php $files = \App\File::where('agence_id', $agence->id)->where('projet_id', NULL)->get(); ?>
 
-                    @if(!$files->isEmpty())
-                        @foreach($files as $file)
-                            <a href="{{app_path()}}/{{$agence->id}}/{{$file->name}}.{{$file->extension}}"
-                               download="{{$file->titre}}">
-                                {{$file->titre}}
-                            </a><br>
-                            <hr>
-                            @if($user_id == $cdp_id || $statut_id == $ca_id)
-                                @include('agence.editFile')
-                            @endif
-                        @endforeach
-                    @else
-                        <span class="badge bg-important">
+                        @if(!$files->isEmpty())
+                            @foreach($files as $file)
+                                <a href="{{app_path()}}/{{$agence->id}}/{{$file->name}}.{{$file->extension}}"
+                                   download="{{$file->titre}}">
+                                    {{$file->titre}}
+                                </a>
+                                <a href="#editFile{{$file->id}}" data-toggle="collapse" class="btn btn-primary btn-xs">Modifier
+                                    le fichier</a>
+                                @if($user_id == $cdp_id || $statut_id == $ca_id)
+                                    @include('agence.editFile')
+                                @endif
+                            @endforeach
+                        @else
+                            <span class="badge bg-important">
                         Aucun fichier présent.
                     </span>
-                    @endif
-
-                    @if($user_id == $cdp_id || $statut_id == $ca_id)
-                        <hr>
-                        <a href="#file" class="btn btn-primary btn-sm"
-                           data-toggle="collapse" aria-expanded="false"
-                           aria-controls="#file">
-                            Téléverser un fichier
-                        </a>
-
-                        @include('agence.file')
-
                         @endif
-                                <!-- TELECHARGEMENT -->
-                </div>
+
+                        @if($user_id == $cdp_id || $statut_id == $ca_id)
+                            <hr>
+                            <a href="#file" class="btn btn-primary btn-sm"
+                               data-toggle="collapse" aria-expanded="false"
+                               aria-controls="#file">
+                                Téléverser un fichier
+                            </a>
+
+                            @include('agence.file')
+
+                            @endif
+                                    <!-- TELECHARGEMENT -->
+                    </div>
+                @endif
 
                 <h2 class="text-center project-title" style="margin-bottom: 40px;">Projets de l'agence</h2>
 
