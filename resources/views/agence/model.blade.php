@@ -63,8 +63,10 @@
                     <!-- TELECHARGEMENT -->
                     <h3 class="upload-title">Fichiers partagés</h3>
 
-                    @if(!$agence->file->isEmpty())
-                        @foreach($agence->file as $file)
+                    <?php $files = \App\File::where('agence_id', $agence->id)->where('projet_id', NULL)->get(); ?>
+
+                    @if(!$files->isEmpty())
+                        @foreach($files as $file)
                             <a href="{{app_path()}}/{{$agence->id}}/{{$file->name}}.{{$file->extension}}"
                                download="{{$file->titre}}">
                                 {{$file->titre}}
