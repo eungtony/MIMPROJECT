@@ -122,6 +122,7 @@
                     $total = \App\Travail::where('projet_id', $projet->id)->get()->count();
                     $pc = 0;
                     $pc_projet = 0;
+                    $heures = 0;
 
                     if ($total_etape > 0) {
                         $pc_projet = 100 * $projet->etape_id / $total_etape;
@@ -129,6 +130,9 @@
 
                     if ($total > 0) {
                         $pc = 100 * $done / $total;
+                    }
+                    if ($projet->total_heures > 0) {
+                        $heures = 100 * $projet->heures_faites / $projet->total_heures;
                     }
 
                     $etape = "Le projet n'a pas encore commencé";
@@ -212,7 +216,17 @@
                                                          aria-valuemax="100" style="width: {{$pc}}%">
                                                     </div>
                                                 </div>
-                                @endif
+                                            @endif
+                                            <h3>Heures accomplies ({{$projet->heures_faites}}h
+                                                / {{$projet->total_heures}}h)</h3>
+
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-info progress-bar-striped"
+                                                     role="progressbar"
+                                                     aria-valuenow="{{$heures}}" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: {{$heures}}%">
+                                                </div>
+                                            </div>
                             </div>
 
                             <div class="collapse" id="task{{$projet->id}}">
