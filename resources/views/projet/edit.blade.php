@@ -37,15 +37,15 @@
                     </div>
 
                     <div class="form-group col-md-6">
-                        <label for="">Total heures requis</label><br>
-                        <input class="form-control" type="number" name="total_heures"
-                               value="{{$projet->total_heures}}">
-                    </div>
-
-                    <div class="form-group col-md-6">
                         <label for="">Heures faites</label><br>
                         <input class="form-control" type="number" name="heures_faites"
                                value="{{$projet->heures_faites}}">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="">Total heures requis</label><br>
+                        <input class="form-control" type="number" name="total_heures"
+                               value="{{$projet->total_heures}}">
                     </div>
 
                     <div class="form-group">
