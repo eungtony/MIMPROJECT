@@ -30,14 +30,21 @@ class projetController extends Controller
      * @param $id
      * @param $ida
      *
-*@return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index($ida, $id)
+    public function index(Request $request, $ida, $id)
     {
         $projet = Projet::findOrFail($id);
         $projet->load('file', 'etape');
         $cdp_id = Agence::findOrFail($ida)->user_id;
-        $taches = Travail::where('projet_id', $id)->where('fait', 0)->orderBy('id', 'desc')->with('user', 'categorie')->get();
+        $taches = Travail::where('projet_id', $id)->orderBy('id', 'desc')->with('user', 'categorie')->get();
+        if ($request->only('sort')['sort'] == 'date') {
+            $taches = Travail::where('projet_id', $id)->orderBy('date', 'asc')->get();
+        } elseif ($request->only('sort')['sort'] == 'category') {
+            $taches = Travail::where('projet_id', $id)->orderBy('categorie_id', 'asc')->get();
+        } elseif ($request->only('sort')['sort'] == 'done') {
+            $taches = Travail::where('projet_id', $id)->orderBy('fait', 'asc')->get();
+        }
         $done = Travail::where('projet_id', $id)->where('fait', 1)->get()->count();
         $total = $taches->count();
         $users = User::where('agence_id', $ida)->get();
@@ -52,9 +59,10 @@ class projetController extends Controller
      *
      * @param $id
      *
-*@return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addForm($id){
+    public function addForm($id)
+    {
         return view('projet.add', compact('id'));
     }
 
@@ -63,9 +71,10 @@ class projetController extends Controller
      *
      * @param Requests\projetRequest $request
      *
-*@return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function add(Requests\projetRequest $request){
+    public function add(Requests\projetRequest $request)
+    {
         $rq = $request->except('_token');
         $id = $rq['agence_id'];
         Projet::create($rq);
@@ -79,7 +88,8 @@ class projetController extends Controller
      * @param $idp
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($id, $idp){
+    public function editForm($id, $idp)
+    {
         $projet = Projet::findOrFail($idp);
         $etapes = Etape::all();
         return view('projet.edit', compact('projet', 'id', 'idp', 'etapes'));
@@ -92,7 +102,8 @@ class projetController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit($pid, Request $request){
+    public function edit($pid, Request $request)
+    {
         $rq = $request->except('_token');
         $agence_id = Projet::findOrFail($pid)->agence_id;
         Projet::findOrFail($pid)->update($rq);

@@ -36,16 +36,23 @@ class agenceController extends Controller
      *
      * @param $id
      *
-*@return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index($id)
+    public function index(Request $request, $id)
     {
+        $taches = Travail::where('user_id', $this->auth->user()->id)->orderBy('id', 'desc')->get();
+        if ($request->only('sort')['sort'] == 'date') {
+            $taches = Travail::where('user_id', $this->auth->user()->id)->orderBy('date', 'asc')->get();
+        } elseif ($request->only('sort')['sort'] == 'category') {
+            $taches = Travail::where('user_id', $this->auth->user()->id)->orderBy('categorie_id', 'asc')->get();
+        } elseif ($request->only('sort')['sort'] == 'done') {
+            $taches = Travail::where('user_id', $this->auth->user()->id)->orderBy('fait', 'desc')->get();
+        }
         $agence = Agence::findOrFail($id);
         $cdp_id = $agence->user_id;
         $cdp = User::findOrFail($cdp_id)->name;
         $users = User::where('agence_id', $id)->get();
         $total_etape = Etape::all()->count();
-        $taches = Travail::where('user_id', $this->auth->user()->id)->where('fait', 0)->orderBy('id', 'desc')->get();
         $now = \Carbon\Carbon::now();
         $etapes = Etape::all();
         $categories = Categorie::all();
@@ -83,7 +90,7 @@ class agenceController extends Controller
      *
      * @param Requests\agenceRequest $request
      *
-*@return mixed
+     * @return mixed
      */
     public function add(Requests\agenceRequest $request)
     {
@@ -97,7 +104,7 @@ class agenceController extends Controller
      *
      * @param $id
      *
-*@return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function editForm($id)
     {

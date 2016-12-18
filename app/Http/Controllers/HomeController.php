@@ -36,11 +36,18 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $now = Carbon::now();
         $total_etape = Etape::all()->count();
-        $taches = Travail::where('user_id', $this->auth->user()->id)->where('fait', 0)->get();
+        $taches = Travail::where('user_id', $this->auth->user()->id)->get();
+        if ($request->only('sort')['sort'] == 'date') {
+            $taches = Travail::where('user_id', $this->auth->user()->id)->orderBy('date', 'asc')->get();
+        } elseif ($request->only('sort')['sort'] == 'category') {
+            $taches = Travail::where('user_id', $this->auth->user()->id)->orderBy('categorie_id', 'asc')->get();
+        } elseif ($request->only('sort')['sort'] == 'done') {
+            $taches = Travail::where('user_id', $this->auth->user()->id)->orderBy('fait', 'desc')->get();
+        }
         $taches->load('projet', 'user', 'categorie');
         if($this->auth->user()->statut_id == 3 || $this->auth->user()->statut_id == 4){
             $agence_id = $this->auth->user()->agence_id;
