@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Categorie;
+use App\HeuresTaches;
 use App\TacheCommentaire;
 use App\Travail;
 use Illuminate\Http\Request;
@@ -178,5 +179,25 @@ class tacheController extends Controller
         $tache = Travail::findOrFail($id);
         $tache->update(['fait' => 0]);
         return back()->with('success', 'La tâche a été mise à jour !');
+    }
+
+    public function addHours(Request $request)
+    {
+        $rq = $request->except('_token');
+        HeuresTaches::create($rq);
+        return back()->with('success', 'Vos heures ont bien été noté !');
+    }
+
+    public function editHours(Request $request, $id)
+    {
+        $rq = $request->except('_token');
+        HeuresTaches::findOrFail($id)->update($rq);
+        return back()->with('success', 'L\'heure noté a bien été modifié !');
+    }
+
+    public function deleteHours($id)
+    {
+        HeuresTaches::destroy($id);
+        return back()->with('success', 'L\'heure noté a bien été supprimé !');
     }
 }
