@@ -1,5 +1,6 @@
 <?php
 $commentaires = \App\TacheCommentaire::where('travail_id', $tache->id)->with('user')->orderBy('created_at', 'desc')->get();
+$mesheures = \App\HeuresTaches::where('user_id', Auth::user()->id)->where('tache_id', $tache->id)->get();
 ?>
 <div class="modal fade" id="voirtache{{$tache->id}}" role="dialog">
     <div class="modal-dialog">
@@ -15,20 +16,39 @@ $commentaires = \App\TacheCommentaire::where('travail_id', $tache->id)->with('us
                     <p class="text-right">Aucune personne assignée</p>
                 @else
                     <p class="text-right">{{$tache->user->name}}</p>
-                    @endifheuresta
-                    @if(Auth::user()->id == $tache->user_id)
-                        <a href="#heures{{$tache->id}}" data-toggle="collapse">Notez mes heures</a>
-                        <div class="collapse" id="heures{{$tache->id}}">
-                            <form action="" class="form-inline">
-                                <div class="form-group">
-                                    <label for="">Notez mes heures sur cette tâche</label>
-                                    <input type="number" class="form-control" name="heures">
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Ajouter mes heures</button>
-                                </div>
-                            </form>
-                        </div>
+                @endif
+                @if(Auth::user()->id == $tache->user_id)
+                    <a href="#heures{{$tache->id}}" data-toggle="collapse">Notez mes heures</a>
+                    <a href="#mesheures{{$tache->id}}" data-toggle="collapse">Historique des heures notées</a>
+                    <div class="collapse" id="heures{{$tache->id}}">
+                        <form action="{{route('add.hours')}}" method="POST">
+                            {{csrf_field()}}
+                            <input type="hidden" name="agence_id" value="{{$tache->agence_id}}">
+                            <input type="hidden" name="projet_id" value="{{$tache->projet_id}}">
+                            <input type="hidden" name="tache_id" value="{{$tache->id}}">
+                            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                            <div class="form-group col-md-6">
+                                <label for="">Notez mes heures sur cette tâche</label>
+                                <input type="number" class="form-control" name="heures">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="">Description de la tâche réalisée</label>
+                                <input type="text" name="description" class="form-control">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <button type="submit" class="btn btn-primary btn-block">Ajouter mes heures</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="collapse" id="mesheures{{$tache->id}}">
+                        @if($mesheures->isEmpty())
+                            <p class="alert alert-warning">
+                                Aucune heure n'a été noté sur cette tâche !
+                            </p>
+                        @else
+                            @include('tache.heures')
+                        @endif
+                    </div>
                 @endif
                 <hr>
                 <h3>Commentaires</h3>
