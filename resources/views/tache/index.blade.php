@@ -15,6 +15,20 @@ $commentaires = \App\TacheCommentaire::where('travail_id', $tache->id)->with('us
                     <p class="text-right">Aucune personne assignée</p>
                 @else
                     <p class="text-right">{{$tache->user->name}}</p>
+                    @endifheuresta
+                    @if(Auth::user()->id == $tache->user_id)
+                        <a href="#heures{{$tache->id}}" data-toggle="collapse">Notez mes heures</a>
+                        <div class="collapse" id="heures{{$tache->id}}">
+                            <form action="" class="form-inline">
+                                <div class="form-group">
+                                    <label for="">Notez mes heures sur cette tâche</label>
+                                    <input type="number" class="form-control" name="heures">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Ajouter mes heures</button>
+                                </div>
+                            </form>
+                        </div>
                 @endif
                 <hr>
                 <h3>Commentaires</h3>
