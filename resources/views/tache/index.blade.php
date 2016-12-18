@@ -1,6 +1,10 @@
 <?php
 $commentaires = \App\TacheCommentaire::where('travail_id', $tache->id)->with('user')->orderBy('created_at', 'desc')->get();
 $mesheures = \App\HeuresTaches::where('user_id', Auth::user()->id)->where('tache_id', $tache->id)->get();
+$heuresnotes = 0;
+foreach ($mesheures as $mesheure) {
+    $heuresnotes = $heuresnotes + $mesheure->heures;
+}
 ?>
 <div class="modal fade" id="voirtache{{$tache->id}}" role="dialog">
     <div class="modal-dialog">
@@ -10,16 +14,21 @@ $mesheures = \App\HeuresTaches::where('user_id', Auth::user()->id)->where('tache
             </div>
             <div class="modal-body">
                 <p>{{$tache->commentaire}}</p>
-                <p class="text-right">{{$tache->date}}</p>
-                <p class="text-right">{{$tache->categorie->titre}}</p>
+                <span class="badge bg-danger">{{$tache->date}}</span>
+                <span class="badge bg-important">{{$tache->categorie->titre}}</span>
                 @if($tache->user == null)
-                    <p class="text-right">Aucune personne assignée</p>
+                    <span class="badge bg-success">Aucune personne assignée</span>
                 @else
-                    <p class="text-right">{{$tache->user->name}}</p>
+                    <span class="badge bg-success">{{$tache->user->name}}</span>
                 @endif
+                <span class="badge bg-info">
+                    {{$heuresnotes}}h notées
+                </span><br>
                 @if(Auth::user()->id == $tache->user_id)
-                    <a href="#heures{{$tache->id}}" data-toggle="collapse">Notez mes heures</a>
-                    <a href="#mesheures{{$tache->id}}" data-toggle="collapse">Historique des heures notées</a>
+                    <hr>
+                    <a href="#heures{{$tache->id}}" data-toggle="collapse">Notez mes heures</a>&nbsp;
+                    <a href="#mesheures{{$tache->id}}" data-toggle="collapse">Historique des heures
+                        notées</a>
                     <div class="collapse" id="heures{{$tache->id}}">
                         <form action="{{route('add.hours')}}" method="POST">
                             {{csrf_field()}}
@@ -36,7 +45,8 @@ $mesheures = \App\HeuresTaches::where('user_id', Auth::user()->id)->where('tache
                                 <input type="text" name="description" class="form-control">
                             </div>
                             <div class="form-group col-md-12">
-                                <button type="submit" class="btn btn-primary btn-block">Ajouter mes heures</button>
+                                <button type="submit" class="btn btn-primary btn-block">Ajouter mes heures
+                                </button>
                             </div>
                         </form>
                     </div>
