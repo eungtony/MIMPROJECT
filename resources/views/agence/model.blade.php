@@ -120,6 +120,11 @@
                     $users = \App\User::where('agence_id', $projet->agence_id)->get();
                     $done = \App\Travail::where('projet_id', $projet->id)->where('fait', 1)->get()->count();
                     $total = \App\Travail::where('projet_id', $projet->id)->get()->count();
+                    $projet_heures = \App\HeuresTaches::where('projet_id', $projet->id)->get();
+                    $heures_notees = 0;
+                    foreach ($projet_heures as $heure) {
+                        $heures_notees = $heures_notees + $heure->heures;
+                    }
                     $pc = 0;
                     $pc_projet = 0;
                     $heures = 0;
@@ -132,7 +137,7 @@
                         $pc = 100 * $done / $total;
                     }
                     if ($projet->total_heures > 0) {
-                        $heures = 100 * $projet->heures_faites / $projet->total_heures;
+                        $heures = 100 * $heures_notees / $projet->total_heures;
                     }
 
                     $etape = "Le projet n'a pas encore commencé";
@@ -217,7 +222,7 @@
                                                     </div>
                                                 </div>
                                             @endif
-                                            <h3>Heures accomplies ({{$projet->heures_faites}}h
+                                            <h3>Heures accomplies ({{$heures_notees}}h
                                                 / {{$projet->total_heures}}h)</h3>
 
                                             <div class="progress">

@@ -4,6 +4,11 @@ $statut_id = Auth::user()->statut_id;
 $ca_id = 1;
 $done = \App\Travail::where('projet_id', $projet->id)->where('fait', 1)->get()->count();
 $total = \App\Travail::where('projet_id', $projet->id)->get()->count();
+$projet_heures = \App\HeuresTaches::where('projet_id', $projet->id)->get();
+$heures_notees = 0;
+foreach ($projet_heures as $heure) {
+    $heures_notees = $heures_notees + $heure->heures;
+}
 $pc = 0;
 $pc_projet = 0;
 $heures = 0;
@@ -19,7 +24,7 @@ if ($projet->facturable > 0) {
     $recolte = 100 * $projet->encaisse / $projet->facturable;
 }
 if ($projet->total_heures > 0) {
-    $heures = 100 * $projet->heures_faites / $projet->total_heures;
+    $heures = 100 * $heures_notees / $projet->total_heures;
 }
 ?>
 @extends('layouts.application')
@@ -120,7 +125,7 @@ if ($projet->total_heures > 0) {
                     </div>
                 @endif
 
-                <h3>Heures accomplies ({{$projet->heures_faites}}h / {{$projet->total_heures}}h)</h3>
+                <h3>Heures accomplies ({{$heures_notees}}h / {{$projet->total_heures}}h)</h3>
 
                 <div class="progress">
                     <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
