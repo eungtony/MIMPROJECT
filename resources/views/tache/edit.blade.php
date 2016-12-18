@@ -21,7 +21,7 @@
                         </textarea>
                     </div>
                     <div class="form-group">
-                        <select name="user_id" class="form-control">
+                        <select name="categorie_id" class="form-control">
                             @foreach($categories as $categorie)
                                 <option
                                         @if($categorie->id == $tache->categorie_id) selected @endif
