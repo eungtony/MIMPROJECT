@@ -24,25 +24,19 @@
                                     </textarea>
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="">Encaissé</label><br>
                         <input class="form-control" type="number" name="encaisse"
                                value="{{$projet->encaisse}}">
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="">Facturable</label><br>
                         <input class="form-control" type="number" name="facturable"
                                value="{{$projet->facturable}}">
                     </div>
 
-                    <div class="form-group col-md-6">
-                        <label for="">Heures faites</label><br>
-                        <input class="form-control" type="number" name="heures_faites"
-                               value="{{$projet->heures_faites}}">
-                    </div>
-
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="">Total heures requis</label><br>
                         <input class="form-control" type="number" name="total_heures"
                                value="{{$projet->total_heures}}">
