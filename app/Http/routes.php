@@ -54,6 +54,9 @@ Route::resource('tache', 'tacheController');
 Route::post('/addcommentaire', 'tacheController@addCommentaire')->name('add.tache.commentaire');
 Route::post('/editcommentaire/{tid}/{id}', 'tacheController@editCommentaire')->where(['id' => '[0-9]+', 'tid' => '[0-9]+'])->name('edit.tache.commentaire');
 Route::delete('/destroy/commentary/{tid}/{id}', 'tacheController@deleteCommentaire')->where(['id' => '[0-9]+', 'tid' => '[0-9]+'])->name('destroy.tache.commentaire');
+Route::post('/task/add/hours', 'tacheController@addHours')->name('add.hours');
+Route::post('task/{id}/edit', 'tacheController@editHours')->where(['id' => '[0-9]+'])->name('edit.hours');
+Route::delete('task/delete/{id}', 'tacheController@deleteHours')->where(['id' => '[0-9]+'])->name('delete.hours');
 
 //Supervisor
 Route::get('/supervisor', 'agenceController@supervisor')->name('supervisor');
