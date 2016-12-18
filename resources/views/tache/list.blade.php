@@ -15,6 +15,18 @@
                         <a href="#taches{{$projet->id}}" data-toggle="modal" class="btn btn-success btn-xs">
                             Voir toutes les tâches
                         </a>
+                        <span class="dropdown">
+                            <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+                                Trier les tâches
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{request()->fullUrlWithQuery(['sort' => 'date'])}}">Par date</a></li>
+                                <li><a href="{{request()->fullUrlWithQuery(['sort' => 'category'])}}">Par catégorie</a>
+                                </li>
+                                <li><a href="{{request()->fullUrlWithQuery(['sort' => 'done'])}}">Par tâche réalisée</a>
+                                </li>
+                            </ul>
+                        </span>
                         <div class="modal fade" id="taches{{$projet->id}}">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -54,20 +66,26 @@
                                         <span>#{{$tache->id}}</span>
                                     <span class="task-title-sp"><a href="#voirtache{{$tache->id}}"
                                                                    data-toggle="modal">{{$tache->titre}}</a></span>
-                                        <span class="badge bg-theme">A faire</span>
-                                                        <span class="badge bg-success">
+                                        @if($tache->fait == 0)
+                                            <span class="badge bg-theme">A faire</span>
+                                        @else
+                                            <span class="badge bg-danger">Fait</span>
+                                        @endif
+                                        <span class="badge bg-success">
                                                             @if($tache->user)
-                                                                {{$tache->user->name}}
-                                                            @else
-                                                                Aucune personne assignée
-                                                            @endif
+                                                {{$tache->user->name}}
+                                            @else
+                                                Aucune personne assignée
+                                            @endif
                                                         </span>
                                                         <span class="badge bg-important">
                                                             {{$tache->categorie->titre}}
                                                         </span>
-                                                        <span class="badge bg-danger">
-                                                            J - {{$difference}}
-                                                        </span>
+                                        @if($tache->fait == 0)
+                                            <span class="badge bg-danger">
+                                                J - {{$difference}}
+                                            </span>
+                                        @endif
                                         @if($user_id == $cdp_id || $statut_id == $ca_id)
                                             <div class="pull-right hidden-phone">
                                                 <form action="{{route('check.tache')}}" method="POST">
