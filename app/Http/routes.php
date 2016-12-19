@@ -77,7 +77,7 @@ Route::get('delete/notif/{id}', 'NotificationsController@destroy');
 Route::get('show/event', 'EventsController@index')->name('index.event');
 Route::post('add/event', 'EventsController@add')->name('add.event');
 Route::get('register/event/{event}/{student}', 'EventsController@register')->name('register.event');
-// Route::post('unregister/event/{event}/{student}', 'EventsController@unregister')->name('unregister.event');
+Route::get('unregister/event/{event}/{student}', 'EventsController@unregister')->name('unregister.event');
 Route::get('delete/event/{id}', 'EventsController@delete');
 
 // Miss

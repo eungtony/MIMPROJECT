@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
 
@@ -38,7 +39,11 @@ class EventsController extends Controller
 		// On recupère les inscris 
 		$subscribers = EventSubscriber::get();
 		// On retourne le vue
-		return view('events.index', ['events' => $events, 'users' => $users]);
+		return view('events.index', [
+			'events' => $events, 
+			'users' => $users, 
+			'subscribers' => $subscribers
+		]);
 	}
 
     /**
@@ -71,7 +76,19 @@ class EventsController extends Controller
      */
     public function register($event, $student)
     {
-    	//
+    	// On verifie que l'utilisateur qui s'insscrit est
+    	// bien le même que celui connecté
+    	if ($student == Auth::user()->id) {
+    		// On instancie l'objet
+    		$subscriber = new EventSubscriber;
+    		// On renseigne les champs 
+    		$subscriber['event_id'] = $event;
+    		$subscriber['subscriber_id'] = $student;
+    		// On sauvegarde l'inscription
+    		$subscriber->save();
+    		// Puis on redirige l'utilisateur
+    		return redirect('show/event')->withMessage('Vous avez bien été inscrit à cet évènement !');
+    	}
     }
 
     /**
@@ -83,7 +100,17 @@ class EventsController extends Controller
      */
     public function unregister($event, $student)
     {
-    	//
+    	// On verifie que l'utilisateur qui se déinsscrit est
+    	// bien le même que celui connecté
+    	if ($student == Auth::user()->id) {
+    		// On supprime l'inscription
+    		EventSubscriber::where([
+    				['event_id', '=', $event],
+    				['subscriber_id', '=', $student]
+    			])->delete();
+    		// Puis on redirige l'utilisateur
+    		return redirect('show/event')->withMessage('Vous avez bien été déinscrit de cet évènement !');
+    	}
     }
 
     /**
@@ -98,6 +125,8 @@ class EventsController extends Controller
     	$event = Events::where('id', $id)->get();
     	// Si l'utilisateur est bien son créateur
     	if (Auth::user()->id == $event[0]->from) {
+    		// On supprime les inscriptions à cet evenement
+    		EventSubscriber::where('event_id', $id)->delete();
     		// On supprime l'event
     		Events::where('id', $id)->delete();
     		// Puis on redirigel'utilisateur
