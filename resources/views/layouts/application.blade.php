@@ -187,7 +187,7 @@ $statut_id = Auth::user()->statut_id;
                     </a>
                     <ul class="sub">
                         <li><a href="#addevent" data-toggle="modal">Créer un évenements</a></li>
-                        <li><a href="">Voir les évenements</a></li>
+                        <li><a href="{{ route('index.event') }}">Voir les évenements</a></li>
                     </ul>
                 </li>
 
@@ -255,10 +255,13 @@ $statut_id = Auth::user()->statut_id;
 
             @include('tresorerie.add')
 
+            <!-- Modal d'ajout d'evenements -->
             @include('events.add')
+            <!-- Modal d'ajout d'evenements -->
 
+            <!-- Contenu de la page -->            
             @yield('content')
-
+            <!-- Contenu de la page -->
         </section>
     </section>
 

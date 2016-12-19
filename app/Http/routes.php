@@ -74,9 +74,14 @@ Route::get('show/notif/all', 'NotificationsController@showAll')->name('show.noti
 Route::get('delete/notif/{id}', 'NotificationsController@destroy');
 
 // Events
-Route::post('add/event', 'EventsController@store')->name('add.event');
-// Route::post('register/event/{event}/{student}', 'EventsController@register')->name('register.event');
+Route::get('show/event', 'EventsController@index')->name('index.event');
+Route::post('add/event', 'EventsController@add')->name('add.event');
+Route::get('register/event/{event}/{student}', 'EventsController@register')->name('register.event');
 // Route::post('unregister/event/{event}/{student}', 'EventsController@unregister')->name('unregister.event');
+Route::get('delete/event/{id}', 'EventsController@delete');
+
+// Miss
+// Route::get('miss-france', 'ShitsController@miss');
 
 Route::group(['middleware' => ['restrict']], function () {
 

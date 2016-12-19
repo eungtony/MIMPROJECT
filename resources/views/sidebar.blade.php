@@ -6,25 +6,33 @@
     $user_id = Auth::user()->id;
     $statut_id = Auth::user()->statut_id;
     $agences = \App\Agence::get();
-$cdp_id = $agence->user_id;
+    $events = \App\Events::get();
+    $cdp_id = $agence->user_id;
 @endphp
 <!--  RIGHT SIDEBAR CONTENT -->
 <div class="col-lg-3 ds">
     <!--COMPLETED ACTIONS DONUTS CHART-->
     <h3>EVENEMENTS</h3>
     <!-- First Action -->
-    <div class="desc">
-        <div class="thumb">
-            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+    @foreach ($events as $event)
+        <div class="desc">
+            <div class="thumb">
+                <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+            </div>
+            <div class="details">
+                <p>
+                    <a href=""><strong>{{ $event->title }}</strong></a>
+                    <br/>
+                    <muted>{{ $event->date }}</muted><br/>
+                </p>
+            </div>
+            <div class="subscribe">
+                <a href="" class="btn btn-success btn-xs agence-notif" style="color: white;margin-left: 85px;margin-top: 10px;" data-toggle="modal" data-target="">
+                    <strong>JE M'INSCRIS</strong>
+                </a>
+            </div>
         </div>
-        <div class="details">
-            <p>
-                <muted>2 Minutes Ago</muted>
-                <br/>
-                <a href="#">James Brown</a> subscribed to your newsletter.<br/>
-            </p>
-        </div>
-    </div>
+    @endforeach
     <!-- USERS ONLINE SECTION -->
     <h3>MEMBRES DE L'AGENCE</h3>
     @foreach($agence->users as $user)
