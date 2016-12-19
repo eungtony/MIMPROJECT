@@ -7,6 +7,7 @@
     $statut_id = Auth::user()->statut_id;
     $agences = \App\Agence::get();
     $events = \App\Events::get();
+    $subscribers = \App\EventSubscriber::get();
     $cdp_id = $agence->user_id;
 @endphp
 <!--  RIGHT SIDEBAR CONTENT -->
@@ -27,9 +28,23 @@
                 </p>
             </div>
             <div class="subscribe">
-                <a href="" class="btn btn-success btn-xs agence-notif" style="color: white;margin-left: 85px;margin-top: 10px;" data-toggle="modal" data-target="">
-                    <strong>JE M'INSCRIS</strong>
-                </a>
+                @if (count($subscribers) == 0)
+                    <a href="{{ url('register/event/' . $event->id . '/' . Auth::user()->id) }}" class="btn btn-success btn-xs agence-notif" style="color: white;margin-left: 85px;margin-top: 10px;">
+                        <strong>JE M'INSCRIS</strong>
+                    </a>
+                @else
+                    @foreach ($subscribers as $subscriber)
+                        @if ($subscriber->event_id == $event->id && $subscriber->subscriber_id == Auth::user()->id)
+                            <a href="{{ url('unregister/event/' . $event->id . '/' . Auth::user()->id) }}" class="btn btn-danger btn-xs agence-notif" style="color: white;margin-left: 85px;margin-top: 10px;">
+                                <strong>JE RAGEQUIT</strong>
+                            </a>
+                        @else
+                            <a href="{{ url('register/event/' . $event->id . '/' . Auth::user()->id) }}" class="btn btn-success btn-xs agence-notif" style="color: white;margin-left: 85px;margin-top: 10px;">
+                                <strong>JE M'INSCRIS</strong>
+                            </a>
+                        @endif
+                    @endforeach
+                @endif
             </div>
         </div>
     @endforeach
