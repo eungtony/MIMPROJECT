@@ -15,8 +15,8 @@
 							<i class="fa fa-pencil"></i>
 						</a>
 					@endif
-					<a href="" class="btn btn-primary btn-xs" data-toggle="modal">
-						<i class="fa fa-eye"></i>
+					<a href="#list-{{ $event->id }}" class="btn btn-primary btn-xs" data-toggle="modal">
+						<i class="fa fa-list"></i>
 					</a>
 				</div>
 				<br>
@@ -31,17 +31,15 @@
 							<strong>JE M'INSCRIS</strong>
 						</a>
 					@else
-						@foreach ($subscribers as $subscriber)
-							@if ($subscriber->event_id == $event->id && $subscriber->subscriber_id == Auth::user()->id)
-								<a href="{{ url('unregister/event/' . $event->id . '/' . Auth::user()->id) }}" class="btn btn-danger btn-md">
-									<strong>JE RAGEQUIT</strong>
-								</a>
-							@else
-								<a href="{{ url('register/event/' . $event->id . '/' . Auth::user()->id) }}" class="btn btn-success btn-md">
-									<strong>JE M'INSCRIS</strong>
-								</a>
-							@endif
-						@endforeach
+						@if ($hadSubscribe[ $event->id ] == true)
+							<a href="{{ url('unregister/event/' . $event->id . '/' . Auth::user()->id) }}" class="btn btn-danger btn-md">
+								<strong>JE RAGEQUIT</strong>
+							</a>
+						@else
+							<a href="{{ url('register/event/' . $event->id . '/' . Auth::user()->id) }}" class="btn btn-success btn-md">
+								<strong>JE M'INSCRIS</strong>
+							</a>
+						@endif
 					@endif
 				</div>
 			</div>
@@ -49,6 +47,9 @@
 		<!-- Modal d'édition d'evenements -->
 		@include('events.edit')
 		<!-- Modal d'édition d'evenements -->
+		<!-- Modal de liste d'inscriptions -->
+		@include('events.list')
+		<!-- Modal de liste d'inscriptions -->
 		<!-- Bloc Evenement -->
 	@endforeach
 </div>

@@ -38,11 +38,36 @@ class EventsController extends Controller
 		$users = User::get();
 		// On recupère les inscris 
 		$subscribers = EventSubscriber::get();
+
+		// Tableau des inscriptions de l'utilisateur courant
+		$hadSubscribe = [];
+		// On créer un tableau contenant chaque ID d'évènement
+		foreach ($events as $event) {
+			$hadSubscribe[ $event->id ] = false;
+		}
+		// On determine à quel évènement l'utilisateur est inscrit
+		foreach ($subscribers as $subscriber) {
+			if ($subscriber->subscriber_id == Auth::user()->id) {
+				$hadSubscribe[ $subscriber->event_id ] = true;
+			}
+		}
+
+		// On liste les utilisateurs par id
+		// On créer la liste
+		$list = [];
+		// Pour chaque utilisateur
+		foreach ($users as $user) {
+			// On insèrer son nom dans le tableau 
+			// avec pour index son id
+			$list[$user->id] = $user->name;
+		}
+		
 		// On retourne le vue
 		return view('events.index', [
 			'events' => $events, 
-			'users' => $users, 
-			'subscribers' => $subscribers
+			'list' => $list, 
+			'subscribers' => $subscribers,
+			'hadSubscribe' => $hadSubscribe
 		]);
 	}
 

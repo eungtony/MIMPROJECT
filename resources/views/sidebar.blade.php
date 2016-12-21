@@ -9,6 +9,19 @@
     $events = \App\Events::get();
     $subscribers = \App\EventSubscriber::get();
     $cdp_id = $agence->user_id;
+
+    // Tableau des inscriptions de l'utilisateur courant
+    $hadSubscribe = [];
+    // On créer un tableau contenant chaque ID d'évènement
+    foreach ($events as $event) {
+        $hadSubscribe[ $event->id ] = false;
+    }
+    // On determine à quel évènement l'utilisateur est inscrit
+    foreach ($subscribers as $subscriber) {
+        if ($subscriber->subscriber_id == Auth::user()->id) {
+            $hadSubscribe[ $subscriber->event_id ] = true;
+        }
+    }
 @endphp
 <!--  RIGHT SIDEBAR CONTENT -->
 <div class="col-lg-3 ds">
@@ -33,17 +46,15 @@
                         <strong>JE M'INSCRIS</strong>
                     </a>
                 @else
-                    @foreach ($subscribers as $subscriber)
-                        @if ($subscriber->event_id == $event->id && $subscriber->subscriber_id == Auth::user()->id)
-                            <a href="{{ url('unregister/event/' . $event->id . '/' . Auth::user()->id) }}" class="btn btn-danger btn-xs agence-notif" style="color: white;margin-left: 85px;margin-top: 10px;">
-                                <strong>JE RAGEQUIT</strong>
-                            </a>
-                        @else
-                            <a href="{{ url('register/event/' . $event->id . '/' . Auth::user()->id) }}" class="btn btn-success btn-xs agence-notif" style="color: white;margin-left: 85px;margin-top: 10px;">
-                                <strong>JE M'INSCRIS</strong>
-                            </a>
-                        @endif
-                    @endforeach
+                    @if ($hadSubscribe[ $event->id ] == true)
+                        <a href="{{ url('unregister/event/' . $event->id . '/' . Auth::user()->id) }}" class="btn btn-danger btn-xs agence-notif" style="color: white;margin-left: 85px;margin-top: 10px;">
+                            <strong>JE RAGEQUIT</strong>
+                        </a>
+                    @else
+                        <a href="{{ url('register/event/' . $event->id . '/' . Auth::user()->id) }}" class="btn btn-success btn-xs agence-notif" style="color: white;margin-left: 85px;margin-top: 10px;"">
+                            <strong>JE M'INSCRIS</strong>
+                        </a>
+                    @endif
                 @endif
             </div>
         </div>
