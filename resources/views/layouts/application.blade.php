@@ -167,18 +167,18 @@ $statut_id = Auth::user()->statut_id;
                     </ul>
                 </li>
 
-                @if(Auth::user()->statut_id == 2 || Auth::user()->id == $cdp_id)
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-user"></i>
                         <span>Notifications</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="{{ url('add/notif/global') }}">Globale</a></li>
+                        @if(Auth::user()->statut_id == 2 || Auth::user()->id == $cdp_id)
+                            <li><a href="{{ url('add/notif/global') }}">Globale</a></li>
+                        @endif
                         <li><a href="{{ url('add/notif/team') }}">Equipe</a></li>
                     </ul>
                 </li>
-                @endif
 
                 <li class="sub-menu">
                     <a href="javascript:;">
