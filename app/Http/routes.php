@@ -80,6 +80,10 @@ Route::get('register/event/{event}/{student}', 'EventsController@register')->nam
 Route::get('unregister/event/{event}/{student}', 'EventsController@unregister')->name('unregister.event');
 Route::get('delete/event/{id}', 'EventsController@delete');
 
+Route::get('new-login', function() {
+    return view('layouts.new-login');
+});
+
 // Miss
 // Route::get('miss-france', 'ShitsController@miss');
 
