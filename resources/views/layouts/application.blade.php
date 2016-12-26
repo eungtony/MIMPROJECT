@@ -120,6 +120,8 @@ $statut_id = Auth::user()->statut_id;
 
                 @include('notifications')
 
+                @include('events')
+
                 <!-- inbox dropdown end -->
             </ul>
             <!--  notification end -->

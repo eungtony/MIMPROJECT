@@ -44,7 +44,6 @@
       <input type="email" placeholder="Adresse mail"/>
       <input type="password" placeholder="Mot de passe"/>
       <input type="password" placeholder="Confirmez Mot de passe"/>
-      <input type="tel" placeholder="Phone Number"/>
       <button>Créer mon compte</button>
     </form>
   </div>
