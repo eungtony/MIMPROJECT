@@ -40,7 +40,7 @@
                     <muted>{{ $event->date }}</muted><br/>
                 </p>
             </div>
-            <div class="subscribe">
+            <!-- <div class="subscribe">
                 @if (count($subscribers) == 0)
                     <a href="{{ url('register/event/' . $event->id . '/' . Auth::user()->id) }}" class="btn btn-success btn-xs agence-notif" style="color: white;margin-left: 85px;margin-top: 10px;">
                         <strong>JE M'INSCRIS</strong>
@@ -56,9 +56,15 @@
                         </a>
                     @endif
                 @endif
-            </div>
+            </div> -->
         </div>
     @endforeach
+    <div class="desc">
+        <p class="text-center">
+            <a href="{{ route('index.event') }}">Voir tous les Events</a>
+        </p>
+    </div>
+
     <!-- USERS ONLINE SECTION -->
     <h3>MEMBRES DE L'AGENCE</h3>
     @foreach($agence->users as $user)

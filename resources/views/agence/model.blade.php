@@ -43,21 +43,38 @@
 
             </div>
 
-            <!-- Visite de la page d'une autre agence -->
-            @if (isset($members))
-                <div class="content-panel">
-                    <!-- MEMBRES -->
-                    <h3>Membres de l'agence</h3>
-                    <ul>
+                <!-- Visite de la page d'une autre agence -->
+                @if (isset($members))
+                    <div class="row" style="padding: 10px;">
+                       <div class="col-lg-12">
+                            <h3>Membres de l'agence</h3>
+                       </div>
                         @foreach ($members as $member)
-                            <li>
-                                <a href="{{ url('user/' . $member->id) }}">{{ $member->name }}</a>
-                            </li>
+                            <div class="col-lg-4">
+                                <div class="content-panel" style="text-align: center;">
+                                    <p>
+                                        @if($member->avatar == 0)
+                                            <img src="{{ asset('avatars/user.png') }}" class="img-circle" width="60">
+                                        @else
+                                            <img src="{{ asset('avatars/'.$member->id.'.'.$member->extension) }}"
+                                                 class="img-circle" width="60">
+                                        @endif
+                                    </p>
+                                    <p>
+                                        <a href="{{ route('profile', $member->id) }}">
+                                            <strong>{{ $member->name }}</strong>
+                                        </a>
+                                    </p>
+                                    <p>{{ $member->description }}</p>
+                                    <a href="#notify-someone-{{ $member->id }}" data-toggle="modal" data-target="#notify-someone-{{ $member->id }}" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-envelope-o f-fw"></i> NOTIFIE
+                                    </a>
+                                </div>
+                            </div>
                         @endforeach
-                    </ul>
-                </div>
+                    </div>
                 @endif
-                        <!-- Visite de la page d'une autre agence -->
+                <!-- Visite de la page d'une autre agence -->
 
                 @if(Auth::user()->agence_id == $agence->id)
                     <div class="content-panel upload-panel">

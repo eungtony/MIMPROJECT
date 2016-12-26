@@ -128,7 +128,11 @@ $statut_id = Auth::user()->statut_id;
         </div>
         <div class="top-menu">
             <ul class="nav pull-right top-menu">
-                <li><a class="logout" href="{{ url('/logout') }}">Déconnexion</a></li>
+                <li>
+                    <a class="logout" href="{{ url('/logout') }}">
+                        <i class="fa fa-sign-out fa-fw"></i> Déconnexion
+                    </a>
+                </li>
             </ul>
         </div>
     </header>
