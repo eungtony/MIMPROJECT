@@ -1,0 +1,7 @@
+body {
+	background: url(../img/login-bg.jpg);
+	-webkit-background-size: 100%;
+	background-size: 100%;
+}
+
+.form-module .toggle .tooltip { right: -80px !important; }

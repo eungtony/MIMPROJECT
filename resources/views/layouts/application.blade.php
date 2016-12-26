@@ -30,6 +30,9 @@ $statut_id = Auth::user()->statut_id;
     <link rel="stylesheet" type="text/css" href="{{ asset('lineicons/style.css') }}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+    <!-- Summernote CSS -->
+    <link rel="stylesheet" href="{{ asset('summernote/summernote.css') }}">
+
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet">
@@ -287,6 +290,9 @@ $statut_id = Auth::user()->statut_id;
 <script src="{{ asset('js/jquery.nicescroll.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/jquery.sparkline.js') }}"></script>
 
+<!-- Summernote JS -->
+<script src="{{ asset('summernote/summernote.js') }}"></script>
+
 <!--common script for all pages-->
 <script src="{{ asset('js/common-scripts.js') }}"></script>
 
@@ -301,6 +307,9 @@ $statut_id = Auth::user()->statut_id;
     $(function () {
         $("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
         $("#calendar").datepicker({dateFormat: 'yy-mm-dd'});
+        $('#summernote').summernote({
+            height: 300,
+        });
     });
 </script>
 
