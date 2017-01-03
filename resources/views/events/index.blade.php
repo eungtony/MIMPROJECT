@@ -5,7 +5,7 @@
 	@foreach ($events as $event)
 		<!-- Bloc Evenement -->
 		<div class="col-lg-4">
-			<div class="content-panel" style="min-height: 260px;">
+			<div class="content-panel event-panel mt">
 				<div class="options" style="float: right;">
 					@if ($event->from == Auth::user()->id)
 						<a href="{{ url('delete/event' . $event->id) }}" class="btn btn-danger btn-xs">
@@ -24,7 +24,7 @@
 					<h2>{{ $event->title }}</h2>
 					<muted>{{ $event->date }}</muted>
 				</div>
-				<p>{{ $event->description }}</p>
+				<p class="description">{{ $event->description }}</p>
 				<div class="text-center">
 					@if (count($subscribers) == 0)
 						<a href="{{ url('register/event/' . $event->id . '/' . Auth::user()->id) }}" class="btn btn-success btn-md">

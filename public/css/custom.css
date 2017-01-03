@@ -199,3 +199,10 @@ h3.project-title {
 }
 
 a.details { margin-left: 25px !important; }
+
+div.event-panel {
+  min-height: 270px;
+  max-height: 270px;
+}
+ 
+div.event-panel p.description { min-height: 95px; }
