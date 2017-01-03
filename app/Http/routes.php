@@ -71,7 +71,7 @@ Route::delete('/livret/delete/{id}', 'HomeController@deleteMontant')->where('id'
 Route::get('add/notif/{type}/{id?}', 'NotificationsController@create')->where('id', '[0-9]+')->name('form.add.notif');
 Route::post('add/notif/{type}/{id?}', 'NotificationsController@store')->where('id', '[0-9]+');
 Route::get('show/notif/all', 'NotificationsController@showAll')->name('show.notif.all');
-Route::get('delete/notif/{id}', 'NotificationsController@destroy');
+Route::get('delete/notif/{id}', 'NotificationsController@destroy')->where('id', '[0-9]+')->name('delete.notif');
 
 Route::get('new-login', function() {
     return view('auth.new-login');
@@ -80,10 +80,10 @@ Route::get('new-login', function() {
 // Events
 Route::get('show/event', 'EventsController@index')->name('index.event');
 Route::post('add/event', 'EventsController@add')->name('add.event');
-Route::post('edit/event/{id}', 'EventsController@edit')->name('edit.event');
+Route::post('edit/event/{id}', 'EventsController@edit')->where('id', '[0-9]+')->name('edit.event');
 Route::get('register/event/{event}/{student}', 'EventsController@register')->name('register.event');
 Route::get('unregister/event/{event}/{student}', 'EventsController@unregister')->name('unregister.event');
-Route::get('delete/event/{id}', 'EventsController@delete');
+Route::get('delete/event/{id}', 'EventsController@delete')->where('id', '[0-9]+')->name('delete.event');
 
 // Miss
 // Route::get('miss-france', 'ShitsController@miss');

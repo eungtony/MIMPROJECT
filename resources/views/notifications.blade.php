@@ -3,17 +3,24 @@
     $users = App\User::get();
     $names = [];
     foreach ($users as $user) { $names[$user->id] = $user->name; }
+    // Compte des notifications
+    $countNotif = 0;
+    foreach ($notifs as $notif) {
+        if ($notif->type == 'team' && $notif->to == Auth::user()->agence_id) {
+            $countNotif++;
+        } elseif ($notif->type == 'personal' && $notif->to == Auth::user()->id) {
+            $countNotif++;
+        } elseif ($notif->type == 'global') {
+            $countNotif++;
+        }
+    }
 @endphp
 
 <li id="header_inbox_bar" class="dropdown">
     <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
         <i class="fa fa-envelope-o"></i>
         <span class="badge bg-theme">
-            @if (count($notifs) != 0)
-                new
-            @else
-                0
-            @endif
+            {{ $countNotif }}
         </span>
     </a>
     <ul class="dropdown-menu extended inbox">
