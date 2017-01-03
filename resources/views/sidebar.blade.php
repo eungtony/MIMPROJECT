@@ -63,7 +63,7 @@
                     <a href="{{ route('profile', $user->id) }}">{{ $user->name }}</a>
                     
                     <a href="#notify-someone-{{ $user->id }}" class="btn btn-primary btn-xs agence-notif" style="color: white;float: right;" data-toggle="modal" data-target="#notify-someone-{{ $user->id }}">
-                        <i class="fa fa-envelope"></i>
+                        <i class="fa fa-envelope-o"></i>
                     </a>
                 </p>
             </div>
@@ -125,10 +125,13 @@
     <h3>AUTRES AGENCES</h3>
     @foreach ($agences as $agence)
         <div class="desc">
+            <div class="thumb">
+                <img class="img-circle" src="{{ asset('avatars/user.png') }}" width="35px" height="35px" align="">
+            </div>
             <div class="details">
                 <a href="{{ url('agence/' . $agence->id) }}" class="green agence">{{ $agence->nom }}</a>
                 <a href="#notify-team-{{ $agence->id }}" class="btn btn-primary btn-xs agence-notif" style="color: white;" data-toggle="modal" data-target="#notify-team-{{ $agence->id }}">
-                    <i class="fa fa-envelope"></i>
+                    <i class="fa fa-envelope-o"></i>
                 </a>
             </div>
         </div>
