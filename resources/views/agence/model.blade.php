@@ -72,58 +72,59 @@
                                 </div>
                             </div>
                         @endforeach
-                    </div>
-                @endif
-                <!-- Visite de la page d'une autre agence -->
+                    </ul>
+                </div>
+            @endif
+        <!-- Visite de la page d'une autre agence -->
 
-                @if(Auth::user()->agence_id == $agence->id)
-                    <div class="content-panel upload-panel">
-                        <!-- TELECHARGEMENT -->
-                        <h3 class="upload-title">Fichiers partagés</h3>
+            @if(Auth::user()->agence_id == $agence->id)
+                <div class="content-panel upload-panel">
+                    <!-- TELECHARGEMENT -->
+                    <h3 class="upload-title">Fichiers partagés</h3>
 
-                        <?php $files = \App\File::where('agence_id', $agence->id)->where('projet_id', NULL)->get(); ?>
+                    <?php $files = \App\File::where('agence_id', $agence->id)->where('projet_id', NULL)->get(); ?>
 
-                        @if(!$files->isEmpty())
-                            @foreach($files as $file)
-                                <a href="{{app_path()}}/{{$agence->id}}/{{$file->name}}.{{$file->extension}}"
-                                   download="{{$file->titre}}">
-                                    {{$file->titre}}
-                                </a>
-                                <a href="#editFile{{$file->id}}" data-toggle="collapse" class="btn btn-primary btn-xs">Modifier
-                                    le fichier</a>
-                                @if($user_id == $cdp_id || $statut_id == $ca_id)
-                                    @include('agence.editFile')
-                                @endif
-                            @endforeach
-                        @else
-                            <span class="badge bg-important">
+                    @if(!$files->isEmpty())
+                        @foreach($files as $file)
+                            <a href="{{app_path()}}/{{$agence->id}}/{{$file->name}}.{{$file->extension}}"
+                               download="{{$file->titre}}">
+                                {{$file->titre}}
+                            </a>
+                            <a href="#editFile{{$file->id}}" data-toggle="collapse" class="btn btn-primary btn-xs">Modifier
+                                le fichier</a>
+                            @if($user_id == $cdp_id || $statut_id == $ca_id)
+                                @include('agence.editFile')
+                            @endif
+                        @endforeach
+                    @else
+                        <span class="badge bg-important">
                         Aucun fichier présent.
                     </span>
-                        @endif
+                    @endif
 
-                        @if($user_id == $cdp_id || $statut_id == $ca_id)
-                            <hr>
-                            <a href="#file" class="btn btn-primary btn-sm"
-                               data-toggle="collapse" aria-expanded="false"
-                               aria-controls="#file">
-                                Téléverser un fichier
-                            </a>
+                    @if($user_id == $cdp_id || $statut_id == $ca_id)
+                        <hr>
+                        <a href="#file" class="btn btn-primary btn-sm"
+                           data-toggle="collapse" aria-expanded="false"
+                           aria-controls="#file">
+                            Téléverser un fichier
+                        </a>
 
-                            @include('agence.file')
+                    @include('agence.file')
 
-                            @endif
-                                    <!-- TELECHARGEMENT -->
-                    </div>
                 @endif
+                <!-- TELECHARGEMENT -->
+                </div>
+            @endif
 
-                <h2 class="text-center project-title" style="margin-bottom: 40px;">Projets de l'agence</h2>
+            <h2 class="text-center project-title" style="margin-bottom: 40px;">Projets de l'agence</h2>
 
-                @if($projets->isEmpty())
-                    <p class="alert alert-warning text-center">
-                        Aucun projet n'a été crée !
-                    </p>
-                    @else
-                    @foreach($projets as $projet)
+            @if($projets->isEmpty())
+                <p class="alert alert-warning text-center">
+                    Aucun projet n'a été crée !
+                </p>
+            @else
+                @foreach($projets as $projet)
                     <?php
                     $taches = \App\Travail::where('projet_id', $projet->id)->orderBy('id', 'desc')->get();
                     if (request()->only('sort')['sort'] == 'date') {
@@ -162,7 +163,7 @@
                         $etape = \App\Etape::findOrFail($projet->etape_id);
                     }
                     ?>
-                            <!-- TABLEAU PROJETS -->
+                <!-- TABLEAU PROJETS -->
                     <div style="margin-bottom: 15px;">
                         <div class="content-panel">
                             <div class="text-center">
@@ -204,6 +205,9 @@
                                 <button class="btn btn-success">
                                     {{$projet->facturable}} €
                                 </button>
+                                <button class="btn btn-primary">
+                                    {{$heures_notees}}h
+                                 </button>
                     </span>
                             </div>
                             <div class="collapse" id="pr{{$projet->id}}">
@@ -258,8 +262,8 @@
                         </div><!-- /content-panel -->
                     </div><!-- /col-md-12 -->
                     <!-- TABLEAU PROJETS -->
-                    @endforeach
-                @endif
+                @endforeach
+            @endif
         </div>
 
         @include('sidebar')
