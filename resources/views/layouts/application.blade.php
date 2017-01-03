@@ -178,7 +178,7 @@ $statut_id = Auth::user()->statut_id;
 
                 <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-user"></i>
+                        <i class="fa fa-envelope-o"></i>
                         <span>Notifications</span>
                     </a>
                     <ul class="sub">
@@ -191,7 +191,7 @@ $statut_id = Auth::user()->statut_id;
 
                 <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-user"></i>
+                        <i class="fa fa-info-circle"></i>
                         <span>Evènements</span>
                     </a>
                     <ul class="sub">
@@ -232,10 +232,9 @@ $statut_id = Auth::user()->statut_id;
                         </a>
                         <ul class="sub">
                             @foreach($agences as $agence)
-                                <li class="mt">
+                                <li>
                                     <a href="{{ route('agence', $agence) }}">
-                                        <i class="fa fa-dashboard"></i>
-                                        <span>{{$agence->nom}}</span>
+                                        {{$agence->nom}}
                                     </a>
                                 </li>
                             @endforeach
