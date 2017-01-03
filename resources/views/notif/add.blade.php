@@ -4,12 +4,16 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                <div class="form-panel"><a href="{{ url()->previous() }}">Retour</a></div>
+                <div class="form-panel">
+                    <a href="{{ url()->previous() }}">Retour</a>
+                </div>
                 <div class="form-panel">
 
-                    <div class="panel-heading">
-                        <h1>Notifier {{$user->name}}</h1>
-                    </div>
+                    @if ($type == 'personal')
+                        <div class="panel-heading">
+                            <h1>Notifier {{$user->name}}</h1>
+                        </div>
+                    @endif
 
                     <div class="panel-body">
                         <form action="" method="POST">
@@ -43,7 +47,7 @@
 
                             <div class="form-group">
                                 <label for="message" class="">Votre Message</label><br/>
-                                <textarea name="message" id="" cols="30" rows="10" class="form-control"></textarea>
+                                <textarea name="message" id="summernote" cols="30" rows="10" class="form-control"></textarea>
                             </div>
 
                             <div class="form-group">

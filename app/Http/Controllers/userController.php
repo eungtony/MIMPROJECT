@@ -98,6 +98,26 @@ class userController extends Controller
         return redirect()->route('profile', $id)->with('success', 'Le profil a été modifié avec succès !');
     }
 
+    public function editParameters(Request $request, $id)
+    {
+        if (Auth::user()->id == $id) {
+            // On stocke le nouveau pseudo
+            $name = $request->pseudo;
+            // On stocke le nouveau statut
+            $statut = $request->statut;
+            // On stocke le nouveau poste
+            $poste = $request->poste;
+            // On update le profil
+            User::where('id', $id)->update([
+                'name' => $name, 
+                'statut_id' => $statut, 
+                'poste_id' => $poste
+            ]);
+            // Puis on redirige l'utilisateur
+            return redirect('/user')->withMessage('Paramètres de compte mis à jour avec succès !');
+        }
+    }
+
     /**
      * @param $id
      *

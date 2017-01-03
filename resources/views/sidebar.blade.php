@@ -6,27 +6,43 @@
     $user_id = Auth::user()->id;
     $statut_id = Auth::user()->statut_id;
     $agences = \App\Agence::get();
-$cdp_id = $agence->user_id;
+    $events = \App\Events::limit(3)->latest()->get();
+    $cdp_id = $agence->user_id;
 @endphp
 <!--  RIGHT SIDEBAR CONTENT -->
 <div class="col-lg-3 ds">
     <!--COMPLETED ACTIONS DONUTS CHART-->
-    <h3>EVENEMENTS</h3>
+    <h3>DERNIERS EVENEMENTS</h3>
     <!-- First Action -->
+    @foreach ($events as $event)
+        @php
+            $now = \Carbon\Carbon::now();
+            $date = \Carbon\Carbon::createFromFormat('Y-m-d', $event->date);
+            $difference = $date->diffInDays($now, false);
+        @endphp
+        @if ($difference < 0)
+            <div class="desc" difference="{{ $difference }}">
+                <div class="thumb">
+                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+                </div>
+                <div class="details">
+                    <p>
+                        <a href="{{ route('index.event') }}"><strong>{{ $event->title }}</strong></a>
+                        <br/>
+                        <muted>Prévu à la date : <strong>{{ $event->date }}</strong></muted><br/>
+                    </p>
+                </div>
+            </div>
+        @endif
+    @endforeach
     <div class="desc">
-        <div class="thumb">
-            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-        </div>
-        <div class="details">
-            <p>
-                <muted>2 Minutes Ago</muted>
-                <br/>
-                <a href="#">James Brown</a> subscribed to your newsletter.<br/>
-            </p>
-        </div>
+        <p class="text-center">
+            <a href="{{ route('index.event') }}">Voir tous les Events</a>
+        </p>
     </div>
+
     <!-- USERS ONLINE SECTION -->
-    <h3>MEMBRES</h3>
+    <h3>MEMBRES DE L'AGENCE</h3>
     @foreach($agence->users as $user)
         @php
             $statut = \App\Poste::findOrFail($user->poste_id);
@@ -66,7 +82,7 @@ $cdp_id = $agence->user_id;
         @foreach($messages as $message)
             <?php $user = \App\User::findOrFail($message->user_id); ?>
             <div class="desc">
-                <div class="details">
+                <div class="">
                     <div class="thumb">
                         @if($user->avatar == 0)
                             <img class="img-circle" src="{{ asset('avatars/user.png') }}" width="35px" height="35px"
@@ -79,20 +95,7 @@ $cdp_id = $agence->user_id;
                     <a href="#message{{$message->id}}" data-toggle="modal">
                         {{$message->titre}}
                     </a>
-                    <p class="text-right">
-                        {{$message->created_at}}
-                        @if($user_id == $cdp_id || $statut_id == 1)
-                            <a href="#editmessage{{$message->id}}"
-                               data-toggle="modal"
-                               class="btn btn-primary btn-xs" style="color:white;"><i
-                                        class="fa fa-pencil-square-o"></i></a>
-                            <a href="{{action('agenceController@deleteMessage', [$message->agence_id,$message->id])}}"
-                               data-method="delete"
-                               data-confirm="Souhaitez-vous réellement supprimer ce message ?"
-                               class="btn btn-danger btn-xs" style="color:white;"><i class="fa fa-trash-o"></i></a>
-                            @include('agence.editMessageM')
-                        @endif
-                    </p>
+                    <p>{{ $message->created_at }}</p>
                 </div>
             </div>
             <div class="modal fade" id="message{{$message->id}}" role="dialog">

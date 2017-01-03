@@ -50,7 +50,7 @@
                                 <li id="parameters-panel">
                                     <a href="#" id="parameters">
                                     <i class="fa fa-cogs"></i>
-                                    Paramètres <span class="badge badge-xs coming">Coming</span></a>
+                                    Paramètres</a>
                                 </li>
                                 <li id="taches-panel">
                                     <a href="#" id="taches">
@@ -60,7 +60,7 @@
                                 <li id="help-panel">
                                     <a href="#" id="help">
                                     <i class="fa fa-question"></i>
-                                    Aide <span class="badge badge-xs coming">Coming</span></a>
+                                    Aide</a>
                                 </li>
                             </ul>
                         </div>
@@ -73,20 +73,23 @@
                         <div id="apropos-content">
                             <p style="font-size:24px">Description</p>
                             <p>{{ $user->description }}</p>
-                            <a href="#description" class="btn btn-success btn-sm" type="button" data-toggle="modal"
-                               data-target="#description">
-                                <i class="fa fa-cogs fa-fw"></i> Modifier ma description
-                            </a>
+                            @if (Auth::user()->id == $user->id)
+                                <a href="#description" class="btn btn-success btn-sm" type="button" data-toggle="modal"
+                                data-target="#description">
+                                    <i class="fa fa-cogs fa-fw"></i> Modifier ma description
+                                </a>
+                            @endif
                         </div>
                         
                         <div id="taches-content" style="display: none;">
+                            <h3>Mes tâches</h3>
                             <table class="table table-striped">
                             <thead>
                               <tr>
                                   <th>Titre</th>
                                   <th>Catégorie</th>
                                   <th>Projet associé</th>
-                                  <th>Remaining Time</th>
+                                  <th>Deadline</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -121,6 +124,61 @@
                             </tbody>
                             </table>
                         </div>
+                        
+                        <div id="parameters-content" style="display: none;">
+
+                            @php
+                                $postes = App\Poste::get();
+                                $statuts = App\Statut::get();
+                            @endphp
+
+                            <h3>Paramètres de compte</h3>
+                            
+                            <form action="{{ url('user/edit/parameters/' . $user->id) }}" method="POST">
+
+                                {{ csrf_field() }}
+
+                                <div class="form-group">
+                                    <label for="">Pseudo</label>
+                                    <input type="text" class="form-control" value="{{ $user->name }}" name="pseudo">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="">Status</label>
+                                    <select name="statut" id="" class="form-control">
+                                        @foreach ($statuts as $statut)
+                                            @if (Auth::user()->statut_id != 1 || Auth::user()->statut_id != 2)
+                                                @if ($statut->id != 1 && $statut->id != 2)
+                                                    <option value="{{ $statut->id }}">{{ $statut->titre }}</option>
+                                                @endif
+                                            @else 
+                                                <option value="{{ $statut->id }}">{{ $statut->titre }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="">Poste dans l'agence</label>
+                                    <select name="poste" id="" class="form-control">
+                                        @foreach ($postes as $poste)
+                                            <option value="{{ $poste->id }}">{{ $poste->nom }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <button class="btn btn-success btn-sm" type="submit">
+                                    <i class="fa fa-cogs fa-fw"></i> Valider Changements
+                                </button>
+
+                            </form>
+                        </div>
+
+                        <div id="help-content" style="display: none;">
+                            <h3>Aide</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae vitae, voluptatum amet eius esse sit praesentium similique tenetur accusamus deserunt, modi dignissimos debitis consequatur facere unde sint quasi quae architecto!</p>
+                        </div>
+
                     </div>
                 </div>
 

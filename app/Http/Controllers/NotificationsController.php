@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Guard;
 
 use App\Agence;
 use App\Etape;
@@ -18,14 +19,17 @@ use Illuminate\Support\Facades\Auth;
 
 class NotificationsController extends Controller
 {
+    protected $auth;
+
     /**
-     * Display a listing of the resource.
+     * Create a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function index()
+    public function __construct(Guard $auth)
     {
-        //
+        $this->middleware('auth');
+        $this->auth = $auth;
     }
 
     /**
@@ -37,9 +41,8 @@ class NotificationsController extends Controller
     {
         // On recupère toute les agences
         $agences = Agence::with('users')->get();
-        $user = User::findOrFail($id);
         // On retourne la vue adéquat
-        return view('notif.add', ['agences' => $agences, 'type' => $type, 'id' => $id, 'user' => $user]);
+        return view('notif.add', ['agences' => $agences, 'type' => $type, 'id' => $id]);
     }
 
     /**

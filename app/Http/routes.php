@@ -18,11 +18,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //User
 Route::get('/user', 'userController@index')->name('user');
-Route::get('/user/{id}', 'userController@user')->where('id', '[0-9]+')->name('profile');
-Route::get('/user/edit/{id}', 'userController@editForm')->where('id', '[0-9]+')->name('edit.user');
-Route::post('/user/{id}/edit', 'userController@edit')->where('id', '[0-9]+')->name('user.edit');
-Route::post('/user/edit/avatar/{id}', 'userController@editAvatar')->where('id', '[0-9]+')->name('user.avatar');
-Route::post('/user/description/{id}', 'userController@editDescription')->where('id', '[0-9]+')->name('user.description');
+Route::get('/user/{id}', 'userController@user')->name('profile');
+Route::get('/user/edit/{id}', 'userController@editForm')->name('edit.user');
+Route::post('/user/{id}/edit', 'userController@edit')->name('user.edit');
+Route::post('/user/edit/avatar/{id}', 'userController@editAvatar')->name('user.avatar');
+Route::post('/user/description/{id}', 'userController@editDescription')->name('user.description');
+Route::post('/user/edit/parameters/{id}', 'userController@editParameters')->name('user.parameters');
 
 //Projet
 Route::get('/projet/{id}/{ida}', 'projetController@index')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('projet');
@@ -71,6 +72,21 @@ Route::get('add/notif/{type}/{id?}', 'NotificationsController@create')->where('i
 Route::post('add/notif/{type}/{id?}', 'NotificationsController@store')->where('id', '[0-9]+');
 Route::get('show/notif/all', 'NotificationsController@showAll')->name('show.notif.all');
 Route::get('delete/notif/{id}', 'NotificationsController@destroy');
+
+Route::get('new-login', function() {
+    return view('auth.new-login');
+});
+
+// Events
+Route::get('show/event', 'EventsController@index')->name('index.event');
+Route::post('add/event', 'EventsController@add')->name('add.event');
+Route::post('edit/event/{id}', 'EventsController@edit')->name('edit.event');
+Route::get('register/event/{event}/{student}', 'EventsController@register')->name('register.event');
+Route::get('unregister/event/{event}/{student}', 'EventsController@unregister')->name('unregister.event');
+Route::get('delete/event/{id}', 'EventsController@delete');
+
+// Miss
+// Route::get('miss-france', 'ShitsController@miss');
 
 Route::group(['middleware' => ['restrict']], function () {
 

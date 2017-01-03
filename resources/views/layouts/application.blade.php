@@ -30,6 +30,9 @@ $statut_id = Auth::user()->statut_id;
     <link rel="stylesheet" type="text/css" href="{{ asset('lineicons/style.css') }}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+    <!-- Summernote CSS -->
+    <link rel="stylesheet" href="{{ asset('summernote/summernote.css') }}">
+
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet">
@@ -83,10 +86,10 @@ $statut_id = Auth::user()->statut_id;
                                 <p class="text-danger">Vous n'avez pas de tâches en cours</p>
                             @else
                                 @foreach($taches as $tache)
-                                    <?php
-                                    $date = \Carbon\Carbon::createFromFormat('Y-m-d', $tache->date);
-                                    $difference = ($date->diff($now)->days < 1) ? 'today' : $date->diffInDays($now);
-                                    ?>
+                                    @php
+                                        $date = \Carbon\Carbon::createFromFormat('Y-m-d', $tache->date);
+                                        $difference = ($date->diff($now)->days < 1) ? 'today' : $date->diffInDays($now);
+                                    @endphp
                                     <div class="task-info">
                                         <div class="desc">
                                             <a href="#voirtache{{$tache->id}}" data-toggle="modal">
@@ -117,13 +120,19 @@ $statut_id = Auth::user()->statut_id;
 
                 @include('notifications')
 
+                @include('events')
+
                 <!-- inbox dropdown end -->
             </ul>
             <!--  notification end -->
         </div>
         <div class="top-menu">
             <ul class="nav pull-right top-menu">
-                <li><a class="logout" href="{{ url('/logout') }}">Déconnexion</a></li>
+                <li>
+                    <a class="logout" href="{{ url('/logout') }}">
+                        <i class="fa fa-sign-out fa-fw"></i> Déconnexion
+                    </a>
+                </li>
             </ul>
         </div>
     </header>
@@ -167,18 +176,29 @@ $statut_id = Auth::user()->statut_id;
                     </ul>
                 </li>
 
-                @if(Auth::user()->statut_id == 2 || Auth::user()->id == $cdp_id)
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-user"></i>
                         <span>Notifications</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="{{ url('add/notif/global') }}">Globale</a></li>
+                        @if(Auth::user()->statut_id == 2 || Auth::user()->id == $cdp_id)
+                            <li><a href="{{ url('add/notif/global') }}">Globale</a></li>
+                        @endif
                         <li><a href="{{ url('add/notif/team') }}">Equipe</a></li>
                     </ul>
                 </li>
-                @endif
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-user"></i>
+                        <span>Evènements</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="#addevent" data-toggle="modal">Créer un évenements</a></li>
+                        <li><a href="{{ route('index.event') }}">Voir les évenements</a></li>
+                    </ul>
+                </li>
 
                 @if(Auth::user()->statut_id == 1)
                     <li class="sub-menu">
@@ -233,13 +253,24 @@ $statut_id = Auth::user()->statut_id;
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper">
+
             @foreach($taches as $tache)
                 @include('tache.index')
             @endforeach
+
             @include('user.taches')
+
             @include('flash')
+
             @include('tresorerie.add')
+
+            <!-- Modal d'ajout d'evenements -->
+            @include('events.add')
+            <!-- Modal d'ajout d'evenements -->
+
+            <!-- Contenu de la page -->            
             @yield('content')
+            <!-- Contenu de la page -->
         </section>
     </section>
 
@@ -265,6 +296,9 @@ $statut_id = Auth::user()->statut_id;
 <script src="{{ asset('js/jquery.nicescroll.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/jquery.sparkline.js') }}"></script>
 
+<!-- Summernote JS -->
+<script src="{{ asset('summernote/summernote.js') }}"></script>
+
 <!--common script for all pages-->
 <script src="{{ asset('js/common-scripts.js') }}"></script>
 
@@ -279,6 +313,10 @@ $statut_id = Auth::user()->statut_id;
     $(function () {
         $("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
         $("#calendar").datepicker({dateFormat: 'yy-mm-dd'});
+        $('#summernote').summernote({
+            height: 300,
+            lang: 'fr-FR',
+        });
     });
 </script>
 
