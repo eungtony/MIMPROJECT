@@ -33,28 +33,31 @@ if ($projet->total_heures > 0) {
 
     <div class="row mt">
         <div class="col-lg-9" style="margin-bottom: 15px;">
-            <div class="content-panel">
-                <h1>
-                    {{$projet->nom}}
-                    @if($user_id == $cdp_id || $statut_id == $ca_id)
-                        <a href="#edit{{$projet->id}}" data-toggle="modal" data-target="#edit{{$projet->id}}"
-                           class="btn btn-primary">
-                            Modifier
-                        </a>
-                        @include('projet.edit')
-                        <a href="{{route('projet.destroy', [$projet->projet_id, $projet->id])}}"
-                           class="btn btn-danger"
-                           data-method="delete"
-                           data-confirm="Voulez-vous réellement supprimer ce projet ?">Supprimer ce projet</a>
-                    @endif
-                </h1>
+            <div class="row mt">
+                <div class="download text-center">
+                    <h1>
+                        {{$projet->nom}}
+                        @if($user_id == $cdp_id || $statut_id == $ca_id)
+                            <a href="#edit{{$projet->id}}" data-toggle="modal" data-target="#edit{{$projet->id}}"
+                               class="btn btn-primary">
+                                Modifier
+                            </a>
+                            @include('projet.edit')
+                            <a href="{{route('projet.destroy', [$projet->projet_id, $projet->id])}}"
+                               class="btn btn-danger"
+                               data-method="delete"
+                               data-confirm="Voulez-vous réellement supprimer ce projet ?">Supprimer ce projet</a>
+                        @endif
+                    </h1>
+                    <h3>
+                        {{$projet->commentaire}}
+                    </h3>
+                </div>
+            </div>
 
-                <h3>
-                    {{$projet->commentaire}}
-                </h3>
-
+            <div class="row mt">
                 @if(Auth::user()->agence_id == $projet->agence_id)
-                    <div class="content-panel upload-panel">
+                    <div class="content-panel upload-panel download">
                         <!-- TELECHARGEMENT -->
                         <h3 class="upload-title">Fichiers partagés</h3>
 
@@ -92,59 +95,65 @@ if ($projet->total_heures > 0) {
                                     <!-- TELECHARGEMENT -->
                     </div>
                 @endif
+            </div>
 
-                <h3>Progression du projet ({{round($pc_projet)}} %)
-                    <span>
-                        <a href="#progression_projet" data-toggle="modal" class="btn btn-info btn-xs">
-                            <i class="fa fa-info"></i>
-                            Détail de la progression
-                        </a>
-                    </span>
-                </h3>
-                @include('projet.progression')
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success progress-bar-striped"
-                         role="progressbar" aria-valuenow="{{$pc_projet}}" aria-valuemin="0"
-                         aria-valuemax="100" style="width:{{$pc_projet}}%">
-                    </div>
-                </div>
-                <h3>Progression dans les tâches ({{round($pc)}} %)</h3>
-                @if($projet->etape_id > 0)
+            <div class="row mt">
+                <div class="content-panel download">
+                    <h3 class="project-title">Progression du projet ({{round($pc_projet)}} %)
+                        <span>
+                            <a href="#progression_projet" data-toggle="modal" class="btn btn-info btn-xs details">
+                                <i class="fa fa-info"></i>
+                                Détail de la progression
+                            </a>
+                        </span>
+                    </h3>
+                    @include('projet.progression')
                     <div class="progress">
                         <div class="progress-bar progress-bar-success progress-bar-striped"
-                             role="progressbar" aria-valuenow="{{$pc}}" aria-valuemin="0"
-                             aria-valuemax="100" style="width:{{$pc}}%">
+                             role="progressbar" aria-valuenow="{{$pc_projet}}" aria-valuemin="0"
+                             aria-valuemax="100" style="width:{{$pc_projet}}%">
                         </div>
                     </div>
-                @else
+                    <h3 class="project-title">Progression dans les tâches ({{round($pc)}} %)</h3>
+                    @if($projet->etape_id > 0)
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success progress-bar-striped"
+                                 role="progressbar" aria-valuenow="{{$pc}}" aria-valuemin="0"
+                                 aria-valuemax="100" style="width:{{$pc}}%">
+                            </div>
+                        </div>
+                    @else
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-danger progress-bar-striped"
+                                 role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                                 aria-valuemax="100" style="width: {{$pc}}%">
+                            </div>
+                        </div>
+                    @endif
+
+                    <h3 class="project-title">Heures accomplies ({{$heures_notees}}h / {{$projet->total_heures}}h)</h3>
+
                     <div class="progress">
-                        <div class="progress-bar progress-bar-danger progress-bar-striped"
-                             role="progressbar" aria-valuenow="100" aria-valuemin="0"
-                             aria-valuemax="100" style="width: {{$pc}}%">
+                        <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                             aria-valuenow="{{$heures}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$heures}}%">
                         </div>
                     </div>
-                @endif
 
-                <h3>Heures accomplies ({{$heures_notees}}h / {{$projet->total_heures}}h)</h3>
+                    <h3 class="project-title">Argents récoltés ({{$projet->encaisse}}€ / {{$projet->facturable}}€)</h3>
 
-                <div class="progress">
-                    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
-                         aria-valuenow="{{$heures}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$heures}}%">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                             aria-valuenow="{{$recolte}}" aria-valuemin="0" aria-valuemax="100"
+                             style="width: {{$recolte}}%">
+                        </div>
                     </div>
+
+                    @include('tache.list')
                 </div>
-
-                <h3>Argents récoltés ({{$projet->encaisse}}€ / {{$projet->facturable}}€)</h3>
-
-                <div class="progress">
-                    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
-                         aria-valuenow="{{$recolte}}" aria-valuemin="0" aria-valuemax="100"
-                         style="width: {{$recolte}}%">
-                    </div>
-                </div>
-
-                @include('tache.list')
             </div>
         </div>
+        <!-- SideBar -->
         @include('sidebar')
+        <!-- SideBar -->        
     </div>
 @endsection
