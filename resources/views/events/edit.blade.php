@@ -5,7 +5,7 @@
                 Modifier un Evenement
             </div>
             <div class="modal-body">
-                <form action="" method="POST">
+                <form action="{{ url('edit/event/' . $event->id) }}" method="POST">
 
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -18,10 +18,10 @@
 
                     <div class="form-group">
                         <textarea class="form-control"
-                                  name="description"
-                                  placeholder="Description de l'évenement ...">
-                                      {{ $event->description }}
-                                  </textarea>
+                          name="description"
+                          placeholder="Description de l'évenement ...">
+                              {{ $event->description }}
+                        </textarea>
                     </div>
 
                     <div class="form-group">

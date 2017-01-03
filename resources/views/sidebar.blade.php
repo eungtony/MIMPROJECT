@@ -6,58 +6,34 @@
     $user_id = Auth::user()->id;
     $statut_id = Auth::user()->statut_id;
     $agences = \App\Agence::get();
-    $events = \App\Events::get();
-    $subscribers = \App\EventSubscriber::get();
+    $events = \App\Events::limit(3)->latest()->get();
     $cdp_id = $agence->user_id;
-
-    // Tableau des inscriptions de l'utilisateur courant
-    $hadSubscribe = [];
-    // On créer un tableau contenant chaque ID d'évènement
-    foreach ($events as $event) {
-        $hadSubscribe[ $event->id ] = false;
-    }
-    // On determine à quel évènement l'utilisateur est inscrit
-    foreach ($subscribers as $subscriber) {
-        if ($subscriber->subscriber_id == Auth::user()->id) {
-            $hadSubscribe[ $subscriber->event_id ] = true;
-        }
-    }
 @endphp
 <!--  RIGHT SIDEBAR CONTENT -->
 <div class="col-lg-3 ds">
     <!--COMPLETED ACTIONS DONUTS CHART-->
-    <h3>EVENEMENTS</h3>
+    <h3>DERNIERS EVENEMENTS</h3>
     <!-- First Action -->
     @foreach ($events as $event)
-        <div class="desc">
-            <div class="thumb">
-                <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+        @php
+            $now = \Carbon\Carbon::now();
+            $date = \Carbon\Carbon::createFromFormat('Y-m-d', $event->date);
+            $difference = $date->diffInDays($now, false);
+        @endphp
+        @if ($difference < 0)
+            <div class="desc" difference="{{ $difference }}">
+                <div class="thumb">
+                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+                </div>
+                <div class="details">
+                    <p>
+                        <a href="{{ route('index.event') }}"><strong>{{ $event->title }}</strong></a>
+                        <br/>
+                        <muted>Prévu à la date : <strong>{{ $event->date }}</strong></muted><br/>
+                    </p>
+                </div>
             </div>
-            <div class="details">
-                <p>
-                    <a href=""><strong>{{ $event->title }}</strong></a>
-                    <br/>
-                    <muted>{{ $event->date }}</muted><br/>
-                </p>
-            </div>
-            <!-- <div class="subscribe">
-                @if (count($subscribers) == 0)
-                    <a href="{{ url('register/event/' . $event->id . '/' . Auth::user()->id) }}" class="btn btn-success btn-xs agence-notif" style="color: white;margin-left: 85px;margin-top: 10px;">
-                        <strong>JE M'INSCRIS</strong>
-                    </a>
-                @else
-                    @if ($hadSubscribe[ $event->id ] == true)
-                        <a href="{{ url('unregister/event/' . $event->id . '/' . Auth::user()->id) }}" class="btn btn-danger btn-xs agence-notif" style="color: white;margin-left: 85px;margin-top: 10px;">
-                            <strong>JE RAGEQUIT</strong>
-                        </a>
-                    @else
-                        <a href="{{ url('register/event/' . $event->id . '/' . Auth::user()->id) }}" class="btn btn-success btn-xs agence-notif" style="color: white;margin-left: 85px;margin-top: 10px;"">
-                            <strong>JE M'INSCRIS</strong>
-                        </a>
-                    @endif
-                @endif
-            </div> -->
-        </div>
+        @endif
     @endforeach
     <div class="desc">
         <p class="text-center">

@@ -86,10 +86,10 @@ $statut_id = Auth::user()->statut_id;
                                 <p class="text-danger">Vous n'avez pas de tâches en cours</p>
                             @else
                                 @foreach($taches as $tache)
-                                    <?php
-                                    $date = \Carbon\Carbon::createFromFormat('Y-m-d', $tache->date);
-                                    $difference = ($date->diff($now)->days < 1) ? 'today' : $date->diffInDays($now);
-                                    ?>
+                                    @php
+                                        $date = \Carbon\Carbon::createFromFormat('Y-m-d', $tache->date);
+                                        $difference = ($date->diff($now)->days < 1) ? 'today' : $date->diffInDays($now);
+                                    @endphp
                                     <div class="task-info">
                                         <div class="desc">
                                             <a href="#voirtache{{$tache->id}}" data-toggle="modal">

@@ -73,16 +73,17 @@ Route::post('add/notif/{type}/{id?}', 'NotificationsController@store')->where('i
 Route::get('show/notif/all', 'NotificationsController@showAll')->name('show.notif.all');
 Route::get('delete/notif/{id}', 'NotificationsController@destroy');
 
+Route::get('new-login', function() {
+    return view('auth.new-login');
+});
+
 // Events
 Route::get('show/event', 'EventsController@index')->name('index.event');
 Route::post('add/event', 'EventsController@add')->name('add.event');
+Route::post('edit/event/{id}', 'EventsController@edit')->name('edit.event');
 Route::get('register/event/{event}/{student}', 'EventsController@register')->name('register.event');
 Route::get('unregister/event/{event}/{student}', 'EventsController@unregister')->name('unregister.event');
 Route::get('delete/event/{id}', 'EventsController@delete');
-
-Route::get('new-login', function() {
-    return view('layouts.new-login');
-});
 
 // Miss
 // Route::get('miss-france', 'ShitsController@miss');

@@ -93,6 +93,35 @@ class EventsController extends Controller
     }
 
     /**
+     * Edit a resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Request $request, $id)
+    {
+        // On recupère l'id du créateur de la notification
+        $old = Events::where('id', $id)->select('from')->get();
+        // Si c'est lui qui a créer l'event
+        if ($old[0]->from == Auth::user()->id) {
+            // On met à jour la BDD
+            Events::where('id', $id)->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'date' => $request->date
+            ]);
+            //
+            return redirect('index.event')->withMessage('Event mis à jour avec succès !');
+        } else {
+            //
+            Auth::logout();
+            //
+            return redirect('/home');
+        }
+    }
+
+    /**
      * Registration of a student to an event.
      * 
      * @param  int $event   id of the event
