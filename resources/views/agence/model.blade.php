@@ -189,6 +189,11 @@
                                        data-confirm="Voulez-vous réellement supprimer ce projet ?">
                                         <i class="fa fa-trash-o "></i>
                                     </a>
+                                    <a class="btn btn-success btn-xs"
+                                       href="{{route('projet', [$agence->id, $projet->id])}}#devis"
+                                       style="margin-bottom:15px;">
+                                        <i class="fa fa-money"></i>
+                                    </a>
                                     @include('projet.edit')
                                 @endif
                                 <span style="margin-left:30px;">
