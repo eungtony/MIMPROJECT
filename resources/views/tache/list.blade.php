@@ -98,13 +98,11 @@
                                                     <a href="#tache{{$tache->id}}"
                                                        class="btn btn-primary btn-xs"
                                                        data-toggle="modal"
-                                                       aria-controls="#tache{{$tache->id}}"><i
-                                                                class="fa fa-pencil"></i></a>
+                                                       aria-controls="#tache{{$tache->id}}"><i class="fa fa-pencil"></i></a>
                                                     <a href="{{action('tacheController@destroy', $tache->id)}}"
                                                        data-method="delete"
                                                        data-confirm="Souhaitez-vous réellement supprimer cette tâche ?"
-                                                       class="btn btn-danger btn-xs"><i
-                                                                class="fa fa-trash-o "></i></a>
+                                                       class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
                                                 </form>
                                             </div>
                                         @endif
