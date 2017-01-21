@@ -24,7 +24,6 @@ class projetRequest extends Request
     public function rules()
     {
         return [
-            'agence_id' => 'required',
             'nom' => 'required',
             'commentaire' => 'required',
             'total_heures' => 'required'
