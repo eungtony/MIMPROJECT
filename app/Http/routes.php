@@ -85,11 +85,18 @@ Route::get('register/event/{event}/{student}', 'EventsController@register')->nam
 Route::get('unregister/event/{event}/{student}', 'EventsController@unregister')->name('unregister.event');
 Route::get('delete/event/{id}', 'EventsController@delete');
 
+// Devis
+Route::post('/devis/{agenceid?}/{projetid?}/{userid?}', 'DevisController@addDevis')->name('add.devis')->where(['agenceid' => '[0-9]+', 'projetid' => '[0-9]+', 'userid' => '[0-9]+']);
+Route::post('/devis/taches/{agenceid?}/{projetid?}/{devisid?}', 'DevisController@addTask')->name('add.devis.task')->where(['agenceid' => '[0-9]+', 'projetid' => '[0-9]+', 'devisid' => '[0-9]+']);
+Route::delete('/devis/delete/taches/{agenceid?}/{projetid?}/{devisid?}', 'DevisController@deleteTask')->name('delete.devis.task')->where(['agenceid' => '[0-9]+', 'projetid' => '[0-9]+', 'devisid' => '[0-9]+']);
+Route::post('/devis/edit/taches/{agenceid?}/{projetid?}/{devisid?}', 'DevisController@editTask')->name('edit.devis.task')->where(['agenceid' => '[0-9]+', 'projetid' => '[0-9]+', 'devisid' => '[0-9]+']);
+Route::post('/devis/valide/{devisid?}', 'DevisController@valideDevis')->name('valide.devis')->where(['devisid' => '[0-9]+']);
+Route::post('/devis/devalide/{devisid?}', 'DevisController@devalideDevis')->name('devalide.devis')->where(['devisid' => '[0-9]+']);
+
 // Miss
 // Route::get('miss-france', 'ShitsController@miss');
 
 Route::group(['middleware' => ['restrict']], function () {
-
 //Agence
     Route::get('/agence/edit/{id}', 'agenceController@editForm')->name('edit.form.agence');
     Route::get('/agence/{id}/edit/', 'agenceController@edit')->name('edit.agence');
