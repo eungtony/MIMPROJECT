@@ -75,6 +75,11 @@ class projetController extends Controller
      */
     public function add(Requests\projetRequest $request)
     {
+        if ($request->has('bureau')) {
+            $rq = $request->except('_token', 'bureau');
+            Projet::create($rq);
+            return back()->with('success', 'Le projet a bien été ajouté !');
+        }
         $rq = $request->except('_token');
         $id = $rq['agence_id'];
         Projet::create($rq);
