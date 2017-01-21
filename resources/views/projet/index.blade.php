@@ -142,6 +142,133 @@ if ($projet->total_heures > 0) {
                     </div>
                 </div>
 
+                <hr>
+
+                <?php
+                $devis = \App\Devis::where('projet_id', $projet->id)->get();
+                if (isset($devis[0])) {
+                    $devisModel = $devis[0];
+                }
+                $devis_taches = \App\devis_taches::where('projet_id', $projet->id)->get();
+                $devis_id = null;
+                if (isset($devis[0])) {
+                    $devis_id = $devis[0]->id;
+                }
+                ?>
+
+                <div id="devis">
+                    <h2>
+                        <form action="{{route('add.devis', [$projet->agence_id, $projet->id, Auth::user()->id])}}"
+                              method="POST">
+                            Devis du projet
+                            @if($user_id == $cdp_id && $devis->isEmpty())
+                                {{csrf_field()}}
+                                <button type="submit" class="btn btn-success">Ajouter un devis à ce projet</button>
+                            @endif
+                        </form>
+                    </h2>
+
+                    @if($devis->isEmpty())
+                        <div class="alert alert-warning">
+                            Aucun devis n'a été ajouté !
+                        </div>
+                    @else
+                        @if($devis_taches->isEmpty())
+                            <div class="alert alert-warning">
+                                Le devis est vide !
+                            </div>
+                        @else
+                            <?php
+                            $prix = 0;
+                            foreach ($devis_taches as $devis_tache) {
+                                $prix = $prix + $devis_tache->prix;
+                            }
+                            ?>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <td>
+                                        Libellé
+                                    </td>
+                                    <td>
+                                        Prix
+                                    </td>
+                                    @if($user_id == $cdp_id)
+                                        <td>
+                                            Actions
+                                        </td>
+                                    @endif
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($devis_taches as $devis_tache)
+                                    <tr>
+                                        @if($user_id == $cdp_id && $devisModel->valide == 0)
+                                            <form action="{{route('edit.devis.task', [$projet->agence_id, $projet->id, $devis_tache->id])}}"
+                                                  method="POST">
+                                                {{csrf_field()}}
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="libelle"
+                                                               value="{{$devis_tache->libelle}}">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="number" class="form-control" name="prix"
+                                                               value="{{$devis_tache->prix}}">
+                                                    </div>
+                                                </td>
+                                                @else
+                                                    <td>
+                                                        {{$devis_tache->libelle}}
+                                                    </td>
+                                                    <td>
+                                                        {{$devis_tache->prix}}€
+                                                    </td>
+                                                @endif
+                                                @if($user_id == $cdp_id && $devisModel->valide == 0)
+                                                    <td>
+                                                        <button class="btn btn-primary btn-xs" type="submit"><i
+                                                                    class="fa fa-pencil"></i></button>
+                                                        <a href="{{action('DevisController@deleteTask', [$projet->agence_id, $projet->id, $devis_tache->id])}}"
+                                                           data-method="delete"
+                                                           data-confirm="Souhaitez-vous réellement supprimer cette tâche ?"
+                                                           class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
+                                                    </td>
+                                            </form>
+                                        @endif
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                                <tr>
+                                    <td>Total du devis: {{$prix}} €</td>
+                                </tr>
+                            </table>
+                        @endif
+                        @if($user_id == $cdp_id && $devisModel->valide == 0)
+                            @include('devis.form')
+                        @endif
+                        @if($statut_id == 2 && $devisModel->valide == 0 && !$devis_taches->isEmpty())
+                            <form action="{{route('valide.devis', $devis_id)}}" method="POST">
+                                {{csrf_field()}}
+                                <button type="submit" class="btn btn-success" style="width: 100%; margin-top:20px;">
+                                    Valider le devis
+                                </button>
+                            </form>
+                        @endif
+                        @if($devisModel->valide == 1)
+                            <div class="alert alert-success">
+                                <form action="{{route('devalide.devis', $devis_id)}}" method="POST">
+                                    {{csrf_field()}}
+                                    Le devis a été validé par le Bureau !
+                                    <button type="submit" class="btn btn-danger">Dévalidez le devis</button>
+                                </form>
+                            </div>
+                        @endif
+                    @endif
+                </div>
+                <hr>
                 @include('tache.list')
             </div>
         </div>
