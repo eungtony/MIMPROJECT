@@ -13,6 +13,9 @@ Créer le fichier .env pour la configuration de la base de donnée <- résout l'
 # LOGINS
 
 Superviseur: email: supervisor@test.com mdp: 00000000 
+
 CDP: email: cdp2@test.com mdp: 00000000
+
 Bureau: email: bureau1@test.com mdp: 00000000
+
 Dev: email dev1@test.com mdp: 00000000
