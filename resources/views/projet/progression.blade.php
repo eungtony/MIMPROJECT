@@ -16,7 +16,7 @@
                         </p>
                     @endforeach
                 @else
-                    <p class="bg-danger">
+                    <p class="alert alert-warning">
                         Projet non commencé
                     </p>
                 @endif
