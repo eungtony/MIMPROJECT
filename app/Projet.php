@@ -31,4 +31,9 @@ class Projet extends Model
     {
         return $this->hasMany('App\TacheCommentaire');
     }
+
+    public function devis()
+    {
+        return $this->hasMany('App\Devis');
+    }
 }
