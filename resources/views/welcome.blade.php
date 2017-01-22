@@ -90,7 +90,7 @@
                                         </table>
                                     @else
                                         <p class="alert alert-danger">
-                                            Aucune montant n'a été ajouté !
+                                            Aucun montant n'a été ajouté !
                                         </p>
                                     @endif
                                 </div>
@@ -98,7 +98,46 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="row mt">
+                    <div class="col-md-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                Liste des devis à valider <a href="#listDevis" data-toggle="modal"
+                                                             class="btn btn-primary btn-xs">Voir tous les devis</a>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <td>Nom du projet</td>
+                                        <td>Description</td>
+                                        <td>Nom de l'agence</td>
+                                        <td>Le devis</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($devisList as $devis)
+                                        <?php
+                                        $agence = \App\Agence::findOrFail($devis->agence_id);
+                                        $devisTitle = $agence->nom;
+                                        ?>
+                                        <tr>
+                                            <td>{{$devis->projet->nom}}</td>
+                                            <td>{{substr($devis->projet->commentaire, 0, 50)}}</td>
+                                            <td>{{$devisTitle}}</td>
+                                            <td>
+                                                <a href="{{route('projet', [$devis->agence_id, $devis->projet_id])}}#devis"
+                                                   class="btn btn-info">Voir le devis</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @include('devis.all')
                 <div class="content-panel text-center" style="margin-bottom:10px;">
                     <a href="#addprojet" data-toggle="collapse">
                         <h3>Proposer un projet</h3>
