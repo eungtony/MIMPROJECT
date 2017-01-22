@@ -242,6 +242,13 @@ class projetController extends Controller
         return back()->with('success', 'Le projet a bien été attribué !');
     }
 
+    /**
+     * edit a project without agency
+     *
+     * @param Request $request
+     * @param $projet_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function editFreeProject(Request $request, $projet_id)
     {
         $data = $request->except('_token');
