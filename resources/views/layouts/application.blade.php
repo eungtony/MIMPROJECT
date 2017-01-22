@@ -122,6 +122,12 @@ $statut_id = Auth::user()->statut_id;
 
                 @include('events')
 
+                <!-- Réserver au Superviseur -->
+                @if (Auth::user()->statut_id == 1 || Auth::user()->statut_id == 2)
+                    @include('user.account')
+                @endif
+                <!-- Réserver au Superviseur -->
+                
                 <!-- inbox dropdown end -->
             </ul>
             <!--  notification end -->
@@ -208,6 +214,7 @@ $statut_id = Auth::user()->statut_id;
                         </a>
                         <ul class="sub">
                             <li><a href="{{ url('/supervisor') }}">Voir les Agences</a></li>
+                            <li><a href="{{ url('/users/validation') }}">Validation des comptes</a></li>
                         </ul>
                     </li>
                 @endif

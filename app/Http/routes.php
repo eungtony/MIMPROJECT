@@ -85,9 +85,6 @@ Route::get('register/event/{event}/{student}', 'EventsController@register')->nam
 Route::get('unregister/event/{event}/{student}', 'EventsController@unregister')->name('unregister.event');
 Route::get('delete/event/{id}', 'EventsController@delete')->where('id', '[0-9]+')->name('delete.event');
 
-// Miss
-// Route::get('miss-france', 'ShitsController@miss');
-
 Route::group(['middleware' => ['restrict']], function () {
 
 //Agence
@@ -101,3 +98,7 @@ Route::group(['middleware' => ['restrict']], function () {
 //Tâches
     Route::get('/add/tache/{id}/{idp}', 'tacheController@addForm')->name('form.add.tache');
 });
+
+Route::get('users/validation', 'userController@validation');
+Route::get('users/valid/{id}', 'userController@valid')->where('id', '[0-9]+')->name('users.validation');
+Route::get('users/unvalid/{id}', 'userController@unvalid')->where('id', '[0-9]+')->name('users.unvalidation');
