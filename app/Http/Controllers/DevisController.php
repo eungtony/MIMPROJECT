@@ -55,4 +55,11 @@ class DevisController extends Controller
         $devis->update(['valide' => 0]);
         return back()->with('success', 'Le devis a bien été dévalidé !');
     }
+
+    public function cpValideDevis($devis_id)
+    {
+        $devis = Devis::findOrFail($devis_id);
+        $devis->update(['a_valider' => 1]);
+        return back()->with('success', 'Le devis a été mis en attente de validation !');
+    }
 }
