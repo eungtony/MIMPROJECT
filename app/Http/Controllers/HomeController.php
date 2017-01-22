@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Agence;
 use App\Categorie;
+use App\Devis;
 use App\Etape;
 use App\Http\Requests;
 use App\Message;
@@ -86,7 +87,9 @@ class HomeController extends Controller
         foreach ($tresoreries as $tresorery) {
             $total_tres = $total_tres + $tresorery->montant;
         }
-        return view('welcome', compact('agences', 'tasks', 'total_tres', 'allTask', 'tresorerie', 'taches', 'now', 'total_etape', 'facturable', 'encaisse', 'nb_projet'));
+        $devisList = Devis::where('a_valider', 1)->where('valide', 0)->take(5)->with('projet')->get();
+        $allDevisList = Devis::where('a_valider', 1)->where('valide', 0)->with('projet')->get();
+        return view('welcome', compact('agences', 'tasks', 'devisList', 'allDevisList', 'total_tres', 'allTask', 'tresorerie', 'taches', 'now', 'total_etape', 'facturable', 'encaisse', 'nb_projet'));
     }
 
     /**
