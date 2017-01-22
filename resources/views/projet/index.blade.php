@@ -41,14 +41,13 @@ if ($projet->total_heures > 0) {
                            class="btn btn-primary">
                             Modifier
                         </a>
-                        @include('projet.edit')
                         <a href="{{route('projet.destroy', [$projet->agence_id, $projet->id])}}"
                            class="btn btn-danger"
                            data-method="delete"
                            data-confirm="Voulez-vous réellement supprimer ce projet ?">Supprimer ce projet</a>
                     @endif
                 </h1>
-
+                @include('projet.edit')
                 <h3>
                     {{$projet->commentaire}}
                 </h3>
