@@ -95,6 +95,7 @@ Route::delete('/devis/delete/taches/{agenceid?}/{projetid?}/{devisid?}', 'DevisC
 Route::post('/devis/edit/taches/{agenceid?}/{projetid?}/{devisid?}', 'DevisController@editTask')->name('edit.devis.task')->where(['agenceid' => '[0-9]+', 'projetid' => '[0-9]+', 'devisid' => '[0-9]+']);
 Route::post('/devis/valide/{devisid?}', 'DevisController@valideDevis')->name('valide.devis')->where(['devisid' => '[0-9]+']);
 Route::post('/devis/devalide/{devisid?}', 'DevisController@devalideDevis')->name('devalide.devis')->where(['devisid' => '[0-9]+']);
+Route::post('/devis/valide/cp/{devisid?}/', 'DevisController@cpValideDevis')->name('cp.valide.devis')->where(['devisid' => '[0-9]+']);
 
 // Miss
 // Route::get('miss-france', 'ShitsController@miss');
