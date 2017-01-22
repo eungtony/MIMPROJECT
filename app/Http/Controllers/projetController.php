@@ -6,6 +6,7 @@ use App\Agence;
 use App\Categorie;
 use App\Etape;
 use App\Projet;
+use App\Projet_agence;
 use App\Travail;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
@@ -193,5 +194,59 @@ class projetController extends Controller
             \App\File::destroy($id);
         }
         return redirect()->route('projet', [$ida, $pid])->with('success', 'Le fichier a bien été supprimé !');
+    }
+
+    /**
+     * Add your agency in a free project shortlist
+     *
+     * @param $projet_id
+     * @param $agence_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addProjetAgence($projet_id, $agence_id)
+    {
+        $agence_nom = Agence::findOrFail($agence_id)->nom;
+        $data = [
+            'projet_id' => $projet_id,
+            'agence_id' => $agence_id,
+            'nom_agence' => $agence_nom
+        ];
+        Projet_agence::create($data);
+        return back()->with('success', 'Vous avez bien proposé votre agence pour ce projet !');
+    }
+
+    /**
+     * Delete your agency in the free project shortlist
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteProjetAgence($id)
+    {
+        Projet_agence::destroy($id);
+        return back()->with('success', 'Vous vous êtes désisté de ce projet !');
+    }
+
+    /**
+     * Attribute a project to an agency
+     *
+     * @param Request $request
+     * @param $projet_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function attributeProject(Request $request, $projet_id)
+    {
+        $data = $request->except('_token');
+        $projet = Projet::findOrFail($projet_id);
+        $projet->update($data);
+        return back()->with('success', 'Le projet a bien été attribué !');
+    }
+
+    public function editFreeProject(Request $request, $projet_id)
+    {
+        $data = $request->except('_token');
+        $projet = Projet::findOrFail($projet_id);
+        $projet->update($data);
+        return back()->with('success', 'Le projet a été modifié !');
     }
 }
