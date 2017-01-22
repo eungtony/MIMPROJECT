@@ -33,6 +33,10 @@ Route::delete('/projet/delete/{ida}/{id}', 'projetController@destroy')->where(['
 Route::post('/projet/{ida}/{id}', 'projetController@addFile')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('file.projet');
 Route::post('/projet/edit/file/{ida}/{pid}/{id}', 'projetController@editFile')->name('file.edit.projet');
 Route::delete('/projet/delete/file/{ida}/{pid}/{id}', 'projetController@deleteFile')->name('file.delete.projet');
+Route::post('/projet/{projet_id?}/agence/{agence_id}', 'projetController@addProjetAgence')->name('add.projet.agence')->where(['projet_id' => '[0-9]+', 'agence_id' => '[0-9]+']);
+Route::delete('/projet/{id?}/agence/delete', 'projetController@deleteProjetAgence')->name('delete.projet.agence')->where(['id' => '[0-9]+']);
+Route::post('/projet/attribute/{projetid?}', 'projetController@attributeProject')->name('attribute.project')->where(['projet_id' => '[0-9]+']);
+Route::post('/project/{projetid?}/free/edit/', 'projetController@editFreeProject')->name('edit.free.project')->where(['projetid' => '[0-9]+']);
 
 //Agence
 Route::get('/agence/{id}', 'agenceController@index')->where('id', '[0-9]+')->name('agence');
