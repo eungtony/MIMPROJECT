@@ -312,6 +312,7 @@ $statut_id = Auth::user()->statut_id;
     $(function () {
         $("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
         $("#calendar").datepicker({dateFormat: 'yy-mm-dd'});
+        $("#another").datepicker({dateFormat: 'yy-mm-dd'});
         $('#summernote').summernote({
             height: 300,
             lang: 'fr-FR',
