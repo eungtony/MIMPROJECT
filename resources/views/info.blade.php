@@ -1,10 +1,11 @@
+<?php $count_taches = \App\Travail::where('agence_id', $agence->id)->get()->count(); ?>
 <div class="row mt row-info">
     <div class="col-md-3 col-sm-2 box0">
         <div class="box1">
-            <span class="li_cloud"></span>
-            <h3>{{$agence->file->count()}} fichier(s)</h3>
+            <span class="li_key"></span>
+            <h3>{{$count_taches}} tâches(s)</h3>
         </div>
-        <p>{{$agence->file->count()}} fichier(s) dans votre agence</p>
+        <p>{{$count_taches}} tâches(s) pour vos projets</p>
     </div>
     <div class="col-md-3 col-sm-2 box0">
         <div class="box1">
