@@ -26,7 +26,6 @@ Route::post('/user/description/{id}', 'userController@editDescription')->name('u
 Route::post('/user/edit/parameters/{id}', 'userController@editParameters')->name('user.parameters');
 
 //Projet
-Route::get('/projet/{id}/{ida}', 'projetController@index')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('projet');
 Route::post('/projet/add', 'projetController@add')->name('add.projet');
 Route::post('/projet/{id}/edit', 'projetController@edit')->where('id', '[0-9]+')->name('edit.projet');
 Route::delete('/projet/delete/{ida}/{id}', 'projetController@destroy')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('projet.destroy');
@@ -101,6 +100,9 @@ Route::post('/devis/devalide/{devisid?}', 'DevisController@devalideDevis')->name
 // Route::get('miss-france', 'ShitsController@miss');
 
 Route::group(['middleware' => ['restrict']], function () {
+    //Agence
+    Route::get('/agence/{id}', 'agenceController@index')->where('id', '[0-9]+')->name('agence');
+    Route::get('/projet/{id}/{ida}', 'projetController@index')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('projet');
 //Agence
     Route::get('/agence/edit/{id}', 'agenceController@editForm')->name('edit.form.agence');
     Route::get('/agence/{id}/edit/', 'agenceController@edit')->name('edit.agence');
