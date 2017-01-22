@@ -106,33 +106,39 @@
                                                              class="btn btn-primary btn-xs">Voir tous les devis</a>
                             </div>
                             <div class="panel-body">
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <td>Nom du projet</td>
-                                        <td>Description</td>
-                                        <td>Nom de l'agence</td>
-                                        <td>Le devis</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($devisList as $devis)
-                                        <?php
-                                        $agence = \App\Agence::findOrFail($devis->agence_id);
-                                        $devisTitle = $agence->nom;
-                                        ?>
+                                @if(!$devisList->isEmpty())
+                                    <table class="table">
+                                        <thead>
                                         <tr>
-                                            <td>{{$devis->projet->nom}}</td>
-                                            <td>{{substr($devis->projet->commentaire, 0, 50)}}</td>
-                                            <td>{{$devisTitle}}</td>
-                                            <td>
-                                                <a href="{{route('projet', [$devis->agence_id, $devis->projet_id])}}#devis"
-                                                   class="btn btn-info">Voir le devis</a>
-                                            </td>
+                                            <td>Nom du projet</td>
+                                            <td>Description</td>
+                                            <td>Nom de l'agence</td>
+                                            <td>Le devis</td>
                                         </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($devisList as $devis)
+                                            <?php
+                                            $agence = \App\Agence::findOrFail($devis->agence_id);
+                                            $devisTitle = $agence->nom;
+                                            ?>
+                                            <tr>
+                                                <td>{{$devis->projet->nom}}</td>
+                                                <td>{{substr($devis->projet->commentaire, 0, 50)}}</td>
+                                                <td>{{$devisTitle}}</td>
+                                                <td>
+                                                    <a href="{{route('projet', [$devis->agence_id, $devis->projet_id])}}#devis"
+                                                       class="btn btn-info">Voir le devis</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <div class="alert alert-warning">
+                                        Aucun devis à valider !
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
