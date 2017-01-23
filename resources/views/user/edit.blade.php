@@ -8,7 +8,7 @@
                                 href="{{action('userController@destroy', $user->id)}}"
                                 data-method="delete"
                                 data-confirm="Souhaitez-vous réellement supprimer cet utilisateur ?"
-                                class="btn btn-danger btn-xs"></a></div>
+                                class="btn btn-danger btn-xs">Supprimer l'utilisateur</a></div>
 
                     <div class="panel-body">
                         <form action="{{route('user.edit', $user)}}" method="POST">
