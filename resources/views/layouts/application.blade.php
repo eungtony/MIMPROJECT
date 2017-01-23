@@ -206,7 +206,7 @@ $statut_id = Auth::user()->statut_id;
                     </ul>
                 </li>
 
-                @if(Auth::user()->statut_id == 1)
+                @if(Auth::user()->statut_id == 1 || Auth::user()->statut_id == 2)
                     <li class="sub-menu">
                         <a href="javascript:;">
                             <i class="fa fa-cogs"></i>
@@ -219,7 +219,6 @@ $statut_id = Auth::user()->statut_id;
                         </ul>
                     </li>
                 @endif
-                @if(Auth::user()->statut_id == 1 || Auth::user()->statut_id == 2)
                     <?php
                     $agences = \App\Agence::all();
                     ?>
@@ -230,10 +229,11 @@ $statut_id = Auth::user()->statut_id;
                         </a>
                         <ul class="sub">
                             <li><a href="{{ route('livret') }}">Livret de compte</a></li>
+                            @if(Auth::user()->statut_id == 1 || Auth::user()->statut_id == 2)
                             <li><a href="#money" data-toggle="modal">Ajouter un montant</a></li>
+                            @endif
                         </ul>
                     </li>
-                @endif
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-cogs"></i>
