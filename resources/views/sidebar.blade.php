@@ -73,7 +73,7 @@
 
     @endforeach
     <!-- MESSAGES DE L'AGENCE -->
-    <h3>MESSAGES DE VOTRE AGENCE</h3>
+    <h3>MESSAGES DE L'AGENCE</h3>
     @if($messages->isEmpty())
         <p class="alert alert-error">
             Aucun message de publié dans votre agence.

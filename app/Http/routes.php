@@ -24,6 +24,9 @@ Route::post('/user/{id}/edit', 'userController@edit')->name('user.edit');
 Route::post('/user/edit/avatar/{id}', 'userController@editAvatar')->name('user.avatar');
 Route::post('/user/description/{id}', 'userController@editDescription')->name('user.description');
 Route::post('/user/edit/parameters/{id}', 'userController@editParameters')->name('user.parameters');
+Route::get('users/validation', 'userController@validation');
+Route::get('users/valid/{id}', 'userController@valid')->where('id', '[0-9]+')->name('users.validation');
+Route::get('users/unvalid/{id}', 'userController@unvalid')->where('id', '[0-9]+')->name('users.unvalidation');
 
 //Projet
 Route::get('/projet/{id}/{ida}', 'projetController@index')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('projet');
@@ -98,7 +101,3 @@ Route::group(['middleware' => ['restrict']], function () {
 //Tâches
     Route::get('/add/tache/{id}/{idp}', 'tacheController@addForm')->name('form.add.tache');
 });
-
-Route::get('users/validation', 'userController@validation');
-Route::get('users/valid/{id}', 'userController@valid')->where('id', '[0-9]+')->name('users.validation');
-Route::get('users/unvalid/{id}', 'userController@unvalid')->where('id', '[0-9]+')->name('users.unvalidation');
