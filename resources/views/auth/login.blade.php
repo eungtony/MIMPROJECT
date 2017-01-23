@@ -39,16 +39,8 @@
                     </label>
 
                     <button class="btn btn-theme btn-block" type="submit">
-                        <i class="fa fa-lock"></i> Go
+                        <i class="fa fa-lock"></i> Connexion
                     </button>
-
-                    <hr>
-                    <div class="registration">
-                        Première visite?<br/>
-                        <a class="" href="{{ url('/register') }}">
-                            Créer un compte
-                        </a>
-                    </div>
 
                 </div>
 
