@@ -188,7 +188,7 @@ $statut_id = Auth::user()->statut_id;
                         <span>Notifications</span>
                     </a>
                     <ul class="sub">
-                        @if(Auth::user()->statut_id == 2 || Auth::user()->id == $cdp_id)
+                        @if(Auth::user()->statut_id == 1 || Auth::user()->statut_id == 2 || Auth::user()->id == $cdp_id)
                             <li><a href="{{ url('add/notif/global') }}">Globale</a></li>
                         @endif
                         <li><a href="{{ url('add/notif/team') }}">Equipe</a></li>

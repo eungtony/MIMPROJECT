@@ -20,7 +20,7 @@
         </li>
         @if (count($users) != 0)
             <li>
-                <a href="">Voir les demandes</a>
+                <a href="{{ url('/users/validation') }}">Voir les demandes</a>
             </li>
         @endif
     </ul>

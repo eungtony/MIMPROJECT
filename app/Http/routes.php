@@ -12,6 +12,11 @@
 */
 
 Route::auth();
+//
+Route::get('/waiting', function() {
+    //
+    return view('waiting');
+});
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class AccountValidation
 {
@@ -17,14 +18,12 @@ class AccountValidation
     {
         // Si le compte de l'utilisateur a été validé
         if (Auth::user()->is_valid == true) {
-            // On le redirige vers la page home
-            return redirect('/home');
+            //
+            return $next($request);
         // Sinon
         } else {
             // On le redirige vers la page d'attente
             return redirect('/waiting');
         }
-        //
-        return $next($request);
     }
 }
