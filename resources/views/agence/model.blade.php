@@ -47,11 +47,11 @@
                 @if (isset($members))
                     <div class="row" style="padding: 10px;">
                        <div class="col-lg-12">
-                            <h3>Membres de l'agence</h3>
+                            <h3 class="text-center">Membres de l'agence</h3>
                        </div>
                         @foreach ($members as $member)
-                            <div class="col-lg-4">
-                                <div class="content-panel" style="text-align: center;">
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="content-panel member-panel">
                                     <p>
                                         @if($member->avatar == 0)
                                             <img src="{{ asset('avatars/user.png') }}" class="img-circle" width="60">
@@ -65,10 +65,12 @@
                                             <strong>{{ $member->name }}</strong>
                                         </a>
                                     </p>
-                                    <p>{{ $member->description }}</p>
-                                    <a href="#notify-someone-{{ $member->id }}" data-toggle="modal" data-target="#notify-someone-{{ $member->id }}" class="btn btn-primary btn-sm">
-                                        <i class="fa fa-envelope-o f-fw"></i> NOTIFIE
-                                    </a>
+                                    <p class="description">{{ $member->description }}</p>
+                                    <p>
+                                        <a href="#notify-someone-{{ $member->id }}" data-toggle="modal" data-target="#notify-someone-{{ $member->id }}" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-envelope-o f-fw"></i> NOTIFIE
+                                        </a>
+                                    </p>
                                 </div>
                             </div>
                         @endforeach
@@ -76,7 +78,7 @@
                 </div>
             @endif
         <!-- Visite de la page d'une autre agence -->
-
+        
             @if(Auth::user()->agence_id == $agence->id)
                 <div class="content-panel upload-panel">
                     <!-- TELECHARGEMENT -->
@@ -118,7 +120,8 @@
             @endif
 
             <h2 class="text-center project-title" style="margin-bottom: 40px;">Projets de l'agence</h2>
-
+            
+        <div class="row">
             @if($projets->isEmpty())
                 <p class="alert alert-warning text-center">
                     Aucun projet n'a été crée !
@@ -146,17 +149,16 @@
                     $pc = 0;
                     $pc_projet = 0;
                     $heures = 0;
+                        if ($total_etape > 0) {
+                            $pc_projet = 100 * $projet->etape_id / $total_etape;
+                        }
 
-                    if ($total_etape > 0) {
-                        $pc_projet = 100 * $projet->etape_id / $total_etape;
-                    }
-
-                    if ($total > 0) {
-                        $pc = 100 * $done / $total;
-                    }
-                    if ($projet->total_heures > 0) {
-                        $heures = 100 * $heures_notees / $projet->total_heures;
-                    }
+                        if ($total > 0) {
+                            $pc = 100 * $done / $total;
+                        }
+                        if ($projet->total_heures > 0) {
+                            $heures = 100 * $heures_notees / $projet->total_heures;
+                        }
 
                     $etape = "Le projet n'a pas encore commencé";
                     if ($projet->etape_id > 0) {
@@ -236,39 +238,48 @@
                                             @if($projet->etape_id > 0)
                                                 <div class="progress">
                                                     <div class="progress-bar progress-bar-success progress-bar-striped"
-                                                         role="progressbar" aria-valuenow="{{$pc}}" aria-valuemin="0"
-                                                         aria-valuemax="100" style="width: {{$pc}}%">
+                                                         role="progressbar" aria-valuenow="{{$pc_projet}}" aria-valuemin="0"
+                                                         aria-valuemax="100" style="width: {{$pc_projet}}%">
                                                     </div>
                                                 </div>
-                                            @else
+                                                <h3 class="project-title">Progression dans les tâches (<strong>{{ round($pc) }} %</strong>)</h3>
+                                                @if($projet->etape_id > 0)
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-success progress-bar-striped"
+                                                             role="progressbar" aria-valuenow="{{$pc}}" aria-valuemin="0"
+                                                             aria-valuemax="100" style="width: {{$pc}}%">
+                                                        </div>
+                                                    </div>
+                                                @else
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-danger progress-bar-striped"
+                                                             role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                                                             aria-valuemax="100" style="width: {{$pc}}%">
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                <h3 class="project-title">Heures accomplies (<strong>{{$heures_notees}}h
+                                                    / {{$projet->total_heures}}h</strong>)</h3>
+
                                                 <div class="progress">
-                                                    <div class="progress-bar progress-bar-danger progress-bar-striped"
-                                                         role="progressbar" aria-valuenow="100" aria-valuemin="0"
-                                                         aria-valuemax="100" style="width: {{$pc}}%">
+                                                    <div class="progress-bar progress-bar-info progress-bar-striped"
+                                                         role="progressbar"
+                                                         aria-valuenow="{{$heures}}" aria-valuemin="0" aria-valuemax="100"
+                                                         style="width: {{$heures}}%">
                                                     </div>
                                                 </div>
-                                            @endif
-                                            <h3>Heures accomplies ({{$heures_notees}}h
-                                                / {{$projet->total_heures}}h)</h3>
+                                </div>
 
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-info progress-bar-striped"
-                                                     role="progressbar"
-                                                     aria-valuenow="{{$heures}}" aria-valuemin="0" aria-valuemax="100"
-                                                     style="width: {{$heures}}%">
-                                                </div>
-                                            </div>
-                            </div>
+                                <div class="collapse" id="task{{$projet->id}}">
+                                    @include('tache.list')
+                                </div>
 
-                            <div class="collapse" id="task{{$projet->id}}">
-                                @include('tache.list')
-                            </div>
-
-                        </div><!-- /content-panel -->
-                    </div><!-- /col-md-12 -->
-                    <!-- TABLEAU PROJETS -->
-                @endforeach
-            @endif
+                            </div><!-- /content-panel -->
+                        </div><!-- /col-md-12 -->
+                        <!-- TABLEAU PROJETS -->
+                        @endforeach
+                    @endif
+                </div>
         </div>
 
         @include('sidebar')

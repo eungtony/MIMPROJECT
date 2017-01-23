@@ -1,0 +1,1 @@
+<p>Votre compte n'est pas validé !</p>
