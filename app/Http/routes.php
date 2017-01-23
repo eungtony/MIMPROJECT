@@ -10,16 +10,14 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
 Route::auth();
-//
 Route::get('/waiting', function() {
     //
     return view('waiting');
 });
-
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin/add/account', 'userController@add')->name('add.user');
 
 //User
 Route::get('/user', 'userController@index')->name('user');
@@ -46,7 +44,6 @@ Route::post('/projet/attribute/{projetid?}', 'projetController@attributeProject'
 Route::post('/project/{projetid?}/free/edit/', 'projetController@editFreeProject')->name('edit.free.project')->where(['projetid' => '[0-9]+']);
 
 //Agence
-Route::get('/agence/{id}', 'agenceController@index')->where('id', '[0-9]+')->name('agence');
 Route::post('/agence/{id}', 'agenceController@addFile')->where('id', '[0-9]+')->name('file.agence');
 Route::post('/agence/edit/file/{ida}/{id}', 'agenceController@editFile')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('file.edit');
 Route::delete('/agence/delete/file/{ida}/{id}', 'agenceController@deleteFile')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('file.delete');
@@ -84,7 +81,7 @@ Route::post('add/notif/{type}/{id?}', 'NotificationsController@store')->where('i
 Route::get('show/notif/all', 'NotificationsController@showAll')->name('show.notif.all');
 Route::get('delete/notif/{id}', 'NotificationsController@destroy')->where('id', '[0-9]+')->name('delete.notif');
 
-Route::get('new-login', function() {
+Route::get('new-login', function () {
     return view('auth.new-login');
 });
 
