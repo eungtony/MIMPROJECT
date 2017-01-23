@@ -76,7 +76,7 @@ class agenceController extends Controller
      */
     public function supervisor()
     {
-        if ($this->auth->user()->statut_id == 1) {
+        if ($this->auth->user()->statut_id == 1 || $this->auth->user()->statut_id == 2) {
             $cdp_user = User::where('poste_id', 1)->get();
             $agences = Agence::with('users')->get();
             return view('supervisor', compact('cdp_user', 'agences'));
