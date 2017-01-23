@@ -268,7 +268,7 @@ if ($projet->total_heures > 0) {
                                 </button>
                             </form>
                         @endif
-                        @if($devisModel->valide == 1)
+                            @if($devisModel->valide == 1 && Auth::user()->statut_id == 2)
                             <div class="alert alert-success">
                                 <form action="{{route('devalide.devis', $devis_id)}}" method="POST">
                                     {{csrf_field()}}
