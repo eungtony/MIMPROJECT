@@ -12,6 +12,11 @@
 */
 
 Route::auth();
+//
+Route::get('/waiting', function() {
+    //
+    return view('waiting');
+});
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
@@ -24,6 +29,9 @@ Route::post('/user/{id}/edit', 'userController@edit')->name('user.edit');
 Route::post('/user/edit/avatar/{id}', 'userController@editAvatar')->name('user.avatar');
 Route::post('/user/description/{id}', 'userController@editDescription')->name('user.description');
 Route::post('/user/edit/parameters/{id}', 'userController@editParameters')->name('user.parameters');
+Route::get('users/validation', 'userController@validation');
+Route::get('users/valid/{id}', 'userController@valid')->where('id', '[0-9]+')->name('users.validation');
+Route::get('users/unvalid/{id}', 'userController@unvalid')->where('id', '[0-9]+')->name('users.unvalidation');
 
 //Projet
 Route::post('/projet/add', 'projetController@add')->name('add.projet');
@@ -74,7 +82,7 @@ Route::delete('/livret/delete/{id}', 'HomeController@deleteMontant')->where('id'
 Route::get('add/notif/{type}/{id?}', 'NotificationsController@create')->where('id', '[0-9]+')->name('form.add.notif');
 Route::post('add/notif/{type}/{id?}', 'NotificationsController@store')->where('id', '[0-9]+');
 Route::get('show/notif/all', 'NotificationsController@showAll')->name('show.notif.all');
-Route::get('delete/notif/{id}', 'NotificationsController@destroy');
+Route::get('delete/notif/{id}', 'NotificationsController@destroy')->where('id', '[0-9]+')->name('delete.notif');
 
 Route::get('new-login', function() {
     return view('auth.new-login');
@@ -83,10 +91,10 @@ Route::get('new-login', function() {
 // Events
 Route::get('show/event', 'EventsController@index')->name('index.event');
 Route::post('add/event', 'EventsController@add')->name('add.event');
-Route::post('edit/event/{id}', 'EventsController@edit')->name('edit.event');
+Route::post('edit/event/{id}', 'EventsController@edit')->where('id', '[0-9]+')->name('edit.event');
 Route::get('register/event/{event}/{student}', 'EventsController@register')->name('register.event');
 Route::get('unregister/event/{event}/{student}', 'EventsController@unregister')->name('unregister.event');
-Route::get('delete/event/{id}', 'EventsController@delete');
+Route::get('delete/event/{id}', 'EventsController@delete')->where('id', '[0-9]+')->name('delete.event');
 
 // Devis
 Route::post('/devis/{agenceid?}/{projetid?}/{userid?}', 'DevisController@addDevis')->name('add.devis')->where(['agenceid' => '[0-9]+', 'projetid' => '[0-9]+', 'userid' => '[0-9]+']);
@@ -96,9 +104,6 @@ Route::post('/devis/edit/taches/{agenceid?}/{projetid?}/{devisid?}', 'DevisContr
 Route::post('/devis/valide/{devisid?}', 'DevisController@valideDevis')->name('valide.devis')->where(['devisid' => '[0-9]+']);
 Route::post('/devis/devalide/{devisid?}', 'DevisController@devalideDevis')->name('devalide.devis')->where(['devisid' => '[0-9]+']);
 Route::post('/devis/valide/cp/{devisid?}/', 'DevisController@cpValideDevis')->name('cp.valide.devis')->where(['devisid' => '[0-9]+']);
-
-// Miss
-// Route::get('miss-france', 'ShitsController@miss');
 
 Route::group(['middleware' => ['restrict']], function () {
     //Agence

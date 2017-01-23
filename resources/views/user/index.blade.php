@@ -9,13 +9,19 @@
                     <div class="profile-sidebar content-panel">
                         <!-- SIDEBAR USERPIC -->
                         <div class="profile-userpic">
-                            @if($user->avatar != 0)
-                                <img src="{{asset('/avatars/'.$user->id.'.'.$user->extension)}}" class="img-circle img-responsive img-profile"
-                                     alt="Image de profil" width="100px">
-                            @else
-                                <img src="{{ asset('/avatars/user.png') }}" class="img-circle profile-img" width="100"
-                                     alt="Image de profil" width="100px">
-                            @endif
+                            <div class="text-center">
+                                @if($user->avatar != 0)
+                                    <p>
+                                        <img src="{{asset('/avatars/'.$user->id.'.'.$user->extension)}}" class="img-circle img-responsive img-profile"
+                                         alt="Image de profil" width="100px">
+                                    </p>
+                                @else
+                                    <p>
+                                        <img src="{{ asset('/avatars/user.png') }}" class="img-circle profile-img" width="100"
+                                         alt="Image de profil" width="100px">
+                                    </p>
+                                @endif
+                            </div>
                         </div>
                         <!-- END SIDEBAR USERPIC -->
                         <!-- SIDEBAR USER TITLE -->
@@ -35,7 +41,7 @@
                                 <i class="fa fa-picture-o fa-fw"></i> Avatar
                             </a>
                             <a href="{{ url('add/notif/personal/' . $user->id) }}" type="button" class="btn btn-primary btn-sm">
-                                <i class="fa fa-envelope fa-fw"></i> Notifié
+                                <i class="fa fa-envelope-o fa-fw"></i> Notifié
                             </a>
                         </div>
                         <!-- END SIDEBAR BUTTONS -->

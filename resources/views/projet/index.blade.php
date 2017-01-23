@@ -41,13 +41,14 @@ if ($projet->total_heures > 0) {
                            class="btn btn-primary">
                             Modifier
                         </a>
+                        @include('projet.edit')
                         <a href="{{route('projet.destroy', [$projet->agence_id, $projet->id])}}"
                            class="btn btn-danger"
                            data-method="delete"
                            data-confirm="Voulez-vous réellement supprimer ce projet ?">Supprimer ce projet</a>
                     @endif
                 </h1>
-                @include('projet.edit')
+
                 <h3>
                     {{$projet->commentaire}}
                 </h3>
@@ -248,13 +249,13 @@ if ($projet->total_heures > 0) {
                         @if($user_id == $cdp_id && $devisModel->valide == 0)
                             @include('devis.form')
                         @endif
-                        @if($user_id == $cdp_id && $devisModel->a_valider == 0 && !$devis_taches->isEmpty())
+                        @if($user_id == $cdp_id && $devisModel->a_valider == 0)
                             <form action="{{route('cp.valide.devis', $devis_id)}}" method="POST"
                                   style="margin-top:25px;">
                                 {{csrf_field()}}
                                 <div class="form-group">
                                     <button type="submit" class="form-control btn btn-success">
-                                        Mettre le devis en attente de validation
+                                        Mettre de le devis en attente de validation
                                     </button>
                                 </div>
                             </form>

@@ -176,3 +176,33 @@ span.coming {
 	color: #fff;
 	float: right;
 }
+
+div.member-panel {
+  text-align: center !important;
+  margin-top: 10px !important;
+  min-height: 295px !important;
+  max-height: 295px !important;
+}
+
+div.member-panel p.description { min-height: 120px; }
+
+div.download { margin: 0 25px; }
+
+.progress {
+  height: 15px !important;
+  margin: 25px 0 !important;
+}
+
+h3.project-title {
+  font-size: 20px !important;
+  margin: 10px 0 !important;
+}
+
+a.details { margin-left: 25px !important; }
+
+div.event-panel {
+  min-height: 270px;
+  max-height: 270px;
+}
+ 
+div.event-panel p.description { min-height: 95px; }

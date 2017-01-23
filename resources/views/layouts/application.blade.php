@@ -122,6 +122,12 @@ $statut_id = Auth::user()->statut_id;
 
                 @include('events')
 
+                <!-- Réserver au Superviseur -->
+                @if (Auth::user()->statut_id == 1 || Auth::user()->statut_id == 2)
+                    @include('user.account')
+                @endif
+                <!-- Réserver au Superviseur -->
+                
                 <!-- inbox dropdown end -->
             </ul>
             <!--  notification end -->
@@ -178,11 +184,11 @@ $statut_id = Auth::user()->statut_id;
 
                 <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-user"></i>
+                        <i class="fa fa-envelope-o"></i>
                         <span>Notifications</span>
                     </a>
                     <ul class="sub">
-                        @if(Auth::user()->statut_id == 2 || Auth::user()->id == $cdp_id)
+                        @if(Auth::user()->statut_id == 1 || Auth::user()->statut_id == 2 || Auth::user()->id == $cdp_id)
                             <li><a href="{{ url('add/notif/global') }}">Globale</a></li>
                         @endif
                         <li><a href="{{ url('add/notif/team') }}">Equipe</a></li>
@@ -191,7 +197,7 @@ $statut_id = Auth::user()->statut_id;
 
                 <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-user"></i>
+                        <i class="fa fa-info-circle"></i>
                         <span>Evènements</span>
                     </a>
                     <ul class="sub">
@@ -208,6 +214,7 @@ $statut_id = Auth::user()->statut_id;
                         </a>
                         <ul class="sub">
                             <li><a href="{{ url('/supervisor') }}">Voir les Agences</a></li>
+                            <li><a href="{{ url('/users/validation') }}">Validation des comptes</a></li>
                         </ul>
                     </li>
                 @endif

@@ -154,4 +154,55 @@ class userController extends Controller
             return redirect('/');
         }
     }
+
+    public function validation()
+    {
+        // Si l'utilisateur courant est le supervisor
+        // Ou est memebre du bureau
+        if (Auth::user()->statut_id == 1 || Auth::user()->statut_id == 2) {
+            //
+            $users = User::get();
+            //
+            return view('user.valid', ['users' => $users]);
+        } else {
+            //
+            Auth::logout();
+            //
+            return redirect('/home');
+        }
+    }
+
+    public function valid(Request $request, $id)
+    {
+        // Si l'utilisateur courant est le supervisor
+        // Ou est memebre du bureau
+        if (Auth::user()->statut_id == 1 || Auth::user()->statut_id == 2) {
+            //
+            User::where('id', $id)->update(['is_valid' => 1]);
+            //
+            return redirect('/users/validation')->withMessage('Compte validé !');
+        } else {
+            //
+            Auth::logout();
+            //
+            return redirect('/home');
+        }
+    }
+
+    public function unvalid(Request $request, $id)
+    {
+        // Si l'utilisateur courant est le supervisor
+        // Ou est memebre du bureau
+        if (Auth::user()->statut_id == 1 || Auth::user()->statut_id == 2) {
+            //
+            User::where('id', $id)->update(['is_valid' => 0]);
+            //
+            return redirect('/users/validation')->withMessage('Compte validé !');
+        } else {
+            //
+            Auth::logout();
+            //
+            return redirect('/home');
+        }
+    }
 }
