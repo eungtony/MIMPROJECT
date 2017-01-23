@@ -11,7 +11,7 @@
 
                     @if ($type == 'personal')
                         <div class="panel-heading">
-                            <h1>Notifier {{$user->name}}</h1>
+                            <h1>Notifier</h1>
                         </div>
                     @endif
 
