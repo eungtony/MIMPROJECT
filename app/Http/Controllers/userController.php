@@ -71,11 +71,15 @@ class userController extends Controller
 
     public function editForm($id)
     {
-        $user = User::findOrFail($id);
-        $postes = Poste::all();
-        $statuts = Statut::all();
-        $agences = Agence::all();
-        return view('user.edit', compact('user', 'postes', 'statuts', 'agences'));
+        if ($this->auth->user()->statut_id == 1 || $this->auth->user()->statut_id == 2) {
+            $user = User::findOrFail($id);
+            $postes = Poste::all();
+            $statuts = Statut::all();
+            $agences = Agence::all();
+            return view('user.edit', compact('user', 'postes', 'statuts', 'agences'));
+        } else {
+            return back()->with('error', 'Vous n\'avez pas accès à cette page !');
+        }
     }
 
     /**
