@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Agence;
+use App\Http\Controllers\Auth\AuthController;
 use App\Poste;
 use App\Statut;
 use Illuminate\Contracts\Auth\Guard;
@@ -215,5 +216,30 @@ class userController extends Controller
         } else {
             return back()->with('error', 'Vous n\'avez pas accès à cette page !');
         }
+    }
+
+    public function create(array $data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+            'agence_id' => $data['agence_id'],
+            'poste_id' => $data['poste_id'],
+            'statut_id' => $data['statut_id'],
+        ]);
+    }
+
+    public function addAction(Requests\userRequest $request)
+    {
+        $data = $request->except('_token');
+        $this->create($data);
+        return back()->with('success', 'Le compte a été crée avec succès !');
+    }
+
+    public function destroy($user_id)
+    {
+        User::destroy($user_id);
+        return redirect('/supervisor')->with('success', 'L\'utilisateur a bien été supprimé !');
     }
 }
