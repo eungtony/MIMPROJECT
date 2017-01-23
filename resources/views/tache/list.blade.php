@@ -6,7 +6,7 @@
                     <h5>
                         <i class="fa fa-tasks"></i>
                         Tâches ({{$done}}/{{$total}})
-                        @if($user_id == $cdp_id || $statut_id == $ca_id)
+                        @if($user_id == $cdp_id)
                             <a href="#addtask{{$projet->id}}" data-toggle="modal"
                                data-target="#addtask{{$projet->id}}"
                                class="btn btn-warning btn-xs">Ajouter une tache</a>
@@ -86,7 +86,7 @@
                                                 J - {{$difference}}
                                             </span>
                                         @endif
-                                        @if($user_id == $cdp_id || $statut_id == $ca_id)
+                                        @if($user_id == $cdp_id)
                                             <div class="pull-right hidden-phone">
                                                 <form action="{{route('check.tache')}}" method="POST">
                                                     {{csrf_field()}}
@@ -109,7 +109,7 @@
                                     </div>
                                 </li>
                             </ul>
-                            @if($user_id == $cdp_id || $statut_id == $ca_id)
+                                @if($user_id == $cdp_id)
                                 @include('tache.edit')
                             @endif
                             @include('tache.index')
