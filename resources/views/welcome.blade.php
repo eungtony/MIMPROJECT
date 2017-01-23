@@ -65,8 +65,10 @@
                                 <div class="panel-heading">
                                     Livret de compte
                                     <a href="{{route('livret')}}" class="label label-info">Voir le livret</a>
+                                    @if(Auth::user()->statut_id == 2)
                                     <a href="#money" data-toggle="modal" class="label label-success">Ajouter un
                                         montant</a>
+                                    @endif
                                 </div>
                                 <div class="panel-body">
                                     @if(!$tresorerie->isEmpty())
