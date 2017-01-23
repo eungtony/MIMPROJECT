@@ -4,7 +4,11 @@
     <div class="row mt">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Modifier le profil de {{$user->name}}</div>
+                    <div class="panel-heading">Modifier le profil de {{$user->name}} <a
+                                href="{{action('userController@destroy', $user->id)}}"
+                                data-method="delete"
+                                data-confirm="Souhaitez-vous réellement supprimer cet utilisateur ?"
+                                class="btn btn-danger btn-xs"></a></div>
 
                     <div class="panel-body">
                         <form action="{{route('user.edit', $user)}}" method="POST">
