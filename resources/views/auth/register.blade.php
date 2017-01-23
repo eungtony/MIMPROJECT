@@ -3,7 +3,8 @@
 @section('content')
     <div class="login-page">
         <div class="container">
-            <form class="form-login register-form" method="POST" action="{{ url('/register') }}">
+            @include('flash')
+            <form class="form-login register-form" method="POST" action="{{route('add.user.action')}}">
 
                 {{ csrf_field() }}
 
