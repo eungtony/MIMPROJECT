@@ -248,13 +248,13 @@ if ($projet->total_heures > 0) {
                         @if($user_id == $cdp_id && $devisModel->valide == 0)
                             @include('devis.form')
                         @endif
-                        @if($user_id == $cdp_id && $devisModel->a_valider == 0)
+                        @if($user_id == $cdp_id && $devisModel->a_valider == 0 && !$devis_taches->isEmpty())
                             <form action="{{route('cp.valide.devis', $devis_id)}}" method="POST"
                                   style="margin-top:25px;">
                                 {{csrf_field()}}
                                 <div class="form-group">
                                     <button type="submit" class="form-control btn btn-success">
-                                        Mettre de le devis en attente de validation
+                                        Mettre le devis en attente de validation
                                     </button>
                                 </div>
                             </form>
