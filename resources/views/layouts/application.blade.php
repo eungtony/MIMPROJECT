@@ -215,6 +215,7 @@ $statut_id = Auth::user()->statut_id;
                         <ul class="sub">
                             <li><a href="{{ url('/supervisor') }}">Voir les Agences</a></li>
                             <li><a href="{{ url('/users/validation') }}">Validation des comptes</a></li>
+                            <li><a href="{{route('add.user')}}">Ajouter un compte</a></li>
                         </ul>
                     </li>
                 @endif
