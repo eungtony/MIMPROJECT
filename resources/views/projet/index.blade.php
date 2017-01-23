@@ -36,7 +36,7 @@ if ($projet->total_heures > 0) {
             <div class="content-panel">
                 <h1>
                     {{$projet->nom}}
-                    @if($user_id == $cdp_id || $statut_id == $ca_id)
+                    @if($user_id == $cdp_id)
                         <a href="#edit{{$projet->id}}" data-toggle="modal" data-target="#edit{{$projet->id}}"
                            class="btn btn-primary">
                             Modifier
@@ -68,7 +68,7 @@ if ($projet->total_heures > 0) {
                                 </a>
                                 <a href="#editFile{{$file->id}}" data-toggle="collapse" class="btn btn-primary btn-xs">Modifier
                                     le fichier</a>
-                                @if($user_id == $cdp_id || $statut_id == $ca_id)
+                                @if($user_id == $cdp_id)
                                     @include('projet.file')
                                 @endif
                             @endforeach
@@ -78,7 +78,7 @@ if ($projet->total_heures > 0) {
                     </span>
                         @endif
 
-                        @if($user_id == $cdp_id || $statut_id == $ca_id)
+                        @if($user_id == $cdp_id)
                             <hr>
                             <a href="#file" class="btn btn-primary btn-sm"
                                data-toggle="collapse" aria-expanded="false"
