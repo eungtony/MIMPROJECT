@@ -5,7 +5,7 @@
             <div class="text-center">
                 <h1>{{ $agence->nom }}</h1>
 
-                @if($user_id == $cdp_id)
+                @if($user_id == $cdp_id || Auth::user()->statut_id == 2)
 
                     <a href="#agence{{$agence->id}}" class="btn btn-primary btn-xs"
                        data-toggle="collapse" aria-expanded="false"
