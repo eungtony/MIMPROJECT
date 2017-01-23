@@ -12,10 +12,10 @@ Créer le fichier .env pour la configuration de la base de donnée <- résout l'
 
 # LOGINS
 
-Superviseur: email: supervisor@test.com mdp: 00000000 
+Superviseur: email: supervisor@test.com mdp: 00000000
 
-CDP: email: cdp2@test.com mdp: 00000000
+CDP: email: cdp5@test.com mdp: 00000000 => chef de projet de l'Agence 5
 
-Bureau: email: bureau1@test.com mdp: 00000000
+Bureau: email: bureau1@test.com mdp: 00000000 => Membre du bureau & Intégrateur de l'Agence 4
 
-Dev: email dev1@test.com mdp: 00000000
+Fabrice Meuzeret: email fmeuzeret@test.com mdp: 00000000 => Développeur de l'Agence 5 (membre normal)
