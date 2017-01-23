@@ -215,7 +215,8 @@ class userController extends Controller
     {
         $statut_id = $this->auth->user()->statut_id;
         $admin_id = 1;
-        if ($statut_id == $admin_id) {
+        $bureau_id = 2;
+        if ($statut_id == $admin_id || $statut_id == $bureau_id) {
             return view('auth.register');
         } else {
             return back()->with('error', 'Vous n\'avez pas accès à cette page !');
