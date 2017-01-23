@@ -30,6 +30,8 @@ Route::post('/user/edit/parameters/{id}', 'userController@editParameters')->name
 Route::get('users/validation', 'userController@validation');
 Route::get('users/valid/{id}', 'userController@valid')->where('id', '[0-9]+')->name('users.validation');
 Route::get('users/unvalid/{id}', 'userController@unvalid')->where('id', '[0-9]+')->name('users.unvalidation');
+Route::post('/add/account', 'userController@addAction')->name('add.user.action');
+Route::delete('/delete/{userid?}/delete', 'userController@destroy')->name('destroy.user');
 
 //Projet
 Route::post('/projet/add', 'projetController@add')->name('add.projet');
