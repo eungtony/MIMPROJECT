@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class projetRequest extends Request
+class devisRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,8 @@ class projetRequest extends Request
     public function rules()
     {
         return [
-            'nom' => 'required',
-            'commentaire' => 'required',
-            'total_heures' => 'required'
+            'libelle' => 'required',
+            'prix' => 'required'
         ];
     }
 }

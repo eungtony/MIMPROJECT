@@ -34,13 +34,16 @@ Route::get('users/valid/{id}', 'userController@valid')->where('id', '[0-9]+')->n
 Route::get('users/unvalid/{id}', 'userController@unvalid')->where('id', '[0-9]+')->name('users.unvalidation');
 
 //Projet
-Route::get('/projet/{id}/{ida}', 'projetController@index')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('projet');
 Route::post('/projet/add', 'projetController@add')->name('add.projet');
 Route::post('/projet/{id}/edit', 'projetController@edit')->where('id', '[0-9]+')->name('edit.projet');
 Route::delete('/projet/delete/{ida}/{id}', 'projetController@destroy')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('projet.destroy');
 Route::post('/projet/{ida}/{id}', 'projetController@addFile')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('file.projet');
 Route::post('/projet/edit/file/{ida}/{pid}/{id}', 'projetController@editFile')->name('file.edit.projet');
 Route::delete('/projet/delete/file/{ida}/{pid}/{id}', 'projetController@deleteFile')->name('file.delete.projet');
+Route::post('/projet/{projet_id?}/agence/{agence_id}', 'projetController@addProjetAgence')->name('add.projet.agence')->where(['projet_id' => '[0-9]+', 'agence_id' => '[0-9]+']);
+Route::delete('/projet/{id?}/agence/delete', 'projetController@deleteProjetAgence')->name('delete.projet.agence')->where(['id' => '[0-9]+']);
+Route::post('/projet/attribute/{projetid?}', 'projetController@attributeProject')->name('attribute.project')->where(['projet_id' => '[0-9]+']);
+Route::post('/project/{projetid?}/free/edit/', 'projetController@editFreeProject')->name('edit.free.project')->where(['projetid' => '[0-9]+']);
 
 //Agence
 Route::get('/agence/{id}', 'agenceController@index')->where('id', '[0-9]+')->name('agence');
@@ -93,8 +96,19 @@ Route::get('register/event/{event}/{student}', 'EventsController@register')->nam
 Route::get('unregister/event/{event}/{student}', 'EventsController@unregister')->name('unregister.event');
 Route::get('delete/event/{id}', 'EventsController@delete')->where('id', '[0-9]+')->name('delete.event');
 
-Route::group(['middleware' => ['restrict']], function () {
+// Devis
+Route::post('/devis/{agenceid?}/{projetid?}/{userid?}', 'DevisController@addDevis')->name('add.devis')->where(['agenceid' => '[0-9]+', 'projetid' => '[0-9]+', 'userid' => '[0-9]+']);
+Route::post('/devis/taches/{agenceid?}/{projetid?}/{devisid?}', 'DevisController@addTask')->name('add.devis.task')->where(['agenceid' => '[0-9]+', 'projetid' => '[0-9]+', 'devisid' => '[0-9]+']);
+Route::delete('/devis/delete/taches/{agenceid?}/{projetid?}/{devisid?}', 'DevisController@deleteTask')->name('delete.devis.task')->where(['agenceid' => '[0-9]+', 'projetid' => '[0-9]+', 'devisid' => '[0-9]+']);
+Route::post('/devis/edit/taches/{agenceid?}/{projetid?}/{devisid?}', 'DevisController@editTask')->name('edit.devis.task')->where(['agenceid' => '[0-9]+', 'projetid' => '[0-9]+', 'devisid' => '[0-9]+']);
+Route::post('/devis/valide/{devisid?}', 'DevisController@valideDevis')->name('valide.devis')->where(['devisid' => '[0-9]+']);
+Route::post('/devis/devalide/{devisid?}', 'DevisController@devalideDevis')->name('devalide.devis')->where(['devisid' => '[0-9]+']);
+Route::post('/devis/valide/cp/{devisid?}/', 'DevisController@cpValideDevis')->name('cp.valide.devis')->where(['devisid' => '[0-9]+']);
 
+Route::group(['middleware' => ['restrict']], function () {
+    //Agence
+    Route::get('/agence/{id}', 'agenceController@index')->where('id', '[0-9]+')->name('agence');
+    Route::get('/projet/{id}/{ida}', 'projetController@index')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('projet');
 //Agence
     Route::get('/agence/edit/{id}', 'agenceController@editForm')->name('edit.form.agence');
     Route::get('/agence/{id}/edit/', 'agenceController@edit')->name('edit.agence');

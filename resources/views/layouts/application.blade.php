@@ -232,23 +232,23 @@ $statut_id = Auth::user()->statut_id;
                             <li><a href="#money" data-toggle="modal">Ajouter un montant</a></li>
                         </ul>
                     </li>
-                    <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class="fa fa-cogs"></i>
-                            <span>Les agences</span>
-                        </a>
-                        <ul class="sub">
-                            @foreach($agences as $agence)
-                                <li>
-                                    <a href="{{ route('agence', $agence) }}">
-                                        {{$agence->nom}}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </li>
                 @endif
-
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-cogs"></i>
+                        <span>Les agences</span>
+                    </a>
+                    <ul class="sub">
+                        @foreach($agences as $agence)
+                            <li class="mt">
+                                <a href="{{ route('agence', $agence) }}">
+                                    <i class="fa fa-dashboard"></i>
+                                    <span>{{$agence->nom}}</span>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
             </ul>
             <!-- sidebar menu end-->
         </div>
@@ -319,6 +319,7 @@ $statut_id = Auth::user()->statut_id;
     $(function () {
         $("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
         $("#calendar").datepicker({dateFormat: 'yy-mm-dd'});
+        $("#another").datepicker({dateFormat: 'yy-mm-dd'});
         $('#summernote').summernote({
             height: 300,
             lang: 'fr-FR',

@@ -6,6 +6,7 @@ use App\Agence;
 use App\Categorie;
 use App\Etape;
 use App\Projet;
+use App\Projet_agence;
 use App\Travail;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
@@ -75,6 +76,11 @@ class projetController extends Controller
      */
     public function add(Requests\projetRequest $request)
     {
+        if ($request->has('bureau')) {
+            $rq = $request->except('_token', 'bureau');
+            Projet::create($rq);
+            return back()->with('success', 'Le projet a bien été ajouté !');
+        }
         $rq = $request->except('_token');
         $id = $rq['agence_id'];
         Projet::create($rq);
@@ -120,6 +126,7 @@ class projetController extends Controller
     public function destroy($ida, $id)
     {
         Projet::destroy($id);
+        Travail::where('projet_id', $id)->delete();
         return redirect()->route('agence', $ida)->with('success', 'Le projet a bien été supprimé !');
     }
 
@@ -188,5 +195,66 @@ class projetController extends Controller
             \App\File::destroy($id);
         }
         return redirect()->route('projet', [$ida, $pid])->with('success', 'Le fichier a bien été supprimé !');
+    }
+
+    /**
+     * Add your agency in a free project shortlist
+     *
+     * @param $projet_id
+     * @param $agence_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addProjetAgence($projet_id, $agence_id)
+    {
+        $agence_nom = Agence::findOrFail($agence_id)->nom;
+        $data = [
+            'projet_id' => $projet_id,
+            'agence_id' => $agence_id,
+            'nom_agence' => $agence_nom
+        ];
+        Projet_agence::create($data);
+        return back()->with('success', 'Vous avez bien proposé votre agence pour ce projet !');
+    }
+
+    /**
+     * Delete your agency in the free project shortlist
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteProjetAgence($id)
+    {
+        Projet_agence::destroy($id);
+        return back()->with('success', 'Vous vous êtes désisté de ce projet !');
+    }
+
+    /**
+     * Attribute a project to an agency
+     *
+     * @param Request $request
+     * @param $projet_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function attributeProject(Request $request, $projet_id)
+    {
+        $data = $request->except('_token');
+        $projet = Projet::findOrFail($projet_id);
+        $projet->update($data);
+        return back()->with('success', 'Le projet a bien été attribué !');
+    }
+
+    /**
+     * edit a project without agency
+     *
+     * @param Request $request
+     * @param $projet_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function editFreeProject(Request $request, $projet_id)
+    {
+        $data = $request->except('_token');
+        $projet = Projet::findOrFail($projet_id);
+        $projet->update($data);
+        return back()->with('success', 'Le projet a été modifié !');
     }
 }

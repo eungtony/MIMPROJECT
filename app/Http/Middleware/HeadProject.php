@@ -11,6 +11,7 @@ class HeadProject
 
     protected $auth;
     const SUPERVISOR_GROUP_ID = 1;
+    const BUREAU_GROUP_ID = 2;
 
     public function __construct(Guard $auth)
     {
@@ -29,15 +30,15 @@ class HeadProject
         $user_id = $this->auth->user()->id;
         $statut_id = $this->auth->user()->statut_id;
         $agence_id = $request->route()->getParameter('id');
-
-        $agence = Agence::findOrFail($agence_id);
-        $chef_id = $agence->user_id;
+        $user_agence_id = $this->auth->user()->agence_id;
 
         if ($this->auth->guest()) {
             return redirect()->back()->with('error', 'Désolé tu ne peux pas accéder à cette page !');
         } else {
-            if ($chef_id == $user_id ||
-                $statut_id == self::SUPERVISOR_GROUP_ID
+            if ($user_agence_id == $agence_id ||
+                $statut_id == self::SUPERVISOR_GROUP_ID ||
+                $statut_id == self::BUREAU_GROUP_ID
+
             ) {
                 return $next($request);
             } else {

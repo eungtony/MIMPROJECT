@@ -90,7 +90,7 @@
                                         </table>
                                     @else
                                         <p class="alert alert-danger">
-                                            Aucune montant n'a été ajouté !
+                                            Aucun montant n'a été ajouté !
                                         </p>
                                     @endif
                                 </div>
@@ -98,6 +98,84 @@
                         </div>
                     </div>
                 </div>
+                <div class="row mt">
+                    <div class="col-md-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                Liste des devis à valider <a href="#listDevis" data-toggle="modal"
+                                                             class="btn btn-primary btn-xs">Voir tous les devis</a>
+                            </div>
+                            <div class="panel-body">
+                                @if(!$devisList->isEmpty())
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <td>Nom du projet</td>
+                                            <td>Description</td>
+                                            <td>Nom de l'agence</td>
+                                            <td>Le devis</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($devisList as $devis)
+                                            <?php
+                                            $agence = \App\Agence::findOrFail($devis->agence_id);
+                                            $devisTitle = $agence->nom;
+                                            ?>
+                                            <tr>
+                                                <td>{{$devis->projet->nom}}</td>
+                                                <td>{{substr($devis->projet->commentaire, 0, 50)}}</td>
+                                                <td>{{$devisTitle}}</td>
+                                                <td>
+                                                    <a href="{{route('projet', [$devis->agence_id, $devis->projet_id])}}#devis"
+                                                       class="btn btn-info">Voir le devis</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <div class="alert alert-warning">
+                                        Aucun devis à valider !
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @include('devis.all')
+                <div class="content-panel text-center" style="margin-bottom:10px;">
+                    <a href="#addprojet" data-toggle="collapse">
+                        <h3>Proposer un projet</h3>
+                    </a>
+                    <div class="collapse" id="addprojet">
+                        <form action="{{route('add.projet')}}" method="POST">
+                            <input class="form-control" type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="bureau" value="bureau">
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="nom" class="form-control"
+                                       placeholder="Nom du projet">
+                            </div>
+
+                            <div class="form-group">
+                                    <textarea class="form-control" type="text" name="commentaire" class="form-control"
+                                              placeholder="Description du projet"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Total heures requis</label><br>
+                                <input class="form-control" type="number" name="total_heures">
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">
+                                    Ajouter le projet
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
                 @foreach($agences as $agence)
                     <?php
                     $cdp_id = $agence->user_id;
@@ -136,6 +214,7 @@
                                     <th>Nom</th>
                                     <th>Progression du projet</th>
                                     <th>Progression des tâches</th>
+                                    <th>Devis</th>
                                     </thead>
                                     <tbody>
 
@@ -144,6 +223,10 @@
                                         <?php
                                         $done = \App\Travail::where('projet_id', $projet->id)->where('fait', 1)->get()->count();
                                         $total = \App\Travail::where('projet_id', $projet->id)->get()->count();
+                                        $devis = \App\Devis::where('projet_id', $projet->id)->get();
+                                        if (isset($devis[0])) {
+                                            $devisModel = $devis[0];
+                                        }
                                         if ($total_etape > 0) {
                                             $pc_projet = 100 * $projet->etape_id / $total_etape;
                                         }
@@ -187,18 +270,25 @@
                                                     </div>
                                                 @endif
                                             </td>
+                                            <td>
+                                                @if($devis->isEmpty())
+                                                    Aucun devis n'a été posté !
+                                                @else
+                                                    @if($devisModel->valide ==0)
+                                                        <a href="{{route('projet', [$projet->agence_id, $projet->id])}}#devis"
+                                                           class="btn btn-info btn-xs">Voir le devis</a>
+                                                    @else
+                                                        <button class="btn btn-success">Devis validé</button>
+                                                    @endif
+                                                @endif
+                                            </td>
                                         </tr>
-
                                     @endforeach
-
                                     @else
-
                                         <p class="bg-danger">
                                             Cette agence ne possède pas de projets !
                                         </p>
-
                                     @endif
-
                                     </tbody>
                                 </table>
                         </div>
