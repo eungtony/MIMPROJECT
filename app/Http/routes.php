@@ -34,6 +34,7 @@ Route::post('/add/account', 'userController@addAction')->name('add.user.action')
 Route::delete('/delete/{userid?}/delete', 'userController@destroy')->name('destroy.user');
 
 //Projet
+Route::get('/projet/{id}/{ida}', 'projetController@index')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('projet');
 Route::post('/projet/add', 'projetController@add')->name('add.projet');
 Route::post('/projet/{id}/edit', 'projetController@edit')->where('id', '[0-9]+')->name('edit.projet');
 Route::delete('/projet/delete/{ida}/{id}', 'projetController@destroy')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('projet.destroy');
@@ -46,6 +47,7 @@ Route::post('/projet/attribute/{projetid?}', 'projetController@attributeProject'
 Route::post('/project/{projetid?}/free/edit/', 'projetController@editFreeProject')->name('edit.free.project')->where(['projetid' => '[0-9]+']);
 
 //Agence
+Route::get('/agence/{id}', 'agenceController@index')->where('id', '[0-9]+')->name('agence');
 Route::post('/agence/{id}', 'agenceController@addFile')->where('id', '[0-9]+')->name('file.agence');
 Route::post('/agence/edit/file/{ida}/{id}', 'agenceController@editFile')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('file.edit');
 Route::delete('/agence/delete/file/{ida}/{id}', 'agenceController@deleteFile')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('file.delete');
@@ -105,9 +107,6 @@ Route::post('/devis/devalide/{devisid?}', 'DevisController@devalideDevis')->name
 Route::post('/devis/valide/cp/{devisid?}/', 'DevisController@cpValideDevis')->name('cp.valide.devis')->where(['devisid' => '[0-9]+']);
 
 Route::group(['middleware' => ['restrict']], function () {
-    //Agence
-    Route::get('/agence/{id}', 'agenceController@index')->where('id', '[0-9]+')->name('agence');
-    Route::get('/projet/{id}/{ida}', 'projetController@index')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('projet');
 //Agence
     Route::get('/agence/edit/{id}', 'agenceController@editForm')->name('edit.form.agence');
     Route::get('/agence/{id}/edit/', 'agenceController@edit')->name('edit.agence');
