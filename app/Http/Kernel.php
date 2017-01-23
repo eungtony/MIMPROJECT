@@ -35,6 +35,10 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\HeadProject::class
         ],
 
+        'account' => [
+            \App\Http\Middleware\AccountValidation::class
+        ],
+
         'api' => [
             'throttle:60,1',
         ],
