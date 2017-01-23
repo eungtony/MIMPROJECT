@@ -109,8 +109,8 @@ class userController extends Controller
             $poste = $request->poste;
             // On update le profil
             User::where('id', $id)->update([
-                'name' => $name, 
-                'statut_id' => $statut, 
+                'name' => $name,
+                'statut_id' => $statut,
                 'poste_id' => $poste
             ]);
             // Puis on redirige l'utilisateur
@@ -203,6 +203,17 @@ class userController extends Controller
             Auth::logout();
             //
             return redirect('/home');
+        }
+    }
+
+    public function add()
+    {
+        $statut_id = $this->auth->user()->statut_id;
+        $admin_id = 1;
+        if ($statut_id === $admin_id) {
+            return view('auth.register');
+        } else {
+            return back()->with('error', 'Vous n\'avez pas accès à cette page !');
         }
     }
 }
