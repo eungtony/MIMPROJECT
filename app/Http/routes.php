@@ -118,3 +118,8 @@ Route::group(['middleware' => ['restrict']], function () {
 //Tâches
     Route::get('/add/tache/{id}/{idp}', 'tacheController@addForm')->name('form.add.tache');
 });
+
+Route::get('test/v2', function() {
+    //
+    return view('layouts.version-2.app');
+});
