@@ -12,7 +12,7 @@
         <!--- Profile -->
         <div class="profile-info">
             <div class="col-xs-4">
-              <a href="profile.html" class="rounded-image profile-image"><img src="images/users/user-100.jpg"></a>
+              <a href="profile.html" class="rounded-image profile-image"><img src="{{ asset('version-2/images/users/user-100.jpg') }}"></a>
             </div>
             <div class="col-xs-8">
                 <div class="profile-text">Welcome <b>Jane</b></div>
