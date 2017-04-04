@@ -121,5 +121,5 @@ Route::group(['middleware' => ['restrict']], function () {
 
 Route::get('test/v2', function() {
     //
-    return view('layouts.version-2.app');
+    return view('layouts.version-2.dashboard');
 });

@@ -136,7 +136,7 @@
                     </li>
                     <li class="dropdown iconify hide-phone"><a href="#" onclick="javascript:toggle_fullscreen()"><i class="icon-resize-full-2"></i></a></li>
                     <li class="dropdown topbar-profile">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="rounded-image topbar-profile-image"><img src="images/users/user-35.jpg"></span> Jane <strong>Doe</strong> <i class="fa fa-caret-down"></i></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="rounded-image topbar-profile-image"><img src="{{ asset('version-2/images/users/user-35.jpg') }}"></span> Jane <strong>Doe</strong> <i class="fa fa-caret-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">My Profile</a></li>
                             <li><a href="#">Change Password</a></li>

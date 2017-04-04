@@ -9,20 +9,13 @@
 	<div class="tab-content">
 		<div class="tab-pane active" id="feed">
 			<div class="tab-inner slimscroller">
-				<div class="search-right">
-				    <input type="text" class="form-control" placeholder="Search">
-				</div>
-				<div class="right-toolbar">
-					<a href="javascript:;" class="pull-right">Settings <i class="icon-cog"></i></a>
-					<div class="clearfix"></div>
-				</div>
 				<div class="clearfix"></div>
 				<div class="panel-group" id="collapse">
 				  <div class="panel panel-default">
 				    <div class="panel-heading bg-orange-1">
 				      <h4 class="panel-title">
 				        <a data-toggle="collapse" data-parent="#accordion" href="#rnotifications">
-				          <i class="icon-bell-2"></i> Notifications
+				          <i class="icon-bell-2"></i> Evenements
 				          <span class="label bg-darkblue-1 pull-right">4</span>
 				        </a>
 				      </h4>
@@ -35,7 +28,7 @@
 				      		<li><a href="javascript:;"><span class="icon-wrapper"><i class="icon-picture-1"></i></span> 1 Video Uploaded <span class="muted">12 minutes ago</span></a></li>
 				      		<li><a href="javascript:;"><span class="icon-wrapper"><i class="icon-hourglass-1"></i></span> Deadline for 1 project <span class="muted">12 minutes ago</span></a></li>
 				      	</ul>
-				      	<a class="btn btn-block btn-sm btn-warning">See all notifications</a>
+				      	<a class="btn btn-block btn-sm btn-warning">Voir tous les events</a>
 				      </div>
 				    </div>
 				  </div>
@@ -43,7 +36,7 @@
 				    <div class="panel-heading bg-green-3">
 				      <h4 class="panel-title">
 				        <a data-toggle="collapse" data-parent="#accordion" href="#remails">
-				          <i class="icon-mail"></i> E-mails
+				          <i class="icon-mail"></i> Messages d'agence
 				          <span class="label bg-darkblue-1 pull-right">3</span>
 				        </a>
 				      </h4>
@@ -64,7 +57,7 @@
 				      			<span class="content">Hello, I ordered 15 box of viagra for a friend of mine but he still hasn't receive them.</span>
 				      		</a></li>
 				      	</ul>
-				      	<a class="btn btn-block btn-sm btn-primary">Go to inbox</a>
+				      	<a class="btn btn-block btn-sm btn-primary">Messagerie</a>
 				      </div>
 				    </div>
 				  </div>

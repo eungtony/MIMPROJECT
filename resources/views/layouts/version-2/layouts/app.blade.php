@@ -76,7 +76,18 @@
 		<!-- Start Content here -->
 		<!-- ============================================================== -->
         <div class="content">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum iusto eius deleniti impedit placeat, maxime cumque totam, delectus asperiores doloremque fugit unde aliquid officiis ab! Pariatur iusto, voluptatibus suscipit tempore.</p>
+        
+            @yield('content')
+		
+			<!-- Footer Start -->
+	        <footer>
+	            Troyes Point Zero &copy; 2017 - Version 2.0
+	            <div class="footer-links pull-right">
+	            	<a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
+	            </div>
+	        </footer>
+	        <!-- Footer End -->
+        
         </div>
 		<!-- ============================================================== -->
 		<!-- End content here -->
