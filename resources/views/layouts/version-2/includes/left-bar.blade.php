@@ -3,16 +3,20 @@
     <div class="sidebar-inner slimscrollleft">
        <!-- Search form -->
         <form role="search" class="navbar-form">
+            <!--
             <div class="form-group">
                 <input type="text" placeholder="Search" class="form-control">
                 <button type="submit" class="btn search-button"><i class="fa fa-search"></i></button>
             </div>
+            -->
         </form>
         <div class="clearfix"></div>
         <!--- Profile -->
-        <div class="profile-info">
+        <div class="profile-info" style="margin-top: 25px;">
             <div class="col-xs-4">
-              <a href="profile.html" class="rounded-image profile-image"><img src="{{ asset('version-2/images/users/user-100.jpg') }}"></a>
+                <a href="profile.html" class="rounded-image profile-image">
+                    <img src="{{ asset('version-2/images/users/user-100.jpg') }}">
+                </a>
             </div>
             <div class="col-xs-8">
                 <div class="profile-text">Welcome <b>Jane</b></div>
@@ -29,297 +33,39 @@
         <div class="clearfix"></div>
         <!--- Divider -->
         <div id="sidebar-menu">
-            
-        <ul>
-        <li class='has_sub'><a href='javascript:void(0);'><i class='icon-home-3'></i>
-
-        <span>Dashboard
-        </span> 
-
-        <span class="pull-right"><i class="fa fa-angle-down"></i>
-        </span></a>
-        <ul>
-        <li><a href='index.html' class='active'>
-
-        <span>Dashboard v1
-        </span></a></li>
-        <li><a href='index2.html'>
-
-        <span>Dashboard v2
-        </span></a></li>
-        </ul></li>
-        <li class='has_sub'><a href='javascript:void(0);'><i class='icon-feather'></i>
-
-        <span>UI Elements
-        </span> 
-
-        <span class="pull-right"><i class="fa fa-angle-down"></i>
-        </span></a>
-        <ul>
-        <li><a href='alerts.html'>
-
-        <span>Alerts
-        </span></a></li>
-        <li><a href='buttons.html'>
-
-        <span>Buttons
-        </span></a></li>
-        <li><a href='calendar.html'>
-
-        <span>Calendar
-        </span></a></li>
-        <li><a href='grid.html'>
-
-        <span>Grid
-        </span></a></li>
-        <li><a href='icons.html'>
-
-        <span>Icons
-        </span></a></li>
-        <li><a href='modals.html'>
-
-        <span>Modals
-        </span></a></li>
-        <li><a href='nested-list.html'>
-
-        <span>Nested List
-        </span></a></li>
-        <li><a href='notifications.html'>
-
-        <span>Notifications
-        </span></a></li>
-        <li><a href='portlets.html'>
-
-        <span>Portlets
-        </span></a></li>
-        <li><a href='progress-bars.html'>
-
-        <span>Progress Bars
-        </span></a></li>
-        <li><a href='tabs-accordions.html'>
-
-        <span>Tabs & Accordions
-        </span></a></li>
-        <li><a href='typography.html'>
-
-        <span>Typography
-        </span></a></li>
-        </ul></li>
-        <li class='has_sub'><a href='javascript:void(0);'><i class='icon-pencil-3'></i>
-
-        <span>Forms
-        </span> 
-
-        <span class="pull-right"><i class="fa fa-angle-down"></i>
-        </span></a>
-        <ul>
-        <li><a href='forms.html'>
-
-        <span>Form Elements
-        </span></a></li>
-        <li><a href='advanced-forms.html'>
-
-        <span>Advanced Forms
-        </span></a></li>
-        <li><a href='form-wizard.html'>
-
-        <span>Form Wizard
-        </span></a></li>
-        <li><a href='form-validation.html'>
-
-        <span>Form Validation
-        </span></a></li>
-        <li><a href='form-uploads.html'>
-
-        <span>File Uploads
-        </span></a></li>
-        </ul></li>
-        <li class='has_sub'><a href='javascript:void(0);'><i class='fa fa-table'></i>
-
-        <span>Tables
-        </span> 
-
-        <span class="pull-right"><i class="fa fa-angle-down"></i>
-        </span></a>
-        <ul>
-        <li><a href='tables.html'>
-
-        <span>Basic Tables
-        </span></a></li>
-        <li><a href='datatables.html'>
-
-        <span>Datatables
-        </span></a></li>
-        </ul></li>
-        <li class='has_sub'><a href='javascript:void(0);'><i class='fa fa-map-marker'></i>
-
-        <span>Maps
-        </span> 
-
-        <span class="pull-right"><i class="fa fa-angle-down"></i>
-        </span></a>
-        <ul>
-        <li><a href='google-maps.html'>
-
-        <span>Google Maps
-        </span></a></li>
-        <li><a href='vector-maps.html'>
-
-        <span>Vector Maps
-        </span></a></li>
-        </ul></li>
-        <li class='has_sub'><a href='javascript:void(0);'><i class='fa fa-envelope'></i>
-
-        <span>Email
-        </span> 
-
-        <span class="pull-right"><i class="fa fa-angle-down"></i>
-        </span></a>
-        <ul>
-        <li><a href='inbox.html'>
-
-        <span>Inbox
-        </span></a></li>
-        <li><a href='read-message.html'>
-
-        <span>View Email
-        </span></a></li>
-        <li><a href='new-message.html'>
-
-        <span>New Message
-        </span></a></li>
-        </ul></li>
-        <li class='has_sub'><a href='javascript:void(0);'><i class='icon-chart-line'></i>
-
-        <span>Charts
-        </span> 
-
-        <span class="pull-right"><i class="fa fa-angle-down"></i>
-        </span></a>
-        <ul>
-        <li><a href='sparkline-charts.html'>
-
-        <span>Sparkline Charts
-        </span></a></li>
-        <li><a href='morris-charts.html'>
-
-        <span>Morris Charts
-        </span></a></li>
-        <li><a href='rickshaw-charts.html'>
-
-        <span>Rickshaw Charts
-        </span></a></li>
-        <li><a href='other-charts.html'>
-
-        <span>Other Charts
-        </span></a></li>
-        </ul></li>
-        <li class='has_sub'><a href='javascript:void(0);'><i class='icon-megaphone'></i>
-
-        <span>Extras
-        </span> 
-
-        <span class="pull-right"><i class="fa fa-angle-down"></i>
-        </span></a>
-        <ul>
-        <li><a href='blank.html'>
-
-        <span>Blank Page
-        </span></a></li>
-        <li><a href='login.html'>
-
-        <span>Login
-        </span></a></li>
-        <li><a href='register.html'>
-
-        <span>Register
-        </span></a></li>
-        <li><a href='lockscreen.html'>
-
-        <span>Lock Screen
-        </span></a></li>
-        <li><a href='404.html'>
-
-        <span>404 Error
-        </span></a></li>
-        <li><a href='500.html'>
-
-        <span>500 Error
-        </span></a></li>
-        <li><a href='profile.html'>
-
-        <span>User Profile
-        </span></a></li>
-        <li><a href='invoice.html'>
-
-        <span>Invoice
-        </span></a></li>
-        <li><a href='gallery.html'>
-
-        <span>Gallery
-        </span></a></li>
-        <li><a href='maintenance.html'>
-
-        <span>Maintenance
-        </span></a></li>
-        <li class='has_sub'><a href='javascript:void(0);'>
-
-        <span>3 Level menu
-        </span> 
-
-        <span class="pull-right"><i class="fa fa-angle-down"></i>
-        </span></a>
-        <ul>
-        <li><a href='javascript:void(0);'>
-
-        <span>Sub Item
-        </span></a></li>
-        </ul></li>
-        <li class='has_sub'><a href='javascript:void(0);'>
-
-        <span>4 Level Menu
-        </span> 
-
-        <span class="pull-right"><i class="fa fa-angle-down"></i>
-        </span></a>
-        <ul>
-        <li class='has_sub'><a href='javascript:void(0);'>
-
-        <span>Sub Item - level 3
-        </span> 
-
-        <span class="pull-right"><i class="fa fa-angle-down"></i>
-        </span></a>
-        <ul>
-        <li><a href='javascript:void(0);'>
-
-        <span>Sub Item - level 4
-        </span></a></li>
-        </ul></li>
-        </ul></li>
-        <li class='has_sub'><a href='javascript:void(0);'>
-
-        <span>Submenu with icons
-        </span> 
-
-        <span class="pull-right"><i class="fa fa-angle-down"></i>
-        </span></a>
-        <ul>
-        <li><a href='javascript:void(0);'><i class='fa fa-camera'></i>
-
-        <span>Item with icon
-        </span></a></li>
-        <li><a href='javascript:void(0);'><i class='entypo entypo-users'></i>
-
-        <span>Another Item
-        </span></a></li>
-        </ul></li>
-        </ul></li>
-        </ul>                    
-
-        <div class="clearfix">
-        
-        </div>
+            <ul>
+                <li class='has_sub'><a href='javascript:void(0);'><i class='icon-home-3'></i><span>Dashboard</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
+                    <ul>
+                        <li><a href='index.html' class='active'><span>Dashboard d'agence</span></a></li>
+                    </ul>
+                </li>
+                <li class='has_sub'><a href='javascript:void(0);'><i class='icon-user'></i><span>User</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
+                    <ul>
+                        <li><a href='alerts.html'><span>Profil</span></a></li>
+                        <li><a href='buttons.html'><span>Agence</span></a></li>
+                        <li><a href='calendar.html'><span>Déconnexion</span></a></li>
+                    </ul>
+                </li>
+                <li class='has_sub'><a href='javascript:void(0);'><i class='icon-megaphone'></i><span>Evenements</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
+                    <ul>
+                        <li><a href='forms.html'><span>Lancer un évènement</span></a></li>
+                        <li><a href='advanced-forms.html'><span>Voir les évènements</span></a></li>
+                    </ul>
+                </li>
+                <li class='has_sub'><a href='javascript:void(0);'><i class='fa fa-eur'></i><span>Trésorerie</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
+                    <ul>
+                        <li><a href='tables.html'><span>Livret de comptes</span></a></li>
+                        <li><a href='datatables.html'><span>Datatables</span></a></li>
+                    </ul>
+                </li>
+                <li class='has_sub'><a href='javascript:void(0);'><i class='fa fa-users'></i><span>Agences</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
+                    <ul>
+                        <li><a href='google-maps.html'><span>Agence 1</span></a></li>
+                        <li><a href='vector-maps.html'><span>Agence 2</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
         </div>
     <div class="clearfix"></div>
     <div class="portlets">
