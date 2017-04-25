@@ -1,3 +1,19 @@
+@php
+	$taches = \App\Travail::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)
+        ->with('projet', 'categorie')
+        ->where('fait', 0)
+        ->get();
+    // On recupère toutes les agences
+	$agences = \App\Agence::get();
+	// On recupère la date
+	$now = \Carbon\Carbon::now();
+	// On recupère l'agence de l'utilisateurs
+	$agence = \App\Agence::findOrFail(Auth::user()->agence_id);
+	//
+	$cdp_id = $agence->user_id;
+	// Statut de l'utilisateur
+	$statut_id = Auth::user()->statut_id;
+	@endphp
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,6 +55,9 @@
         <!-- Extra CSS Libraries End -->
 
         <link href="{{ asset('version-2/assets/css/style-responsive.css') }}" rel="stylesheet" />
+
+        <!-- Our Custom code -->
+    	<link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

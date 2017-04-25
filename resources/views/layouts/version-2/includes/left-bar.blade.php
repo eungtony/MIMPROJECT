@@ -19,7 +19,7 @@
                 </a>
             </div>
             <div class="col-xs-8">
-                <div class="profile-text">Welcome <b>Jane</b></div>
+                <div class="profile-text">Bienvenue <b>{{ Auth::user()->name }}</b></div>
                 <div class="profile-buttons">
                   <a href="javascript:;"><i class="fa fa-envelope-o pulse"></i></a>
                   <a href="#connect" class="open-right"><i class="fa fa-comments"></i></a>
@@ -36,25 +36,25 @@
             <ul>
                 <li class='has_sub'><a href='javascript:void(0);'><i class='icon-home-3'></i><span>Dashboard</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
                     <ul>
-                        <li><a href='index.html' class='active'><span>Dashboard d'agence</span></a></li>
+                        <li><a href="{{ url('/home') }}" class='active'><span>Dashboard d'agence</span></a></li>
                     </ul>
                 </li>
-                <li class='has_sub'><a href='javascript:void(0);'><i class='icon-user'></i><span>User</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
+                <li class='has_sub'><a href='javascript:void(0);'><i class='icon-user'></i><span>{{ Auth::user()->name }}</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
                     <ul>
-                        <li><a href='alerts.html'><span>Profil</span></a></li>
-                        <li><a href='buttons.html'><span>Agence</span></a></li>
-                        <li><a href='calendar.html'><span>Déconnexion</span></a></li>
+                        <li><a href="{{ route('user') }}"><span>Profil</span></a></li>
+                        <li><a href="{{ route('agence', Auth::user()->agence_id) }}"><span>Agence</span></a></li>
+                        <li><a href="{{ url('/logout') }}"><span>Déconnexion</span></a></li>
                     </ul>
                 </li>
                 <li class='has_sub'><a href='javascript:void(0);'><i class='icon-megaphone'></i><span>Evenements</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
                     <ul>
                         <li><a href='forms.html'><span>Lancer un évènement</span></a></li>
-                        <li><a href='advanced-forms.html'><span>Voir les évènements</span></a></li>
+                        <li><a href="{{ route('index.event') }}"><span>Voir les évènements</span></a></li>
                     </ul>
                 </li>
                 <li class='has_sub'><a href='javascript:void(0);'><i class='fa fa-eur'></i><span>Trésorerie</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
                     <ul>
-                        <li><a href='tables.html'><span>Livret de comptes</span></a></li>
+                        <li><a href="{{ route('livret') }}"><span>Livret de comptes</span></a></li>
                         <li><a href='datatables.html'><span>Datatables</span></a></li>
                     </ul>
                 </li>
@@ -69,17 +69,6 @@
         </div>
     <div class="clearfix"></div>
     <div class="portlets">
-        <div id="chat_groups" class="widget transparent nomargin">
-            <h2>Chat Groups</h2>
-            <div class="widget-content">
-                <ul class="list-unstyled">
-                    <li><a href="javascript:;"><i class="fa fa-circle-o text-red-1"></i> Colleagues</a></li>
-                    <li><a href="javascript:;"><i class="fa fa-circle-o text-blue-1"></i> Family</a></li>
-                    <li><a href="javascript:;"><i class="fa fa-circle-o text-green-1"></i> Friends</a></li>
-                </ul>
-            </div>
-        </div>
-
         <div id="recent_tickets" class="widget transparent nomargin">
             <h2>Recent Tickets</h2>
             <div class="widget-content">

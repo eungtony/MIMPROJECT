@@ -7,6 +7,22 @@
 	$ca_id = 1;
 	// Recuperation de 5 projets de l'agence de l'utilisateur
 	$projets = \App\Projet::where('agence_id', \Illuminate\Support\Facades\Auth::user()->agence_id)->take(5)->get();
+	// MESSAGES
+	$notifs = App\Notifications::get();
+    $users = App\User::get();
+    $names = [];
+    foreach ($users as $user) { $names[$user->id] = $user->name; }
+    // Compte des notifications
+    $countNotif = 0;
+    foreach ($notifs as $notif) {
+        if ($notif->type == 'team' && $notif->to == Auth::user()->agence_id) {
+            $countNotif++;
+        } elseif ($notif->type == 'personal' && $notif->to == Auth::user()->id) {
+            $countNotif++;
+        } elseif ($notif->type == 'global') {
+            $countNotif++;
+        }
+    }
 @endphp
 
 @extends('layouts.version-2.layouts.app')
@@ -19,7 +35,7 @@
 		<div>
 			<p>This is a modal window. You can do the following things with it:</p>	
 
-			{!! Form::open(['url' => route('edit.agence', $agence->id) ]) !!}
+			{!! Form::open(['url' => route('edit.agence', $agence->id), 'method' => 'GET' ]) !!}
 
 				{!! Form::token() !!}
 
@@ -29,41 +45,59 @@
 
 					{!! Form::text('nom', $agence->nom, ['class' => 'form-control']) !!}
 
+					{!! Form::submit('Valider', ['class' => 'btn btn-success md-close']) !!}
+
 				</div>
 
 			{!! Form::close() !!}
-
-			<button class="btn btn-danger md-close">Fermer!</button>
-			<button class="btn btn-success md-close">Valider</button>
+			
+			<p>
+				<button class="btn btn-danger md-close">Fermer!</button>
 			</p>
 		</div>
 	</div><!-- End div .md-content -->
 </div><!-- End div .md-modal .md-slide-stick-top -->
 <!-- Modal slide stick top -->
-<div class="md-modal md-slide-stick-top" id="md-slide-stick-top-message">
+<div class="md-modal md-slide-stick-top" id="md-slide-stick-top-upload">
 	<div class="md-content">
-		<h3>Modal Dialog Message</h3>
+		<h3>Modal Dialog Upload</h3>
 		<div>
 			<p>This is a modal window. You can do the following things with it:</p>
 			
-			{!! Form::open(['url' => '']) !!}
-
+			{!! Form::open([
+				'url' => route('file.agence', $agence->id), 
+				'method' => 'POST', 
+				'enctype' => 'multipart/form-data'
+			]) !!}
+	        
 				{!! Form::token() !!}
 
-				<div class="form-group">
+		        <div class="form-group">
 
-					{!! Form::label('message', 'Votre message') !!}
+		        	{!! Form::label('titre', 'Nommer votre fichier') !!}
 
-					{!! Form::textarea('message', '', ['class' => 'form-control']) !!}
+		            {!! Form::text('titre', '', ['class' => 'form-control']) !!}
 
-				</div>
+		        </div>
 
-			{!! Form::close() !!}
+		        <div class="form-group">
 
-			<p>
-			<button class="btn btn-danger md-close">Fermer!</button>
-			<button class="btn btn-success md-close">Valider</button>
-			</p>
+		        	{!! Form::label('', 'Téleverser un fichier') !!}
+
+		            <input type="file" name="file" class="form-control">
+		            
+		        </div>
+
+		        <button type="submit" class="btn btn-primary">
+	                <i class="fa fa-upload" aria-hidden="true"></i>
+	            </button>
+
+		    {!! Form::close() !!}
+
+		    <p>
+		    	<button class="btn btn-danger md-close">Fermer!</button>
+		    </p>
+
 		</div>
 	</div><!-- End div .md-content -->
 </div><!-- End div .md-modal .md-slide-stick-top -->
@@ -74,9 +108,13 @@
 	<div class="col-md-12" style="text-align: center;">
 		<h2>{{ $agence->nom }}</h2>
 		<p class="text-muted"><i>Lorem ipsum</i></p>
-		<button class="btn btn-primary btn-xs md-trigger" data-modal="md-slide-stick-top-rename">
-			<i class="fa fa-pencil fa-fw"></i> RENOMMER
-		</button>
+		<!-- Si l'utilisateur fait partie de l'agence -->
+		@if (Auth::user()->agence_id == $agence->id)
+			<button class="btn btn-primary btn-xs md-trigger" data-modal="md-slide-stick-top-rename">
+				<i class="fa fa-pencil fa-fw"></i> RENOMMER
+			</button>
+		@endif
+		<!-- Si l'utilisateur fait partie de l'agence -->
 		<hr>
 	</div>
 </div>
@@ -90,7 +128,7 @@
 				</div>
 				<div class="text-box">
 					<p class="maindata">TOTAL <b>TACHES</b></p>
-					<h2><span class="animate-number" data-value="3" data-duration="2000">0</span></h2>
+					<h2><span class="animate-number" data-value="{{ count($taches) }}" data-duration="2000">0</span></h2>
 					<div class="clearfix"></div>
 				</div>
 			</div>
@@ -113,7 +151,7 @@
 				</div>
 				<div class="text-box">
 					<p class="maindata">TOTAL <b>PROJETS</b></p>
-					<h2><span class="animate-number" data-value="2" data-duration="2000">0</span></h2>
+					<h2><span class="animate-number" data-value="{{ count($projets) }}" data-duration="2000">0</span></h2>
 
 					<div class="clearfix"></div>
 				</div>
@@ -137,7 +175,7 @@
 				</div>
 				<div class="text-box">
 					<p class="maindata">MONTANT <b>RECOLTE</b></p>
-					<h2><span class="animate-number" data-value="832" data-duration="2000">0</span> €</h2>
+					<h2><span class="animate-number" data-value="{{ $bankable }}" data-duration="2000">0</span> €</h2>
 					<div class="clearfix"></div>
 				</div>
 			</div>
@@ -160,7 +198,7 @@
 				</div>
 				<div class="text-box">
 					<p class="maindata">TOTAL <b>MESSAGES</b></p>
-					<h2><span class="animate-number" data-value="6" data-duration="2000">0</span></h2>
+					<h2><span class="animate-number" data-value="{{ $countNotif }}" data-duration="2000">0</span></h2>
 					<div class="clearfix"></div>
 				</div>
 			</div>
@@ -257,7 +295,17 @@
 			<div class="widget-content" style="padding: 10px;">
 				<div class="row stacked">
 					<div class="col-lg-12">
-						<span class="btn btn-danger btn-xs"><strong>Pas de fichiers en partage.</strong></span>
+						<p>
+							<span class="btn btn-danger btn-xs"><strong>Pas de fichiers en partage.</strong></span>
+						</p>
+
+						@if (Auth::user()->agence_id == $agence->id)
+							<p>
+								<button class="btn btn-primary btn-xs md-trigger" data-modal="md-slide-stick-top-upload" style="margin-top: 20px;">
+									<i class="fa fa-upload fa-fw"></i> TELEVERSER UN FICHIER
+								</button>
+							</p>
+						@endif
 					</div>
 				</div>
 			</div>
@@ -454,97 +502,6 @@
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-lg-12 portlets">
-		<div id="website-statistics1" class="widget">
-			<div class="widget-header transparent">
-				<h2><i class="icon-bag"></i> Projet : <strong>Solution 10</strong></h2>
-				<div class="additional-btn">
-					  <a class="hidden" id="dropdownMenu1" data-toggle="dropdown">
-						<i class="fa fa-plus"></i>
-					  </a>
-					  <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
-						<li><a href="#">Détails du projet</a></li>
-						<li><a href="#">Editer projet</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Supprimer projet</a></li>
-					  </ul>
-					 <a href="#" class="widget-popout hidden tt" title="Pop Out/In"><i class="icon-publish"></i></a>
-					<a href="#" class="widget-maximize hidden"><i class="icon-resize-full-1"></i></a>
-					<a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
-					<a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
-				</div>
-			</div>
-			<div class="widget-content" style="display: none;">
-				<div id="website-statistic" class="statistic-chart">	
-					<div class="row stacked">
-						<div class="col-sm-12">
-							<div class="toolbar">
-								<!-- Space for additional features -->
-							</div>
-							<div class="clearfix"></div>
-							<div style="padding: 15px;">
-								<div class="title">
-									<h3>Tâches relatives au projet</h3>
-									<hr>
-								</div>
-								<div class="table-responsive">
-									<table data-sortable class="table">
-										<thead>
-											<tr>
-												<th>No</th>
-												<th style="width: 30px" data-sortable="false"><input type="checkbox" class="rows-check"></th>
-												<th>Description</th>
-												<th>Etat</th>
-												<th>Attribué à</th>
-												<th>Type</th>
-												<th>Délai</th>
-												<th data-sortable="false">Option</th>
-											</tr>
-										</thead>
-										
-										<tbody>
-											<tr>
-												<td>1</td>
-												<td><input type="checkbox" class="rows-check"></td>
-												<td>Une tâche</td>
-												<td><span class="label label-danger">A Faire</span></td>
-												<td><strong>John Doe</strong></td>
-												<td>Gestion de projet</td>
-												<td>J - 25</td>
-												<td>
-													<div class="btn-group btn-group-xs">
-														<a data-toggle="tooltip" title="Off" class="btn btn-default"><i class="fa fa-power-off"></i></a>
-														<a data-toggle="tooltip" title="Edit" class="btn btn-default"><i class="fa fa-edit"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td><input type="checkbox" class="rows-check"></td>
-												<td>Une tâche</td>
-												<td><span class="label label-success">Fait</span></td>
-												<td><strong>John Doe</strong></td>
-												<td>Gestion de projet</td>
-												<td>J - 25</td>
-												<td>
-													<div class="btn-group btn-group-xs">
-														<a data-toggle="tooltip" title="Off" class="btn btn-default"><i class="fa fa-power-off"></i></a>
-														<a data-toggle="tooltip" title="Edit" class="btn btn-default"><i class="fa fa-edit"></i></a>
-													</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 @endsection
 
 @section('scripts')

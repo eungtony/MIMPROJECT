@@ -18,13 +18,13 @@
                         <div class="dropdown-menu grid-dropdown">
                             <div class="row stacked">
                                 <div class="col-xs-4">
-                                    <a href="javascript:;" data-app="notes-app" data-status="active"><i class="icon-edit"></i>Notes</a>
+                                    <a href="javascript:;" data-app="notes-app" data-status="inactive"><i class="icon-edit"></i>Devis</a>
                                 </div>
                                 <div class="col-xs-4">
                                     <a href="javascript:;" data-app="todo-app" data-status="active"><i class="icon-check"></i>Todo List</a>
                                 </div>
                                 <div class="col-xs-4">
-                                    <a href="javascript:;" data-app="calc" data-status="inactive"><i class="fa fa-calculator"></i>Calculator</a>
+                                    <a href="javascript:;" data-app="calc" data-status="active"><i class="fa fa-calculator"></i>Calculator</a>
                                 </div>
                             </div>
                             <div class="row stacked">
@@ -46,7 +46,7 @@
                     <li class="dropdown iconify hide-phone">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-globe"></i><span class="label label-danger absolute">4</span></a>
                         <ul class="dropdown-menu dropdown-message">
-                            <li class="dropdown-header notif-header"><i class="icon-bell-2"></i> New Notifications<a class="pull-right" href="#"><i class="fa fa-cog"></i></a></li>
+                            <li class="dropdown-header notif-header"><i class="icon-bell-2"></i> New Notifications<a class="pull-right" href="#"></a></li>
                             <li class="unread">
                                 <a href="#">
                                     <p><strong>John Doe</strong> Uploaded a photo <strong>&#34;DSC000254.jpg&#34;</strong>
@@ -127,13 +127,11 @@
                     </li>
                     <li class="dropdown iconify hide-phone"><a href="#" onclick="javascript:toggle_fullscreen()"><i class="icon-resize-full-2"></i></a></li>
                     <li class="dropdown topbar-profile">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="rounded-image topbar-profile-image"><img src="{{ asset('version-2/images/users/user-35.jpg') }}"></span> Jane <strong>Doe</strong> <i class="fa fa-caret-down"></i></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="rounded-image topbar-profile-image"><img src="{{ asset('version-2/images/users/user-35.jpg') }}"></span>
+                        <strong>{{ Auth::user()->name }}</strong> <i class="fa fa-caret-down"></i></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="#">Profil</a>
-                            </li>
-                            <li>
-                                <a href="#">Changer mot de passe</a>
+                                <a href="{{ route('user') }}">Profil</a>
                             </li>
                             <li class="divider"></li>
                             <li>
