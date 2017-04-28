@@ -63,11 +63,6 @@
                                     <i class="fa fa-check"></i>
                                     Tâches </a>
                                 </li>
-                                <li id="help-panel">
-                                    <a href="#" id="help">
-                                    <i class="fa fa-question"></i>
-                                    Aide</a>
-                                </li>
                             </ul>
                         </div>
                         <!-- END MENU -->

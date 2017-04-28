@@ -107,7 +107,6 @@
 <div class="row top-summary">
 	<div class="col-md-12" style="text-align: center;">
 		<h2>{{ $agence->nom }}</h2>
-		<p class="text-muted"><i>Lorem ipsum</i></p>
 		<!-- Si l'utilisateur fait partie de l'agence -->
 		@if (Auth::user()->agence_id == $agence->id)
 			<button class="btn btn-primary btn-xs md-trigger" data-modal="md-slide-stick-top-rename">
@@ -285,34 +284,53 @@
 	</div>
 </div>
 
-<!-- Début fichiers partagées -->
+@if(Auth::user()->agence_id == $agence->id)
 <div class="row">
 	<div class="col-lg-12 portlets">
 		<div id="website-statistics1" class="widget">
 			<div class="widget-header transparent">
 				<h2><i class="icon-share"></i> Fichiers <strong>Partagés</strong></h2>
 			</div>
-			<div class="widget-content" style="padding: 10px;">
-				<div class="row stacked">
-					<div class="col-lg-12">
-						<p>
-							<span class="btn btn-danger btn-xs"><strong>Pas de fichiers en partage.</strong></span>
-						</p>
+		    <div class="widget-panel upload-panel" style="padding: 15px">
+		        <!-- TELECHARGEMENT -->
 
-						@if (Auth::user()->agence_id == $agence->id)
-							<p>
-								<button class="btn btn-primary btn-xs md-trigger" data-modal="md-slide-stick-top-upload" style="margin-top: 20px;">
-									<i class="fa fa-upload fa-fw"></i> TELEVERSER UN FICHIER
-								</button>
-							</p>
-						@endif
-					</div>
-				</div>
-			</div>
+		        @php
+		        	$files = \App\File::where('agence_id', $agence->id)->where('projet_id', NULL)->get();
+		        @endphp
+
+		        @if(!$files->isEmpty())
+		            @foreach($files as $file)
+		                <a href="{{app_path()}}/{{$agence->id}}/{{$file->name}}.{{$file->extension}}"
+		                   download="{{$file->titre}}">
+		                    {{$file->titre}}
+		                </a>
+		                <a href="#editFile{{$file->id}}" data-toggle="collapse" class="btn btn-primary btn-xs">Modifier
+		                    le fichier</a>
+		                @if($user_id == $cdp_id)
+		                    @include('agence.editFile')
+		                @endif
+		            @endforeach
+		        @else
+		            <p>
+						<span class="btn btn-danger btn-xs"><strong>Pas de fichiers en partage.</strong></span>
+					</p>
+		        </span>
+		        @endif
+
+		        <hr>
+	            <a href="#file" class="btn btn-primary btn-sm"
+	               data-toggle="collapse" aria-expanded="false"
+	               aria-controls="#file">
+	                Téléverser un fichier
+	            </a>
+
+		        @include('agence.file')
+		    	<!-- TELECHARGEMENT -->
+		    </div>
 		</div>
 	</div>
 </div>
-<!-- Fin fichiers partagées -->
+@endif
 
 <div class="row top-summary">
 	<div class="col-md-12" style="text-align: center;">

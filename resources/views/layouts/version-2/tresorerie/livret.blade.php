@@ -67,7 +67,7 @@
         <div class="col-lg-8 col-lg-offset-2 panel">
             <div class="panel-content">
                 <hr>
-                <p><strong>TOTAL : 
+                <p><strong>SOLDE TOTAL : 
 
                 @if ($total <= 0)
                     <span class="text-danger">

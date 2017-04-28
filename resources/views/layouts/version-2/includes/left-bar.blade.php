@@ -14,9 +14,15 @@
         <!--- Profile -->
         <div class="profile-info" style="margin-top: 25px;">
             <div class="col-xs-4">
-                <a href="profile.html" class="rounded-image profile-image">
-                    <img src="{{ asset('version-2/images/users/user-100.jpg') }}">
-                </a>
+                @if(Auth::user()->avatar == 0)
+                    <a href="{{ route('user') }}" class="rounded-image profile-image">
+                        <img src="{{ asset('version-2/images/users/user-100.jpg') }}">
+                    </a>
+                @else
+                    <a href="{{ route('user') }}" class="rounded-image profile-image">
+                        <img src="{{ asset('avatars/'.$member->id.'.'.$member->extension) }}">
+                    </a>
+                @endif
             </div>
             <div class="col-xs-8">
                 <div class="profile-text">Bienvenue <b>{{ Auth::user()->name }}</b></div>
@@ -34,28 +40,32 @@
         <!--- Divider -->
         <div id="sidebar-menu">
             <ul>
-                <li class='has_sub'><a href='javascript:void(0);'><i class='icon-home-3'></i><span>Dashboard</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
-                    <ul>
-                        <li><a href="{{ url('/home') }}" class='active'><span>Dashboard d'agence</span></a></li>
-                    </ul>
+                <li>
+                    <a href='{{ url('/home') }}' class="active">
+                        <i class='icon-home-3'></i>
+                        <span>Dashboard</span>
+                    </a>
                 </li>
                 <li class='has_sub'><a href='javascript:void(0);'><i class='icon-user'></i><span>{{ Auth::user()->name }}</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
                     <ul>
                         <li><a href="{{ route('user') }}"><span>Profil</span></a></li>
                         <!-- li><a href="{{ route('agence', Auth::user()->agence_id) }}"><span>Agence</span></a></li -->
-                        <li><a href="{{ url('/logout') }}"><span>Déconnexion</span></a></li>
                     </ul>
                 </li>
-                <li class='has_sub'><a href='javascript:void(0);'><i class='icon-megaphone'></i><span>Evenements</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
-                    <ul>
-                        <li><a href='forms.html'><span>Lancer un évènement</span></a></li>
-                        <li><a href="{{ route('index.event') }}"><span>Voir les évènements</span></a></li>
-                    </ul>
-                </li>
+                <!-- Partie Administration -->
+                @if(Auth::user()->statut_id == 1 || Auth::user()->statut_id == 2)
+                    <li class='has_sub'><a href='javascript:void(0);'><i class='fa fa-cogs'></i><span>Adminitration</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
+                        <ul class="sub">
+                            <li><a href="{{ url('/supervisor') }}">Voir les Agences</a></li>
+                            <li><a href="{{ url('/users/validation') }}">Validation des comptes</a></li>
+                            <li><a href="{{route('add.user')}}">Ajouter un compte</a></li>
+                        </ul>
+                    </li>
+                @endif
+                <!-- Partie Administration -->
                 <li class='has_sub'><a href='javascript:void(0);'><i class='fa fa-eur'></i><span>Trésorerie</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
                     <ul>
                         <li><a href="{{ route('livret') }}"><span>Livret de comptes</span></a></li>
-                        <li><a href='datatables.html'><span>Datatables</span></a></li>
                     </ul>
                 </li>
                 <li class='has_sub'><a href='javascript:void(0);'><i class='fa fa-users'></i><span>Agences</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
