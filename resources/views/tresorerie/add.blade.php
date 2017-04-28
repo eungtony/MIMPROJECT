@@ -12,7 +12,7 @@
                         <input type="text" class="form-control" name="libelle" placeholder="Libellé du montant">
                     </div>
                     <div class="form-group">
-                        <input type="number" class="form-control" name="montant" placeholder="Montant en €">
+                        <input type="text" class="form-control" name="montant" placeholder="Montant en €">
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Valider le montant</button>
