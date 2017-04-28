@@ -13,7 +13,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Modifier le montant</label>
-                        <input type="number" class="form-control" value="{{$livret->montant}}" name="montant">
+                        <input type="text" class="form-control" value="{{$livret->montant}}" name="montant">
                     </div>
                     <div class="form-group">
                         <button class="btn btn-success" type="submit">Modifier le montant</button>
