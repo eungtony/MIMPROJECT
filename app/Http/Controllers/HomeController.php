@@ -208,7 +208,14 @@ class HomeController extends Controller
     public function livret()
     {
         $livrets = Tresorerie::orderBy('id', 'desc')->paginate(10);
-        return view('tresorerie.livret', compact('livrets'));
+        //
+        if (Auth::user()->version_used == 2) {
+            //
+            return view('layouts.version-2.tresorerie.livret', compact('livrets'));
+        } else {
+            //
+            return view('tresorerie.livret', compact('livrets'));
+        }
     }
 
     /**
