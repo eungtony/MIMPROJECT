@@ -201,8 +201,8 @@ $statut_id = Auth::user()->statut_id;
                         <span>Evènements</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="#addevent" data-toggle="modal">Créer un évenements</a></li>
-                        <li><a href="{{ route('index.event') }}">Voir les évenements</a></li>
+                        <li><a href="#addevent" data-toggle="modal">Créer un évènement</a></li>
+                        <li><a href="{{ route('index.event') }}">Voir les évènements</a></li>
                     </ul>
                 </li>
 
@@ -229,9 +229,6 @@ $statut_id = Auth::user()->statut_id;
                         </a>
                         <ul class="sub">
                             <li><a href="{{ route('livret') }}">Livret de compte</a></li>
-                            @if(Auth::user()->statut_id == 1 || Auth::user()->statut_id == 2)
-                            <li><a href="#money" data-toggle="modal">Ajouter un montant</a></li>
-                            @endif
                         </ul>
                     </li>
                 <li class="sub-menu">
@@ -285,7 +282,7 @@ $statut_id = Auth::user()->statut_id;
     <!--footer start-->
     <footer class="site-footer">
         <div class="text-center">
-            2017 - TPZ - version 1.3
+            2017 - TPZ - version 3.0
             <a href="#" class="go-top">
                 <i class="fa fa-angle-up"></i>
             </a>
