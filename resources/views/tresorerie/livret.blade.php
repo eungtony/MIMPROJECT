@@ -21,7 +21,11 @@
                     </thead>
                     <tbody>
                     @foreach($livrets as $livret)
-                        <tr>
+                        <tr style="background-color: <?php if ((int)$livret->montant < 0) {
+                            echo '#EA0000';
+                        } else {
+                            echo '#96CA12';
+                        } ?>; color:white;">
                             <td>#{{$livret->id}}</td>
                             <td>
                                 {{$livret->libelle}}
@@ -32,7 +36,6 @@
                             <td>
                                 {{$livret->created_at}}
                             </td>
-                            @if(Auth::user()->statut_id == 2)
                                 <td>
                                     <a href="#editlivret{{$livret->id}}"
                                        class="btn btn-primary btn-xs"
@@ -42,7 +45,6 @@
                                        data-confirm="Souhaitez-vous réellement supprimer ce montant ?"
                                        class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
                                 </td>
-                            @endif
                         </tr>
                         @include('tresorerie.edit')
                     @endforeach
