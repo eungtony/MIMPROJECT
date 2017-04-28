@@ -12,36 +12,6 @@
     <div class="navbar navbar-default" role="navigation">
         <div class="container">
             <div class="navbar-collapse2">
-                <ul class="nav navbar-nav hidden-xs">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-th"></i></a>
-                        <div class="dropdown-menu grid-dropdown">
-                            <div class="row stacked">
-                                <div class="col-xs-4">
-                                    <a href="javascript:;" data-app="notes-app" data-status="inactive"><i class="icon-edit"></i>Devis</a>
-                                </div>
-                                <div class="col-xs-4">
-                                    <a href="javascript:;" data-app="todo-app" data-status="active"><i class="icon-check"></i>Todo List</a>
-                                </div>
-                                <div class="col-xs-4">
-                                    <a href="javascript:;" data-app="calc" data-status="active"><i class="fa fa-calculator"></i>Calculator</a>
-                                </div>
-                            </div>
-                            <div class="row stacked">
-                                <div class="col-xs-4">
-                                    <a href="javascript:;" data-app="weather-widget" data-status="active"><i class="icon-cloud-3"></i>Weather</a>
-                                </div>
-                                <div class="col-xs-4">
-                                    <a href="javascript:;" data-app="calendar-widget2" data-status="active"><i class="icon-calendar"></i>Calendar</a>
-                                </div>
-                                <div class="col-xs-4">
-                                    <a href="javascript:;" data-app="stock-app" data-status="inactive"><i class="icon-chart-line"></i>Stocks</a>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </li>
-                </ul>
                 <ul class="nav navbar-nav navbar-right top-navbar">
                     <li class="dropdown iconify hide-phone">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i><span class="label label-danger absolute">3</span></a>
@@ -88,9 +58,6 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
-                    <li class="right-opener">
-                        <a href="javascript:;" class="open-right"><i class="fa fa-angle-double-left"></i><i class="fa fa-angle-double-right"></i></a>
                     </li>
                 </ul>
             </div>

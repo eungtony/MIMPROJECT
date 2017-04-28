@@ -28,8 +28,7 @@
                 <div class="profile-text">Bienvenue <b>{{ Auth::user()->name }}</b></div>
                 <div class="profile-buttons">
                   <a href="javascript:;"><i class="fa fa-envelope-o pulse"></i></a>
-                  <a href="#connect" class="open-right"><i class="fa fa-comments"></i></a>
-                  <a href="javascript:;" title="Sign Out"><i class="fa fa-power-off text-red-1"></i></a>
+                  <a href="{{ url('/logout') }}" title="Sign Out"><i class="fa fa-power-off text-red-1"></i></a>
                 </div>
             </div>
         </div>
@@ -70,8 +69,9 @@
                 </li>
                 <li class='has_sub'><a href='javascript:void(0);'><i class='fa fa-users'></i><span>Agences</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
                     <ul>
-                        <li><a href='google-maps.html'><span>Agence 1</span></a></li>
-                        <li><a href='vector-maps.html'><span>Agence 2</span></a></li>
+                        @foreach ($agences as $agence)
+                            <li><a href='{{ url('agence/' . $agence->id) }}'><span>{{ $agence->nom }}</span></a></li>
+                        @endforeach
                     </ul>
                 </li>
             </ul>
