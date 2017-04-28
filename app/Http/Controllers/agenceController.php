@@ -10,7 +10,6 @@ use App\Travail;
 use App\User;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
@@ -56,7 +55,10 @@ class agenceController extends Controller
         $now = \Carbon\Carbon::now();
         $etapes = Etape::all();
         $categories = Categorie::all();
-        return view('agence.index', compact('id', 'etapes', 'categories', 'agence', 'cdp', 'cdp_id', 'users', 'total_etape', 'taches', 'now'));
+        
+        return view('layouts.version-2.agence.index', compact('id', 'etapes', 'categories', 'agence', 'cdp', 'cdp_id', 'users', 'total_etape', 'taches', 'now'));
+
+        //return view('agence.index', compact('id', 'etapes', 'categories', 'agence', 'cdp', 'cdp_id', 'users', 'total_etape', 'taches', 'now'));
     }
 
     public function show($id)

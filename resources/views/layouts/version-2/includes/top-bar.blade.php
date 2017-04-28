@@ -1,3 +1,23 @@
+@php
+    // On recupère toutes les notifications
+    $notifs = App\Notifications::get();
+    // Onrecupère tous les utilisateurs
+    $users = App\User::get();
+    $names = [];
+    foreach ($users as $user) { $names[$user->id] = $user->name; }
+    // Compte des notifications
+    $countNotif = 0;
+    foreach ($notifs as $notif) {
+        if ($notif->type == 'team' && $notif->to == Auth::user()->agence_id) {
+            $countNotif++;
+        } elseif ($notif->type == 'personal' && $notif->to == Auth::user()->id) {
+            $countNotif++;
+        } elseif ($notif->type == 'global') {
+            $countNotif++;
+        }
+    }
+@endphp
+
 <!-- Top Bar Start -->
 <div class="topbar">
     <div class="topbar-left">
@@ -38,7 +58,7 @@
                                     <p>Duis autem vel eum iriure dolor in hendrerit ...</p>
                                 </a>
                             </li>
-                            <li class="dropdown-footer"><div class=""><a href="#" class="btn btn-sm btn-block btn-primary"><i class="fa fa-share"></i> See all messages</a></div></li>
+                            <li class="dropdown-footer"><div class=""><a href="#" class="btn btn-sm btn-block btn-primary"><i class="fa fa-share"></i> Voir tout les messages</a></div></li>
                         </ul>
                     </li>
                     <li class="dropdown iconify hide-phone"><a href="#" onclick="javascript:toggle_fullscreen()"><i class="icon-resize-full-2"></i></a></li>
