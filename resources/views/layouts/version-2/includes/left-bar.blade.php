@@ -20,7 +20,7 @@
                     </a>
                 @else
                     <a href="{{ route('user') }}" class="rounded-image profile-image">
-                        <img src="{{ asset('avatars/'.$member->id.'.'.$member->extension) }}">
+                        <img src="{{ asset('avatars/'.Auth::user()->id.'.'.Auth::user()->extension) }}">
                     </a>
                 @endif
             </div>

@@ -70,11 +70,6 @@
                                             </a>
                                         </p>
                                         <p class="description">{{ $member->description }}</p>
-                                        <p>
-                                            <a href="#notify-someone-{{ $member->id }}" data-toggle="modal" data-target="#notify-someone-{{ $member->id }}" class="btn btn-primary btn-sm">
-                                                <i class="fa fa-envelope-o f-fw"></i> NOTIFIE
-                                            </a>
-                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -83,13 +78,6 @@
                 </div>
             @endif
         <!-- Visite de la page d'une autre agence -->
-        
-            <div class="row top-summary">
-    <div class="col-md-12" style="text-align: center;">
-        <h2>Partage de fichiers</h2>
-        <hr>
-    </div>
-</div>
 
 @if(Auth::user()->agence_id == $agence->id)
 <div class="row">

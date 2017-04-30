@@ -1,4 +1,4 @@
-@extends('layouts.application')
+@extends('layouts.version-2.layouts.app')
 
 @section('title') Troyes Point Zéro - Support @endsection
 
@@ -7,7 +7,9 @@
     <div class="row mt">
         <div class="col-lg-9">
             <div class="panel-content">
+
                 @include('admininfo')
+
                 <div class="row mt">
                     <div class="panel-body">
                         <div class="col-md-6">
@@ -100,6 +102,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row mt">
                     <div class="col-md-12">
                         <div class="panel panel-info">
@@ -108,7 +111,7 @@
                                                              class="btn btn-primary btn-xs">Voir tous les devis</a>
                             </div>
                             <div class="panel-body">
-                                @if(!$devisList->isEmpty())
+                                @if($devisList)
                                     <table class="table">
                                         <thead>
                                         <tr>
@@ -125,8 +128,8 @@
                                             $devisTitle = $agence->nom;
                                             ?>
                                             <tr>
-                                                <td>{{$devis->projet->nom}}</td>
-                                                <td>{{substr($devis->projet->commentaire, 0, 50)}}</td>
+                                                <!--td>{#$devis->projet->nom#}</td -->
+                                                <!--td>{#substr($devis->projet->commentaire, 0, 50)#}</td -->
                                                 <td>{{$devisTitle}}</td>
                                                 <td>
                                                     <a href="{{route('projet', [$devis->agence_id, $devis->projet_id])}}#devis"
@@ -145,7 +148,9 @@
                         </div>
                     </div>
                 </div>
-                @include('devis.all')
+
+                <!-- include('devis.all') -->
+
                 <div class="content-panel text-center" style="margin-bottom:10px;">
                     <a href="#addprojet" data-toggle="collapse">
                         <h3>Proposer un projet</h3>

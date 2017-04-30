@@ -27,94 +27,38 @@
 
 @extends('layouts.version-2.layouts.app')
 
-@section('modals')
-<!-- Modal slide stick top -->
-<div class="md-modal md-slide-stick-top" id="md-slide-stick-top-rename">
-	<div class="md-content">
-		<h3>Modal Dialog Rename</h3>
-		<div>
-			<p>This is a modal window. You can do the following things with it:</p>	
-
-			{!! Form::open(['url' => route('edit.agence', $agence->id), 'method' => 'GET' ]) !!}
-
-				{!! Form::token() !!}
-
-				<div class="form-group">
-
-					{!! Form::label('nom', 'Nouveau nom') !!}
-
-					{!! Form::text('nom', $agence->nom, ['class' => 'form-control']) !!}
-
-					{!! Form::submit('Valider', ['class' => 'btn btn-success md-close']) !!}
-
-				</div>
-
-			{!! Form::close() !!}
-			
-			<p>
-				<button class="btn btn-danger md-close">Fermer!</button>
-			</p>
-		</div>
-	</div><!-- End div .md-content -->
-</div><!-- End div .md-modal .md-slide-stick-top -->
-<!-- Modal slide stick top -->
-<div class="md-modal md-slide-stick-top" id="md-slide-stick-top-upload">
-	<div class="md-content">
-		<h3>Modal Dialog Upload</h3>
-		<div>
-			<p>This is a modal window. You can do the following things with it:</p>
-			
-			{!! Form::open([
-				'url' => route('file.agence', $agence->id), 
-				'method' => 'POST', 
-				'enctype' => 'multipart/form-data'
-			]) !!}
-	        
-				{!! Form::token() !!}
-
-		        <div class="form-group">
-
-		        	{!! Form::label('titre', 'Nommer votre fichier') !!}
-
-		            {!! Form::text('titre', '', ['class' => 'form-control']) !!}
-
-		        </div>
-
-		        <div class="form-group">
-
-		        	{!! Form::label('', 'Téleverser un fichier') !!}
-
-		            <input type="file" name="file" class="form-control">
-		            
-		        </div>
-
-		        <button type="submit" class="btn btn-primary">
-	                <i class="fa fa-upload" aria-hidden="true"></i>
-	            </button>
-
-		    {!! Form::close() !!}
-
-		    <p>
-		    	<button class="btn btn-danger md-close">Fermer!</button>
-		    </p>
-
-		</div>
-	</div><!-- End div .md-content -->
-</div><!-- End div .md-modal .md-slide-stick-top -->
-@endsection
-
 @section('content')
 <div class="row top-summary">
 	<div class="col-md-12" style="text-align: center;">
 		<h2>{{ $agence->nom }}</h2>
+
 		<!-- Si l'utilisateur fait partie de l'agence -->
 		@if (Auth::user()->agence_id == $agence->id)
-			<button class="btn btn-primary btn-xs md-trigger" data-modal="md-slide-stick-top-rename">
-				<i class="fa fa-pencil fa-fw"></i> RENOMMER
-			</button>
+			<a href="#agence{{$agence->id}}" data-toggle="collapse" aria-expanded="false"
+	           aria-controls="#agence{{$agence->id}}" style="margin-bottom: 15px;">
+	            <button class="btn btn-primary btn-xs md-trigger" data-modal="md-slide-stick-top-rename">
+					<i class="fa fa-pencil fa-fw"></i> RENOMMER
+				</button>
+	        </a>
+		@endif
+		@if($user_id == $cdp_id || Auth::user()->statut_id == 2)
+			<a href="#projet{{$agence->id}}" data-toggle="collapse" aria-expanded="false"
+               aria-controls="#projet{{$agence->id}}" style="margin-bottom: 15px;">
+                <button class="btn btn-success btn-xs md-trigger">
+                	<i class="fa fa-plus fa-fw"></i> PROJET
+                </button>
+            </a>
 		@endif
 		<!-- Si l'utilisateur fait partie de l'agence -->
+
 		<hr>
+
+		<!-- Modal d'ajout de projets -->
+		@include('layouts.version-2.projet.add')
+		<!-- Modal d'ajout de projets -->
+
+		@include('agence.edit')
+		
 	</div>
 </div>
 <!-- Start info box -->
@@ -215,68 +159,6 @@
 </div>
 <!-- End of info box -->
 
-@if (isset($members))
-
-	<div class="row top-summary">
-		<div class="col-md-12" style="text-align: center;">
-			<h2>Membres de l'agence</h2>
-			<hr>
-		</div>
-	</div>
-
-	<div class="row">
-
-		@foreach ($members as $member)
-			<div class="col-lg-4 portlets">
-				<div id="website-statistics1" class="widget">
-					<div class="widget-header transparent">
-						<h2><i class="icon-user"></i> Nom <strong>Prénom</strong></h2>
-						<div class="additional-btn">
-							<a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
-							<a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
-						</div>
-					</div>
-					<div class="widget-content">
-						<div id="website-statistic" class="statistic-chart">	
-							<div class="row stacked">
-								<div class="col-sm-12">
-									<div class="toolbar">
-										<!-- Space for additional features -->
-									</div>
-									<div class="clearfix"></div>
-									<div style="padding: 15px;text-align: center;">
-										<div class="col-xs-4 col-xs-offset-4">
-							                <a href="#" class="rounded-image profile-image">
-							                	@if($member->avatar == 0)
-		                                           <img src="{{ asset('version-2/images/users/user-100.jpg') }}">
-		                                        @else
-		                                            <img src="{{ asset('avatars/'.$member->id.'.'.$member->extension) }}">
-		                                        @endif
-							                </a>
-							            </div>
-										<div class="col-xs-12">
-											<p class="text-muted"><i>Poste</i></p>
-										</div>
-										<div class="col-xs-12">
-											<p>{{ $member->description }}</p>
-										</div>
-										<div class="col-xs-12">
-											<a href="#notify-someone-{{ $member->id }}" data-toggle="modal" data-target="#notify-someone-{{ $member->id }}" class="btn btn-primary btn-sm">
-	                                            <i class="fa fa-envelope-o f-fw"></i> NOTIFIE
-	                                        </a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		@endforeach
-
-	</div>
-@endif
-
 <div class="row top-summary">
 	<div class="col-md-12" style="text-align: center;">
 		<h2>Partage de fichiers</h2>
@@ -286,7 +168,7 @@
 
 @if(Auth::user()->agence_id == $agence->id)
 <div class="row">
-	<div class="col-lg-12 portlets">
+	<div class="col-lg-12 portlets animated fadeInDown">
 		<div id="website-statistics1" class="widget">
 			<div class="widget-header transparent">
 				<h2><i class="icon-share"></i> Fichiers <strong>Partagés</strong></h2>
@@ -387,7 +269,7 @@
                     }
         		@endphp
 
-				<div id="website-statistics1" class="widget">
+				<div id="website-statistics1" class="widget animated fadeInDown">
 					<div class="widget-header transparent">
 						<h2><i class="icon-bag"></i> Projet : <strong>{{ $projet->nom }}</strong></h2>
 						<div class="additional-btn">

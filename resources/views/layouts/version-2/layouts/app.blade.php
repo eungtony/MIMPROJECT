@@ -87,8 +87,6 @@
 
 	@include('layouts.version-2.includes.left-bar')
 
-    @include('layouts.version-2.includes.rigth-bar')	
-
 	<!-- Start right content -->
     <div class="content-page">
 		<!-- ============================================================== -->
@@ -157,7 +155,7 @@
 	<script src="{{ asset('version-2/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 	<script src="{{ asset('version-2/assets/libs/jquery-icheck/icheck.min.js') }}"></script>
 
-	<!-- Demo Specific JS Libraries -->
+	<!-- Specific JS Libraries -->
 	<script src="{{ asset('version-2/assets/libs/prettify/prettify.js') }}"></script>
 
 	<script src="{{ asset('version-2/assets/js/init.js') }}"></script>
