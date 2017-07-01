@@ -47,7 +47,14 @@ class userController extends Controller
             ->where('fait', 0)
             ->get();
         $now = \Carbon\Carbon::now();
-        return view('user.index', compact('user', 'taches', 'now'));
+
+        if (Auth::user()->version_used == 2) {
+            //
+            return view('layouts.version-2.users.profile', compact('user', 'taches', 'now'));
+        } else {
+            //
+            return view('user.index', compact('user', 'taches', 'now'));
+        }
     }
 
     /**
