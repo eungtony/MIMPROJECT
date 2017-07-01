@@ -1,24 +1,75 @@
-<div class="row mtbox">
-    <div class="col-md-3 col-sm-2 box0">
-        <div class="box1">
-            <span class="li_data"></span>
-            <h3>{{$nb_projet}} projet(s)</h3>
+<div class="row top-summary">
+    <div class="col-md-3 col-sm-2">
+        
+        <div class="widget green-1 animated fadeInDown">
+            <div class="widget-content padding">
+                <div class="widget-icon">
+                    <i class="icon-list"></i>
+                </div>
+                <div class="text-box">
+                    <p class="maindata">TOTAL <b>Projets</b></p>
+                    <h2><span class="animate-number" data-value="{{ $nb_projet }}" data-duration="2000">0</span></h2>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="widget-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <i>{{ $nb_projet }} projet(s) sont en cours</i> 
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
         </div>
-        <p>{{$nb_projet}} projet(s) sont en cours dans l'association</p>
+
     </div>
     <div class="col-md-3 col-sm-2 box0">
-        <div class="box1">
-            <span class="li_diamond" style="color:lightblue"></span>
-            <h3>{{$total_tres}} €</h3>
+
+        <div class="widget darkblue-2 animated fadeInDown">
+            <div class="widget-content padding">
+                <div class="widget-icon">
+                    <i class="icon-list"></i>
+                </div>
+                <div class="text-box">
+                    <p class="maindata">TOTAL <b>Trésorerie</b></p>
+                    <h2><span class="animate-number" data-value="{{ $total_tres }}" data-duration="2000">0</span>€</h2>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="widget-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <i>{{ $total_tres }} € dans la trésorerie</i> 
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
         </div>
-        <p>{{$total_tres}} € dans la trésorerie</p>
+
     </div>
     <div class="col-md-3 col-sm-2 box0">
-        <div class="box1">
-            <span class="li_banknote"></span>
-            <h3>{{$encaisse}} €</h3>
+
+        <div class="widget orange-4 animated fadeInDown">
+            <div class="widget-content padding">
+                <div class="widget-icon">
+                    <i class="icon-list"></i>
+                </div>
+                <div class="text-box">
+                    <p class="maindata">TOTAL <b>Encaissé</b></p>
+                    <h2><span class="animate-number" data-value="{{ $encaisse }}" data-duration="2000">0</span>€</h2>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="widget-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <i>{{ $encaisse }} € ont été encaissé</i> 
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
         </div>
-        <p>{{$encaisse}} € ont été encaissé par l'association</p>
+
     </div>
     <div class="col-md-3 col-sm-2 box0">
         <div class="box1">
