@@ -14,37 +14,6 @@ $projets = \App\Projet::where('agence_id', 0)->get();
 @endphp
         <!--  RIGHT SIDEBAR CONTENT -->
 <div class="col-lg-3 ds">
-    <!--COMPLETED ACTIONS DONUTS CHART-->
-    <h3>DERNIERS EVENEMENTS</h3>
-    <!-- First Action -->
-    @foreach ($events as $event)
-        @php
-        $now = \Carbon\Carbon::now();
-        $date = \Carbon\Carbon::createFromFormat('Y-m-d', $event->date);
-        $difference = $date->diffInDays($now, false);
-        @endphp
-        @if ($difference < 0)
-            <div class="desc" difference="{{ $difference }}">
-                <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                </div>
-                <div class="details">
-                    <p>
-                        <a href="{{ route('index.event') }}"><strong>{{ $event->title }}</strong></a>
-                        <br/>
-                        <muted>Prévu à la date : <strong>{{ $event->date }}</strong></muted>
-                        <br/>
-                    </p>
-                </div>
-            </div>
-        @endif
-    @endforeach
-    <div class="desc">
-        <p class="text-center">
-            <a href="{{ route('index.event') }}">Voir tous les Events</a>
-        </p>
-    </div>
-
     <!-- USERS ONLINE SECTION -->
     <h3>MEMBRES DE L'AGENCE</h3>
     @foreach($agence->users as $user)
