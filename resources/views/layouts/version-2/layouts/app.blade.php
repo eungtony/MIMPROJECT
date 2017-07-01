@@ -24,6 +24,7 @@
         <meta name="description" content="">
         <meta name="keywords" content="coco bootstrap template, coco admin, bootstrap,admin template, bootstrap admin,">
         <meta name="author" content="Huban Creative">
+        <meta name="csrf-token" content="{!! csrf_token() !!}">
 
         <!-- Base Css Files -->
         <link href="{{ asset('version-2/assets/libs/jqueryui/ui-lightness/jquery-ui-1.10.4.custom.min.css') }}" rel="stylesheet" />
@@ -154,6 +155,7 @@
 	<script src="{{ asset('version-2/assets/libs/pace/pace.min.js') }}"></script>
 	<script src="{{ asset('version-2/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 	<script src="{{ asset('version-2/assets/libs/jquery-icheck/icheck.min.js') }}"></script>
+    <script src="{{ asset('js/laravel.js') }}"></script>
 
 	<!-- Specific JS Libraries -->
 	<script src="{{ asset('version-2/assets/libs/prettify/prettify.js') }}"></script>
