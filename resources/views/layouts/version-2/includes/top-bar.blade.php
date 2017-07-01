@@ -33,34 +33,9 @@
         <div class="container">
             <div class="navbar-collapse2">
                 <ul class="nav navbar-nav navbar-right top-navbar">
-                    <li class="dropdown iconify hide-phone">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i><span class="label label-danger absolute">3</span></a>
-                        <ul class="dropdown-menu dropdown-message">
-                            <li class="dropdown-header notif-header"><i class="icon-mail-2"></i> New Messages</li>
-                            <li class="unread">
-                                <a href="#" class="clearfix">
-                                    <img src="{{ asset('version-2/images/users/chat/2.jpg') }}" class="xs-avatar ava-dropdown" alt="Avatar">
-                                    <strong>John Doe</strong><i class="pull-right msg-time">5 minutes ago</i><br />
-                                    <p>Duis autem vel eum iriure dolor in hendrerit ...</p>
-                                </a>
-                            </li>
-                            <li class="unread">
-                                <a href="#" class="clearfix">
-                                    <img src="{{ asset('version-2/images/users/chat/1.jpg') }}" class="xs-avatar ava-dropdown" alt="Avatar">
-                                    <strong>Sandra Kraken</strong><i class="pull-right msg-time">22 minutes ago</i><br />
-                                    <p>Duis autem vel eum iriure dolor in hendrerit ...</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="clearfix">
-                                    <img src="{{ asset('version-2/images/users/chat/3.jpg') }}" class="xs-avatar ava-dropdown" alt="Avatar">
-                                    <strong>Zoey Lombardo</strong><i class="pull-right msg-time">41 minutes ago</i><br />
-                                    <p>Duis autem vel eum iriure dolor in hendrerit ...</p>
-                                </a>
-                            </li>
-                            <li class="dropdown-footer"><div class=""><a href="#" class="btn btn-sm btn-block btn-primary"><i class="fa fa-share"></i> Voir tout les messages</a></div></li>
-                        </ul>
-                    </li>
+                    
+                    @include('layouts.version-2.includes.messages')
+
                     <li class="dropdown iconify hide-phone"><a href="#" onclick="javascript:toggle_fullscreen()"><i class="icon-resize-full-2"></i></a></li>
                     <li class="dropdown topbar-profile">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="rounded-image topbar-profile-image">

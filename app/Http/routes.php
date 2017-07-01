@@ -119,6 +119,4 @@ Route::group(['middleware' => ['restrict']], function () {
     Route::get('/add/tache/{id}/{idp}', 'tacheController@addForm')->name('form.add.tache');
 });
 
-Route::get('/issou', function() {
-	return view('layouts.version-2.troll.index');
-});
+Route::get('/issou', 'TrollController@issou');

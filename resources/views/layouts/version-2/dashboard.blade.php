@@ -41,6 +41,7 @@
 				</button>
 	        </a>
 		@endif
+		
 		@if($user_id == $cdp_id || Auth::user()->statut_id == 2)
 			<a href="#projet{{$agence->id}}" data-toggle="collapse" aria-expanded="false"
                aria-controls="#projet{{$agence->id}}" style="margin-bottom: 15px;">
