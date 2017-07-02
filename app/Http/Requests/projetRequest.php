@@ -25,8 +25,7 @@ class projetRequest extends Request
     {
         return [
             'nom' => 'required',
-            'commentaire' => 'required',
-            'total_heures' => 'required'
+            'commentaire' => 'required'
         ];
     }
 }
