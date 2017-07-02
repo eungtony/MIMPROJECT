@@ -1,9 +1,5 @@
 @extends('layouts.version-2.layouts.app')
 
-@php
-    $total = 0;
-@endphp
-
 @section('content')
 
     <div class="row mt">
@@ -12,6 +8,7 @@
                 <h2>Livret de compte de l'association
                     @if(Auth::user()->statut_id == 2)
                         <a href="#money" data-toggle="modal" class="btn btn-success">Ajouter un montant</a>
+                        @include('tresorerie.add')
                     @endif
                 </h2>
                 <table class="table">
@@ -37,9 +34,6 @@
                                     <span class="text-success">{{ $livret->montant }} €</span>
                                 @endif
                             </td>
-                            @php
-                                $total = $total + $livret->montant;
-                            @endphp
                             <td>
                                 {{$livret->created_at}}
                             </td>
@@ -67,15 +61,15 @@
         <div class="col-lg-8 col-lg-offset-2 panel">
             <div class="panel-content">
                 <hr>
-                <p><strong>SOLDE TOTAL : 
+                <p><strong>SOLDE TOTAL :
 
-                @if ($total <= 0)
+                        @if ($total_tres <= 0)
                     <span class="text-danger">
-                        {{ $total }} &euro;
+                        {{ $total_tres }} &euro;
                     </span>
                 @else 
                     <span class="text-success">
-                        {{ $total }} &euro;
+                        {{ $total_tres }} &euro;
                     </span>
                 @endif
 
