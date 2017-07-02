@@ -25,7 +25,7 @@ class agenceRequest extends Request
     {
         return [
             'nom' => 'required',
-            'user_id' => 'required'
+            'promo_id' => 'required'
         ];
     }
 }
