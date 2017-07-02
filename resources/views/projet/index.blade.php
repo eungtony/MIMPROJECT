@@ -27,7 +27,7 @@ if ($projet->total_heures > 0) {
     $heures = 100 * $heures_notees / $projet->total_heures;
 }
 ?>
-@extends('layouts.version-2.layouts.app')
+@extends('layouts.application')
 
 @section('content')
 
