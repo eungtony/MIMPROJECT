@@ -81,11 +81,12 @@ class agenceController extends Controller
         if ($this->auth->user()->statut_id == 1 || $this->auth->user()->statut_id == 2) {
             $cdp_user = User::where('poste_id', 1)->get();
             $agences = Agence::with('users')->get();
-            
+            $users = User::where('agence_id', NULL)->get();
+
             if ($this->auth->user()->version_used == 2) {
-                return view('layouts.version-2.supervisor.supervisor', compact('cdp_user', 'agences'));
+                return view('layouts.version-2.supervisor.supervisor', compact('cdp_user', 'agences', 'users'));
             } else {
-                return view('supervisor', compact('cdp_user', 'agences'));
+                return view('supervisor', compact('cdp_user', 'agences', 'users'));
             }
 
         } else {
