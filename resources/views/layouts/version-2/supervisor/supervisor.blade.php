@@ -14,6 +14,11 @@
                         <button class="btn btn-success btn-md">Ajouter une agence</button>
                     </a>
 
+                    <a href="#addpromo" data-toggle="collapse" aria-expanded="false"
+                       aria-controls="#addpromo">
+                        <button class="btn btn-success btn-md">Ajouter une promotion</button>
+                    </a>
+
                     <div class="collapse" id="addagence">
                         <form action="{{route('add.agence')}}" method="POST">
                             {{csrf_field()}}
@@ -25,11 +30,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="">
-                                    Choisissez le chef de projet
+                                    Choisir la promotion
                                 </label>
-                                <select class="form-control" name="user_id" id="">
-                                    @foreach($cdp_user as $user)
-                                        <option value="{{$user->id}}">{{$user->name}}</option>
+                                <select class="form-control" name="promo_id" id="">
+                                    @foreach($promotions as $promotion)
+                                        <option value="{{$promotion->id}}">{{$promotion->annee}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -41,20 +46,55 @@
                         </form>
                     </div>
 
-                    <hr>
-                    <h1>Liste des agences</h1>
-                    <hr>
+                    <!-- Formulaire ajout de promo -->
 
-                    @foreach($agences as $agence)
-                        <div class="col-md-3">
-                            <h3>{{$agence->nom}}</h3>
-                            @foreach($agence->users as $user)
-                                <p>
-                                    <a href="{{route('edit.user', $user->id)}}">{{$user->name}}</a>
-                                </p>
+                    <div class="collapse" id="addpromo">
+                        <form action="{{route('add.promo')}}" method="POST">
+                            {{csrf_field()}}
+                            <div class="form-group">
+                                <label for="">
+                                    Années de la promotion
+                                </label>
+                                <input class="form-control" type="text" name="annee">
+                            </div>
+                            <div class="form-group">
+                                <label for="">
+                                    Activer la promotion
+                                </label>
+                                <select class="form-control" name="active" id="">
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary">
+                                    Ajouter cette promotion
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <hr>
+                    <h1>Promotions</h1>
+
+                    @foreach($promotions as $promotion)
+                        <div class="col-md-12">
+                            <p>{{$promotion->annee}}</p>
+                            @foreach($agences as $agence)
+                                @if($promotion->id == $agence->promo_id)
+                                    <div class="col-md-3">
+                                        <h3>{{$agence->nom}}</h3>
+                                        @foreach($agence->users as $user)
+                                            <p>
+                                                <a href="{{route('edit.user', $user->id)}}">{{$user->name}}</a>
+                                            </p>
+                                        @endforeach
+                                    </div>
+                                @endif
                             @endforeach
                         </div>
                     @endforeach
+
                     <div class="row mt">
                         <div class="col-md-12">
                             <hr>
