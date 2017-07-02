@@ -41,29 +41,35 @@
                         </form>
                     </div>
 
-                        <hr>
-                        <h1>Liste des agences</h1>                        
-                        <hr>
+                    <hr>
+                    <h1>Liste des agences</h1>
+                    <hr>
 
-                        @foreach($agences as $agence)
-                            <div class="col-md-3">
-                                <h3>{{$agence->nom}}</h3>
-                                @foreach($agence->users as $user)
-                                    <p>
-                                        <a href="{{route('edit.user', $user->id)}}">{{$user->name}}</a>
-                                    </p>
-                                @endforeach
-                            </div>
-                        @endforeach
+                    @foreach($agences as $agence)
+                        <div class="col-md-3">
+                            <h3>{{$agence->nom}}</h3>
+                            @foreach($agence->users as $user)
+                                <p>
+                                    <a href="{{route('edit.user', $user->id)}}">{{$user->name}}</a>
+                                </p>
+                            @endforeach
+                        </div>
+                    @endforeach
                     <div class="row mt">
                         <div class="col-md-12">
                             <hr>
                             <h1>Membres sans agence</h1>
-                            @foreach($users as $user)
-                                <a href="{{route('edit.user', $user->id)}}">
-                                    {{ $user->name }}
-                                </a>
-                            @endforeach
+                            @if($users->isEmpty())
+                                <p class="alert alert-danger">
+                                    Tous les membres possèdent une agence !
+                                </p>
+                            @else
+                                @foreach($users as $user)
+                                    <a href="{{route('edit.user', $user->id)}}">
+                                        {{ $user->name }}
+                                    </a>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
