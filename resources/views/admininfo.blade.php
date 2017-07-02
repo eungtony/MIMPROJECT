@@ -71,12 +71,28 @@
         </div>
 
     </div>
+
     <div class="col-md-3 col-sm-2 box0">
-        <div class="box1">
-            <span class="li_shop" style="color:lightblue"></span>
-            <h3>{{$facturable}} €</h3>
+        <div class="widget green-1 animated fadeInDown">
+            <div class="widget-content padding">
+                <div class="widget-icon">
+                    <i class="icon-list"></i>
+                </div>
+                <div class="text-box">
+                    <p class="maindata">TOTAL <b>Projets facturés</b></p>
+                    <h2><span class="animate-number" data-value="{{ $facturable }}" data-duration="2000">0</span>€</h2>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="widget-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <i>{{ $facturable }}€ de projets facturés</i>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
         </div>
-        <p>{{$facturable}} € de projets facturables</p>
     </div>
 
 </div><!-- /row mt -->
