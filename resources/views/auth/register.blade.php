@@ -71,14 +71,6 @@
                     ?>
 
                     <div class="form-group">
-                        <select class="form-control" name="agence_id">
-                            @foreach($agences as $agence)
-                                <option value="{{$agence->id}}">{{$agence->nom}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="form-group">
                         <select class="form-control" name="poste_id">
                             @foreach($postes as $poste)
                                 <option value="{{$poste->id}}">{{$poste->nom}}</option>

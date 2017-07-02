@@ -241,7 +241,6 @@ class userController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'agence_id' => $data['agence_id'],
             'poste_id' => $data['poste_id'],
             'statut_id' => $data['statut_id'],
         ]);

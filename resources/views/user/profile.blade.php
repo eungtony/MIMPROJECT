@@ -17,7 +17,7 @@
                     
                     <div class="user-info">
                         <p>Appartient à l'agence <strong>{{$user->agence->nom}}</strong></p>
-                        <p>Et ocupe le poste de : <strong>{{$user->poste->nom}}</strong></p>
+                        <p>Et occupe le poste de : <strong>{{$user->poste->nom}}</strong></p>
                         <p><strong>Description :</strong></p>
                         <p>{{$user->description}}</p>
                     </div>

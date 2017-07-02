@@ -185,8 +185,11 @@
 
                 @foreach($agences as $agence)
                     <?php
+                    $cdp = 'None';
                     $cdp_id = $agence->user_id;
-                    $cdp = \App\User::findOrFail($cdp_id);
+                    if ($cdp_id != 0) {
+                        $cdp = \App\User::findOrFail($cdp_id);
+                    }
                     $encaisse = 0;
                     $facturable = 0;
                     foreach ($agence->projets as $projet) {
@@ -199,7 +202,7 @@
                             <a href="#agence{{$agence->id}}" data-parent="#accordion"
                                data-toggle="collapse">{{$agence->nom}}</a>
                             <span style="margin-right:30px; margin-left:30px;">
-                                Chef de projet: {{$cdp->name}}
+                                Chef de projet: @if($cdp == 'None') AUCUN @else {{$cdp->name}} @endif
                             </span>
                             <span class="btn btn-success">
                                 {{$encaisse}} €

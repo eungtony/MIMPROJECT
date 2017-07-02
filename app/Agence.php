@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Agence extends Model
 {
-    protected $fillable = ['nom', 'user_id'];
+    protected $fillable = ['nom', 'user_id', 'promo_id'];
 
     public function users(){
         return $this->hasMany('App\User');
@@ -22,6 +22,11 @@ class Agence extends Model
 
     public function file(){
         return $this->hasMany('App\File');
+    }
+
+    public function promos()
+    {
+        return $this->belongsTo('App\Promo');
     }
 
     public function commentaire()
