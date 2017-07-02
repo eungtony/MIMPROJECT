@@ -48,7 +48,7 @@
                 <li class='has_sub'><a href='javascript:void(0);'><i class='icon-user'></i><span>{{ Auth::user()->name }}</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
                     <ul>
                         <li><a href="{{ route('user') }}"><span>Profil</span></a></li>
-                        <!-- li><a href="{{ route('agence', Auth::user()->agence_id) }}"><span>Agence</span></a></li -->
+                        <li><a href="{{ route('agence', Auth::user()->agence_id) }}"><span>Mon Agence</span></a></li>
                     </ul>
                 </li>
                 <!-- Partie Administration -->
