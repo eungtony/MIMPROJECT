@@ -56,7 +56,6 @@
                     <li class='has_sub'><a href='javascript:void(0);'><i class='fa fa-cogs'></i><span>Adminitration</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
                         <ul class="sub">
                             <li><a href="{{ url('/supervisor') }}">Voir les Agences</a></li>
-                            <li><a href="{{ url('/users/validation') }}">Validation des comptes</a></li>
                             <li><a href="{{route('add.user')}}">Ajouter un compte</a></li>
                         </ul>
                     </li>
