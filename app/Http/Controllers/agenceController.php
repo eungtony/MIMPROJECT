@@ -6,6 +6,7 @@ use App\Agence;
 use App\Categorie;
 use App\Etape;
 use App\Message;
+use App\Promo;
 use App\Travail;
 use App\User;
 use Illuminate\Contracts\Auth\Guard;
@@ -49,7 +50,10 @@ class agenceController extends Controller
         }
         $agence = Agence::findOrFail($id);
         $cdp_id = $agence->user_id;
-        $cdp = User::findOrFail($cdp_id)->name;
+        $cdp = 'Aucun';
+        if ($cdp_id != 0) {
+            $cdp = User::findOrFail($cdp_id)->name;
+        }
         $users = User::where('agence_id', $id)->get();
         $total_etape = Etape::all()->count();
         $now = \Carbon\Carbon::now();
@@ -82,11 +86,12 @@ class agenceController extends Controller
             $cdp_user = User::where('poste_id', 1)->get();
             $agences = Agence::with('users')->get();
             $users = User::where('agence_id', NULL)->get();
+            $promotions = Promo::with('agences')->get();
 
             if ($this->auth->user()->version_used == 2) {
-                return view('layouts.version-2.supervisor.supervisor', compact('cdp_user', 'agences', 'users'));
+                return view('layouts.version-2.supervisor.supervisor', compact('cdp_user', 'agences', 'users', 'promotions'));
             } else {
-                return view('supervisor', compact('cdp_user', 'agences', 'users'));
+                return view('supervisor', compact('cdp_user', 'agences', 'users', 'promotions'));
             }
 
         } else {
