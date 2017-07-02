@@ -9,6 +9,7 @@ use App\Etape;
 use App\Http\Requests;
 use App\Message;
 use App\Projet;
+use App\Promo;
 use App\Travail;
 use App\Tresorerie;
 use App\User;
@@ -45,6 +46,7 @@ class HomeController extends Controller
         $total_etape = Etape::all()->count();
         //
         $taches = Travail::where('user_id', $this->auth->user()->id)->get();
+        $activePromo = Promo::where('active', 1)->limit(1)->get();
 
         if ($request->only('sort')['sort'] == 'date') {
             //
@@ -129,9 +131,8 @@ class HomeController extends Controller
                 ));
             }
         }
-
         //
-        $agences = Agence::all();
+        $agences = Agence::where('promo_id', $activePromo[0]->id)->get();
         //
         $agences->load('projets', 'users');
         //
@@ -208,13 +209,20 @@ class HomeController extends Controller
     public function livret()
     {
         $livrets = Tresorerie::orderBy('id', 'desc')->paginate(10);
+        $tresoreries = Tresorerie::all();
+        //
+        $total_tres = 0;
+
+        foreach ($tresoreries as $tresorery) {
+            $total_tres = $total_tres + $tresorery->montant;
+        }
         //
         if (Auth::user()->version_used == 2) {
             //
-            return view('layouts.version-2.tresorerie.livret', compact('livrets'));
+            return view('layouts.version-2.tresorerie.livret', compact('livrets', 'total_tres'));
         } else {
             //
-            return view('tresorerie.livret', compact('livrets'));
+            return view('tresorerie.livret', compact('livrets', 'total_tres'));
         }
     }
 
