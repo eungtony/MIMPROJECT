@@ -41,20 +41,22 @@
                         </form>
                     </div>
 
-                        <hr>
-                        <h1>Liste des agences</h1>                        
-                        <hr>
+                    <hr>
+                    <h1>Liste des agences</h1>
+                    <hr>
 
-                        @foreach($agences as $agence)
-                            <div class="col-md-3">
-                                <h3>{{$agence->nom}}</h3>
-                                @foreach($agence->users as $user)
-                                    <p>
-                                        <a href="{{route('edit.user', $user->id)}}">{{$user->name}}</a>
-                                    </p>
-                                @endforeach
-                            </div>
-                        @endforeach
+                    @foreach($agences as $agence)
+                        <div class="col-md-3">
+                            <h3>{{$agence->nom}}</h3>
+                            @foreach($agence->users as $user)
+                                <p>
+                                    <a href="{{route('edit.user', $user->id)}}">{{$user->name}}</a>
+                                </p>
+                            @endforeach
+                        </div>
+                    @endforeach
+
+                    <hr>
 
                 </div>
             </div>
