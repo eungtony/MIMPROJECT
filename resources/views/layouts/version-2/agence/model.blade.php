@@ -76,6 +76,10 @@
                         @endforeach
                     </ul>
                 </div>
+            @else
+                <div class="alert alert-danger">
+                    Aucun membre.
+                </div>
             @endif
         <!-- Visite de la page d'une autre agence -->
 
