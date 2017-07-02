@@ -252,7 +252,6 @@
                                                 $totalTask = \App\Travail::where('projet_id',
                                                 $projet->id)->get()->count();
                                                 @endphp
-
                                                 @if($taskDone != $totalTask)
                                                     <div class="table-responsive">
                                                         <table data-sortable class="table">

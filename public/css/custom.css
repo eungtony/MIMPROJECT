@@ -210,3 +210,7 @@ div.event-panel p.description { min-height: 95px; }
 #addagence {
   padding: 15px;
 }
+
+div.padding {
+  padding: 15px !important;
+}

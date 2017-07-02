@@ -53,16 +53,18 @@
                                     <i class="fa fa-user"></i>
                                     A propos </a>
                                 </li>
-                                <li id="parameters-panel">
-                                    <a href="#" id="parameters">
-                                    <i class="fa fa-cogs"></i>
-                                    Paramètres</a>
-                                </li>
-                                <li id="taches-panel">
-                                    <a href="#" id="taches">
-                                    <i class="fa fa-check"></i>
-                                    Tâches </a>
-                                </li>
+                                @if (Auth::user()->id == $user->id)
+                                    <li id="parameters-panel">
+                                        <a href="#" id="parameters">
+                                        <i class="fa fa-cogs"></i>
+                                        Paramètres</a>
+                                    </li>
+                                    <li id="taches-panel">
+                                        <a href="#" id="taches">
+                                        <i class="fa fa-check"></i>
+                                        Tâches </a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                         <!-- END MENU -->
@@ -82,6 +84,7 @@
                             @endif
                         </div>
                         
+                        @if (Auth::user()->id == $user->id)
                         <div id="taches-content" style="display: none;">
                             <h3>Mes tâches</h3>
                             <table class="table table-striped">
@@ -125,6 +128,7 @@
                             </tbody>
                             </table>
                         </div>
+                        @endif
                         
                         <div id="parameters-content" style="display: none;">
 
