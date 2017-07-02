@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Auth;
 
 class projetController extends Controller
 {
@@ -52,7 +53,12 @@ class projetController extends Controller
         $etapes = Etape::all();
         $categories = Categorie::all();
         $total_etape = Etape::all()->count();
-        return view('projet.index', compact('id', 'categories', 'ida', 'cdp_id', 'projet', 'taches', 'done', 'total', 'users', 'etapes', 'total_etape'));
+
+        if (Auth::user()->version_used == 2) {
+            return view('layouts.version-2.projet.index', compact('id', 'categories', 'ida', 'cdp_id', 'projet', 'taches', 'done', 'total', 'users', 'etapes', 'total_etape'));
+        } else {
+            return view('projet.index', compact('id', 'categories', 'ida', 'cdp_id', 'projet', 'taches', 'done', 'total', 'users', 'etapes', 'total_etape'));
+        }
     }
 
     /**
