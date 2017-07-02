@@ -55,7 +55,17 @@
                                 @endforeach
                             </div>
                         @endforeach
-
+                    <div class="row mt">
+                        <div class="col-md-12">
+                            <hr>
+                            <h1>Membres sans agence</h1>
+                            @foreach($users as $user)
+                                <a href="{{route('edit.user', $user->id)}}">
+                                    {{ $user->name }}
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
