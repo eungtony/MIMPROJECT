@@ -26,7 +26,7 @@
 
                     @include('agence.message')
 
-                    @include('projet.add')
+                    @include('layouts.version-2.projet.add')
 
                     @include('agence.edit')
 
@@ -144,7 +144,6 @@
                         Aucun projet n'a été crée !
                     </p>
                 @else
-
                     @foreach ($projets as $projet)
                         @php
                         $taches = \App\Travail::where('projet_id', $projet->id)->orderBy('id', 'desc')->get();
