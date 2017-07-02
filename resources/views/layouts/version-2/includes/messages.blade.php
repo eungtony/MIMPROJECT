@@ -17,7 +17,23 @@
 @endphp
 
 <li class="dropdown iconify hide-phone">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i><span class="label label-danger absolute">3</span></a>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i><span class="label label-danger absolute">
+        
+        @php
+            $count = 0;
+            foreach ($notifs as $notif) {
+                if ($notif->type == 'team' && $notif->to == Auth::user()->agence_id) {
+                    $count++;
+                } elseif ($notif->type == 'personal' && $notif->to == Auth::user()->id) {
+                    $count++;
+                } elseif ($notif->type == 'global') {
+                    $count++;
+                }
+            }
+            echo $count;
+        @endphp
+
+    </span></a>
     <ul class="dropdown-menu dropdown-message">
         <li class="dropdown-header notif-header"><i class="icon-mail-2"></i> Vos Messages</li>
         
@@ -65,7 +81,9 @@
 
         <li class="dropdown-footer">
             <div class="">
-                <a href="#" class="btn btn-sm btn-block btn-primary"><i class="fa fa-share"></i> Voir tout les messages</a>
+                <a href="{{ route('show.notif.all') }}" class="btn btn-sm btn-block btn-primary">
+                    <i class="fa fa-share"></i> Voir tout les messages
+                </a>
             </div>
         </li>
     </ul>

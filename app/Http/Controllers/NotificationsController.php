@@ -111,8 +111,14 @@ class NotificationsController extends Controller
         $notifs = Notifications::get();
         // On recupère les utilisateurs
         $users = User::get();
-        // Puis on retourne la vue adéquat
-        return view('notif.show', ['notifs' => $notifs, 'users' => $users]);
+
+        if (Auth::user()->version_used == 2) {
+            // Puis on retourne la vue adéquat
+            return view('layouts.version-2.notif.show', ['notifs' => $notifs, 'users' => $users]);
+        } else {
+            // Puis on retourne la vue adéquat
+            return view('notif.show', ['notifs' => $notifs, 'users' => $users]);
+        }
     }
 
     /**

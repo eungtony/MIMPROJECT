@@ -28,7 +28,7 @@
                     <!-- On verifie que les noifications sont destinées à l'utilisateur ou son équipe -->
                     @if ($notif->type == 'team' && $notif->to == Auth::user()->agence_id)
                         <div class="col-lg-6">
-                            <div class="content-panel notif-panel" style="padding: 8px;">
+                            <div class="widget content-panel notif-panel" style="padding: 8px;">
                                 <div class="block">
                                     <div class="notif-avatar">
                                         <img alt="avatar" src="{{ asset('avatars/'.$user_id.'.'.$user_extension) }}" class="img-circle" style="max-width: 50px;">
@@ -52,7 +52,7 @@
                     <!-- On verifie que les notifications sont destinées personnellement à l'utilsateur -->
                     @elseif($notif->type == 'personal' && $notif->to == Auth::user()->id)
                         <div class="col-lg-6">
-                            <div class="content-panel notif-panel" style="padding: 8px;">
+                            <div class="widget content-panel notif-panel" style="padding: 8px;">
                                 <div class="block">
                                     <div class="notif-avatar">
                                         <img alt="avatar" src="{{ asset('avatars/'.$user_id.'.'.$user_extension) }}" class="img-circle" style="max-width: 50px;">
@@ -76,7 +76,7 @@
                     <!-- On verifie si les notifications sont pour tout le monde -->
                     @elseif($notif->type == 'global')
                         <div class="col-lg-6">
-                            <div class="content-panel notif-panel" style="padding: 8px;">
+                            <div class="widget content-panel notif-panel" style="padding: 8px;">
                                 <div class="block">
                                     <div class="notif-avatar">
                                         <img alt="avatar" src="{{ asset('avatars/'.$user_id.'.'.$user_extension) }}" class="img-circle" style="max-width: 50px;">
