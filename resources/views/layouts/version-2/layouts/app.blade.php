@@ -96,7 +96,7 @@
         <div class="content">
 
         	@yield('modals')
-        
+			@include('flash')
             @yield('content')
 		
 			<!-- Footer Start -->
