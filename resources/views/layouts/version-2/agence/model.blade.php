@@ -241,7 +241,6 @@
                                                 $totalTask = \App\Travail::where('projet_id', $projet->id)->get()->count();
                                             @endphp
 
-                                            @if($taskDone != $totalTask)
                                             <div class="table-responsive">
                                                 <table data-sortable class="table">
                                                     <thead>
@@ -253,7 +252,6 @@
                                                             <th>Attribué à</th>
                                                             <th>Type</th>
                                                             <th>Délai</th>
-                                                            <th data-sortable="false">Option</th>
                                                         </tr>
                                                     </thead>
                                                     @foreach($taches as $tache)
@@ -287,17 +285,10 @@
                                                                     -
                                                                 @endif
                                                             </td>
-                                                            <td>
-                                                                <div class="btn-group btn-group-xs">
-                                                                    <a data-toggle="tooltip" title="Off" class="btn btn-default"><i class="fa fa-power-off"></i></a>
-                                                                    <a data-toggle="tooltip" title="Edit" class="btn btn-default"><i class="fa fa-edit"></i></a>
-                                                                </div>
-                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </table>
                                             </div>
-                                            @endif
                                         </div>
                                     </div>
                                 </div>
