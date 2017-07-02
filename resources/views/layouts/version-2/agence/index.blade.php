@@ -6,7 +6,7 @@
 		$members = \App\User::where('agence_id', $id)->get();
 	}
 	$ca_id = 1;
-	$projets = \App\Projet::where('agence_id', $id)->take(5)->get();
+$projets = \App\Projet::where('agence_id', $id)->get();
 	$now = \Carbon\Carbon::now();
 @endphp
 
