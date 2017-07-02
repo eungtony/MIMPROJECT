@@ -106,6 +106,9 @@ Route::post('/devis/valide/{devisid?}', 'DevisController@valideDevis')->name('va
 Route::post('/devis/devalide/{devisid?}', 'DevisController@devalideDevis')->name('devalide.devis')->where(['devisid' => '[0-9]+']);
 Route::post('/devis/valide/cp/{devisid?}/', 'DevisController@cpValideDevis')->name('cp.valide.devis')->where(['devisid' => '[0-9]+']);
 
+//Promo
+Route::post('/promo/add', 'PromoController@store')->name('add.promo');
+
 Route::group(['middleware' => ['restrict']], function () {
 //Agence
     Route::get('/agence/edit/{id}', 'agenceController@editForm')->name('edit.form.agence');
