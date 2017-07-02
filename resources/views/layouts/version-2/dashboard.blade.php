@@ -281,9 +281,20 @@
 								<li>
 									<a href="{{ route('projet', [$projet->agence_id, $projet->id]) }}">Détails du projet</a>
 								</li>
-								<li><a href="#">Editer projet</a></li>
-								<li class="divider"></li>
-								<li><a href="#">Supprimer projet</a></li>
+								 @if($user_id == $cdp_id)
+                                    <a class="btn btn-primary btn-xs" style="margin-bottom: 15px;margin-left: 20px;"
+                                       href="#edit{{$projet->id}}" data-toggle="modal"
+                                       aria-controls="#edit{{$projet->id}}">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-danger btn-xs" style="margin-bottom: 15px;"
+                                       href="{{ route('projet.destroy', [$agence->id, $projet->id]) }}"
+                                       data-method="delete"
+                                       data-confirm="Voulez-vous réellement supprimer ce projet ?">
+                                        <i class="fa fa-trash-o "></i>
+                                    </a>
+                                    @include('projet.edit')
+                                @endif
 							  </ul>
 							 <a href="#" class="widget-popout hidden tt" title="Pop Out/In"><i class="icon-publish"></i></a>
 							<a href="#" class="widget-maximize hidden"><i class="icon-resize-full-1"></i></a>
@@ -323,7 +334,13 @@
 											<hr>
 										</div>
 										<div class="title">
-											<h4>Tâches relatives au projet :</h4>
+											<h4>Tâches relatives au projet :
+												@if($user_id == $cdp_id)
+						                            <a href="#addtask{{$projet->id}}" data-toggle="modal"
+						                               data-target="#addtask{{$projet->id}}"
+						                               class="btn btn-warning btn-xs">Ajouter une tache</a>
+						                        @endif
+											</h4>
 											<hr>
 										</div>
 
@@ -333,7 +350,6 @@
                     						$totalTask = \App\Travail::where('projet_id', $projet->id)->get()->count();
 										@endphp
 
-										@if($taskDone != $totalTask)
 										<div class="table-responsive">
 											<table data-sortable class="table">
 												<thead>
@@ -380,22 +396,57 @@
 															@endif
 														</td>
 														<td>
-															<div class="btn-group btn-group-xs">
-																<a data-toggle="tooltip" title="Off" class="btn btn-default"><i class="fa fa-power-off"></i></a>
-																<a data-toggle="tooltip" title="Edit" class="btn btn-default"><i class="fa fa-edit"></i></a>
-															</div>
+														@if($user_id == $cdp_id || $statut_id == $ca_id)
+										                    <div class="pull-right hidden-phone">
+										                        <form action="
+										                         @if($tache->fait == 0)
+										                        {{route('check.tache')}}
+										                        @else
+										                        {{route('uncheck.tache')}}
+										                        @endif
+										                                " method="POST">
+										                            {{csrf_field()}}
+										                            <input type="hidden" name="id"
+										                                   value="{{$tache->id}}">
+										                            @if($tache->fait == 0)
+										                                <button type="submit"
+										                                        class="btn btn-success btn-xs"><i
+										                                            class=" fa fa-check"
+										                                            onclick="confirm('Cette tâche a bien été réalisé ?')"></i>
+										                                </button>
+										                            @else
+										                                <button type="submit"
+										                                        class="btn btn-danger btn-xs"><i
+										                                            class="fa fa-check"
+										                                            onclick="confirm('Remettre cette tâche a réalisé ?')"></i>
+										                                </button>
+										                            @endif
+										                            <a href="#tache{{$tache->id}}"
+										                               class="btn btn-primary btn-xs"
+										                               data-toggle="modal"
+										                               aria-controls="#tache{{$tache->id}}"><i
+										                                        class="fa fa-pencil"></i></a>
+										                            <a href="{{action('tacheController@destroy', $tache->id)}}"
+										                               data-method="delete"
+										                               data-confirm="Souhaitez-vous réellement supprimer cette tâche ?"
+										                               class="btn btn-danger btn-xs"><i
+										                                        class="fa fa-trash-o "></i></a>
+										                        </form>
+										                    </div>
+										                @endif
 														</td>
 													</tr>
 	                        					@endforeach
 	                        				</table>
 	                        			</div>
-                        				@endif
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+
+				@include('tache.add')
 
         	@endforeach
 

@@ -67,7 +67,12 @@ class userController extends Controller
     {
         $user = User::findOrFail($id);
         $user->load('statut', 'poste', 'agence');
-        return view('user.profile', compact('user'));
+        
+        if (Auth::user()->version_used == 2) {
+            return view('layouts.version-2.users.profile', compact('user'));
+        } else {
+            return view('user.profile', compact('user'));
+        }
     }
 
     /**
