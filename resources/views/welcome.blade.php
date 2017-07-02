@@ -170,11 +170,6 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="">Total heures requis</label><br>
-                                <input class="form-control" type="number" name="total_heures">
-                            </div>
-
-                            <div class="form-group">
                                 <button type="submit" class="btn btn-primary">
                                     Ajouter le projet
                                 </button>
