@@ -128,8 +128,8 @@
                                             $devisTitle = $agence->nom;
                                             ?>
                                             <tr>
-                                                <!--td>{#$devis->projet->nom#}</td -->
-                                                <!--td>{#substr($devis->projet->commentaire, 0, 50)#}</td -->
+                                                <td>{{$devis->projet->nom}}</td>
+                                                <td>{{substr($devis->projet->commentaire, 0, 50)}}</td>
                                                 <td>{{$devisTitle}}</td>
                                                 <td>
                                                     <a href="{{route('projet', [$devis->agence_id, $devis->projet_id])}}#devis"
