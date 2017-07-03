@@ -100,15 +100,17 @@
 
                                     @if(!$files->isEmpty())
                                         @foreach($files as $file)
-                                            <a href="{{app_path()}}/{{$agence->id}}/{{$file->name}}.{{$file->extension}}"
-                                               download="{{$file->titre}}">
-                                                {{$file->titre}}
-                                            </a>
-                                            <a href="#editFile{{$file->id}}" data-toggle="collapse"
-                                               class="btn btn-primary btn-xs">Modifier
-                                                le fichier</a>
-                                            @if($user_id == $cdp_id)
-                                                @include('agence.editFile')
+                                            <p>
+                                                <a href="{{app_path()}}/{{$agence->id}}/{{$file->name}}.{{$file->extension}}"
+                                                   download="{{$file->titre}}">
+                                                    {{$file->titre}}
+                                                </a>
+                                                @if($user_id == $cdp_id)
+                                                    <a href="#editFile{{$file->id}}" data-toggle="collapse"
+                                                       class="btn btn-primary btn-xs">Modifier
+                                                        le fichier</a>
+                                            </p>
+                                            @include('agence.editFile')
                                             @endif
                                         @endforeach
                                     @else
@@ -202,10 +204,6 @@
                                             <div class="clearfix"></div>
                                             <div style="padding: 15px;">
                                                 @if($user_id == $cdp_id)
-                                                    <a href="#addtask{{$projet->id}}" data-toggle="modal"
-                                                       data-target="#addtask{{$projet->id}}"
-                                                       class="btn btn-success btn-xs" style="margin-bottom: 15px;">Ajouter
-                                                        une tache</a>
                                                     <a class="btn btn-primary btn-xs"
                                                        style="margin-bottom: 15px;margin-left: 20px;"
                                                        href="#edit{{$projet->id}}" data-toggle="modal"
@@ -216,7 +214,6 @@
                                                        data-confirm="Voulez-vous réellement supprimer ce projet ?">Supprimer
                                                         projet</a>
                                                     @include('projet.edit')
-                                                    @include('tache.add')
                                                 @endif
                                                 <div class="title">
                                                     <h4>Description du projet :</h4>
@@ -241,7 +238,15 @@
                                                     <hr>
                                                 </div>
                                                 <div class="title">
-                                                    <h4>Tâches relatives au projet :</h4>
+                                                    <h4>Tâches relatives au projet :
+                                                        @if($user_id == $cdp_id)
+                                                            <a href="#addtask{{$projet->id}}" data-toggle="modal"
+                                                               data-target="#addtask{{$projet->id}}"
+                                                               class="btn btn-warning btn-xs">
+                                                                Ajouter une tache</a>
+                                                            @include('tache.add')
+                                                        @endif
+                                                    </h4>
                                                     <hr>
                                                 </div>
 
@@ -301,6 +306,31 @@
                                                                     </td>
                                                                     @if($user_id == $cdp_id)
                                                                         <td>
+                                                                            <form action="
+										                         @if($tache->fait == 0)
+                                                                            {{route('check.tache')}}
+                                                                            @else
+                                                                            {{route('uncheck.tache')}}
+                                                                            @endif
+                                                                                    " method="POST">
+                                                                                {{csrf_field()}}
+                                                                                <input type="hidden" name="id"
+                                                                                       value="{{$tache->id}}">
+                                                                                @if($tache->fait == 0)
+                                                                                    <button type="submit"
+                                                                                            class="btn btn-success btn-xs">
+                                                                                        <i
+                                                                                                class=" fa fa-check"
+                                                                                                onclick="confirm('Cette tâche a bien été réalisé ?')"></i>
+                                                                                    </button>
+                                                                                @else
+                                                                                    <button type="submit"
+                                                                                            class="btn btn-danger btn-xs">
+                                                                                        <i
+                                                                                                class="fa fa-check"
+                                                                                                onclick="confirm('Remettre cette tâche a réalisé ?')"></i>
+                                                                                    </button>
+                                                                                @endif
                                                                             <div class="btn-group btn-group-xs">
                                                                                 <a href="{{action('tacheController@destroy', $tache->id)}}"
                                                                                    data-method="delete"
