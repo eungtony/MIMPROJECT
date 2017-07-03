@@ -306,7 +306,7 @@
                                                                                    data-method="delete"
                                                                                    data-confirm="Souhaitez-vous réellement supprimer cette tâche ?"
                                                                                    class="btn btn-danger btn-xs"><i
-                                                                                            class="fa fa-power-off"></i></a>
+                                                                                            class="fa fa-trash"></i></a>
                                                                                 <a href="#tache{{$tache->id}}"
                                                                                    class="btn btn-primary btn-xs"
                                                                                    data-toggle="modal"
