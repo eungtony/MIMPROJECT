@@ -49,32 +49,25 @@
                     <div class="col-lg-12">
                         <h3 class="text-center">Membres de l'agence</h3>
                     </div>
+                    <div class="col-md-10 col-md-offset-1">
                     @foreach ($members as $member)
-                        <div class="col-lg-4 col-md-6 col-sm-12l">
-                            <div class="panel member-panel mt">
-                                <div class="panel-header">
-                                    &nbsp;
-                                </div>
-                                <div class="panel-content">
-                                    <p>
-                                        @if($member->avatar == 0)
-                                            <img src="{{ asset('avatars/user.png') }}" class="img-circle" width="60">
-                                        @else
-                                            <img src="{{ asset('avatars/'.$member->id.'.'.$member->extension) }}"
-                                                 class="img-circle" width="60">
-                                        @endif
-                                    </p>
-                                    <p>
-                                        <a href="{{ route('profile', $member->id) }}">
-                                            <strong>{{ $member->name }}</strong>
-                                        </a>
-                                    </p>
-                                    <p class="description">{{ $member->description }}</p>
-                                </div>
+                            <div class="col-md-4 text-center">
+                                <p>
+                                    @if($member->avatar == 0)
+                                        <img src="{{ asset('avatars/user.png') }}" class="img-circle" width="60">
+                                    @else
+                                        <img src="{{ asset('avatars/'.$member->id.'.'.$member->extension) }}"
+                                             class="img-circle" width="60">
+                                    @endif
+                                </p>
+                                <p>
+                                    <a href="{{ route('profile', $member->id) }}">
+                                        <strong>{{ $member->name }}</strong>
+                                    </a>
+                                </p>
                             </div>
-                        </div>
                         @endforeach
-                        </ul>
+                    </div>
                 </div>
             @else
                 <div class="alert alert-danger">
