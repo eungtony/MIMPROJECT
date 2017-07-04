@@ -67,11 +67,16 @@ class userController extends Controller
     {
         $user = User::findOrFail($id);
         $user->load('statut', 'poste', 'agence');
+        $taches = Travail::where('user_id', $id)
+            ->with('projet', 'categorie')
+            ->where('fait', 0)
+            ->get();
+        $now = \Carbon\Carbon::now();
         
         if (Auth::user()->version_used == 2) {
-            return view('layouts.version-2.users.profile', compact('user'));
+            return view('layouts.version-2.users.profile', compact('user', 'taches', 'now'));
         } else {
-            return view('user.profile', compact('user'));
+            return view('user.profile', compact('user', 'taches', 'now'));
         }
     }
 
