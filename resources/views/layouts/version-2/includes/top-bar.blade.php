@@ -22,7 +22,7 @@
 <div class="topbar">
     <div class="topbar-left">
         <div class="logo">
-            <h1><a href="#"><img src="{{ asset('version-2/assets/img/logo.png') }}" alt="Logo"></a></h1>
+            <h1><a href="{{url('/')}}"><img src="{{ asset('version-2/assets/img/logo.png') }}" alt="Logo"></a></h1>
         </div>
         <button class="button-menu-mobile open-left">
         <i class="fa fa-bars"></i>
