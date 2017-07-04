@@ -131,8 +131,11 @@ class HomeController extends Controller
                 ));
             }
         }
-        //
-        $agences = Agence::where('promo_id', $activePromo[0]->id)->get();
+        if ($activePromo->isEmpty()) {
+            $agences = Agence::where('promo_id', 0)->get();
+        } else {
+            $agences = Agence::where('promo_id', $activePromo[0]->id)->get();
+        }
         //
         $agences->load('projets', 'users');
         //
