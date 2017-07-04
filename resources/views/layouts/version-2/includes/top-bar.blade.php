@@ -33,8 +33,9 @@
         <div class="container">
             <div class="navbar-collapse2">
                 <ul class="nav navbar-nav navbar-right top-navbar">
-                    
+
                     @include('layouts.version-2.includes.messages')
+                    @include('layouts.version-2.includes.tasks')
 
                     <li class="dropdown iconify hide-phone"><a href="#" onclick="javascript:toggle_fullscreen()"><i class="icon-resize-full-2"></i></a></li>
                     <li class="dropdown topbar-profile">
