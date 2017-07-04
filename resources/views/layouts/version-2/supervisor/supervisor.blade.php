@@ -79,19 +79,41 @@
 
                     @foreach($promotions as $promotion)
                         <div class="col-md-12">
-                            <p>{{$promotion->annee}}</p>
-                            @foreach($agences as $agence)
-                                @if($promotion->id == $agence->promo_id)
-                                    <div class="col-md-3">
-                                        <h3>{{$agence->nom}}</h3>
-                                        @foreach($agence->users as $user)
-                                            <p>
-                                                <a href="{{route('edit.user', $user->id)}}">{{$user->name}}</a>
-                                            </p>
-                                        @endforeach
-                                    </div>
+                            <h2>
+                                <a href="#promo{{$promotion->id}}"
+                                   data-toggle="collapse" aria-expanded="false"
+                                   aria-controls="#promo{{$promotion->id}}">
+                                    {{$promotion->annee}}@if($promotion->active == 1) <strong>Promotion
+                                        active</strong>@endif
+                                </a>
+                            </h2>
+                            <div class="collapse" id="promo{{$promotion->id}}">
+                                @if($promotion->active == 1)
+                                    <form action="{{route('unactive.promo', $promotion->id)}}" method="POST">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="active" value="0">
+                                        <button type="submit" class="btn btn-danger">Désactiver la promotion</button>
+                                    </form>
+                                @else
+                                    <form action="{{route('active.promo', $promotion->id)}}" method="POST">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="active" value="1">
+                                        <button type="submit" class="btn btn-success">Activer la promotion</button>
+                                    </form>
                                 @endif
-                            @endforeach
+                                @foreach($agences as $agence)
+                                    @if($promotion->id == $agence->promo_id)
+                                        <div class="col-md-3">
+                                            <h3>{{$agence->nom}}</h3>
+                                            @foreach($agence->users as $user)
+                                                <p>
+                                                    <a href="{{route('edit.user', $user->id)}}">{{$user->name}}</a>
+                                                </p>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
                         </div>
                     @endforeach
 
