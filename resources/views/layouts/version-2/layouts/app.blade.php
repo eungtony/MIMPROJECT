@@ -166,8 +166,21 @@ $agences = \App\Agence::where('promo_id', $promo_id[0]->id)->get();
 	<script src="{{ asset('version-2/assets/libs/prettify/prettify.js') }}"></script>
 
 	<script src="{{ asset('version-2/assets/js/init.js') }}"></script>
+    <script src="{{ asset('summernote/summernote.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.js') }}"></script>
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+            $("#calendar").datepicker({dateFormat: 'yy-mm-dd'});
+            $("#another").datepicker({dateFormat: 'yy-mm-dd'});
+            $('#summernote').summernote({
+                height: 300,
+                lang: 'fr-FR',
+            });
+        });
+    </script>
 
-	@yield('scripts')
+    @yield('scripts')
 
 	</body>
 </html>
