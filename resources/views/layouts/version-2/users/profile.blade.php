@@ -1,4 +1,4 @@
-@extends('layouts.version-2.layouts.app')
+@extends('layouts.version-2.layouts.app')s
 
 @section('content')
     <div class="row mt">
@@ -13,12 +13,12 @@
                                 @if($user->avatar != 0)
                                     <p>
                                         <img src="{{asset('/avatars/'.$user->id.'.'.$user->extension)}}" class="img-circle img-responsive img-profile"
-                                         alt="Image de profil" width="100px">
+                                             alt="Image de profil" height="100" width="100">
                                     </p>
                                 @else
                                     <p>
-                                        <img src="{{ asset('/avatars/user.png') }}" class="img-circle profile-img" width="100"
-                                         alt="Image de profil" width="100px">
+                                        <img src="{{ asset('/avatars/user.png') }}" class="img-circle profile-img"
+                                             alt="Image de profil" height="100" width="100">
                                     </p>
                                 @endif
                             </div>
@@ -48,21 +48,11 @@
                         <!-- SIDEBAR MENU -->
                         <div class="profile-usermenu">
                             <ul class="nav">
-                                <li class="active" id="apropos-panel">
-                                    <a href="#" id="apropos">
-                                    <i class="fa fa-user"></i>
-                                    A propos </a>
-                                </li>
                                 @if (Auth::user()->id == $user->id)
-                                    <li id="parameters-panel">
-                                        <a href="#" id="parameters">
-                                        <i class="fa fa-cogs"></i>
-                                        Paramètres</a>
-                                    </li>
                                     <li id="taches-panel">
                                         <a href="#" id="taches">
                                         <i class="fa fa-check"></i>
-                                        Tâches </a>
+                                            Mes tâches </a>
                                     </li>
                                 @endif
                             </ul>
@@ -72,41 +62,29 @@
                 </div>
                 <div class="col-md-6">
                     <div class="profile-content content-panel">
-                        
-                        <div id="apropos-content">
-                            <p style="font-size:24px">Description</p>
-                            <p>{{ $user->description }}</p>
-                            @if (Auth::user()->id == $user->id)
-                                <a href="#description" class="btn btn-success btn-sm" type="button" data-toggle="modal"
-                                data-target="#description">
-                                    <i class="fa fa-cogs fa-fw"></i> Modifier ma description
-                                </a>
-                            @endif
-                        </div>
-                        
-                        @if (Auth::user()->id == $user->id)
-                        <div id="taches-content" style="display: none;">
+
+                        <div id="taches-content">
                             <h3>Mes tâches</h3>
                             <table class="table table-striped">
-                            <thead>
-                              <tr>
-                                  <th>Titre</th>
-                                  <th>Catégorie</th>
-                                  <th>Projet associé</th>
-                                  <th>Deadline</th>
-                              </tr>
-                            </thead>
-                            <tbody>
+                                <thead>
+                                <tr>
+                                    <th>Titre</th>
+                                    <th>Catégorie</th>
+                                    <th>Projet associé</th>
+                                    <th>Deadline</th>
+                                </tr>
+                                </thead>
+                                <tbody>
                                 @foreach ($taches as $tache)
                                     @php
-                                        $date = \Carbon\Carbon::createFromFormat('Y-m-d', $tache->date);
-                                        $difference = ($date->diff($now)->days < 1) ? 'today' : $date->diffInDays($now);
+                                    $date = \Carbon\Carbon::createFromFormat('Y-m-d', $tache->date);
+                                    $difference = ($date->diff($now)->days < 1) ? 'today' : $date->diffInDays($now);
                                     @endphp
 
                                     <tr>
                                         <td>
                                             <a href="#voirtache{{$tache->id}}" data-toggle="modal">
-                                              {{$tache->titre}}
+                                                {{$tache->titre}}
                                             </a>
                                         </td>
                                         <td>
@@ -125,65 +103,9 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                            </tbody>
+                                </tbody>
                             </table>
                         </div>
-                        @endif
-                        
-                        <div id="parameters-content" style="display: none;">
-
-                            @php
-                                $postes = App\Poste::get();
-                                $statuts = App\Statut::get();
-                            @endphp
-
-                            <h3>Paramètres de compte</h3>
-                            
-                            <form action="{{ url('user/edit/parameters/' . $user->id) }}" method="POST">
-
-                                {{ csrf_field() }}
-
-                                <div class="form-group">
-                                    <label for="">Pseudo</label>
-                                    <input type="text" class="form-control" value="{{ $user->name }}" name="pseudo">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="">Status</label>
-                                    <select name="statut" id="" class="form-control">
-                                        @foreach ($statuts as $statut)
-                                            @if (Auth::user()->statut_id != 1 || Auth::user()->statut_id != 2)
-                                                @if ($statut->id != 1 && $statut->id != 2)
-                                                    <option value="{{ $statut->id }}">{{ $statut->titre }}</option>
-                                                @endif
-                                            @else 
-                                                <option value="{{ $statut->id }}">{{ $statut->titre }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="">Poste dans l'agence</label>
-                                    <select name="poste" id="" class="form-control">
-                                        @foreach ($postes as $poste)
-                                            <option value="{{ $poste->id }}">{{ $poste->nom }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <button class="btn btn-success btn-sm" type="submit">
-                                    <i class="fa fa-cogs fa-fw"></i> Valider Changements
-                                </button>
-
-                            </form>
-                        </div>
-
-                        <div id="help-content" style="display: none;">
-                            <h3>Aide</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae vitae, voluptatum amet eius esse sit praesentium similique tenetur accusamus deserunt, modi dignissimos debitis consequatur facere unde sint quasi quae architecto!</p>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -221,36 +143,4 @@
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="description" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    Modifier ma Description
-                </div>
-                <div class="modal-body text-center">
-
-                    <h3>Votre Description</h3>
-                    <form action="{{ url('user/description/' . $user->id) }}" method="POST">
-                        
-                        {{csrf_field()}}
-
-                         <div class="form-group">
-                            <textarea name="description" id="" cols="30" rows="10" class="form-control">
-                                {{ $user->description }}
-                            </textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <button class="btn btn-primary" type="submit">Modifier</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection
-
-@section('scripts')
-<script src="{{ asset('js/custom.js') }}"></script>
 @endsection
