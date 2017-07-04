@@ -42,6 +42,20 @@ class PromoController extends Controller
         return back()->with('success', 'La promotion a été ajouté !');
     }
 
+    public function active(Request $request, $id)
+    {
+        $data = $request->except('_token');
+        Promo::findOrFail($id)->update($data);
+        return back()->with('success', 'La promotion a bien été activé !');
+    }
+
+    public function unactive(Request $request, $id)
+    {
+        $data = $request->except('_token');
+        Promo::findOrFail($id)->update($data);
+        return back()->with('success', 'La promotion a bien été désactivé !');
+    }
+
     /**
      * Display the specified resource.
      *
