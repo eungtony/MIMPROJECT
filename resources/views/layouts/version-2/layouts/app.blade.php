@@ -5,7 +5,11 @@
         ->get();
 $promo_id = \App\Promo::where('active', 1)->limit(1)->get();
     // On recupère toutes les agences
+if($promo_id->isEmpty()){
+$agences = \App\Agence::where('promo_id', 0)->get();
+} else {
 $agences = \App\Agence::where('promo_id', $promo_id[0]->id)->get();
+}
 	// On recupère la date
 	$now = \Carbon\Carbon::now();
 	// On recupère l'agence de l'utilisateurs
