@@ -108,6 +108,8 @@ Route::post('/devis/valide/cp/{devisid?}/', 'DevisController@cpValideDevis')->na
 
 //Promo
 Route::post('/promo/add', 'PromoController@store')->name('add.promo');
+Route::post('/promo/active/{id}', 'PromoController@active')->name('active.promo');
+Route::post('/promo/unactive/{id}', 'PromoController@unactive')->name('unactive.promo');
 
 Route::group(['middleware' => ['restrict']], function () {
 //Agence
