@@ -320,6 +320,10 @@ $countNotif++;
                                         </div>
                                         <div class="clearfix"></div>
                                         <div style="padding: 15px;">
+                                            <a href="{{route('projet',[$projet->agence_id, $projet->id])}}"
+                                               class="btn btn-warning btn-xs" style="margin-bottom: 15px;">
+                                                Détail du projet
+                                            </a>
                                             @if($user_id == $cdp_id)
                                                 <a class="btn btn-primary btn-xs"
                                                    style="margin-bottom: 15px;margin-left: 20px;"
