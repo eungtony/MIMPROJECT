@@ -105,6 +105,17 @@
                                     @if($promotion->id == $agence->promo_id)
                                         <div class="col-md-3">
                                             <h3>{{$agence->nom}}</h3>
+                                            <form action="{{route('edit.promo', $agence->id)}}" method="POST">
+                                                {{csrf_field()}}
+                                                <select name="promo_id" id="">
+                                                    @foreach($promotions as $prom)
+                                                        <option value="{{$prom->id}}"
+                                                                @if($agence->promo_id == $prom->id) selected @endif>{{$prom->annee}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <button type="submit" class="btn btn-primary">Changer</button>
+                                            </form>
+                                            <hr>
                                             @foreach($agence->users as $user)
                                                 <p>
                                                     <a href="{{route('edit.user', $user->id)}}">{{$user->name}}</a>
