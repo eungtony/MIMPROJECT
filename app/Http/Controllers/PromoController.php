@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Agence;
 use App\Promo;
 use Illuminate\Http\Request;
 
@@ -75,7 +76,6 @@ class PromoController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -87,7 +87,10 @@ class PromoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->except('_token');
+        $agence = Agence::findOrFail($id);
+        $agence->update($data);
+        return back()->with('success', 'La promotion de l\'agence a été changé avec succès !');
     }
 
     /**
