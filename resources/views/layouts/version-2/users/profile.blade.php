@@ -12,13 +12,14 @@
                             <div class="text-center">
                                 @if($user->avatar != 0)
                                     <p>
-                                        <img src="{{asset('/avatars/'.$user->id.'.'.$user->extension)}}" class="img-circle img-responsive img-profile"
-                                             alt="Image de profil" height="100" width="100">
+                                        <img src="{{asset('/avatars/'.$user->id.'.'.$user->extension)}}"
+                                             class="img-circle"
+                                             alt="Image de profil" height="100">
                                     </p>
                                 @else
                                     <p>
-                                        <img src="{{ asset('/avatars/user.png') }}" class="img-circle profile-img"
-                                             alt="Image de profil" height="100" width="100">
+                                        <img src="{{ asset('/avatars/user.png') }}" class="img-circle"
+                                             alt="Image de profil" height="100">
                                     </p>
                                 @endif
                             </div>
