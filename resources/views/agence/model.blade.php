@@ -5,7 +5,7 @@
             <div class="text-center">
                 <h1>{{ $agence->nom }}</h1>
 
-                @if($user_id == $cdp_id || Auth::user()->statut_id == 2)
+                @if($user_id == $cdp_id || $statut_id == 2 || Auth::user()->statut_id == 2)
 
                     <a href="#agence{{$agence->id}}" class="btn btn-primary btn-xs"
                        data-toggle="collapse" aria-expanded="false"
@@ -94,7 +94,7 @@
                             </a>
                             <a href="#editFile{{$file->id}}" data-toggle="collapse" class="btn btn-primary btn-xs">Modifier
                                 le fichier</a>
-                            @if($user_id == $cdp_id)
+                            @if($user_id == $cdp_id || $statut_id == 2)
                                 @include('agence.editFile')
                             @endif
                         @endforeach
@@ -104,7 +104,7 @@
                     </span>
                     @endif
 
-                    @if($user_id == $cdp_id)
+                    @if($user_id == $cdp_id || $statut_id == 2)
                         <hr>
                         <a href="#file" class="btn btn-primary btn-sm"
                            data-toggle="collapse" aria-expanded="false"
@@ -180,7 +180,7 @@
                                     <a href="{{route('projet', [$projet->agence_id, $projet->id])}}"
                                        class="btn btn-success btn-xs"
                                        style="margin-bottom: 15px;margin-left: 20px;">Détail du projet</a>
-                                    @if($user_id == $cdp_id)
+                                    @if($user_id == $cdp_id || $statut_id == 2)
                                         <a class="btn btn-primary btn-xs" style="margin-bottom: 15px;margin-left: 20px;"
                                            href="#edit{{$projet->id}}" data-toggle="modal"
                                            aria-controls="#edit{{$projet->id}}">
