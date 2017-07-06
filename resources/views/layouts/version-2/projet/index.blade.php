@@ -39,7 +39,7 @@
                 <div class="widget" style="padding: 15px !important;">
                     <h1>
                         {{$projet->nom}}
-                        @if($user_id == $cdp_id)
+                        @if($user_id == $cdp_id || $statut_id == 2)
                             <a href="#edit{{$projet->id}}" data-toggle="modal" data-target="#edit{{$projet->id}}"
                                class="btn btn-primary btn-sm">
                                 <i class="fa fa-pencil fa-fw"></i> Modifier
@@ -73,7 +73,7 @@
                                     </a>
                                     <a href="#editFile{{$file->id}}" data-toggle="collapse" class="btn btn-primary btn-xs">Modifier
                                         le fichier</a>
-                                    @if($user_id == $cdp_id)
+                                    @if($user_id == $cdp_id || $statut_id == 2)
                                         @include('projet.file')
                                     @endif
                                 @endforeach
@@ -83,7 +83,7 @@
                         </span>
                             @endif
 
-                            @if($user_id == $cdp_id)
+                            @if($user_id == $cdp_id || $statut_id == 2)
                                 <hr>
                                 <a href="#file" class="btn btn-primary btn-sm"
                                    data-toggle="collapse" aria-expanded="false"
@@ -170,7 +170,7 @@
                             <form action="{{route('add.devis', [$projet->agence_id, $projet->id, Auth::user()->id])}}"
                                   method="POST">
                                 Devis du projet
-                                @if($user_id == $cdp_id && $devis->isEmpty())
+                                @if($user_id == $cdp_id || $statut_id == 2 && $devis->isEmpty())
                                     {{csrf_field()}}
                                     <button type="submit" class="btn btn-success">Ajouter un devis à ce projet</button>
                                 @endif
@@ -202,7 +202,7 @@
                                         <td>
                                             Prix
                                         </td>
-                                        @if($user_id == $cdp_id)
+                                        @if($user_id == $cdp_id || $statut_id == 2)
                                             <td>
                                                 Actions
                                             </td>
@@ -212,7 +212,7 @@
                                     <tbody>
                                     @foreach($devis_taches as $devis_tache)
                                         <tr>
-                                            @if($user_id == $cdp_id && $devisModel->valide == 0)
+                                            @if($user_id == $cdp_id || $statut_id == 2 && $devisModel->valide == 0)
                                                 <form action="{{route('edit.devis.task', [$projet->agence_id, $projet->id, $devis_tache->id])}}"
                                                       method="POST">
                                                     {{csrf_field()}}
@@ -236,7 +236,7 @@
                                                             {{$devis_tache->prix}}€
                                                         </td>
                                                     @endif
-                                                    @if($user_id == $cdp_id && $devisModel->valide == 0)
+                                                    @if($user_id == $cdp_id || $statut_id == 2 && $devisModel->valide == 0)
                                                         <td>
                                                             <button class="btn btn-primary btn-xs" type="submit"><i
                                                                         class="fa fa-pencil"></i></button>
@@ -255,10 +255,10 @@
                                     </tr>
                                 </table>
                             @endif
-                            @if($user_id == $cdp_id && $devisModel->valide == 0)
+                            @if($user_id == $cdp_id || $statut_id == 2 && $devisModel->valide == 0)
                                 @include('devis.form')
                             @endif
-                            @if($user_id == $cdp_id && $devisModel->a_valider == 0)
+                            @if($user_id == $cdp_id || $statut_id == 2 && $devisModel->a_valider == 0)
                                 <form action="{{route('cp.valide.devis', $devis_id)}}" method="POST"
                                       style="margin-top:25px;">
                                     {{csrf_field()}}
