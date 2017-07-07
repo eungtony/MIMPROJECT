@@ -27,7 +27,7 @@
             <div class="col-xs-8">
                 <div class="profile-text">Bienvenue <b>{{ Auth::user()->name }}</b></div>
                 <div class="profile-buttons">
-                  <a href="javascript:;"><i class="fa fa-envelope-o pulse"></i></a>
+                  <a href="{{ route('show.notif.all') }}"><i class="fa fa-envelope-o pulse"></i></a>
                   <a href="{{ url('/logout') }}" title="Sign Out"><i class="fa fa-power-off text-red-1"></i></a>
                 </div>
             </div>
