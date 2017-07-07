@@ -42,13 +42,7 @@ class NotificationsController extends Controller
         // On recupère toute les agences
         $agences = Agence::with('users')->get();
         // On retourne la vue adéquat
-        if (Auth::user()->version_used == 2) {
-            //
             return view('layouts.version-2.notif.add', ['agences' => $agences, 'type' => $type, 'id' => $id]);
-        } else {
-            //
-            return view('notif.add', ['agences' => $agences, 'type' => $type, 'id' => $id]);
-        }
     }
 
     /**
@@ -112,13 +106,7 @@ class NotificationsController extends Controller
         // On recupère les utilisateurs
         $users = User::get();
 
-        if (Auth::user()->version_used == 2) {
-            // Puis on retourne la vue adéquat
-            return view('layouts.version-2.notif.show', ['notifs' => $notifs, 'users' => $users]);
-        } else {
-            // Puis on retourne la vue adéquat
-            return view('notif.show', ['notifs' => $notifs, 'users' => $users]);
-        }
+        return view('layouts.version-2.notif.show', ['notifs' => $notifs, 'users' => $users]);
     }
 
     /**

@@ -61,11 +61,7 @@ class agenceController extends Controller
         $etapes = Etape::all();
         $categories = Categorie::all();
 
-        if (Auth::user()->version_used == 2) {
-            return view('layouts.version-2.agence.index', compact('id', 'etapes', 'categories', 'agence', 'cdp', 'cdp_id', 'users', 'total_etape', 'taches', 'now'));
-        } else {
-            return view('agence.index', compact('id', 'etapes', 'categories', 'agence', 'cdp', 'cdp_id', 'users', 'total_etape', 'taches', 'now'));
-        }
+        return view('layouts.version-2.agence.index', compact('id', 'etapes', 'categories', 'agence', 'cdp', 'cdp_id', 'users', 'total_etape', 'taches', 'now'));
     }
 
     public function show($id)
@@ -91,11 +87,7 @@ class agenceController extends Controller
             $users = User::where('agence_id', NULL)->get();
             $promotions = Promo::with('agences')->get();
 
-            if ($this->auth->user()->version_used == 2) {
-                return view('layouts.version-2.supervisor.supervisor', compact('cdp_user', 'agences', 'users', 'promotions'));
-            } else {
-                return view('supervisor', compact('cdp_user', 'agences', 'users', 'promotions'));
-            }
+            return view('layouts.version-2.supervisor.supervisor', compact('cdp_user', 'agences', 'users', 'promotions'));
 
         } else {
             return redirect()->back()->with('error', 'Vous n\'avez pas accès à cette page !');

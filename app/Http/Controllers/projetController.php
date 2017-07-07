@@ -54,11 +54,7 @@ class projetController extends Controller
         $categories = Categorie::all();
         $total_etape = Etape::all()->count();
 
-        if (Auth::user()->version_used == 2) {
-            return view('layouts.version-2.projet.index', compact('id', 'categories', 'ida', 'cdp_id', 'projet', 'taches', 'done', 'total', 'users', 'etapes', 'total_etape'));
-        } else {
-            return view('projet.index', compact('id', 'categories', 'ida', 'cdp_id', 'projet', 'taches', 'done', 'total', 'users', 'etapes', 'total_etape'));
-        }
+        return view('layouts.version-2.projet.index', compact('id', 'categories', 'ida', 'cdp_id', 'projet', 'taches', 'done', 'total', 'users', 'etapes', 'total_etape'));
     }
 
     /**

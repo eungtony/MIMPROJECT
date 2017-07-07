@@ -94,8 +94,6 @@ class HomeController extends Controller
                 $bankable = $bankable + $projet->encaisse;
             }
 
-            //
-            if (Auth::user()->version_used == 2) {
                 //
                 return view('layouts.version-2.dashboard', compact(
                     'id', 
@@ -112,24 +110,6 @@ class HomeController extends Controller
                     'total_etape', 
                     'users'
                 ));
-            } else {
-                // On retourne la vue V1 avec tout les paramètres
-                return view('home', compact(
-                    'id', 
-                    'bankable', 
-                    'messages', 
-                    'projets', 
-                    'agence', 
-                    'etapes', 
-                    'categories', 
-                    'cdp', 
-                    'cdp_id', 
-                    'taches', 
-                    'now', 
-                    'total_etape', 
-                    'users'
-                ));
-            }
         }
         if ($activePromo->isEmpty()) {
             $agences = Agence::where('promo_id', 0)->get();
@@ -219,14 +199,8 @@ class HomeController extends Controller
         foreach ($tresoreries as $tresorery) {
             $total_tres = $total_tres + $tresorery->montant;
         }
-        //
-        if (Auth::user()->version_used == 2) {
-            //
-            return view('layouts.version-2.tresorerie.livret', compact('livrets', 'total_tres'));
-        } else {
-            //
-            return view('tresorerie.livret', compact('livrets', 'total_tres'));
-        }
+
+        return view('layouts.version-2.tresorerie.livret', compact('livrets', 'total_tres'));
     }
 
     /**
