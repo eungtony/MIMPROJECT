@@ -122,21 +122,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($devisList as $devis)
-                                            <?php
-                                            $agence = \App\Agence::findOrFail($devis->agence_id);
-                                            $devisTitle = $agence->nom;
-                                            ?>
-                                            <tr>
-                                                <td>{{$devis->projet->nom}}</td>
-                                                <td>{{substr($devis->projet->commentaire, 0, 50)}}</td>
-                                                <td>{{$devisTitle}}</td>
-                                                <td>
-                                                    <a href="{{route('projet', [$devis->agence_id, $devis->projet_id])}}#devis"
-                                                       class="btn btn-info">Voir le devis</a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                            <p class="alert alert-danger">J'obtient une erreur avec les devis !!! "Try to get property of non-object !</p>
                                         </tbody>
                                     </table>
                                 @else
