@@ -40,8 +40,8 @@
                     </div>
                     <div class="form-group">
                         <label for="">Date</label><br>
-                        <input type="text" id="calendar" name="date" value="{{$tache->date}}"
-                               class="form-control" style="color:black; padding:10px;">
+                        <input type="text" name="date" value="{{$tache->date}}"
+                               class="form-control datepicker" style="color:black; padding:10px;"/>
                     </div>
                     <div class="form-group">
                         <label for="" class="checkbox-inline">

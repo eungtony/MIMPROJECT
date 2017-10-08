@@ -38,8 +38,8 @@
 
                     <div class="form-group">
                         <label for="">Date</label><br>
-                        <input type="text" id="another" name="date"
-                               class="form-control">
+                        <input type="text" name="date"
+                               class="form-control datepicker">
                     </div>
 
                     <div class="form-group">
