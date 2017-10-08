@@ -93,6 +93,14 @@
                             </button>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <a href="{{route('supervisor')}}" class="btn btn-danger register-button">
+                                Retour sur le dashboard
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
