@@ -67,7 +67,7 @@
 
                             @if(!$files->isEmpty())
                                 @foreach($files as $file)
-                                    <a href="{{app_path()}}/{{$projet->agence_id}}/{{$projet->id}}/{{$file->name}}.{{$file->extension}}"
+                                    <a href="{{base_path()}}/file/{{$projet->agence_id}}/{{$projet->id}}/{{$file->name}}.{{$file->extension}}"
                                        download="{{$file->titre}}">
                                         {{$file->titre}}
                                     </a>

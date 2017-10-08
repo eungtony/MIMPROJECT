@@ -180,7 +180,6 @@ $countNotif++;
                     </div>
                     <div class="widget-panel upload-panel" style="padding: 15px">
                         <!-- TELECHARGEMENT -->
-
                         @php
                         $files = \App\File::where('agence_id', $agence->id)->where('projet_id', NULL)->get();
                         @endphp
@@ -188,7 +187,7 @@ $countNotif++;
                         @if(!$files->isEmpty())
                             @foreach($files as $file)
                                 <p>
-                                    <a href="{{app_path()}}/{{$agence->id}}/{{$file->name}}.{{$file->extension}}"
+                                    <a href="{{base_path()}}/file/{{$agence->id}}/{{$file->name}}.{{$file->extension}}"
                                        download="{{$file->titre}}">
                                         {{$file->titre}}
                                     </a>
