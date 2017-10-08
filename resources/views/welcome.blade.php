@@ -111,7 +111,11 @@
                                                              class="btn btn-primary btn-xs">Voir tous les devis</a>
                             </div>
                             <div class="panel-body">
-                                @if($devisList)
+                                @if($devisList->isEmpty())
+                                    <div class="alert alert-warning">
+                                        Aucun devis à valider !
+                                    </div>
+                                @else
                                     <table class="table">
                                         <thead>
                                         <tr>
@@ -139,17 +143,13 @@
                                         @endforeach
                                         </tbody>
                                     </table>
-                                @else
-                                    <div class="alert alert-warning">
-                                        Aucun devis à valider !
-                                    </div>
                                 @endif
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- include('devis.all') -->
+                @include('devis.all')
 
                 <div class="content-panel text-center" style="margin-bottom:10px;">
                     <a href="#addprojet" data-toggle="collapse">
