@@ -119,6 +119,12 @@
                                             @foreach($agence->users as $user)
                                                 <p>
                                                     <a href="{{route('edit.user', $user->id)}}">{{$user->name}}</a>
+                                                    <a href="{{action('userController@destroy', $user->id)}}"
+                                                       data-method="delete"
+                                                       data-confirm="Souhaitez-vous réellement supprimer cet utilisateur ?"
+                                                       class="btn btn-danger">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </a>
                                                 </p>
                                             @endforeach
                                         </div>
