@@ -151,11 +151,12 @@ class projetController extends Controller
             $titre = Input::only('titre')['titre'];
             $file = Input::file('file')->getClientOriginalName();
             $extension = Input::file('file')->getClientOriginalExtension();
+            $renameFile = $titre . '.' . $extension;
             $name_to_explode = Input::file('file')->getClientOriginalName();
             $explode_name = explode('.', $name_to_explode);
             $name = $explode_name[0];
-            Input::file('file')->move($path, $file); // uploading file to given path
-            \App\File::create(['agence_id' => $ida, 'projet_id' => $pid, 'titre' => $titre, 'extension' => $extension, 'name' => $name]);
+            Input::file('file')->move($path, $renameFile); // uploading file to given path
+            \App\File::create(['agence_id' => $ida, 'projet_id' => $pid, 'titre' => $titre, 'extension' => $extension, 'name' => $titre]);
             return redirect()->route('projet', [$ida, $pid])->with('success', 'Le fichier a bien été uploadé !');
         } else {
             return redirect()->route('projet', [$ida, $pid])->with('success', 'Le fichier a bien été uploadé !');
