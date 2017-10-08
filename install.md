@@ -10,6 +10,8 @@ Importer la base de donnée avec le fichier "mimproject.sql"
 
 Créer le fichier .env pour la configuration de la base de donnée <- résout l'erreur symfony
 
+Si besoin: taper dans le terminal "php artisan key:generate"
+
 # LOGINS
 
 Superviseur: email: supervisor@test.com mdp: 00000000
