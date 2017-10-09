@@ -104,7 +104,13 @@
                                 @foreach($agences as $agence)
                                     @if($promotion->id == $agence->promo_id)
                                         <div class="col-md-3">
-                                            <h3>{{$agence->nom}}</h3>
+                                            <h3>{{$agence->nom}}
+                                                <a href="{{action('agenceController@destroy', $agence->id)}}"
+                                                   data-method="delete"
+                                                   data-confirm="Souhaitez-vous réellement supprimer cette agence ?">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </h3>
                                             <form action="{{route('edit.promo', $agence->id)}}" method="POST">
                                                 {{csrf_field()}}
                                                 <select name="promo_id" id="">
