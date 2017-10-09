@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Agence;
 use App\Categorie;
+use App\Devis;
 use App\Etape;
+use App\HeuresTaches;
 use App\Message;
+use App\Projet;
 use App\Promo;
+use App\TacheCommentaire;
 use App\Travail;
 use App\User;
 use Illuminate\Contracts\Auth\Guard;
@@ -241,5 +245,40 @@ class agenceController extends Controller
     {
         Message::destroy($id);
         return back()->with('success', 'Le message a bien été supprimé !');
+    }
+
+    public function destroy($ida)
+    {
+        Agence::destroy($ida);
+        $users = User::where('agence_id', $ida)->get();
+        foreach ($users as $user) {
+            User::findOrFail($user->id)->update(['agence_id' => NULL]);
+        }
+        $projets = Projet::where('agence_id', $ida)->get();
+        foreach ($projets as $projet) {
+            Projet::destroy($projet->id);
+        }
+        $taches = Travail::where('agence_id', $ida)->get();
+        foreach ($taches as $tache) {
+            Travail::destroy($tache->id);
+        }
+        $messages = Message::where('agence_id', $ida)->get();
+        foreach ($messages as $message) {
+            Message::destroy($message->id);
+        }
+        $tacheCommentaires = tacheCommentaire::where('agence_id', $ida)->get();
+        foreach ($tacheCommentaires as $tc) {
+            tacheCommentaire::destroy($tc->id);
+        }
+        $devis = Devis::where('agence_id', $ida)->get();
+        foreach ($devis as $d) {
+            Devis::destroy($d->id);
+        }
+        $heuresTaches = heuresTaches::where('agence_id', $ida)->get();
+        foreach ($heuresTaches as $ht) {
+            heuresTaches::destroy($ht->id);
+        }
+
+        return back()->with('success', 'Cette agence a bien été supprimé !');
     }
 }
