@@ -55,6 +55,7 @@ Route::post('/agence/message/{ida}/{id}', 'agenceController@addMessage')->where(
 Route::post('/message/edit/{id}', 'agenceController@editMessage')->where('id', '[0-9]+')->name('message.edit');
 Route::delete('/agence/delete/message/{ida}/{id}', 'agenceController@deleteMessage')->where(['id' => '[0-9]+', 'ida' => '[0-9]+'])->name('message.delete');
 Route::get('agence/show/{id}', 'agenceController@show')->where('id', '[0-9]+')->name('show.agence');
+Route::delete('/agence/{id}', 'agenceController@destroy')->where('ida', '[0-9]+')->name('destroy.agence');
 
 
 //Tâches
