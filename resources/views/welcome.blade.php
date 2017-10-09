@@ -177,6 +177,11 @@
                         </form>
                     </div>
                 </div>
+                <hr>
+                <div class="col-md-12" style="text-align: center;">
+                    <h2>Les agences</h2>
+                    <hr>
+                </div>
                 @if(!$agences->isEmpty())
                     @foreach($agences as $agence)
                         <?php
@@ -200,10 +205,10 @@
                                 Chef de projet: @if($cdp == 'None') AUCUN @else {{$cdp->name}} @endif
                             </span>
                             <span class="btn btn-success">
-                                {{$encaisse}} €
+                                Encaissé: {{$encaisse}} €
                             </span>
                             <span class="btn btn-info" style="margin-right:20px;">
-                                {{$facturable}} €
+                                Facturé: {{$facturable}} €
                             </span>
                                 <a href="{{route('agence', $agence->id)}}" class="btn btn-success btn-xs">Voir
                                     l'agence</a>
@@ -308,6 +313,8 @@
             </div>
         </div>
     </div>
+
+    <hr>
 
     <div class="row top-summary">
         <div class="col-md-12" style="text-align: center;">
