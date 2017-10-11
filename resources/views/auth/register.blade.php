@@ -41,7 +41,7 @@
                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                         <div class="col-md-12">
                             <input id="password" type="password" class="form-control register-input" name="password"
-                                   placeholder="Mot de passse">
+                                   placeholder="Mot de passe">
 
                             @if ($errors->has('password'))
                                 <span class="help-block">
