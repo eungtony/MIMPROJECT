@@ -104,13 +104,15 @@
                                 @foreach($agences as $agence)
                                     @if($promotion->id == $agence->promo_id)
                                         <div class="col-md-3">
-                                            <h3>{{$agence->nom}}
-                                                <a href="{{action('agenceController@destroy', $agence->id)}}"
-                                                   data-method="delete"
-                                                   data-confirm="Souhaitez-vous réellement supprimer cette agence ?">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </h3>
+                                            <h3>{{$agence->nom}}</h3>
+                                            <a href="{{route('agence', $agence->id)}}">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </a>
+                                            <a href="{{action('agenceController@destroy', $agence->id)}}"
+                                               data-method="delete"
+                                               data-confirm="Souhaitez-vous réellement supprimer cette agence ?">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>
                                             <form action="{{route('edit.promo', $agence->id)}}" method="POST">
                                                 {{csrf_field()}}
                                                 <select name="promo_id" id="">
@@ -122,13 +124,34 @@
                                                 <button type="submit" class="btn btn-primary">Changer</button>
                                             </form>
                                             <hr>
+                                            <p>Ajouter/Modifier un CdP</p>
+                                            <form action="{{route('cdp.agence', $agence->id)}}" method="POST">
+                                                {{csrf_field()}}
+                                                <select name="user_id" id="cdp-form">
+                                                    @foreach($cdp_user as $cdp)
+                                                        <option value="{{$cdp->id}}"
+                                                                @if($agence->user_id == $cdp->id) selected @endif>
+                                                            {{$cdp->name}}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @if($agence->user_id == 0)
+                                                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                                                @else
+                                                    <button type="submit" class="btn btn-info">Changer</button>
+                                                @endif
+                                            </form>
+                                            <hr>
                                             @foreach($agence->users as $user)
                                                 <p>
+                                                    @if($user->id == $agence->user_id)
+                                                        <span>CdP - </span>
+                                                    @endif
                                                     <a href="{{route('edit.user', $user->id)}}">{{$user->name}}</a>
                                                     <a href="{{action('userController@destroy', $user->id)}}"
                                                        data-method="delete"
                                                        data-confirm="Souhaitez-vous réellement supprimer cet utilisateur ?"
-                                                       class="btn btn-danger">
+                                                    >
                                                         <i class="fa fa-trash-o"></i>
                                                     </a>
                                                 </p>
@@ -150,9 +173,7 @@
                                 </p>
                             @else
                                 @foreach($users as $user)
-                                    <a href="{{route('edit.user', $user->id)}}">
-                                        {{ $user->name }}
-                                    </a>
+                                    <h3><a href="{{route('edit.user', $user->id)}}">{{ $user->name }}</a></h3>
                                 @endforeach
                             @endif
                         </div>
