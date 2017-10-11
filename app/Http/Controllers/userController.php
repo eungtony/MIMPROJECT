@@ -101,13 +101,13 @@ class userController extends Controller
         $rq = $request->except('_token', 'new_password');
         if (!$request->has('new_password')) {
             User::findOrFail($id)->update($rq);
-            return redirect()->route('profile', $id)->with('success', 'Le profil a été modifié avec succès ! (le mot de passe n\'a pas été modifié)');
+            return back()->with('success', 'Le profil a été modifié avec succès ! (le mot de passe n\'a pas été modifié)');
         }
         $apw = $request->new_password;
         $cpw = bcrypt($apw);
         User::findOrFail($id)->update(['password' => $cpw]);
         User::findOrFail($id)->update($rq);
-        return redirect()->route('profile', $id)->with('success', 'Le profil a été modifié avec succès !');
+        return back()->with('success', 'Le profil a été modifié avec succès !');
     }
 
     public function editParameters(Request $request, $id)
