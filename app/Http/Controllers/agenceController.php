@@ -109,7 +109,7 @@ class agenceController extends Controller
     {
         $rq = $request->except('_token');
         Agence::create($rq);
-        return redirect()->route('home');
+        return back()->with('success', 'Agence créee');
     }
 
     /**
@@ -280,5 +280,13 @@ class agenceController extends Controller
         }
 
         return back()->with('success', 'Cette agence a bien été supprimé !');
+    }
+
+    public function updateCdP(Request $request, $id)
+    {
+        $rq = $request->except('_token');
+        Agence::findOrFail($id)->update($rq);
+
+        return back()->with('success', 'Le chef de projet a été ajouté !');
     }
 }
