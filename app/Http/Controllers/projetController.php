@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Agence;
 use App\Categorie;
+use App\Devis;
 use App\Etape;
 use App\Projet;
 use App\Projet_agence;
 use App\Travail;
+use App\heuresTaches;
+use App\tacheCommentaire;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 
@@ -129,6 +132,9 @@ class projetController extends Controller
     {
         Projet::destroy($id);
         Travail::where('projet_id', $id)->delete();
+        Devis::where('projet_id', $id)->delete();
+        heuresTaches::where('projet_id', $id)->delete();
+        tacheCommentaire::where('projet_id', $id)->delete();
         return redirect()->route('agence', $ida)->with('success', 'Le projet a bien été supprimé !');
     }
 
