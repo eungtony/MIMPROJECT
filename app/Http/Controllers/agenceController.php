@@ -86,12 +86,22 @@ class agenceController extends Controller
     public function supervisor()
     {
         if ($this->auth->user()->statut_id == 1 || $this->auth->user()->statut_id == 2) {
-            $cdp_user = User::where('poste_id', 1)->get();
+            $cdp_user = User::with('agence')->where('poste_id', 1)->get();
+            $activeCdp = [];
+            foreach ($cdp_user as $user) {
+                if (count($user->agence) != 0) {
+                    $promoId = $user->agence->promo_id;
+                    $promo = Promo::findOrFail($promoId);
+                    if ($promo->active != 0) {
+                        $activeCdp[] = $user;
+                    }
+                }
+            }
             $agences = Agence::with('users')->get();
             $users = User::where('agence_id', NULL)->get();
             $promotions = Promo::with('agences')->get();
 
-            return view('layouts.version-2.supervisor.supervisor', compact('cdp_user', 'agences', 'users', 'promotions'));
+            return view('layouts.version-2.supervisor.supervisor', compact('activeCdp', 'agences', 'users', 'promotions'));
 
         } else {
             return redirect()->back()->with('error', 'Vous n\'avez pas accès à cette page !');

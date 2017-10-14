@@ -128,7 +128,7 @@
                                             <form action="{{route('cdp.agence', $agence->id)}}" method="POST">
                                                 {{csrf_field()}}
                                                 <select name="user_id" id="cdp-form">
-                                                    @foreach($cdp_user as $cdp)
+                                                    @foreach($activeCdp as $cdp)
                                                         <option value="{{$cdp->id}}"
                                                                 @if($agence->user_id == $cdp->id) selected @endif>
                                                             {{$cdp->name}}
