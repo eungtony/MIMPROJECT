@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Agence;
 use App\Http\Controllers\Auth\AuthController;
 use App\Poste;
+use App\Promo;
 use App\Statut;
 use Illuminate\Contracts\Auth\Guard;
 use App\User;
@@ -82,7 +83,14 @@ class userController extends Controller
             $user = User::findOrFail($id);
             $postes = Poste::all();
             $statuts = Statut::all();
-            $agences = Agence::all();
+            $agencess = Agence::all();
+            $agences = [];
+            foreach ($agencess as $agence) {
+                $promo = Promo::findOrFail($agence->promo_id);
+                if ($promo->active) {
+                    $agences[] = $agence;
+                }
+            }
             return view('user.edit', compact('user', 'postes', 'statuts', 'agences'));
         } else {
             return back()->with('error', 'Vous n\'avez pas accès à cette page !');
