@@ -15,7 +15,7 @@
             <div class="widget-footer">
                 <div class="row">
                     <div class="col-sm-12">
-                        <i>{{ $nb_projet }} projet(s) sont en cours</i> 
+                        <i>{{ $nb_projet }} projet(s) est/sont en cours</i>
                     </div>
                 </div>
                 <div class="clearfix"></div>

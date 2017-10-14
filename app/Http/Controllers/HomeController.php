@@ -123,7 +123,20 @@ class HomeController extends Controller
         //
         $encaisse = 0;
         //
-        $nb_projet = Projet::where('etape_id', '>', '0')->count();
+        $nb_projet = 0;
+        $aggences = Agence::with('projets')->get();
+        foreach ($aggences as $agence) {
+            $promo = Promo::findOrFail($agence->promo_id);
+            if ($promo->active != 0) {
+                if (count($agence->projets) > 0) {
+                    foreach ($agence->projets as $projet) {
+                        if ($projet->etape_id > 0 AND $projet->etape_id < 15) {
+                            $nb_projet = $nb_projet + count($agence->projets);
+                        }
+                    }
+                }
+            }
+        }
 
         foreach ($agences as $agence) {
             foreach ($agence->projets as $projet) {
