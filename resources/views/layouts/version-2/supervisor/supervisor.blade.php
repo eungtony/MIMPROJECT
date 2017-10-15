@@ -173,7 +173,15 @@
                                 </p>
                             @else
                                 @foreach($users as $user)
-                                    <h3><a href="{{route('edit.user', $user->id)}}">{{ $user->name }}</a></h3>
+                                    <h3>
+                                        <a href="{{route('edit.user', $user->id)}}">{{ $user->name }}</a>
+                                        <a href="{{action('userController@destroy', $user->id)}}"
+                                           data-method="delete"
+                                           data-confirm="Souhaitez-vous réellement supprimer cet utilisateur ?"
+                                        >
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                    </h3>
                                 @endforeach
                             @endif
                         </div>
