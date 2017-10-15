@@ -46,6 +46,10 @@ class PromoController extends Controller
     public function active(Request $request, $id)
     {
         $data = $request->except('_token');
+        $promo = Promo::where('active', 1)->get();
+        if (!$promo->isEmpty()) {
+            return back()->with('error', 'Désactivez les autres promotions avant !');
+        }
         Promo::findOrFail($id)->update($data);
         return back()->with('success', 'La promotion a bien été activé !');
     }
