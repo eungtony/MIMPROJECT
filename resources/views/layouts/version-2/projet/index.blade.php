@@ -154,6 +154,7 @@
 
                 <?php
                 $devis = \App\Devis::where('projet_id', $projet->id)->get();
+                $devisModel = null;
                 if (isset($devis[0])) {
                     $devisModel = $devis[0];
                 }
@@ -170,7 +171,7 @@
                             <form action="{{route('add.devis', [$projet->agence_id, $projet->id, Auth::user()->id])}}"
                                   method="POST">
                                 Devis du projet
-                                @if($user_id == $cdp_id || $statut_id == 2 && $devis->isEmpty())
+                                @if($user_id == $cdp_id && $devis->isEmpty() || $statut_id == 2 && $devis->isEmpty())
                                     {{csrf_field()}}
                                     <button type="submit" class="btn btn-success">Ajouter un devis à ce projet</button>
                                 @endif
@@ -255,16 +256,16 @@
                                     </tr>
                                 </table>
                             @endif
-                            @if($user_id == $cdp_id || $statut_id == 2 && $devisModel->valide == 0)
+                            @if($user_id == $cdp_id && $devisModel->valide == 0 || $statut_id == 2 && $devisModel->valide == 0)
                                 @include('devis.form')
                             @endif
-                            @if($user_id == $cdp_id || $statut_id == 2 && $devisModel->a_valider == 0)
+                            @if($user_id == $cdp_id && $devisModel->a_valider == 0 || $statut_id == 2 && $devisModel->a_valider == 0)
                                 <form action="{{route('cp.valide.devis', $devis_id)}}" method="POST"
                                       style="margin-top:25px;">
                                     {{csrf_field()}}
                                     <div class="form-group">
                                         <button type="submit" class="form-control btn btn-success">
-                                            Mettre de le devis en attente de validation
+                                            Mettre le devis en attente de validation
                                         </button>
                                     </div>
                                 </form>
