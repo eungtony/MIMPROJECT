@@ -8,18 +8,18 @@
                <div class="col-md-3">
                     <div class="profile-sidebar content-panel">
                         <!-- SIDEBAR USERPIC -->
-                        <div class="profile-userpic">
+                        <div>
                             <div class="text-center">
                                 @if($user->avatar != 0)
                                     <p>
                                         <img src="{{asset('/avatars/'.$user->id.'.'.$user->extension)}}"
                                              class="img-circle"
-                                             alt="Image de profil" height="100">
+                                             alt="Image de profil" width="150">
                                     </p>
                                 @else
                                     <p>
                                         <img src="{{ asset('/avatars/user.png') }}" class="img-circle"
-                                             alt="Image de profil" height="100">
+                                             alt="Image de profil" width="150">
                                     </p>
                                 @endif
                             </div>
@@ -40,9 +40,6 @@
                             <a href="#avatar" class="btn btn-success btn-sm" type="button" data-toggle="modal"
                                data-target="#avatar">
                                 <i class="fa fa-picture-o fa-fw"></i> Avatar
-                            </a>
-                            <a href="{{ url('add/notif/personal/' . $user->id) }}" type="button" class="btn btn-primary btn-sm">
-                                <i class="fa fa-envelope-o fa-fw"></i> Notifié
                             </a>
                         </div>
                         <!-- END SIDEBAR BUTTONS -->
@@ -76,34 +73,41 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($taches as $tache)
-                                    @php
-                                    $date = \Carbon\Carbon::createFromFormat('Y-m-d', $tache->date);
-                                    $difference = ($date->diff($now)->days < 1) ? 'today' : $date->diffInDays($now);
-                                    @endphp
+                                @if(!$taches->isEmpty())
+                                    @foreach ($taches as $tache)
+                                        @php
+                                            $date = \Carbon\Carbon::createFromFormat('Y-m-d', $tache->date);
+                                            $difference = ($date->diff($now)->days < 1) ? 'today' : $date->diffInDays($now);
+                                        @endphp
 
-                                    <tr>
-                                        <td>
-                                            <a href="#voirtache{{$tache->id}}" data-toggle="modal">
-                                                {{$tache->titre}}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <span class="label label-danger">{{$tache->categorie->titre}}</span>
-                                        </td>
-                                        <td>
-                                            <span class="label label-primary ">{{$tache->projet->nom}}</span>
-                                        </td>
-                                        <td>
-                                            @if($difference > 0)
-                                                <span class="label label-info">J - {{ $difference }}</span>
-                                            @else
-                                                <span class="label label-danger">{{ $difference }} jours
+                                        <tr>
+                                            <td>
+                                                <a href="#voirtache{{$tache->id}}" data-toggle="modal">
+                                                    {{$tache->titre}}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <span class="label label-danger">{{$tache->categorie->titre}}</span>
+                                            </td>
+                                            <td>
+                                                <span class="label label-primary ">{{$tache->projet->nom}}</span>
+                                            </td>
+                                            <td>
+                                                @if($difference > 0)
+                                                    <span class="label label-info">J - {{ $difference }}</span>
+                                                @else
+                                                    <span class="label label-danger">{{ $difference }} jours
                                                     de retard !!</span>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        @include('tache.index')
+                                    @endforeach
+                                @else
+                                    <p class="label label-info">
+                                        Vous n'avez aucune tâche assignée
+                                    </p>
+                                @endif
                                 </tbody>
                             </table>
                         </div>
